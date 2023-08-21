@@ -22,6 +22,7 @@ on:
 
 name: Build and Deploy to Cloud Run
 env:
+  GENERATOR_SERVICE: ioxio-tags-generator-demo
   SCANNER_SERVICE: ioxio-tags-scanner-demo
   REGION: europe-west1
   REGISTRY: eu.gcr.io
@@ -43,11 +44,26 @@ jobs:
       - name: Authorize Docker push
         run: gcloud auth configure-docker
 
+      - name: Build and Push generator
+        run: |-
+          cd generator
+          docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }} .
+          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }}
+
       - name: Build and Push scanner
         run: |-
           cd scanner
           docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }} .
           docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }}
+
+      - name: Deploy generator to Cloud Run
+        run: |-
+          gcloud run deploy ${{ env.GENERATOR_SERVICE }} \
+            --region ${{ env.REGION }} \
+            --image ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }} \
+            --platform "managed" \
+            --quiet \
+            --allow-unauthenticated
 
       - name: Deploy scanner to Cloud Run
         run: |-
