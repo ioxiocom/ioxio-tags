@@ -1,4 +1,5 @@
-FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS runtime
+# --- BUILD ---
+FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
 
 WORKDIR /src/scanner
 
@@ -15,8 +16,13 @@ RUN : \
   && pnpm run build \
   && :
 
-ADD docker/runtime-entrypoint.sh ./docker/runtime-entrypoint.sh
+# --- RUNTIME ---
+FROM ghcr.io/ioxiocom/nginx-base AS runtime
 
-USER ${USER}
+ADD nginx/global-security-headers.conf /etc/nginx/global-security-headers.conf
+ADD nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf
+
+# Copy results from build stage
+COPY --from=build /src/scanner/build/ /src/scanner/build
+
 EXPOSE 8080
-ENTRYPOINT ["bash", "/src/scanner/docker/runtime-entrypoint.sh"]
