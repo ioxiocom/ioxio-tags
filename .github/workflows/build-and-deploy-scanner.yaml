@@ -17,13 +17,15 @@
 
 on:
   push:
+    paths:
+      - ".github/workflows/build-and-deploy-scanner.yaml"
+      - "scanner/**"
     branches:
       - "main"
 
-name: Build and Deploy to Cloud Run
+name: Build and Deploy scanner demo to Cloud Run
 env:
-  GENERATOR_SERVICE: ioxio-tags-generator-demo
-  SCANNER_SERVICE: ioxio-tags-scanner-demo
+  SERVICE: ioxio-tags-scanner-demo
   REGION: europe-west1
   REGISTRY: eu.gcr.io
   DOCKER_BUILDKIT: 1
@@ -44,32 +46,17 @@ jobs:
       - name: Authorize Docker push
         run: gcloud auth configure-docker
 
-      - name: Build and Push generator
-        run: |-
-          cd generator
-          docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }} .
-          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }}
-
-      - name: Build and Push scanner
+      - name: Build and Push
         run: |-
           cd scanner
-          docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }} .
-          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }}
+          docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
+          docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
 
-      - name: Deploy generator to Cloud Run
+      - name: Deploy to Cloud Run
         run: |-
-          gcloud run deploy ${{ env.GENERATOR_SERVICE }} \
+          gcloud run deploy ${{ env.SERVICE }} \
             --region ${{ env.REGION }} \
-            --image ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.GENERATOR_SERVICE }}:${{ github.sha }} \
-            --platform "managed" \
-            --quiet \
-            --allow-unauthenticated
-
-      - name: Deploy scanner to Cloud Run
-        run: |-
-          gcloud run deploy ${{ env.SCANNER_SERVICE }} \
-            --region ${{ env.REGION }} \
-            --image ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }} \
+            --image ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} \
             --platform "managed" \
             --quiet \
             --allow-unauthenticated
