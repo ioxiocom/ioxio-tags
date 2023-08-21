@@ -18,6 +18,14 @@ cd generator
 pnpm run dev
 ```
 
+Testing Docker image:
+
+```shell
+cd generator
+docker build . -t generator
+docker run --rm -p 8080:8080 -it generator
+```
+
 ### Scanner
 
 ```shell
