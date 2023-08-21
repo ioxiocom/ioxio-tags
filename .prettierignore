@@ -1,0 +1,5 @@
+build
+.svelte-kit
+.vscode
+pnpm-lock.yaml
+.idea

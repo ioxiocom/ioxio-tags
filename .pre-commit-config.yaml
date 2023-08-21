@@ -1,0 +1,55 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.2.0
+    hooks:
+      - id: trailing-whitespace
+        exclude: |
+          (?x)(
+            ^.*/vendor/.*$|
+            ^NOT-EXISTING-LAST-ENTRY$
+          )
+      - id: end-of-file-fixer
+        exclude: |
+          (?x)(
+            ^.*/vendor/.*$|
+            ^NOT-EXISTING-LAST-ENTRY$
+          )
+      # All non-bat files should end with LF
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+        exclude: |
+          (?x)(
+            \.bat$|
+            ^NOT-EXISTING-LAST-ENTRY$
+          )
+      # Bat files should be CRLF ending
+      - id: mixed-line-ending
+        args: ["--fix=crlf"]
+        files: \.bat$
+  - repo: https://github.com/pre-commit/mirrors-prettier
+    rev: v2.6.2
+    hooks:
+      - id: prettier
+        additional_dependencies:
+          - prettier@2.8.1
+          - prettier-plugin-svelte@2.7.0
+        exclude: |
+          (?x)(
+            ^.*/vendor/.*$|
+            /pnpm-lock.yaml$|
+            ^NOT-EXISTING-LAST-ENTRY$
+          )
+  - repo: local
+    hooks:
+      - id: eslint-generator
+        name: eslint
+        entry: pnpm run --dir generator eslint
+        language: system
+        pass_filenames: false
+      - id: eslint-scanner
+        name: eslint
+        entry: pnpm run --dir scanner eslint
+        language: system
+        pass_filenames: false

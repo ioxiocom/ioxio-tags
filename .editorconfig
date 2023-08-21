@@ -1,0 +1,2 @@
+[{*.md,*.json,*.js,*.ts,*.html,*.svelte}]
+indent_size = 2

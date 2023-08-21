@@ -1,12 +1,12 @@
-import { CapacitorConfig } from '@capacitor/cli';
+import { CapacitorConfig } from "@capacitor/cli"
 
 const config: CapacitorConfig = {
-  appId: 'com.ioxio_scanner.app',
-  appName: 'ioxio-scanner',
-  webDir: 'build',
+  appId: "com.ioxio_tags_scanner.app",
+  appName: "ioxio-tags-scanner",
+  webDir: "build",
   server: {
-    androidScheme: 'https'
-  }
-};
+    androidScheme: "https",
+  },
+}
 
-export default config;
+export default config
