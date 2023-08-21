@@ -45,6 +45,7 @@ jobs:
 
       - name: Build and Push scanner
         run: |-
+          cd scanner
           docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }} .
           docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SCANNER_SERVICE }}:${{ github.sha }}
 
