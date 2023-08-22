@@ -1,0 +1,35 @@
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+  push:
+    branches:
+      - "main"
+
+name: Run validations for changes
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+
+      - name: Set up Python 🐍
+        uses: actions/setup-python@v1
+        with:
+          python-version: "3.10"
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 8
+
+      - name: Install dependencies
+        run: pip install pre-commit
+
+      - name: Run validations
+        run: |-
+          pre-commit run --all-files
