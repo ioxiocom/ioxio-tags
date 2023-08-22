@@ -8,7 +8,7 @@
     "android": "npx cap copy android && npx open android",
     "ios": "npx cap copy ios && npx open ios",
     "preview": "vite preview",
-    "eslint": "eslint --fix .",
+    "eslint": "pnpm exec eslint --fix .",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
