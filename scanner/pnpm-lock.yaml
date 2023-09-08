@@ -26,6 +26,9 @@ dependencies:
   '@zxing/library':
     specifier: ^0.20.0
     version: 0.20.0
+  base45:
+    specifier: ^2.0.1
+    version: 2.0.1
   buffer:
     specifier: ^6.0.3
     version: 6.0.3
@@ -940,6 +943,10 @@ packages:
 
   /balanced-match@1.0.2:
     resolution: {integrity: sha512-3oSeUO0TMV67hN1AmbXsK4yaqU7tjiHlbxRDZOpH0KW9+CeX4bRAaX0Anxt0tx2MrpRpWwQaPwIlISEJhYU5Pw==}
+
+  /base45@2.0.1:
+    resolution: {integrity: sha512-Cr2mmczMfOQSkt9OyzpUpUNWKCurLpYhCjkN+yPXicjEc47gkN9LbklR3c7dUrpcPonjoAyZp7bZQChRRg4G1Q==}
+    dev: false
 
   /base64-js@1.5.1:
     resolution: {integrity: sha512-AKpaYlHn8t4SVbOHCy+b5+KKgvR4vrsD8vbvrbiQJps7fKDTkjkDry6ji0rUJjC0kzbNePLwzxq8iypo41qeWA==}
