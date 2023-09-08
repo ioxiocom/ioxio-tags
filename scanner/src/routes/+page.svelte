@@ -8,7 +8,7 @@
 
   // Pregenerated data for testing
   const PRESET_DATA =
-    "RRQ5 8/60V500GKOG8WA6CADOPCZQE..E6$CPQEGPCKI91/DXPE6$CSED -DUPCH$DV9EV3E $EQWEI93IEC7WEALE4W5" +
+    "IT1:RRQ5 8/60V500GKOG8WA6CADOPCZQE..E6$CPQEGPCKI91/DXPE6$CSED -DUPCH$DV9EV3E $EQWEI93IEC7WEALE4W5" +
     "646D4FPX54%E5$CQX56%E:JC%JCPVC:P4WZCK-CM.CCA7H*6RW67W5VF6CA7XJC3UCAX57079460DCZX61:6256V50PEHZRA9A81+NMXJ0C76BJ" +
     "SUC**B1.VDCMQCKU47AZM52UW1K21R0VB6R55F2CXB/94+SS KBY92RZMO313+P1-O44PFWFB3BYELI.BHAW%2V2*4-AEGB0GX628CCJS1OBAU0" +
     "NH800JDD7UYPH+UNWL1KMH:UMAS4QK:R7$.36QVO8S5YA6SRW1LFA90H7.177ZM7QQ%HVZ 0VHLJQR%VLIPU/NJO68HZNA4PA32K9153Q8EW/%P" +
@@ -30,6 +30,8 @@
       },
     ],
   }
+
+  const IOXIO_TAGS_VERSION_PREFIX = "IT1:"
 
   type RawSecureTagParseResult = {
     kid: string // JWKS key ID
@@ -91,36 +93,42 @@
       console.log("Didn't scan an IOXIO Tag URL, maybe it's B45-COSE?")
       console.log(contents)
       try {
-        const b45decoded = decodeBase45(contents)
-        const cborData = await parseCoseInsecure(b45decoded)
-        console.log(cborData)
-        if (
-          cborData.kid &&
-          cborData.payload.iss &&
-          cborData.payload.product &&
-          cborData.payload.id
-        ) {
-          // This is an IOXIO Tags QR code
-          console.log("IOXIO Tag detected, should continue to do more things")
+        if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
+          const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
+          const b45decoded = decodeBase45(withoutVersion)
+          const cborData = await parseCoseInsecure(b45decoded)
+          console.log(cborData)
+          if (
+            cborData.kid &&
+            cborData.payload.iss &&
+            cborData.payload.product &&
+            cborData.payload.id
+          ) {
+            // This is an IOXIO Tags QR code
+            console.log("IOXIO Tag detected, should continue to do more things")
 
-          // TODO: Fetch metadata + JWKS keys from cborData.iss
-          // TODO: Verify COSE signature with JWKS key
-          // TODO: Display available data products based on metadata
+            // TODO: Fetch metadata + JWKS keys from cborData.iss
+            // TODO: Verify COSE signature with JWKS key
+            // TODO: Display available data products based on metadata
 
-          // Instead right now just trying against preset key
-          const jwk = PRESET_JWKS.keys.find((key) => {
-            return key.kid === cborData.kid
-          })
+            // Instead right now just trying against preset key
+            const jwk = PRESET_JWKS.keys.find((key) => {
+              return key.kid === cborData.kid
+            })
 
-          let verified = false
+            let verified = false
 
-          if (!jwk) {
-            console.error("Couldn't find the JWKS key to verify this code")
-          } else {
-            verified = await verifyCose(b45decoded, jwk)
+            if (!jwk) {
+              console.error("Couldn't find the JWKS key to verify this code")
+            } else {
+              verified = await verifyCose(b45decoded, jwk)
+            }
+
+            return true
           }
-
-          return true
+        } else {
+          // No IT1: prefix
+          return false
         }
       } catch (e) {
         if (e.toString().indexOf("Invalid base45 string") !== -1) {
