@@ -5,8 +5,10 @@
   import { decode as decodeBase45 } from "base45"
   import qrcode from '$assets/qrcode.png';
   import question from '$assets/question.svg';
+  import logo from '$assets/logo.svg';
+  import camera from '$assets/camera.svg';
   import subtract from '$assets/subtract.png';
-  import { onMount } from 'svelte'
+  import Button from '$components/Button/index.svelte';
 
   let scanning = false
 
@@ -50,8 +52,10 @@
   async function startScan() {
     // Check camera permission
     // This is just a simple example, check out the better checks below
-    await BarcodeScanner.checkPermission({ force: true })
+    const permissionResult = await BarcodeScanner.checkPermission({ force: true })
+    if (!permissionResult.granted) return;
 
+    scanning = true;
     // make background of WebView transparent
     // note: if you are using ionic this might not be enough, check below
     BarcodeScanner.hideBackground()
@@ -187,29 +191,43 @@
     return true
   }
 
-  
-  onMount(() => {
-    startScan();
-  })
 </script>
 
 <main>
   <div id="reader">
+    {#if !scanning}
+      <div class="background" />
+    {/if}
     <div class="relative barcode-scanner-area-wrapper">
       <div class="relative barcode-scanner-area">
         <img class="subtract-image" src={subtract} alt="subtract "/>
-        <div class="square surround-cover" />
+        {#if scanning}
+          <div class="square surround-cover" />
+        {:else}
+          <img class="logo" src={logo} alt="logo" />
+        {/if}
       </div>
       <div class="relative">
-        <p class="description">Scan a Product Passport QR code to view product data</p>
+        {#if scanning}
+          <p class="description">Scan a Product Passport QR code to view product data</p>
+        {:else}
+          <p class="description">Turn on your camera for scan a Product Passport QR code to view product data</p>
+        {/if}
       </div>
+      {#if !scanning}
+        <div class="relative button-wrapper">
+          <Button onClick={startScan} icon={camera} title="Turn on" />
+        </div>
+      {/if}
     </div>
-    <div class="relative example-code-wrapper">
-      <div class="example-description">Here's an example to identify an <strong>IOXIO Tag</strong></div>
-      <div class="example-code">
-        <img src={qrcode} alt="code" />
+    {#if scanning}
+      <div class="relative example-code-wrapper">
+        <div class="example-description">Here's an example to identify an <strong>IOXIO Tag</strong></div>
+        <div class="example-code">
+          <img src={qrcode} alt="code" />
+        </div>
       </div>
-    </div>
+    {/if}
     <a class="relative documentation-wrapper" href="/">
       <img src={question} alt="question" />
       <p class="documentation-label">Documentation</p>
@@ -240,13 +258,20 @@
     position: relative;
     z-index: 1;
   }
-
+  .background {
+    background: rgba(16, 25, 32, 1);
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+  }
   .barcode-scanner-area-wrapper {
     flex: 1;
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding: 2rem;
+    padding: 1rem;
     margin: auto;
   }
   .barcode-scanner-area {
@@ -273,10 +298,10 @@
   }
   .square {
     position: absolute;
-    left: 1rem;
-    top: 1rem;
-    width: calc(100% - 2rem);
-    height: calc(100% - 2rem);
+    left: 0.5rem;
+    top: 0.5rem;
+    width: calc(100% - 1rem);
+    height: calc(100% - 1rem);
     border-radius: 0.8rem;
   }
   .description {
@@ -297,7 +322,7 @@
   }
   .example-description {
     color: white;
-    font-size: 1.2rem;
+    font-size: 1.1rem;
     flex: 1;
     font-family: 'Poppins', sans-serif;
   }
@@ -325,5 +350,16 @@
     color: white;
     font-size: 1.2rem;
     font-family: 'Poppins', sans-serif;
+  }
+  .button-wrapper {
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
+  }
+  .logo {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
   }
 </style>
