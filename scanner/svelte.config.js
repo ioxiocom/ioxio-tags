@@ -23,11 +23,10 @@ const config = {
     // any CSS files fewer bytes than this should get inlined in `<style>`
     // inlineStyleThreshold: 5 * 1024,
     csp: {
-      mode: "hash",
+      // Unused for adapter-static, configuration is in Nginx
       directives: {
         "img-src": ["'self'", "data:"],
         "style-src": ["'self'", "'unsafe-inline'"],
-        // Unfortunately `adapter-static` kind of sucks, this is temporarily bad
         "script-src": ["'self'", "'unsafe-inline'"],
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io"],
       },
