@@ -3,3 +3,7 @@ build
 .vscode
 pnpm-lock.yaml
 .idea
+generator/src/lib/openapi.ts
+scanner/src/lib/openapi.ts
+openapi.json
+openapi_hash.sha256

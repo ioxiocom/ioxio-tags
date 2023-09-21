@@ -10,7 +10,8 @@
     "preview": "vite preview",
     "eslint": "pnpm exec eslint --fix .",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
-    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
+    "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
+    "import-api": "openapi-typescript ../openapi.json --output src/lib/openapi.ts"
   },
   "devDependencies": {
     "@sveltejs/adapter-auto": "^2.0.0",
@@ -38,6 +39,7 @@
     "base45": "^2.0.1",
     "buffer": "^6.0.3",
     "cbor-x": "^1.5.4",
-    "html5-qrcode": "^2.3.8"
+    "html5-qrcode": "^2.3.8",
+    "openapi-typescript": "^6.6.1"
   }
 }

@@ -2,3 +2,6 @@ node_modules
 .idea
 .svelte-kit
 .DS_Store
+__pycache__
+*.pyc
+*.pem

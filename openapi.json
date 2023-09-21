@@ -1,0 +1,446 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "IOXIO Tags API",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/dataproduct/fetch/{dataspace_domain}/{product_path}": {
+      "post": {
+        "tags": [
+          "dataproduct"
+        ],
+        "summary": "Fetch a data product from the dataspace",
+        "operationId": "account_status_dataproduct_fetch__dataspace_domain___product_path__post",
+        "parameters": [
+          {
+            "name": "dataspace_domain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataspace Domain"
+            }
+          },
+          {
+            "name": "product_path",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Product Path"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DataProductFetchRequest"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tag/verify/v1/": {
+      "post": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Verify the COSE signature in a IOXIO Tag -code",
+        "operationId": "verify_v1_tag_verify_v1__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/VerifyV1Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "204": {
+            "description": "Successful Response"
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagsErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tag/metadata/v1/": {
+      "post": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Fetch and parse the metadata necessary for the tag from the issuer's published metadata",
+        "operationId": "metadata_v1_tag_metadata_v1__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/MetadataV1Response"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/MetadataV1Response"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagsErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tag/generate/secure/v1/": {
+      "post": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Generate a new IOXIO Tag with COSE signature",
+        "operationId": "generate_secure_v1_tag_generate_secure_v1__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateSecureV1Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "image/png": {}
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagsErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/tag/generate/url/v1/": {
+      "post": {
+        "tags": [
+          "tag"
+        ],
+        "summary": "Generate a new simple IOXIO Tag with only URL data",
+        "operationId": "generate_url_v1_tag_generate_url_v1__post",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/GenerateURLV1Request"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Successful Response",
+            "content": {
+              "image/png": {}
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/TagsErrorResponse"
+                }
+              }
+            }
+          },
+          "422": {
+            "description": "Validation Error",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/HTTPValidationError"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "DataProductFetchRequest": {
+        "properties": {},
+        "type": "object",
+        "title": "DataProductFetchRequest"
+      },
+      "GenerateSecureV1Request": {
+        "properties": {
+          "iss": {
+            "type": "string",
+            "title": "Issuer to be put in the code"
+          },
+          "product": {
+            "type": "string",
+            "title": "Product category to be put in the code"
+          },
+          "id": {
+            "type": "string",
+            "title": "Unique ID to be put in the code"
+          },
+          "valid": {
+            "type": "boolean",
+            "title": "If the generated signature should be valid or not"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iss",
+          "product",
+          "id",
+          "valid"
+        ],
+        "title": "GenerateSecureV1Request"
+      },
+      "GenerateURLV1Request": {
+        "properties": {
+          "iss": {
+            "type": "string",
+            "title": "Issuer to be put in the code"
+          },
+          "product": {
+            "type": "string",
+            "title": "Product category to be put in the code"
+          },
+          "id": {
+            "type": "string",
+            "title": "Unique ID to be put in the code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iss",
+          "product",
+          "id"
+        ],
+        "title": "GenerateURLV1Request"
+      },
+      "HTTPValidationError": {
+        "properties": {
+          "detail": {
+            "items": {
+              "$ref": "#/components/schemas/ValidationError"
+            },
+            "type": "array",
+            "title": "Detail"
+          }
+        },
+        "type": "object",
+        "title": "HTTPValidationError"
+      },
+      "MetadataV1Response": {
+        "properties": {
+          "logo_url": {
+            "type": "string",
+            "title": "URL to the logo of the issuer"
+          },
+          "image_url": {
+            "type": "string",
+            "title": "URL to a product picture"
+          },
+          "product_dataspace": {
+            "type": "string",
+            "title": "Base domain of the dataspace the product data will be on"
+          },
+          "names": {
+            "additionalProperties": {
+              "type": "string"
+            },
+            "type": "object",
+            "title": "Map of locale in IETF BCP 47 format (en-US) to the name of the product in that language"
+          },
+          "supported_dataproducts": {
+            "items": {
+              "$ref": "#/components/schemas/SupportedDataproduct"
+            },
+            "type": "array",
+            "title": "List of supported data products for this product"
+          }
+        },
+        "type": "object",
+        "required": [
+          "logo_url",
+          "image_url",
+          "product_dataspace",
+          "names",
+          "supported_dataproducts"
+        ],
+        "title": "MetadataV1Response"
+      },
+      "SupportedDataproduct": {
+        "properties": {
+          "path": {
+            "type": "string",
+            "title": "Path for the data product on the dataspace",
+            "examples": [
+              "DPP/Energy/Battery/ProductDataSheet_v0.1"
+            ]
+          },
+          "source": {
+            "type": "string",
+            "title": "The supported source for this data product on the dataspace"
+          }
+        },
+        "type": "object",
+        "required": [
+          "path",
+          "source"
+        ],
+        "title": "SupportedDataproduct"
+      },
+      "TagsErrorResponse": {
+        "properties": {
+          "error": {
+            "type": "string",
+            "title": "Error"
+          },
+          "code": {
+            "type": "string",
+            "title": "Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "error",
+          "code"
+        ],
+        "title": "TagsErrorResponse"
+      },
+      "ValidationError": {
+        "properties": {
+          "loc": {
+            "items": {
+              "anyOf": [
+                {
+                  "type": "string"
+                },
+                {
+                  "type": "integer"
+                }
+              ]
+            },
+            "type": "array",
+            "title": "Location"
+          },
+          "msg": {
+            "type": "string",
+            "title": "Message"
+          },
+          "type": {
+            "type": "string",
+            "title": "Error Type"
+          }
+        },
+        "type": "object",
+        "required": [
+          "loc",
+          "msg",
+          "type"
+        ],
+        "title": "ValidationError"
+      },
+      "VerifyV1Request": {
+        "properties": {
+          "code": {
+            "type": "string",
+            "title": "Scanned text from QR Code"
+          }
+        },
+        "type": "object",
+        "required": [
+          "code"
+        ],
+        "title": "VerifyV1Request"
+      }
+    }
+  }
+}
