@@ -3,6 +3,10 @@
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
   import { Buffer } from "buffer"
   import { decode as decodeBase45 } from "base45"
+  import qrcode from '../assets/QRcode.svg';
+  import question from '../assets/question.svg';
+  import subtract from '../assets/Subtract.png';
+  import { onMount } from 'svelte'
 
   let scanning = false
 
@@ -83,7 +87,7 @@
     return urlPattern.test(url)
   }
 
-  async function tryParseIoxioTags(contents: string): Promise<boolean> {
+  async function tryParseIoxioTags(contents: string) {
     const isValidURL = isTagsURL(contents)
     if (isValidURL) {
       console.log("Found low security IOXIO Tag URL")
@@ -96,7 +100,7 @@
         if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
           const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
           const b45decoded = decodeBase45(withoutVersion)
-          const cborData = await parseCoseInsecure(b45decoded)
+          const cborData = await parseCoseInsecure(b45decoded.toString())
           console.log(cborData)
           if (
             cborData.kid &&
@@ -121,7 +125,7 @@
             if (!jwk) {
               console.error("Couldn't find the JWKS key to verify this code")
             } else {
-              verified = await verifyCose(b45decoded, jwk)
+              verified = await verifyCose(b45decoded.toString(), jwk)
             }
 
             return true
@@ -130,7 +134,7 @@
           // No IT1: prefix
           return false
         }
-      } catch (e) {
+      } catch (e: any) {
         if (e.toString().indexOf("Invalid base45 string") !== -1) {
           // TODO: Show error
           console.warn(`Not a valid IOXIO Tag: ${contents}`)
@@ -141,6 +145,7 @@
         }
       }
     }
+
   }
 
   function stringToBuffer(value: string): Buffer {
@@ -181,16 +186,35 @@
 
     return true
   }
+
+  
+  onMount(() => {
+    startScan();
+  })
 </script>
 
 <main>
-  <div id="reader" />
-  {#if !scanning}
-    <div class="controls">
-      <button on:click={startScan}>Start scanning</button>
-      <button on:click={scanPreset}>Simulate scan of preset data</button>
+  <div id="reader">
+    <div class="relative barcode-scanner-area-wrapper">
+      <div class="relative barcode-scanner-area">
+        <img class="subtract-image" src={subtract} alt="subtract "/>
+        <div class="square surround-cover" />
+      </div>
+      <div class="relative">
+        <p class="description">Scan a Product Passport QR code to view product data</p>
+      </div>
     </div>
-  {/if}
+    <div class="relative example-code-wrapper">
+      <div class="example-description">Here's an example to identify an <strong>IOXIO Tag</strong></div>
+      <div class="example-code">
+        <img src={qrcode} alt="code" />
+      </div>
+    </div>
+    <div class="relative documentation-wrapper">
+      <img src={question} alt="question" />
+      <p class="documentation-label">Documentation</p>
+    </div>
+  </div>
 </main>
 
 <style>
@@ -200,33 +224,105 @@
     align-items: center;
     justify-content: center;
     gap: 20px;
-    background: #ccc;
+    background: transparent;
   }
 
   #reader {
     width: 100%;
     height: 100vh;
     min-height: 500px;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
   }
 
-  .controls {
+  .relative {
+    position: relative;
+    z-index: 1;
+  }
+
+  .barcode-scanner-area-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 2rem;
+    margin: auto;
+  }
+  .barcode-scanner-area {
+    display: flex;
+    justify-content: center;
+    width: fit-content;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .subtract-image {
+    position: relative;
+    width: auto;
+    z-index: 1;
+    max-height: 40vh;
+  }
+
+  @media screen and (max-width: 520px) {
+    .subtract-image {
+      width: 100%;
+    }
+  }
+  .surround-cover {
+    box-shadow: 0 0 0 99999px rgba(16, 25, 32, 0.83);
+  }
+  .square {
     position: absolute;
-    top: 16px;
-    left: 16px;
+    left: 1rem;
+    top: 1rem;
+    width: calc(100% - 2rem);
+    height: calc(100% - 2rem);
+    border-radius: 0.8rem;
+  }
+  .description {
+    text-align: center;
+    font-size: 1rem;
+    color: white;
+    margin-top: 3rem;
+    font-family: 'Poppins', sans-serif;
+  }
+  .example-code-wrapper {
+    border-radius: 0.5rem;
+    padding: 1rem;
+    background: rgba(32, 48, 62, 1);
     display: flex;
     flex-direction: row;
-    gap: 16px;
+    align-items: center;
+    gap: 1rem;
   }
-
-  button {
-    padding: 32px;
-    background-color: #fff;
-    color: #000;
+  .example-description {
+    color: white;
+    font-size: 1rem;
+    flex: 1;
+    font-family: 'Poppins', sans-serif;
   }
-
-  .scanner_borders {
-    position: absolute;
-    top: 20%;
-    /* background-color: aliceblue; */
+  .example-code {
+    padding: 0.5rem;
+    background-color: white;
+    border-radius: 0.5rem;
+    max-width: 4rem;
+  }
+  .example-code img{
+    width: 100%;
+  }
+  .documentation-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    gap: 0.5rem;
+  }
+  .documentation-wrapper img {
+    width: 2rem;
+  }
+  .documentation-label {
+    color: white;
+    font-size: 1.2rem;
+    font-family: 'Poppins', sans-serif;
   }
 </style>

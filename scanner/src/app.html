@@ -5,10 +5,23 @@
     <link rel="icon" href="%sveltekit.assets%/favicon.png" />
     <meta name="viewport" content="width=device-width" />
     %sveltekit.head%
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap" rel="stylesheet">
     <style>
+      * {
+        box-sizing: border-box;
+      }
       body {
         padding: 0;
         margin: 0;
+        overflow: hidden;
+      }
+      div:has(> video) {
+        z-index: -1;
+      }
+      video {
+        object-fit: cover;
       }
     </style>
   </head>

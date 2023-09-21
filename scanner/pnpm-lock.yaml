@@ -20,6 +20,9 @@ dependencies:
   '@capacitor/ios':
     specifier: ^5.2.3
     version: 5.2.3(@capacitor/core@5.2.3)
+  '@capacitor/splash-screen':
+    specifier: ^5.0.6
+    version: 5.0.6(@capacitor/core@5.2.3)
   '@esbuild-plugins/node-globals-polyfill':
     specifier: ^0.2.3
     version: 0.2.3(esbuild@0.18.20)
@@ -49,6 +52,9 @@ devDependencies:
   '@sveltejs/kit':
     specifier: ^1.20.4
     version: 1.22.6(svelte@4.2.0)(vite@4.4.9)
+  '@types/base45':
+    specifier: ^2.0.0
+    version: 2.0.0
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.3.0
     version: 6.5.0(@typescript-eslint/parser@6.5.0)(eslint@8.48.0)(typescript@5.1.6)
@@ -146,6 +152,14 @@ packages:
     resolution: {integrity: sha512-ailR/Mer48GEXdqip+ENyN3Qk+ZtUBNDTlHh83WLNbx6uv71z6lCeoLKBXdtSEBFwzFrwtCO5upzbdzK79pONQ==}
     peerDependencies:
       '@capacitor/core': ^5.2.0
+    dependencies:
+      '@capacitor/core': 5.2.3
+    dev: false
+
+  /@capacitor/splash-screen@5.0.6(@capacitor/core@5.2.3):
+    resolution: {integrity: sha512-9B8wSm89D+LlshFw8B+mjPU8pJNf1WOx2mkMjMvcH0/EqxNaE+ZaO8lPCX+9WvWSEZs3O3l11qiSnOFHeK0t9A==}
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
     dependencies:
       '@capacitor/core': 5.2.3
     dev: false
@@ -674,6 +688,12 @@ packages:
       - supports-color
     dev: true
 
+  /@types/base45@2.0.0:
+    resolution: {integrity: sha512-O+M/KVJHUIsJ/faoOehyCoQ4/kc3XU9/LfjokQvuXJUBpxHS47+cgEnH9kISlj1Z/q7NGa00w4X8UxrcO8/Ysw==}
+    dependencies:
+      '@types/node': 20.5.0
+    dev: true
+
   /@types/cookie@0.5.1:
     resolution: {integrity: sha512-COUnqfB2+ckwXXSFInsFdOAWQzCCx+a5hq2ruyj+Vjund94RJQd4LG2u9hnvJrTgunKAaax7ancBYlDrNYxA0g==}
     dev: true
@@ -694,7 +714,6 @@ packages:
 
   /@types/node@20.5.0:
     resolution: {integrity: sha512-Mgq7eCtoTjT89FqNoTzzXg2XvCi5VMhRV6+I2aYanc6kQCBImeNaAYRs/DyoVqk1YEUJK5gN9VO7HRIdz4Wo3Q==}
-    dev: false
 
   /@types/pug@2.0.6:
     resolution: {integrity: sha512-SnHmG9wN1UVmagJOnyo/qkk0Z7gejYxOYYmaAwr5u2yFYfsupN3sg10kyzN8Hep/2zbHxCnsumxOoRIRMBwKCg==}
