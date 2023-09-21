@@ -3,12 +3,12 @@
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
   import { Buffer } from "buffer"
   import { decode as decodeBase45 } from "base45"
-  import qrcode from '$assets/qrcode.png';
-  import question from '$assets/question.svg';
-  import logo from '$assets/logo.svg';
-  import camera from '$assets/camera.svg';
-  import subtract from '$assets/subtract.png';
-  import Button from '$components/Button/index.svelte';
+  import qrcode from "$assets/qrcode.png"
+  import question from "$assets/question.svg"
+  import logo from "$assets/logo.svg"
+  import camera from "$assets/camera.svg"
+  import subtract from "$assets/subtract.png"
+  import Button from "$components/Button/index.svelte"
 
   let scanning = false
 
@@ -53,9 +53,9 @@
     // Check camera permission
     // This is just a simple example, check out the better checks below
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
-    if (!permissionResult.granted) return;
+    if (!permissionResult.granted) return
 
-    scanning = true;
+    scanning = true
     // make background of WebView transparent
     // note: if you are using ionic this might not be enough, check below
     BarcodeScanner.hideBackground()
@@ -149,7 +149,6 @@
         }
       }
     }
-
   }
 
   function stringToBuffer(value: string): Buffer {
@@ -190,7 +189,6 @@
 
     return true
   }
-
 </script>
 
 <main>
@@ -200,7 +198,7 @@
     {/if}
     <div class="relative barcode-scanner-area-wrapper">
       <div class="relative barcode-scanner-area">
-        <img class="subtract-image" src={subtract} alt="subtract "/>
+        <img class="subtract-image" src={subtract} alt="subtract " />
         {#if scanning}
           <div class="square surround-cover" />
         {:else}
@@ -211,7 +209,9 @@
         {#if scanning}
           <p class="description">Scan a Product Passport QR code to view product data</p>
         {:else}
-          <p class="description">Turn on your camera for scan a Product Passport QR code to view product data</p>
+          <p class="description">
+            Turn on your camera for scan a Product Passport QR code to view product data
+          </p>
         {/if}
       </div>
       {#if !scanning}
@@ -222,7 +222,9 @@
     </div>
     {#if scanning}
       <div class="relative example-code-wrapper">
-        <div class="example-description">Here's an example to identify an <strong>IOXIO Tag</strong></div>
+        <div class="example-description">
+          Here's an example to identify an <strong>IOXIO Tag</strong>
+        </div>
         <div class="example-code">
           <img src={qrcode} alt="code" />
         </div>
@@ -309,7 +311,7 @@
     font-size: 1rem;
     color: white;
     margin-top: 3rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
   .example-code-wrapper {
     border-radius: 0.5rem;
@@ -324,7 +326,7 @@
     color: white;
     font-size: 1.1rem;
     flex: 1;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
   .example-code {
     padding: 0.5rem;
@@ -333,7 +335,7 @@
     max-width: 7rem;
     display: flex;
   }
-  .example-code img{
+  .example-code img {
     width: 100%;
   }
   .documentation-wrapper {
@@ -349,7 +351,7 @@
   .documentation-label {
     color: white;
     font-size: 1.2rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: "Poppins", sans-serif;
   }
   .button-wrapper {
     display: flex;

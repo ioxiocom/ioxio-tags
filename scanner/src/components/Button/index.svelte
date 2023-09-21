@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let onClick: () => void; 
-  export let icon: string | null = null;
-  export let title: string;
+  export let onClick: () => void
+  export let icon: string | null = null
+  export let title: string
 </script>
 
 <button class="button" on:click={onClick}>
@@ -30,7 +30,7 @@
   }
   .title {
     color: white;
-    font-family: 'Poppins' sans-serif;
+    font-family: "Poppins" sans-serif;
     font-size: 1rem;
   }
 </style>

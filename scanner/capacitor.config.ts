@@ -6,7 +6,7 @@ const config: CapacitorConfig = {
   webDir: "build",
   server: {
     url: "http://192.168.1.131:5173",
-    cleartext: true
+    cleartext: true,
   },
 }
 
