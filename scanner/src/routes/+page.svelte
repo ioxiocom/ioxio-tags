@@ -10,6 +10,13 @@
   import subtract from "$assets/subtract.png"
   import Button from "$components/Button/index.svelte"
 
+  // Very uncool way of trying to fix the low quality library
+  if (typeof window !== "undefined") {
+    if (window.Buffer === undefined) {
+      window.Buffer = Buffer
+    }
+  }
+
   let scanning = false
 
   // Pregenerated data for testing
@@ -114,6 +121,7 @@
           ) {
             // This is an IOXIO Tags QR code
             console.log("IOXIO Tag detected, should continue to do more things")
+            console.log(cborData.payload)
 
             // TODO: Fetch metadata + JWKS keys from cborData.iss
             // TODO: Verify COSE signature with JWKS key

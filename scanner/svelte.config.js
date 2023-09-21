@@ -17,10 +17,22 @@ const config = {
       pages: "build",
       assets: "build",
       fallback: null,
-      precompress: false,
+      precompress: true,
       strict: true,
     }),
+    // any CSS files fewer bytes than this should get inlined in `<style>`
+    // inlineStyleThreshold: 5 * 1024,
+    csp: {
+      // Unused for adapter-static, configuration is in Nginx
+      directives: {
+        "img-src": ["'self'", "data:"],
+        "style-src": ["'self'", "'unsafe-inline'"],
+        "script-src": ["'self'", "'unsafe-inline'"],
+        "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io"],
+      },
+    },
     alias: {
+      $lib: "src/lib",
       $assets: "./src/assets",
       $components: "./src/components",
     },

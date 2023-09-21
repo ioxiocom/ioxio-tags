@@ -8,12 +8,20 @@ repos:
         exclude: |
           (?x)(
             ^.*/vendor/.*$|
+            ^generator/src/lib/openapi.ts$|
+            ^scanner/src/lib/openapi.ts$|
+            ^openapi.json$|
+            ^openapi_hash.sha256$|
             ^NOT-EXISTING-LAST-ENTRY$
           )
       - id: end-of-file-fixer
         exclude: |
           (?x)(
             ^.*/vendor/.*$|
+            ^generator/src/lib/openapi.ts$|
+            ^scanner/src/lib/openapi.ts$|
+            ^openapi.json$|
+            ^openapi_hash.sha256$|
             ^NOT-EXISTING-LAST-ENTRY$
           )
       # All non-bat files should end with LF
@@ -28,6 +36,20 @@ repos:
       - id: mixed-line-ending
         args: ["--fix=crlf"]
         files: \.bat$
+
+  - repo: local
+    hooks:
+      - id: export-api
+        name: export-api
+        entry: python export_api.py
+        language: system
+        pass_filenames: false
+      - id: import-api
+        name: import-api
+        entry: python import_api.py
+        language: system
+        pass_filenames: false
+
   - repo: https://github.com/pre-commit/mirrors-prettier
     rev: v2.6.2
     hooks:
@@ -39,6 +61,10 @@ repos:
           (?x)(
             ^.*/vendor/.*$|
             /pnpm-lock.yaml$|
+            ^generator/src/lib/openapi.ts$|
+            ^scanner/src/lib/openapi.ts$|
+            ^openapi.json$|
+            ^openapi_hash.sha256$|
             ^NOT-EXISTING-LAST-ENTRY$
           )
   - repo: local
