@@ -31,7 +31,6 @@ const config = {
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io"],
       },
     },
-    prerender: { default: true },
     alias: {
       $lib: "src/lib",
     },
