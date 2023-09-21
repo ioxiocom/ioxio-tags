@@ -4,6 +4,10 @@
   import { Buffer } from "buffer"
   import { decode as decodeBase45 } from "base45"
 
+  if (typeof window !== "undefined") {
+    window.Buffer = Buffer
+  }
+
   let scanning = false
 
   // Pregenerated data for testing
