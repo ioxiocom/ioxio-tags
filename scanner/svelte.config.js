@@ -27,7 +27,8 @@ const config = {
       directives: {
         "img-src": ["'self'", "data:"],
         "style-src": ["'self'", "'unsafe-inline'"],
-        "script-src": ["'self'"],
+        // Unfortunately `adapter-static` kind of sucks, this is temporarily bad
+        "script-src": ["'self'", "'unsafe-inline'"],
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io"],
       },
     },
