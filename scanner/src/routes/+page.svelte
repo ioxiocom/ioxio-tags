@@ -3,9 +3,9 @@
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
   import { Buffer } from "buffer"
   import { decode as decodeBase45 } from "base45"
-  import qrcode from '../assets/QRcode.svg';
-  import question from '../assets/question.svg';
-  import subtract from '../assets/Subtract.png';
+  import qrcode from '$assets/qrcode.png';
+  import question from '$assets/question.svg';
+  import subtract from '$assets/subtract.png';
   import { onMount } from 'svelte'
 
   let scanning = false
@@ -210,10 +210,10 @@
         <img src={qrcode} alt="code" />
       </div>
     </div>
-    <div class="relative documentation-wrapper">
+    <a class="relative documentation-wrapper" href="/">
       <img src={question} alt="question" />
       <p class="documentation-label">Documentation</p>
-    </div>
+    </a>
   </div>
 </main>
 
@@ -297,7 +297,7 @@
   }
   .example-description {
     color: white;
-    font-size: 1rem;
+    font-size: 1.2rem;
     flex: 1;
     font-family: 'Poppins', sans-serif;
   }
@@ -305,7 +305,8 @@
     padding: 0.5rem;
     background-color: white;
     border-radius: 0.5rem;
-    max-width: 4rem;
+    max-width: 7rem;
+    display: flex;
   }
   .example-code img{
     width: 100%;

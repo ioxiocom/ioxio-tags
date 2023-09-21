@@ -1,4 +1,6 @@
 import { SplashScreen } from '@capacitor/splash-screen';
+import '@fontsource/poppins';
+
 export const prerender = true
 
 const showSplashScreen = async () => {
