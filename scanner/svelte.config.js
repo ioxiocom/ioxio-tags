@@ -23,6 +23,7 @@ const config = {
     // any CSS files fewer bytes than this should get inlined in `<style>`
     // inlineStyleThreshold: 5 * 1024,
     csp: {
+      mode: "hash",
       directives: {
         "img-src": ["'self'", "data:"],
         "style-src": ["'self'", "'unsafe-inline'"],
@@ -30,6 +31,7 @@ const config = {
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io"],
       },
     },
+    prerender: { default: true },
     alias: {
       $lib: "src/lib",
     },
