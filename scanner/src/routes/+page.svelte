@@ -9,6 +9,7 @@
   import camera from "$assets/camera.svg"
   import subtract from "$assets/subtract.png"
   import Button from "$components/Button/index.svelte"
+  import { onMount } from "svelte"
 
   // Very uncool way of trying to fix the low quality library
   if (typeof window !== "undefined") {
@@ -16,6 +17,8 @@
       window.Buffer = Buffer
     }
   }
+
+  const originalBodyBg = typeof document !== "undefined" ? document.body.style.background : ""
 
   let scanning = false
 
@@ -55,18 +58,37 @@
     }
   }
 
+  function hideBackground() {
+    BarcodeScanner.hideBackground()
+    document.body.style.background = "transparent"
+  }
+
+  function showBackground() {
+    BarcodeScanner.showBackground()
+    document.body.style.background = originalBodyBg
+  }
+
+  function sleep(ms: number): Promise<void> {
+    return new Promise((resolve) => setTimeout(resolve, ms))
+  }
+
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
+  // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
   async function startScan() {
-    // Check camera permission
-    // This is just a simple example, check out the better checks below
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
-    if (!permissionResult.granted) return
+    if (!permissionResult.granted) {
+      // Make a new permission request
+      await navigator.mediaDevices.getUserMedia({ video: true })
+      if (permissionResult.neverAsked) {
+        return await startScan()
+      } else {
+        // TODO: Handle this somehow, e.g. show a screen asking to confirm permissions, depending on which result it is
+        throw new Error(`Did not get camera permission, ${JSON.stringify(permissionResult)}`)
+      }
+    }
 
     scanning = true
-    // make background of WebView transparent
-    // note: if you are using ionic this might not be enough, check below
-    BarcodeScanner.hideBackground()
-
+    hideBackground()
     const result = await BarcodeScanner.startScan() // start scanning and wait for a result
 
     // If the result has content
@@ -80,6 +102,7 @@
         console.log("No IOXIO Tag detected")
         // TODO: This should just continue scanning
         scanning = false
+        showBackground()
       }
     }
   }
@@ -197,6 +220,10 @@
 
     return true
   }
+
+  onMount(() => {
+    BarcodeScanner.prepare()
+  })
 </script>
 
 <main>
@@ -206,7 +233,7 @@
     {/if}
     <div class="relative barcode-scanner-area-wrapper">
       <div class="relative barcode-scanner-area">
-        <img class="subtract-image" src={subtract} alt="subtract " />
+        <img alt="subtract" class="subtract-image" src={subtract} />
         {#if scanning}
           <div class="square surround-cover" />
         {:else}
@@ -239,7 +266,7 @@
       </div>
     {/if}
     <a class="relative documentation-wrapper" href="/">
-      <img src={question} alt="question" />
+      <img alt="question" src={question} />
       <p class="documentation-label">Documentation</p>
     </a>
   </div>
@@ -268,6 +295,7 @@
     position: relative;
     z-index: 1;
   }
+
   .background {
     background: rgba(16, 25, 32, 1);
     position: absolute;
@@ -276,6 +304,7 @@
     top: 0;
     left: 0;
   }
+
   .barcode-scanner-area-wrapper {
     flex: 1;
     display: flex;
@@ -284,6 +313,7 @@
     padding: 1rem;
     margin: auto;
   }
+
   .barcode-scanner-area {
     display: flex;
     justify-content: center;
@@ -291,6 +321,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .subtract-image {
     position: relative;
     width: auto;
@@ -303,9 +334,11 @@
       width: 100%;
     }
   }
+
   .surround-cover {
     box-shadow: 0 0 0 99999px rgba(16, 25, 32, 0.83);
   }
+
   .square {
     position: absolute;
     left: 0.5rem;
@@ -314,6 +347,7 @@
     height: calc(100% - 1rem);
     border-radius: 0.8rem;
   }
+
   .description {
     text-align: center;
     font-size: 1rem;
@@ -321,6 +355,7 @@
     margin-top: 3rem;
     font-family: "Poppins", sans-serif;
   }
+
   .example-code-wrapper {
     border-radius: 0.5rem;
     padding: 1rem;
@@ -330,12 +365,14 @@
     align-items: center;
     gap: 1rem;
   }
+
   .example-description {
     color: white;
     font-size: 1.1rem;
     flex: 1;
     font-family: "Poppins", sans-serif;
   }
+
   .example-code {
     padding: 0.5rem;
     background-color: white;
@@ -343,9 +380,11 @@
     max-width: 7rem;
     display: flex;
   }
+
   .example-code img {
     width: 100%;
   }
+
   .documentation-wrapper {
     display: flex;
     align-items: center;
@@ -353,19 +392,23 @@
     margin-top: 1rem;
     gap: 0.5rem;
   }
+
   .documentation-wrapper img {
     width: 2rem;
   }
+
   .documentation-label {
     color: white;
     font-size: 1.2rem;
     font-family: "Poppins", sans-serif;
   }
+
   .button-wrapper {
     display: flex;
     justify-content: center;
     margin-top: 2rem;
   }
+
   .logo {
     position: absolute;
     left: 50%;
