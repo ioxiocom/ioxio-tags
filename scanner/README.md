@@ -1,4 +1,4 @@
-# create-svelte
+# IOXIO Tags Scanner demo application
 
 ## Developing
 
