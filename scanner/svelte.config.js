@@ -17,7 +17,7 @@ const config = {
       pages: "build",
       assets: "build",
       fallback: null,
-      precompress: true,
+      // precompress: true,
       strict: true,
     }),
     // any CSS files fewer bytes than this should get inlined in `<style>`

@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <resources>
-    <string name="app_name">ioxio-scanner</string>
-    <string name="title_activity_main">ioxio-scanner</string>
-    <string name="package_name">com.ioxio_scanner.app</string>
-    <string name="custom_url_scheme">com.ioxio_scanner.app</string>
+    <string name="app_name">ioxio-tags-scanner</string>
+    <string name="title_activity_main">ioxio-tags-scanner</string>
+    <string name="package_name">com.ioxio_tags_scanner.app</string>
+    <string name="custom_url_scheme">com.ioxio_tags_scanner.app</string>
 </resources>

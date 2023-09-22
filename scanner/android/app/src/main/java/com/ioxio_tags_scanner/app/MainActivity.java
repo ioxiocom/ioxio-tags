@@ -1,4 +1,4 @@
-package com.ioxio_scanner.app;
+package com.ioxio_tags_scanner.app;
 
 import com.getcapacitor.BridgeActivity;
 

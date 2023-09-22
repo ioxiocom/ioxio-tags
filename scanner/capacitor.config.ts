@@ -5,8 +5,7 @@ const config: CapacitorConfig = {
   appName: "ioxio-tags-scanner",
   webDir: "build",
   server: {
-    url: "http://192.168.1.131:5173",
-    cleartext: true,
+    androidScheme: "https",
   },
 }
 

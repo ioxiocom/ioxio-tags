@@ -1,29 +1,31 @@
 # create-svelte
 
-Everything you need to build a Svelte project, powered by
-[`create-svelte`](https://github.com/sveltejs/kit/tree/master/packages/create-svelte).
-
 ## Developing
 
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or
-`yarn`), start a development server:
-
 ```bash
-npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
+pnpm run dev
 ```
 
 ## Building
 
-To create a production version of your app:
-
 ```bash
-npm run build
+pnpm run build
+pnpm run ios
 ```
 
-You can preview the production build with `npm run preview`.
+## Android
 
-> To deploy your app, you may need to install an [adapter](https://kit.svelte.dev/docs/adapters) for
-> your target environment.
+You will need OpenJDK 17 installed and configured correctly for your system for the Android builds
+to work.
+
+The following is for \*nix use, Windows use is likely very similar:
+
+```shell
+pnpm run build
+pnpm run android
+cd android
+./gradlew
+```
+
+You can then open the `android` folder in [Android Studio](https://developer.android.com/studio),
+set up your emulator or whatever and click the Play -icon.
