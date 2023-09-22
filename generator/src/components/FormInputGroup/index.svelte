@@ -1,7 +1,7 @@
 <script lang="ts">
-  export let name: string;
-  export let label: string;
-  export let placeholder: string = "";
+  export let name: string
+  export let label: string
+  export let placeholder: string = ""
 </script>
 
 <div class="form-group">
@@ -33,7 +33,7 @@
         border: 1px solid #555;
       }
       &::placeholder {
-        font-family: 'Poppins' sans-serif;
+        font-family: "Poppins" sans-serif;
         color: rgba(217, 217, 217, 1);
       }
     }

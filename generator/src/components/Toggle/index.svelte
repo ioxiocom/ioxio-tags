@@ -1,18 +1,23 @@
 <script context="module" lang="ts">
-  import type { Option } from "$components/FormSelectGroup/index.svelte";
+  import type { Option } from "$components/FormSelectGroup/index.svelte"
 </script>
+
 <script lang="ts">
-  export let options: Option[] = [];
-  export let onToggle: (option: Option) => void;
-  export let value: Option;
+  export let options: Option[] = []
+  export let onToggle: (option: Option) => void
+  export let value: Option
 </script>
 
 <div class="wrapper">
-	{#each options as option, i}
-    <button class="toggle-item" class:active={value && value.id === option.id} on:click={() => onToggle(option)}>
+  {#each options as option, i}
+    <button
+      class="toggle-item"
+      class:active={value && value.id === option.id}
+      on:click={() => onToggle(option)}
+    >
       {option.label}
     </button>
-	{/each}
+  {/each}
 </div>
 
 <style lang="scss">
@@ -22,7 +27,7 @@
     align-items: center;
     .toggle-item {
       border: none;
-      font-family: 'Poppins' sans-serif;
+      font-family: "Poppins" sans-serif;
       width: 8rem;
       height: 2.5rem;
       display: flex;
