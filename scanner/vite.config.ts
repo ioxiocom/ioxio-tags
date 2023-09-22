@@ -5,7 +5,12 @@ import { defineConfig } from "vite"
 
 export default defineConfig({
   plugins: [sveltekit()],
-
+  /*
+  // Uncomment to debug the resulting code better - unless you really like reading obfuscated JS
+  build: {
+    minify: false
+  },
+  */
   optimizeDeps: {
     esbuildOptions: {
       // Node.js global to browser globalThis
