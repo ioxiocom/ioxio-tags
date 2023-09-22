@@ -32,6 +32,8 @@ const config = {
     },
     alias: {
       $lib: "src/lib",
+      $components: "src/components",
+      $assets: "src/assets",
     },
   },
 }
