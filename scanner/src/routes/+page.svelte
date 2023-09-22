@@ -9,7 +9,6 @@
   import camera from "$assets/camera.svg"
   import subtract from "$assets/subtract.png"
   import Button from "$components/Button/index.svelte"
-  import { onMount } from "svelte"
 
   // Very uncool way of trying to fix the low quality library
   if (typeof window !== "undefined") {
@@ -134,8 +133,8 @@
         if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
           const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
           const b45decoded = decodeBase45(withoutVersion)
-          const cborData = await parseCoseInsecure(b45decoded.toString())
-          console.log(cborData)
+          const cborData = await parseCoseInsecure(b45decoded)
+          console.log("Parsed insecure data:", cborData)
           if (
             cborData.kid &&
             cborData.payload.iss &&
@@ -192,9 +191,7 @@
 
   async function parseCoseInsecure(message: string): Promise<RawSecureTagParseResult> {
     // No verification of signature performed here
-    const messageBuffer = stringToBuffer(message)
-
-    const coseContainer = decodeCbor(messageBuffer)
+    const coseContainer = decodeCbor(message)
     const [_headers1, _headers2, cborPayload, _signature] = coseContainer.value
 
     console.log({ _headers1, _headers2, cborPayload, _signature })
@@ -220,10 +217,6 @@
 
     return true
   }
-
-  onMount(() => {
-    BarcodeScanner.prepare()
-  })
 </script>
 
 <main>
