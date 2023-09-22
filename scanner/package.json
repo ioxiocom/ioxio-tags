@@ -5,8 +5,8 @@
   "scripts": {
     "dev": "pnpm install && vite dev --host",
     "build": "vite build && npx cap copy",
-    "android": "npx cap copy android && npx open android",
-    "ios": "npx cap copy ios && npx open ios",
+    "android": "npx cap copy android",
+    "ios": "npx cap copy ios",
     "preview": "vite preview",
     "eslint": "pnpm exec eslint --fix .",
     "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
