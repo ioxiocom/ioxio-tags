@@ -5,7 +5,7 @@
 
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
-  import { onMount } from 'svelte'
+  import { onMount } from "svelte"
 
   const originalBodyBg = typeof document !== "undefined" ? document.body.style.background : ""
 
@@ -35,7 +35,7 @@
         return await startScan()
       } else {
         // TODO: Handle this somehow, e.g. show a screen asking to confirm permissions, depending on which result it is
-        consoleLog(`Did not get camera permission, ${JSON.stringify(permissionResult)}`, "warn");
+        consoleLog(`Did not get camera permission, ${JSON.stringify(permissionResult)}`, "warn")
         throw new Error(`Did not get camera permission, ${JSON.stringify(permissionResult)}`)
       }
     }
@@ -59,8 +59,8 @@
   }
 
   onMount(() => {
-    startScan();
-  });
+    startScan()
+  })
 </script>
 
 <div class="container">

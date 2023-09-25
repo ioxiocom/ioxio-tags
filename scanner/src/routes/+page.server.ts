@@ -1,7 +1,7 @@
-import { DEVELOPMENT } from '$env/static/private';
+import { DEVELOPMENT } from "$env/static/private"
 
 export function load() {
-	return {
-    isDevelopment: DEVELOPMENT === "true"
+  return {
+    isDevelopment: DEVELOPMENT === "true",
   }
 }

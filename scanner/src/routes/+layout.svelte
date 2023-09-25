@@ -1,8 +1,7 @@
 <script lang="ts">
   import "./style.css"
   import Question from "$assets/question.svg"
-  import { SvelteToast } from '@zerodevx/svelte-toast'
-
+  import { SvelteToast } from "@zerodevx/svelte-toast"
 </script>
 
 <main>
@@ -15,7 +14,6 @@
   </div>
   <SvelteToast />
 </main>
-
 
 <style>
   main {

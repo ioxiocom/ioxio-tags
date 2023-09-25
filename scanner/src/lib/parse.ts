@@ -37,7 +37,6 @@ type RawSecureTagParseResult = {
   }
 }
 
-
 function isTagsURL(url: string) {
   const urlPattern = /https:\/\/tags\.ioxio\.(dev|io)\/.*$/
   return urlPattern.test(url)

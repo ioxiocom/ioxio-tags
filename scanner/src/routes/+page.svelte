@@ -8,7 +8,7 @@
   import { tryParseIoxioTags } from "$lib/parse"
   import type { PageData } from "./$types"
 
-  export let data: PageData;
+  export let data: PageData
 
   // Pregenerated data for testing
   const PRESET_DATA =
@@ -18,7 +18,7 @@
     "NH800JDD7UYPH+UNWL1KMH:UMAS4QK:R7$.36QVO8S5YA6SRW1LFA90H7.177ZM7QQ%HVZ 0VHLJQR%VLIPU/NJO68HZNA4PA32K9153Q8EW/%P" +
     "EKBRBNJO3ATK1WEW+P-PL.R0%MQJVTL68+FMLOFRAJ0IHR6W882.8B:EBEG24X74H9COJ:.1C89WFCL M+.C1XJ$Z3PM5OM754GL22D7TVXV*JH" +
     "/X1U66+CHCEMXI0P274GSM.6. LBDD"
-    
+
   async function scanPreset() {
     const detected = await tryParseIoxioTags(PRESET_DATA)
     if (detected) {
@@ -34,13 +34,13 @@
   <div class="relative barcode-scanner-area-wrapper">
     <div class="relative barcode-scanner-area">
       <img alt="subtract" class="subtract-image" src={Subtract} />
-        <img class="logo" src={IoxioTagLogo} alt="logo" />
+      <img class="logo" src={IoxioTagLogo} alt="logo" />
     </div>
     <div>
       <div class="relative">
-          <p class="description">
-            Turn on your camera for scan a Product Passport QR code to view product data
-          </p>
+        <p class="description">
+          Turn on your camera for scan a Product Passport QR code to view product data
+        </p>
       </div>
       <div class="relative button-wrapper">
         <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
