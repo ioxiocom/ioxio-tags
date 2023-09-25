@@ -2,6 +2,7 @@
   import "./style.css"
   import Question from "$assets/question.svg"
   import { SvelteToast } from '@zerodevx/svelte-toast'
+
 </script>
 
 <main>
