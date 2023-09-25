@@ -7,4 +7,6 @@ html {
   width: 100%;
 
   font-family: "Poppins", sans-serif;
+  background: rgba(16, 25, 32, 1);
+  color: #fff;
 }
