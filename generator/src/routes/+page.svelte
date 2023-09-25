@@ -5,11 +5,11 @@
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
-  import logo from "$assets/logo.svg"
-  import effect from "$assets/effect.svg"
-  import asas from "$assets/asas.svg"
-  import logoNoTag from "$assets/logo_no_tag.png"
-  import subtract from "$assets/subtract.png"
+  import logoTagsSvg from "$assets/ioxio-tags-logo.svg"
+  import effectSvg from "$assets/effect.svg"
+  import logomarkSvg from "$assets/ioxio-logomark.svg"
+  import logoSvg from "$assets/ioxio-logo.svg"
+  import subtractSvg from "$assets/subtract.png"
   import type { PageData } from "./$types"
 
   export let data: PageData
@@ -34,7 +34,7 @@
   <!-- Left Panel -->
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
-    <img class="asas" src={asas} alt="" />
+    <img class="logomarkSvg" src={logomarkSvg} alt="" />
     <form>
       <div class="row">
         <FormInputGroup name="domain" label="Issuer domain" placeholder="ex.tags.ioxio.dev" />
@@ -68,9 +68,9 @@
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
       <div class="qrcode">
-        <img class="frame" src={subtract} alt="" />
-        <img class="effect" src={effect} alt="" />
-        <img class="logo" src={logo} alt="" />
+        <img class="frame" src={subtractSvg} alt="" />
+        <img class="effect" src={effectSvg} alt="" />
+        <img class="logo" src={logoTagsSvg} alt="" />
       </div>
     </div>
     <div class="status">IOXIO Tag generator</div>
@@ -88,7 +88,7 @@
     </div>
     <div class="footer">
       <span>Made by</span>
-      <img src={logoNoTag} alt="" />
+      <img src={logoSvg} alt="" />
     </div>
   </div>
 </div>
@@ -125,7 +125,7 @@
       .actions-wrapper {
         margin-top: 5rem;
       }
-      .asas {
+      .logomarkSvg {
         width: 30%;
         position: absolute;
         bottom: 0;
