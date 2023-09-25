@@ -1,4 +1,5 @@
 <script lang="ts">
+  import Checkbox from "$assets/check.svg?component"
   export let name: string
   export let label: string = ""
 </script>
@@ -7,9 +8,7 @@
   <div class="checkbox">
     <input type="checkbox" id={name} />
     <label for={name} style="--size: 20px">
-      <svg viewBox="-10,-10,70,70">
-        <path d="M5 30 L 20 45 L 45 5" />
-      </svg>
+      <Checkbox />
     </label>
   </div>
   <label for={name}>{label}</label>
@@ -38,7 +37,7 @@
     opacity: 0;
   }
 
-  .checkbox input:checked + label svg path {
+  :global(.checkbox input:checked + label svg path) {
     stroke-dashoffset: 0;
   }
 
@@ -61,12 +60,12 @@
     border-radius: 12px;
   }
 
-  .checkbox input + label svg {
+  :global(.checkbox input + label svg) {
     pointer-events: none;
     padding: 5%;
   }
 
-  .checkbox input + label svg path {
+  :global(.checkbox input + label svg path) {
     fill: none;
     stroke: #21a796;
     stroke-width: 8px;

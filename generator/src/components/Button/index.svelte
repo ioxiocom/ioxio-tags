@@ -8,9 +8,7 @@
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
-  {#if title}
-    <span class="title">{title}</span>
-  {/if}
+  <span class="title">{title}</span>
 </button>
 
 <style>

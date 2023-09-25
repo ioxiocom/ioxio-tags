@@ -5,22 +5,22 @@
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
-  import logoTagsSvg from "$assets/ioxio-tags-logo.svg"
-  import effectSvg from "$assets/effect.svg"
-  import logomarkSvg from "$assets/ioxio-logomark.svg"
-  import logoSvg from "$assets/ioxio-logo.svg"
+  import logoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
+  import effectSvg from "$assets/effect.svg?url"
+  import logomarkSvg from "$assets/ioxio-logomark.svg?url"
+  import logoSvg from "$assets/ioxio-logo.svg?url"
   import subtractSvg from "$assets/subtract.png"
   import type { PageData } from "./$types"
 
   export let data: PageData
 
-  let productOption: Option
-  const onToggleProduct = (option: Option) => {
+  let productOption: string
+  const onToggleProduct = (option: string) => {
     productOption = option
   }
 
-  let signOption: Option
-  const onToggleSign = (option: Option) => {
+  let signOption: string
+  const onToggleSign = (option: string) => {
     signOption = option
   }
 </script>
@@ -41,7 +41,7 @@
       </div>
       <div class="row">
         <div class="toggle-row">
-          <Toggle options={data.productOptions} onToggle={onToggleProduct} value={productOption} />
+          <Toggle options={["arbitrary", "premade"]} bind:value={productOption} />
         </div>
         <FormSelectGroup
           name="product"
@@ -53,7 +53,7 @@
       <div class="row">
         <FormInputGroup name="productId" label="Product ID" placeholder="ex. VV123456-12" />
         <div class="toggle-row">
-          <Toggle options={data.signOptions} onToggle={onToggleSign} value={signOption} />
+          <Toggle options={["signed", "unsigned"]} bind:value={signOption} />
         </div>
       </div>
       <div class="row">

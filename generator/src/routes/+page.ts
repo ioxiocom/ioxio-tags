@@ -13,31 +13,7 @@ export const load = () => {
     })
   }
 
-  const productOptions: Option[] = [
-    {
-      id: "arbitrary",
-      label: "Arbitrary",
-    },
-    {
-      id: "premade",
-      label: "Premade",
-    },
-  ]
-
-  const signOptions: Option[] = [
-    {
-      id: "signed",
-      label: "Signed",
-    },
-    {
-      id: "unsigned",
-      label: "Unsigned",
-    },
-  ]
-
   return {
     options,
-    productOptions,
-    signOptions,
   }
 }

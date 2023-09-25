@@ -1,21 +1,19 @@
 <script context="module" lang="ts">
-  import type { Option } from "$components/FormSelectGroup/index.svelte"
 </script>
 
 <script lang="ts">
-  export let options: Option[] = []
-  export let onToggle: (option: Option) => void
-  export let value: Option
+  export let options: string[] = []
+  export let value: string
 </script>
 
 <div class="wrapper">
   {#each options as option, i}
     <button
       class="toggle-item"
-      class:active={value && value.id === option.id}
-      on:click={() => onToggle(option)}
+      class:active={value && value === option}
+      on:click={() => value = option}
     >
-      {option.label}
+      {option}
     </button>
   {/each}
 </div>
