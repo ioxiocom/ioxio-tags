@@ -11,7 +11,7 @@
     <button
       class="toggle-item"
       class:active={value && value === option}
-      on:click|preventDefault={() => value = option}
+      on:click|preventDefault={() => (value = option)}
     >
       {option}
     </button>

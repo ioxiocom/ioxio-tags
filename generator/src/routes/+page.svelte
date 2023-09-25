@@ -1,5 +1,5 @@
 <script lang="ts">
-    import Tooltip from "sv-tooltip"
+  import Tooltip from "sv-tooltip"
   import FormInputGroup from "$components/FormInputGroup/index.svelte"
   import FormSelectGroup from "$components/FormSelectGroup/index.svelte"
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
@@ -61,7 +61,7 @@
         <div class="col">
           <FormCheckbox name="valid" label="Create valid signature" />
           <Tooltip tip="Whats this?" top>
-            <span  class="question-icon">
+            <span class="question-icon">
               <QuestionSvg />
             </span>
           </Tooltip>
