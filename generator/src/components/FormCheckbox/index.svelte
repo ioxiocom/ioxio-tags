@@ -12,7 +12,7 @@
       </svg>
     </label>
   </div>
-  <span>{label}</span>
+  <label for={name}>{label}</label>
 </div>
 
 <style>
@@ -22,6 +22,10 @@
     align-items: center;
     gap: 0.5rem;
     color: rgba(16, 25, 32, 1);
+    cursor: pointer;
+  }
+  label {
+    cursor: pointer;
   }
   .checkbox *,
   .checkbox *:after,

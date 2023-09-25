@@ -27,7 +27,6 @@
     align-items: center;
     .toggle-item {
       border: none;
-      font-family: "Poppins" sans-serif;
       width: 8rem;
       height: 2.5rem;
       display: flex;

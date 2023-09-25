@@ -4,7 +4,7 @@
   export let title: string
 </script>
 
-<button class="button" on:click={onClick}>
+<button class="button" on:click|preventDefault={onClick}>
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
@@ -31,7 +31,6 @@
   }
   .title {
     color: white;
-    font-family: "Poppins" sans-serif;
     font-size: 1.3rem;
   }
 </style>

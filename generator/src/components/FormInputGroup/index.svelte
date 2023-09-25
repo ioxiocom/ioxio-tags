@@ -33,7 +33,6 @@
         border: 1px solid #555;
       }
       &::placeholder {
-        font-family: "Poppins" sans-serif;
         color: rgba(217, 217, 217, 1);
       }
     }

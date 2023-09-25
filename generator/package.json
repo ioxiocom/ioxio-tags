@@ -12,7 +12,6 @@
     "import-api": "openapi-typescript ../openapi.json --output src/lib/openapi.ts"
   },
   "devDependencies": {
-    "@fontsource/fira-mono": "^4.5.10",
     "@neoconfetti/svelte": "^1.0.0",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",

@@ -76,13 +76,7 @@
     <div class="status">IOXIO Tag generator</div>
     <div class="product-area">
       <div class="description">
-        <div>
-          This application serves as a demonstration platform for generating QR codes specifically
-          designed for Data Product Passports.<br />Utilizing the IOXIO Dataspace technology, this
-          app showcases how QR codes can be generated to serve as digital passports for various Data
-          Products. These QR codes can be read using a compatible reader application, enabling
-          access to relevant product details in real time.
-        </div>
+        <p>This application serves as a demonstration platform for generating QR codes specifically designed for Data Product Passports. Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be generated to serve as digital passports for various Data Products. These QR codes can be read using a compatible reader application, enabling access to relevant product details in real time.</p>
         <a class="documentation" href="/">See documentation →</a>
       </div>
     </div>
@@ -95,16 +89,16 @@
 
 <style lang="scss">
   .container {
-    max-width: 1440px;
     display: flex;
     flex-direction: row;
     margin: auto;
     width: 100%;
+    min-height: 100vh;
     overflow: hidden;
     .form-wrapper {
       padding: 120px;
       background-color: white;
-      width: 52%;
+      width: 55%;
       position: relative;
       @media screen and (max-width: 1440px) {
         flex: 1;
@@ -136,7 +130,7 @@
     .qrcode-area-wrapper {
       padding: 100px 50px 20px;
       background-color: #111920;
-      width: 48%;
+      width: 45%;
       display: flex;
       flex-direction: column;
       @media screen and (max-width: 1440px) {
