@@ -7,11 +7,11 @@
   "image_url": "https://ioxio-showroom.com/img/modular-power-pack.png",
   "supported_dataproducts": [
     {
-      "name": "DigitalProductPassport/Energy/Battery/ChargingHistory",
+      "path": "DigitalProductPassport/Energy/Battery/ChargingHistory",
       "source": "showroom"
     },
     {
-      "name": "DigitalProductPassport/Energy/Battery/ProductDataSheet",
+      "path": "DigitalProductPassport/Energy/Battery/ProductDataSheet",
       "source": "showroom"
     }
   ]
