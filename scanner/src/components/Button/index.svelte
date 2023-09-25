@@ -15,6 +15,7 @@
 
 <style>
   .button {
+    cursor: pointer;
     padding: 0.5rem 1rem;
     background-color: rgba(60, 176, 142, 1);
     border-radius: 0.5rem;
@@ -32,5 +33,6 @@
     color: white;
     font-family: "Poppins" sans-serif;
     font-size: 1rem;
+    font-weight: bold;
   }
 </style>

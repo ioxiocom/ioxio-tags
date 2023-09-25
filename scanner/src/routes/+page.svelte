@@ -7,7 +7,7 @@
   import question from "$assets/question.svg"
   import logo from "$assets/logo.svg"
   import camera from "$assets/camera.svg"
-  import subtract from "$assets/subtract.png"
+  import subtract from "$assets/subtract.svg"
   import Button from "$components/Button/index.svelte"
 
   // Very uncool way of trying to fix the low quality library
@@ -384,6 +384,7 @@
     justify-content: center;
     margin-top: 1rem;
     gap: 0.5rem;
+    text-decoration: none;
   }
 
   .documentation-wrapper img {
@@ -394,6 +395,7 @@
     color: white;
     font-size: 1.2rem;
     font-family: "Poppins", sans-serif;
+    font-weight: bold;
   }
 
   .button-wrapper {
@@ -403,6 +405,7 @@
   }
 
   .logo {
+    width: 80%;
     position: absolute;
     left: 50%;
     top: 50%;
