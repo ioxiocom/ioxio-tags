@@ -6,7 +6,7 @@ from fastapi import APIRouter, Response
 from pydantic import BaseModel, Field
 from starlette import status
 
-from app.tag import make_cose_code, make_url_code, verify_code
+from app.tag import make_cose_code, make_url_code, verify_code, fetch_metadata
 from settings import conf
 
 router = APIRouter(prefix="/tag")
@@ -78,14 +78,14 @@ async def verify_v1(data: VerifyV1Request):
              responses={400: {"model": TagsErrorResponse}},
              tags=["tag"],
              )
-async def metadata_v1(data: MetadataV1Response):
-    return JSONResponse(
-        status_code=400,
-        content=TagsErrorResponse(
-            error="Well this is embarrassing, someone forgot to implement me.",
-            code="not_implemented"
-        ).model_dump()
-    )
+async def metadata_v1(data: MetadataV1Request):
+    try:
+        return await fetch_metadata(data.iss, data.product)
+    except TagsError as e:
+        return JSONResponse(
+            status_code=400,
+            content=TagsErrorResponse(error=e.error, code=e.code).model_dump()
+        )
 
 
 @router.post("/generate/secure/v1/",

@@ -111,7 +111,7 @@
           "content": {
             "application/json": {
               "schema": {
-                "$ref": "#/components/schemas/MetadataV1Response"
+                "$ref": "#/components/schemas/MetadataV1Request"
               }
             }
           },
@@ -316,6 +316,24 @@
         },
         "type": "object",
         "title": "HTTPValidationError"
+      },
+      "MetadataV1Request": {
+        "properties": {
+          "iss": {
+            "type": "string",
+            "title": "Issuer of the code, aka iss from the QR code data"
+          },
+          "product": {
+            "type": "string",
+            "title": "Product category, aka product from the QR code data"
+          }
+        },
+        "type": "object",
+        "required": [
+          "iss",
+          "product"
+        ],
+        "title": "MetadataV1Request"
       },
       "MetadataV1Response": {
         "properties": {

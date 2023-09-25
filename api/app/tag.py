@@ -1,3 +1,4 @@
+import asyncio
 import re
 import unicodedata
 from copy import copy
@@ -6,6 +7,9 @@ from urllib.parse import quote_plus
 
 import cbor2
 import cwt
+import httpx
+from httpx import HTTPError
+from cwt.cwt import COSEKeyInterface
 from base45 import b45encode, b45decode
 import qrcode
 from pydantic import BaseModel
@@ -16,6 +20,7 @@ from app.errors import CannotSignInvalidIssuer, TagsError
 from app.log import logger
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
+import app.routes.tag as tag
 
 # COSE algorithms from technical format to string argment format
 # https://python-cwt.readthedocs.io/en/stable/algorithms.html#cose-algorithms
@@ -49,11 +54,45 @@ class CodeBasics(BaseModel):
     kid: str
 
 
+class ProductPassport(BaseModel):
+    jwks_uri: str
+    logo_url: str
+    product_dataspace: str
+
+
+class SupportedDataProduct(BaseModel):
+    path: str
+    source: str
+
+
+class ProductMetadata(BaseModel):
+    names: dict[str, str]
+    image_url: str
+    supported_dataproducts: list[SupportedDataProduct]
+
+
+def get_product_passport_uri(iss: str):
+    return f"https://{iss}/.well-known/product-passport.json"
+
+
+def get_product_metadata_uri(iss: str, product: str):
+    return f"https://{iss}/.well-known/product-passport/products/{product}.json"
+
+
 async def fetch_json_file(url: str) -> dict:
-    raise NotImplementedError()
+    async with httpx.AsyncClient() as client:
+        res = await client.get(url)
+        res.raise_for_status()
+
+        return await res.json()
 
 
-def parse_code_insecure(code: str) -> CodeBasics:
+def ioxio_tag_str_to_cose_bytes(code: str) -> bytes:
+    """
+    IOXIO Tag strings start with `IT1:` which is followed by Base45 encoded COSE bytes.
+    :param str code: Original tag string
+    :return bytes: Base45 decoded COSE bytes
+    """
     if code.startswith("IT1:"):
         code_b45 = code[4:]
     else:
@@ -63,13 +102,18 @@ def parse_code_insecure(code: str) -> CodeBasics:
         )
 
     try:
-        cose_bytes = b45decode(code_b45)
+        return b45decode(code_b45)
     except ValueError:
         raise TagsError(
             error="Not an IOXIO Tag code, failed Base45 decode",
             code="signature_verification_failed",
         )
 
+
+def cose_parse_insecure(cose_bytes: bytes) -> CodeBasics:
+    """
+    Parse the important details from the COSE bytes that are required for further processing. Do NOT verify anything.
+    """
     msg = cwt.COSEMessage.loads(cose_bytes)
 
     # Extract alg and Key ID
@@ -99,10 +143,78 @@ def parse_code_insecure(code: str) -> CodeBasics:
         )
 
 
-async def verify_code(code_b45: str):
-    basics = parse_code_insecure(code_b45)
+def cose_verify(cose_bytes: bytes, key: COSEKeyInterface):
+    """
+    Verify COSE signature, raises exceptions if it fails.
+    """
+    cwt.decode(cose_bytes, key)
 
-    # TODO: Fetch files, actually verify contents
+
+async def verify_code(code_b45: str):
+    cose_bytes = ioxio_tag_str_to_cose_bytes(code_b45)
+    basics = cose_parse_insecure(cose_bytes)
+
+    try:
+        product_passport = ProductPassport(**await fetch_json_file(get_product_passport_uri(basics.payload.iss)))
+    except HTTPError:
+        raise TagsError(
+            error="Signature verification failed, couldn't read metadata from domain.",
+            code="invalid_issuer_cannot_read_product_passport_metadata",
+        )
+
+    try:
+        jwks = await fetch_json_file(product_passport.jwks_uri)
+    except HTTPError:
+        raise TagsError(
+            error="Signature verification failed, couldn't read JWKS keys from domain.",
+            code="invalid_issuer_cannot_read_jwks",
+        )
+
+    try:
+        # Find the correct JWK
+        jwk = next(jwk for jwk in jwks["keys"] if jwk["kid"] == basics.kid and jwk["alg"] == basics.alg)
+        cose_key = cwt.COSEKey.from_jwk(jwk)
+
+        # Decode and verify
+        cose_verify(cose_bytes, cose_key)
+    except StopIteration:
+        raise TagsError(
+            error="Signature verification failed, matching key was not found.",
+            code="invalid_signature_jwks_invalid_key",
+        )
+    except cwt.CWTError:
+        raise TagsError(
+            error="Signature verification failed.",
+            code="invalid_signature_jwks_failed",
+        )
+
+
+async def fetch_metadata(iss: str, product: str):
+    product_passport_uri = get_product_passport_uri(iss)
+    product_uri = get_product_metadata_uri(iss, product)
+
+    try:
+        product_passport, product_metadata = await asyncio.gather(
+            fetch_json_file(product_passport_uri),
+            fetch_json_file(product_uri),
+        )
+
+        product_passport = ProductPassport(**product_passport)
+        product_metadata = ProductMetadata(**product_metadata)
+    except HTTPError:
+        logger.exception(f"Failed to fetch metadata for {iss}")
+        raise TagsError(
+            error="Failed to fetch metadata, or validation failed.",
+            code="failed_to_fetch_metadata",
+        )
+
+    return tag.MetadataV1Response(
+        logo_url=product_passport.logo_url,
+        image_url=product_metadata.image_url,
+        product_dataspace=product_passport.product_dataspace,
+        names=product_metadata.names,
+        supported_dataproducts=product_metadata.supported_dataproducts,
+    )
 
 
 def slugify(value: str, allow_unicode=False) -> str:
