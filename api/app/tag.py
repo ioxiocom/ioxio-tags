@@ -61,15 +61,10 @@ class ProductPassport(BaseModel):
     product_dataspace: str
 
 
-class SupportedDataProduct(BaseModel):
-    path: str
-    source: str
-
-
 class ProductMetadata(BaseModel):
     names: dict[str, str]
     image_url: str
-    supported_dataproducts: list[SupportedDataProduct]
+    supported_dataproducts: list[dict]
 
 
 def get_product_passport_uri(iss: str):
@@ -215,9 +210,9 @@ async def fetch_metadata(iss: str, product: str):
 
     return tag.MetadataV1Response(
         logo_url=product_passport.logo_url,
-        image_url=product_metadata.image_url,
         product_dataspace=product_passport.product_dataspace,
         names=product_metadata.names,
+        image_url=product_metadata.image_url,
         supported_dataproducts=product_metadata.supported_dataproducts,
     )
 
