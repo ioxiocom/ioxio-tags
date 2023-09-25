@@ -40,6 +40,9 @@ devDependencies:
   sass:
     specifier: ^1.68.0
     version: 1.68.0
+  sv-tooltip:
+    specifier: ^0.1.5
+    version: 0.1.5
   svelecte:
     specifier: ^3.17.2
     version: 3.17.2
@@ -1672,6 +1675,10 @@ packages:
     resolution: {integrity: sha512-ot0WnXS9fgdkgIcePe6RHNk1WA8+muPa6cSjeR3V8K27q9BB1rTE3R1p7Hv0z1ZyAc8s6Vvv8DIyWf681MAt0w==}
     engines: {node: '>= 0.4'}
     dev: false
+
+  /sv-tooltip@0.1.5:
+    resolution: {integrity: sha512-fdynXLW//7Fe9UApBGg0eFmi+BICra0oHCPS4x+NmEp76iYwPD2Xh67iXks7HPBuP/pDCdvBH8mESWDUD3j3lA==}
+    dev: true
 
   /svelecte@3.17.2:
     resolution: {integrity: sha512-dKm50Em11f4DNP3UMI+6oGUBHSrPWDOVsuG44T+2f/Vh/RVJYWjdTGJy87BfetDRTHKmuGMiwaGmMBh58tHmGg==}

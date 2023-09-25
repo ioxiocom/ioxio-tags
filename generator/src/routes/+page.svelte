@@ -1,5 +1,5 @@
 <script lang="ts">
-  import type { Option } from "$components/FormSelectGroup/index.svelte"
+    import Tooltip from "sv-tooltip"
   import FormInputGroup from "$components/FormInputGroup/index.svelte"
   import FormSelectGroup from "$components/FormSelectGroup/index.svelte"
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
@@ -9,6 +9,7 @@
   import effectSvg from "$assets/effect.svg?url"
   import logomarkSvg from "$assets/ioxio-logomark.svg?url"
   import logoSvg from "$assets/ioxio-logo.svg?url"
+  import QuestionSvg from "$assets/question.svg?component"
   import subtractSvg from "$assets/subtract.png"
   import type { PageData } from "./$types"
 
@@ -57,7 +58,14 @@
         </div>
       </div>
       <div class="row">
-        <FormCheckbox name="valid" label="Create valid signature" />
+        <div class="col">
+          <FormCheckbox name="valid" label="Create valid signature" />
+          <Tooltip tip="Whats this?" top>
+            <span  class="question-icon">
+              <QuestionSvg />
+            </span>
+          </Tooltip>
+        </div>
       </div>
       <div class="actions-wrapper">
         <Button title="Generate IOXIO Tag" onClick={() => {}} />
@@ -102,13 +110,13 @@
     min-height: 100vh;
     overflow: hidden;
     .form-wrapper {
-      padding: 120px;
+      padding: 7.5rem;
       background-color: white;
       width: 55%;
       position: relative;
       @media screen and (max-width: 1440px) {
         flex: 1;
-        padding: 50px;
+        padding: 3rem;
       }
       @media screen and (max-width: 1000px) {
         width: 100%;
@@ -128,20 +136,20 @@
       .logomarkSvg {
         width: 30%;
         position: absolute;
-        bottom: 0;
+        bottom: 2rem;
         left: -2%;
         z-index: 0;
       }
     }
     .qrcode-area-wrapper {
-      padding: 100px 50px 20px;
+      padding: 1rem 3rem 1rem;
       background-color: #111920;
       width: 45%;
       display: flex;
       flex-direction: column;
       @media screen and (max-width: 1440px) {
         flex: 1;
-        padding: 50px;
+        padding: 1rem 3rem;
       }
       @media screen and (max-width: 1000px) {
         width: 100%;
@@ -152,18 +160,17 @@
         align-items: center;
         justify-content: center;
         position: relative;
-        min-height: 420px;
-        padding-bottom: 5rem;
+        min-height: 26rem;
         .frame {
-          width: 300px;
-          height: 300px;
+          width: 20rem;
+          height: 20rem;
           position: absolute;
-          left: -25px;
-          top: -25px;
+          left: -2rem;
+          top: -2rem;
         }
         .qrcode {
-          width: 250px;
-          height: 250px;
+          width: 16rem;
+          height: 16rem;
           position: relative;
         }
         .effect {
@@ -223,8 +230,20 @@
   .row {
     margin-bottom: 2.2rem;
   }
+  .col {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
   .toggle-row {
     margin-top: 1.2rem;
     margin-bottom: 1.2rem;
+  }
+  .question-icon {
+    margin-left: 1rem;
+    display: flex !important;
+    align-items: center !important;
+    flex-direction: row !important;
+    cursor: pointer;
   }
 </style>
