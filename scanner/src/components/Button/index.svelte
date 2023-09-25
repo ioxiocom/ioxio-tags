@@ -8,13 +8,12 @@
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
-  {#if title}
-    <span class="title">{title}</span>
-  {/if}
+  <span class="title">{title}</span>
 </button>
 
 <style>
   .button {
+    cursor: pointer;
     padding: 0.5rem 1rem;
     background-color: rgba(60, 176, 142, 1);
     border-radius: 0.5rem;
@@ -24,6 +23,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    font-weight: bold;
   }
   .button:active {
     opacity: 0.7;

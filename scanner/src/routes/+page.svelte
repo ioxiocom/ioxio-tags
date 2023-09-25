@@ -1,13 +1,15 @@
 <script lang="ts">
+  import "./style.css"
+  import { SvelteToast, toast } from '@zerodevx/svelte-toast'
   import { decode as decodeCbor } from "cbor-x"
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
   import { Buffer } from "buffer"
   import { decode as decodeBase45 } from "base45"
-  import qrcode from "$assets/qrcode.png"
-  import question from "$assets/question.svg"
-  import logo from "$assets/logo.svg"
-  import camera from "$assets/camera.svg"
-  import subtract from "$assets/subtract.png"
+  import IoxioTagExample from "$assets/ioxio-tag-example.png"
+  import Question from "$assets/question.svg"
+  import IoxioTagLogo from "$assets/ioxio-tag-logo.svg"
+  import Camera from "$assets/camera.svg"
+  import Subtract from "$assets/subtract.svg"
   import Button from "$components/Button/index.svelte"
 
   // Very uncool way of trying to fix the low quality library
@@ -57,6 +59,15 @@
     }
   }
 
+  function consoleLog(message: string, type: string = "info")  {
+    toast.push("Found low security IOXIO Tag URL", { classes: [type === "info" ? "info" : "warn"] })
+    if (type === "info") {
+      console.log(message);
+    } else {
+      console.error(message);
+    }
+  }
+
   function hideBackground() {
     BarcodeScanner.hideBackground()
     document.body.style.background = "transparent"
@@ -74,6 +85,7 @@
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
   // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
   async function startScan() {
+    // TODO: Permissions cannot be ignored
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!permissionResult.granted) {
       // Make a new permission request
@@ -82,6 +94,7 @@
         return await startScan()
       } else {
         // TODO: Handle this somehow, e.g. show a screen asking to confirm permissions, depending on which result it is
+        consoleLog(`Did not get camera permission, ${JSON.stringify(permissionResult)}`, "warn");
         throw new Error(`Did not get camera permission, ${JSON.stringify(permissionResult)}`)
       }
     }
@@ -96,9 +109,9 @@
 
       if (detected) {
         // Stop scanning
-        console.log("Detected IOXIO Tag")
+        consoleLog("Detected IOXIO Tag")
       } else {
-        console.log("No IOXIO Tag detected")
+        consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
         scanning = false
         showBackground()
@@ -109,9 +122,9 @@
   async function scanPreset() {
     const detected = await tryParseIoxioTags(PRESET_DATA)
     if (detected) {
-      console.log("Detected IOXIO Tag")
+      consoleLog("Detected IOXIO Tag")
     } else {
-      console.log("No IOXIO Tag detected")
+      consoleLog("No IOXIO Tag detected", "warn")
     }
   }
 
@@ -120,21 +133,21 @@
     return urlPattern.test(url)
   }
 
-  async function tryParseIoxioTags(contents: string) {
+  async function tryParseIoxioTags(contents: string): Promise<boolean> {
     const isValidURL = isTagsURL(contents)
     if (isValidURL) {
-      console.log("Found low security IOXIO Tag URL")
-      console.log(contents)
+      consoleLog("Found low security IOXIO Tag URL")
+      consoleLog(contents)
       return true
     } else {
-      console.log("Didn't scan an IOXIO Tag URL, maybe it's B45-COSE?")
-      console.log(contents)
+      consoleLog("Didn't scan an IOXIO Tag URL, maybe it's B45-COSE?", "warn")
+      consoleLog(contents, "warn")
       try {
         if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
           const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
           const b45decoded = decodeBase45(withoutVersion)
           const cborData = await parseCoseInsecure(b45decoded)
-          console.log("Parsed insecure data:", cborData)
+          consoleLog("Parsed insecure data:" + cborData, "info")
           if (
             cborData.kid &&
             cborData.payload.iss &&
@@ -142,8 +155,8 @@
             cborData.payload.id
           ) {
             // This is an IOXIO Tags QR code
-            console.log("IOXIO Tag detected, should continue to do more things")
-            console.log(cborData.payload)
+            consoleLog("IOXIO Tag detected, should continue to do more things")
+            consoleLog(JSON.stringify(cborData.payload))
 
             // TODO: Fetch metadata + JWKS keys from cborData.iss
             // TODO: Verify COSE signature with JWKS key
@@ -157,9 +170,9 @@
             let verified = false
 
             if (!jwk) {
-              console.error("Couldn't find the JWKS key to verify this code")
+              consoleLog("Couldn't find the JWKS key to verify this code", "warn")
             } else {
-              verified = await verifyCose(b45decoded.toString(), jwk)
+              verified = await verifyCose(b45decoded, jwk)
             }
 
             return true
@@ -171,10 +184,10 @@
       } catch (e: any) {
         if (e.toString().indexOf("Invalid base45 string") !== -1) {
           // TODO: Show error
-          console.warn(`Not a valid IOXIO Tag: ${contents}`)
+          consoleLog(`Not a valid IOXIO Tag: ${contents}`, "warn")
         } else {
           // TODO: Show error
-          console.error(e)
+          consoleLog(e, "warn")
           return false
         }
       }
@@ -189,12 +202,12 @@
     return new TextDecoder().decode(value)
   }
 
-  async function parseCoseInsecure(message: string): Promise<RawSecureTagParseResult> {
+  async function parseCoseInsecure(message: Buffer): Promise<RawSecureTagParseResult> {
     // No verification of signature performed here
     const coseContainer = decodeCbor(message)
     const [_headers1, _headers2, cborPayload, _signature] = coseContainer.value
 
-    console.log({ _headers1, _headers2, cborPayload, _signature })
+    consoleLog(JSON.stringify({ _headers1, _headers2, cborPayload, _signature }))
 
     // Extract key ID from headers
     // https://www.iana.org/assignments/cose/cose.xhtml
@@ -206,13 +219,13 @@
     }
   }
 
-  async function verifyCose(message: string, jwk: object): Promise<boolean> {
-    console.log(`Verifying: ${message} with ${JSON.stringify(jwk)}`)
-    const messageBuffer = stringToBuffer(message)
+  async function verifyCose(message: Buffer, jwk: object): Promise<boolean> {
+    consoleLog(`Verifying: ${message} with ${JSON.stringify(jwk)}`)
 
     // cose-js library uses `require` etc. and doesn't seem to actually work in a browser for multiple reasons
     // @mattrglobal/cose might work but their licensing is not compatible with .. anything
     // might just have to submit this to a backend, maybe running Node, maybe running Python
+    consoleLog("Cannot verify COSE yet")
     throw new Error("Cannot verify COSE yet")
 
     return true
@@ -226,11 +239,11 @@
     {/if}
     <div class="relative barcode-scanner-area-wrapper">
       <div class="relative barcode-scanner-area">
-        <img alt="subtract" class="subtract-image" src={subtract} />
+        <img alt="subtract" class="subtract-image" src={Subtract} />
         {#if scanning}
           <div class="square surround-cover" />
         {:else}
-          <img class="logo" src={logo} alt="logo" />
+          <img class="logo" src={IoxioTagLogo} alt="logo" />
         {/if}
       </div>
       <div class="relative">
@@ -244,7 +257,7 @@
       </div>
       {#if !scanning}
         <div class="relative button-wrapper">
-          <Button onClick={startScan} icon={camera} title="Turn on" />
+          <Button onClick={startScan} icon={Camera} title="Turn on" />
         </div>
       {/if}
     </div>
@@ -254,15 +267,16 @@
           Here's an example to identify an <strong>IOXIO Tag</strong>
         </div>
         <div class="example-code">
-          <img src={qrcode} alt="code" />
+          <img src={IoxioTagExample} alt="code" />
         </div>
       </div>
     {/if}
     <a class="relative documentation-wrapper" href="/">
-      <img alt="question" src={question} />
+      <img alt="question" src={Question} />
       <p class="documentation-label">Documentation</p>
     </a>
   </div>
+  <SvelteToast />
 </main>
 
 <style>
@@ -346,7 +360,6 @@
     font-size: 1rem;
     color: white;
     margin-top: 3rem;
-    font-family: "Poppins", sans-serif;
   }
 
   .example-code-wrapper {
@@ -363,7 +376,6 @@
     color: white;
     font-size: 1.1rem;
     flex: 1;
-    font-family: "Poppins", sans-serif;
   }
 
   .example-code {
@@ -379,10 +391,12 @@
   }
 
   .documentation-wrapper {
+    text-decoration: none;
     display: flex;
     align-items: center;
     justify-content: center;
     margin-top: 1rem;
+    font-weight: bold;
     gap: 0.5rem;
   }
 
@@ -393,7 +407,6 @@
   .documentation-label {
     color: white;
     font-size: 1.2rem;
-    font-family: "Poppins", sans-serif;
   }
 
   .button-wrapper {
@@ -403,6 +416,7 @@
   }
 
   .logo {
+    width: 80%;
     position: absolute;
     left: 50%;
     top: 50%;
