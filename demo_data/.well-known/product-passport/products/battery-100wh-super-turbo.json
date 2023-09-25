@@ -5,7 +5,7 @@
     "en_FI": "Rili Guud Akku"
   },
   "image_url": "https://ioxio-showroom.com/img/modular-power-pack.png",
-  "supported_data_products": [
+  "supported_dataproducts": [
     {
       "name": "DigitalProductPassport/Energy/Battery/ChargingHistory",
       "source": "showroom"
