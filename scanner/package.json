@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm install && vite dev --host",
+    "dev": "pnpm install && vite dev",
     "build": "vite build && npx cap copy",
     "android": "npx cap copy android",
     "ios": "npx cap copy ios",
@@ -20,6 +20,7 @@
     "@types/base45": "^2.0.0",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
+    "@zerodevx/svelte-toast": "^0.9.5",
     "eslint": "^8.47.0",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
