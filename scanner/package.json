@@ -43,6 +43,7 @@
     "buffer": "^6.0.3",
     "cbor-x": "^1.5.4",
     "html5-qrcode": "^2.3.8",
-    "openapi-typescript": "^6.6.1"
+    "openapi-typescript": "^6.6.1",
+    "sass": "^1.68.0"
   }
 }

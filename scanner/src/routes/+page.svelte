@@ -9,6 +9,7 @@
   import camera from "$assets/camera.svg"
   import subtract from "$assets/subtract.png"
   import Button from "$components/Button/index.svelte"
+  import Loading from "$components/Loading/index.svelte"
 
   // Very uncool way of trying to fix the low quality library
   if (typeof window !== "undefined") {
@@ -263,9 +264,57 @@
       <p class="documentation-label">Documentation</p>
     </a>
   </div>
+
+  <div class="test">
+    <div class="test-card">
+      <div class="split">
+        <div>
+          <h2>Available Dataproduct name</h2>
+          <span>Dataproduct description</span>
+        </div>
+        <div>
+          <Button title="Fetch >" />
+        </div>
+      </div>
+      <hr />
+      <Loading type="light" />
+    </div>
+    <Loading type="dark" />
+  </div>
 </main>
 
-<style>
+<style lang="scss">
+  .test {
+    display: none; // This element just for testing, to be removed later
+    position: absolute;
+    z-index: 2123153;
+    bottom: 5rem;
+  }
+
+  .test-card {
+    .split {
+      display: flex;
+      flex-direction: row;
+      gap: 2rem;
+      align-items: end;
+    }
+
+    color: #fff;
+    font-family: "Poppins", sans-serif;
+
+    h2 {
+      margin: 0;
+    }
+
+    hr {
+      border-color: #20303e;
+    }
+
+    background: #1a2934;
+    padding: 2rem;
+    border-radius: 5px;
+  }
+
   main {
     display: flex;
     flex-direction: column;
@@ -277,7 +326,6 @@
 
   #reader {
     width: 100%;
-    height: 100vh;
     min-height: 500px;
     display: flex;
     flex-direction: column;
