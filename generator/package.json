@@ -12,14 +12,17 @@
     "import-api": "openapi-typescript ../openapi.json --output src/lib/openapi.ts"
   },
   "devDependencies": {
-    "@fontsource/fira-mono": "^4.5.10",
     "@neoconfetti/svelte": "^1.0.0",
+    "@poppanator/sveltekit-svg": "^4.1.3",
     "@sveltejs/adapter-auto": "^2.0.0",
     "@sveltejs/kit": "^1.20.4",
     "@types/cookie": "^0.5.1",
     "@typescript-eslint/eslint-plugin": "^6.3.0",
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.47.0",
+    "sass": "^1.68.0",
+    "sv-tooltip": "^0.1.5",
+    "svelecte": "^3.17.2",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",
     "tslib": "^2.4.1",
@@ -28,6 +31,7 @@
   },
   "type": "module",
   "dependencies": {
+    "@fontsource/poppins": "^5.0.8",
     "@sveltejs/adapter-node": "^1.3.1",
     "openapi-typescript": "^6.6.1"
   }

@@ -1,0 +1,5 @@
+{
+  "devDependencies": {
+    "@poppanator/sveltekit-svg": "^4.1.3"
+  }
+}
