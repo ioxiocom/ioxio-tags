@@ -16,7 +16,7 @@
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <Svelecte {options} {placeholder} />
+  <Svelecte inputId={name} {options} {placeholder} />
 </div>
 
 <style lang="scss">

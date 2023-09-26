@@ -6,7 +6,7 @@
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <input type="text" {name} {placeholder} />
+  <input id={name} type="text" {name} {placeholder} />
 </div>
 
 <style lang="scss">
