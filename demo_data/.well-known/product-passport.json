@@ -1,0 +1,5 @@
+{
+  "jwks_uri": "https://tags.ioxio.dev/.well-known/jwks.json",
+  "logo_url": "https://ioxio.com/favicon-32x32.png",
+  "product_dataspace": "sandbox.ioxio-dataspace.com"
+}

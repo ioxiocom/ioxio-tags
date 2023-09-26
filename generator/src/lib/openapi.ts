@@ -58,6 +58,13 @@ export interface components {
       /** Detail */
       detail?: components["schemas"]["ValidationError"][];
     };
+    /** MetadataV1Request */
+    MetadataV1Request: {
+      /** Issuer of the code, aka iss from the QR code data */
+      iss: string;
+      /** Product category, aka product from the QR code data */
+      product: string;
+    };
     /** MetadataV1Response */
     MetadataV1Response: {
       /** URL to the logo of the issuer */
@@ -168,7 +175,7 @@ export interface operations {
   metadata_v1_tag_metadata_v1__post: {
     requestBody: {
       content: {
-        "application/json": components["schemas"]["MetadataV1Response"];
+        "application/json": components["schemas"]["MetadataV1Request"];
       };
     };
     responses: {

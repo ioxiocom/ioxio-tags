@@ -16,6 +16,7 @@ cwt = "^2.5.0"
 cbor2 = "^5.4.6"
 base45 = "^0.4.4"
 qrcode = {extras = ["pil"], version = "^7.4.2"}
+httpx = "^0.25.0"
 
 
 [tool.poetry.group.dev.dependencies]
