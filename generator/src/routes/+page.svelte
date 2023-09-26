@@ -238,9 +238,9 @@
   }
   .question-icon {
     margin-left: 1rem;
-    display: flex !important;
-    align-items: center !important;
-    flex-direction: row !important;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
     cursor: pointer;
   }
 </style>
