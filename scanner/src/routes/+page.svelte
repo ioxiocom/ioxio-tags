@@ -173,53 +173,6 @@
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
-<<<<<<< HEAD
-=======
-  }
-
-  .example-description {
-    color: white;
-    font-size: 1.1rem;
-    flex: 1;
-    font-family: "Poppins", sans-serif;
-  }
-
-  .example-code {
-    padding: 0.5rem;
-    background-color: white;
-    border-radius: 0.5rem;
-    max-width: 7rem;
-    display: flex;
-  }
-
-  .example-code img {
-    width: 100%;
-  }
-
-  .documentation-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    gap: 0.5rem;
-    text-decoration: none;
-  }
-
-  .documentation-wrapper img {
-    width: 2rem;
-  }
-
-  .documentation-label {
-    color: white;
-    font-size: 1.2rem;
-    font-family: "Poppins", sans-serif;
-    font-weight: bold;
-  }
-
-  .button-wrapper {
-    display: flex;
-    justify-content: center;
->>>>>>> c2de598 (scanner)
     margin-top: 2rem;
   }
   .logo {
