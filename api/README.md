@@ -23,5 +23,8 @@ openssl genrsa -out demo_key_private.pem 2048
 openssl rsa -in demo_key_private.pem -pubout -out demo_key_private.pub
 ```
 
-Then you can run `poetry run python make_jwks.py` to generate a `jwks.json` for hosting the public
-key.
+Windows probably doesn't ship `openssl` by default, you might need to install it via e.g.
+https://community.chocolatey.org/packages/openssl
+
+Then if you want to test hosting the JWKS keys as well, you can run `poetry run python make_jwks.py`
+to generate a `jwks.json` for hosting the public key.
