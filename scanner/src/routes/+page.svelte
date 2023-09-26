@@ -63,7 +63,7 @@
           <span>Dataproduct description</span>
         </div>
         <div>
-          <Button title="Fetch >"  onClick={() => {}}/>
+          <Button title="Fetch >" onClick={() => {}} />
         </div>
       </div>
       <hr />
