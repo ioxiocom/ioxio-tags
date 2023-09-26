@@ -42,9 +42,9 @@ function isTagsURL(url: string) {
   return urlPattern.test(url)
 }
 
-function stringToBuffer(value: string): Buffer {
-  return Buffer.from(value)
-}
+// function stringToBuffer(value: string): Buffer {
+//   return Buffer.from(value)
+// }
 
 function Uint8ArrayToString(value: Uint8Array): string {
   return new TextDecoder().decode(value)
@@ -119,6 +119,9 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
             consoleLog("Couldn't find the JWKS key to verify this code", "warn")
           } else {
             verified = await verifyCose(b45decoded, jwk)
+            if (verified) {
+              consoleLog("Signature verified")
+            }
           }
 
           return true
@@ -127,7 +130,7 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
         // No IT1: prefix
         return false
       }
-    } catch (e: any) {
+    } catch (e: unknown) {
       if (e.toString().indexOf("Invalid base45 string") !== -1) {
         // TODO: Show error
         consoleLog(`Not a valid IOXIO Tag: ${contents}`, "warn")

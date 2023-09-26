@@ -1,6 +1,8 @@
 # --- BUILD ---
 FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
 
+ENV DEVELOPMENT="false"
+
 WORKDIR /src/scanner
 
 ADD package.json pnpm-lock.yaml ./
