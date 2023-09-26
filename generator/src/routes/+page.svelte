@@ -185,8 +185,8 @@
       }
       .status {
         color: white;
-        font-size: 2rem;
-        font-weight: bold;
+        font-size: 2.125rem;
+        font-weight: 400;
         text-align: center;
         padding: 1rem 0;
       }
@@ -196,6 +196,9 @@
         .description {
           color: white;
           font-size: 1.2rem;
+          p {
+            text-align: justify;
+          }
           .documentation {
             margin-top: 2rem;
             display: block;

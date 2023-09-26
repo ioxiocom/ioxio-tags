@@ -14,7 +14,7 @@
     label {
       display: block;
       font-size: 1rem;
-      margin-bottom: 0.8rem;
+      margin-bottom: 0.5rem;
       color: rgba(16, 25, 32, 1);
     }
     input {
