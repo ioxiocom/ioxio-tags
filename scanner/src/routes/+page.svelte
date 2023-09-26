@@ -63,7 +63,7 @@
           <span>Dataproduct description</span>
         </div>
         <div>
-          <Button title="Fetch >" />
+          <Button title="Fetch >"  onClick={() => {}}/>
         </div>
       </div>
       <hr />
@@ -71,7 +71,7 @@
     </div>
     <Loading type="dark" />
   </div>
-</main>
+</div>
 
 <style lang="scss">
   .test {
@@ -174,9 +174,6 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
-    & > div > button {
-      margin: auto;
-    }
   }
   .logo {
     width: 80%;

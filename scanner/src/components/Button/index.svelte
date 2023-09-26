@@ -14,6 +14,7 @@
 <style>
   .button {
     cursor: pointer;
+    margin: auto;
     padding: 0.5rem 1rem;
     background-color: rgba(60, 176, 142, 1);
     border-radius: 0.5rem;
