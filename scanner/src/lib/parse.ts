@@ -67,17 +67,17 @@ async function parseCoseInsecure(message: Buffer): Promise<RawSecureTagParseResu
   }
 }
 
-// async function verifyCose(message: Buffer, jwk: object): Promise<boolean> {
-//   consoleLog(`Verifying: ${message} with ${JSON.stringify(jwk)}`)
+async function verifyCose(message: Buffer, jwk: object): Promise<boolean> {
+  consoleLog(`Verifying: ${message} with ${JSON.stringify(jwk)}`)
 
-//   // cose-js library uses `require` etc. and doesn't seem to actually work in a browser for multiple reasons
-//   // @mattrglobal/cose might work but their licensing is not compatible with .. anything
-//   // might just have to submit this to a backend, maybe running Node, maybe running Python
-//   consoleLog("Cannot verify COSE yet")
-//   throw new Error("Cannot verify COSE yet")
+  // cose-js library uses `require` etc. and doesn't seem to actually work in a browser for multiple reasons
+  // @mattrglobal/cose might work but their licensing is not compatible with .. anything
+  // might just have to submit this to a backend, maybe running Node, maybe running Python
+  consoleLog("Cannot verify COSE yet")
+  throw new Error("Cannot verify COSE yet")
 
-//   return true
-// }
+  return true
+}
 
 export async function tryParseIoxioTags(contents: string): Promise<boolean> {
   const isValidURL = isTagsURL(contents)
@@ -113,12 +113,15 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
             return key.kid === cborData.kid
           })
 
-          // let verified = false
+          let verified = false
 
           if (!jwk) {
             consoleLog("Couldn't find the JWKS key to verify this code", "warn")
           } else {
-            // verified = await verifyCose(b45decoded, jwk)
+            verified = await verifyCose(b45decoded, jwk)
+            if (verified) {
+              consoleLog("Signature verified")
+            }
           }
 
           return true
@@ -127,7 +130,7 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
         // No IT1: prefix
         return false
       }
-    } catch (e) {
+    } catch (e: unknown) {
       if (e.toString().indexOf("Invalid base45 string") !== -1) {
         // TODO: Show error
         consoleLog(`Not a valid IOXIO Tag: ${contents}`, "warn")
