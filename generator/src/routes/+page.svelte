@@ -28,7 +28,7 @@
   <!-- Left Panel -->
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
-    <img class="logomarkSvg" src={LogomarkSvg} alt="" />
+    <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
     <form>
       <div class="row">
         <FormInputGroup name="domain" label="Issuer domain" placeholder="ex.tags.ioxio.dev" />
@@ -69,9 +69,9 @@
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
       <div class="qrcode">
-        <img class="frame" src={SubtractSvg} alt="" />
-        <img class="effect" src={EffectSvg} alt="" />
-        <img class="logo" src={LogoTagsSvg} alt="" />
+        <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+        <img class="effect" src={EffectSvg} alt="" aria-hidden="true" />
+        <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
       </div>
     </div>
     <div class="status">IOXIO Tag generator</div>
@@ -91,7 +91,7 @@
     </div>
     <div class="footer">
       <span>Made by</span>
-      <img src={LogoSvg} alt="" />
+      <img src={LogoSvg} alt="" aria-hidden="true" />
     </div>
   </div>
 </div>
