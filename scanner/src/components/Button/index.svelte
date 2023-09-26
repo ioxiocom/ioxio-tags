@@ -23,7 +23,6 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
-    font-weight: bold;
   }
   .button:active {
     opacity: 0.7;
@@ -32,5 +31,7 @@
     color: white;
     font-family: "Poppins" sans-serif;
     font-size: 1rem;
+    font-weight: 600;
+    line-height: 1.5rem;
   }
 </style>

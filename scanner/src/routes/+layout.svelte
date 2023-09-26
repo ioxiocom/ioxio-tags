@@ -21,7 +21,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 20px;
+    gap: 1.25rem;
     background: transparent;
   }
 
@@ -51,7 +51,8 @@
     align-items: center;
     justify-content: center;
     margin-top: 1rem;
-    font-weight: bold;
+    font-weight: 600;
+    line-height: 1.5rem;
     gap: 0.5rem;
   }
 

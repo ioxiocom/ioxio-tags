@@ -43,10 +43,14 @@
           Turn on your camera for scan a Product Passport QR code to view product data
         </p>
       </div>
-      <div class="relative button-wrapper">
-        <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+      <div class="relative actions-wrapper">
+        <div>
+          <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+        </div>
         {#if data.isDevelopment}
-          <Button onClick={scanPreset} title="Simulate scan of preset data" />
+          <div>
+            <Button onClick={scanPreset} title="Simulate scan of preset data" />
+          </div>
         {/if}
       </div>
     </div>
@@ -164,12 +168,15 @@
     color: white;
     margin-top: 3rem;
   }
-  .button-wrapper {
+  .actions-wrapper {
     display: flex;
     flex-direction: column;
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+    & > div > button {
+      margin: auto;
+    }
   }
   .logo {
     width: 80%;
