@@ -21,7 +21,7 @@ class Settings(BaseSettings):
     # Configuration for making valid signatures
     RSA_KID: str = "01"  # Key ID in JWKS
     RSA_ISS: str = "tags.ioxio.dev"  # Base domain
-    RSA_PRIVATE_KEY: str = (Path(__file__).parent / "demo_key_private.pem").read_text(encoding="utf-8")
+    RSA_PRIVATE_KEY: str = ""
 
     QR_CORRECTION_LEVEL: str = "Q"  # L = ~7%, M = ~15%, Q = ~25%, H = ~30%
 
@@ -42,3 +42,4 @@ class Settings(BaseSettings):
 conf = Settings()
 if conf.is_local_env():
     conf.LOG_LEVEL = "DEBUG"
+    conf.RSA_PRIVATE_KEY = (Path(__file__).parent / "demo_key_private.pem").read_text(encoding="utf-8")
