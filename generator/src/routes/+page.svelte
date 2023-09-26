@@ -107,7 +107,7 @@
     .form-wrapper {
       padding: 7.5rem;
       background-color: white;
-      width: 55%;
+      width: 50%;
       position: relative;
       @media screen and (max-width: 1440px) {
         flex: 1;
@@ -139,7 +139,7 @@
     .qrcode-area-wrapper {
       padding: 1rem 3rem 1rem;
       background-color: #111920;
-      width: 45%;
+      width: 50%;
       display: flex;
       flex-direction: column;
       @media screen and (max-width: 1440px) {
