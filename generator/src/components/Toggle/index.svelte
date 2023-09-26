@@ -1,6 +1,3 @@
-<script context="module" lang="ts">
-</script>
-
 <script lang="ts">
   export let options: string[] = []
   export let value: string
@@ -27,6 +24,8 @@
       border: none;
       width: 8rem;
       height: 2.5rem;
+      font-size: 1rem;
+      font-weight: 500;
       display: flex;
       align-items: center;
       justify-content: center;

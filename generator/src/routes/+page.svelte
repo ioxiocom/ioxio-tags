@@ -5,12 +5,12 @@
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
-  import logoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
-  import effectSvg from "$assets/effect.svg?url"
-  import logomarkSvg from "$assets/ioxio-logomark.svg?url"
-  import logoSvg from "$assets/ioxio-logo.svg?url"
+  import LogoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
+  import EffectSvg from "$assets/effect.svg?url"
+  import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
+  import LogoSvg from "$assets/ioxio-logo.svg?url"
   import QuestionSvg from "$assets/question.svg?component"
-  import subtractSvg from "$assets/subtract.png"
+  import SubtractSvg from "$assets/subtract.svg?url"
   import type { PageData } from "./$types"
 
   export let data: PageData
@@ -20,22 +20,22 @@
 </script>
 
 <svelte:head>
-  <title>Generator</title>
-  <meta name="description" content="QRcode Generator" />
+  <title>IOXIO Tags™️ generator</title>
+  <meta name="description" content="IOXIO Tags™️ QR code generator demo application" />
 </svelte:head>
 
 <div class="container">
   <!-- Left Panel -->
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
-    <img class="logomarkSvg" src={logomarkSvg} alt="" />
+    <img class="logomarkSvg" src={LogomarkSvg} alt="" />
     <form>
       <div class="row">
         <FormInputGroup name="domain" label="Issuer domain" placeholder="ex.tags.ioxio.dev" />
       </div>
       <div class="row">
         <div class="toggle-row">
-          <Toggle options={["arbitrary", "premade"]} bind:value={productOption} />
+          <Toggle options={["Arbitrary", "Premade"]} bind:value={productOption} />
         </div>
         <FormSelectGroup
           name="product"
@@ -47,7 +47,7 @@
       <div class="row">
         <FormInputGroup name="productId" label="Product ID" placeholder="ex. VV123456-12" />
         <div class="toggle-row">
-          <Toggle options={["signed", "unsigned"]} bind:value={signOption} />
+          <Toggle options={["Signed", "Unsigned"]} bind:value={signOption} />
         </div>
       </div>
       <div class="row">
@@ -69,9 +69,9 @@
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
       <div class="qrcode">
-        <img class="frame" src={subtractSvg} alt="" />
-        <img class="effect" src={effectSvg} alt="" />
-        <img class="logo" src={logoTagsSvg} alt="" />
+        <img class="frame" src={SubtractSvg} alt="" />
+        <img class="effect" src={EffectSvg} alt="" />
+        <img class="logo" src={LogoTagsSvg} alt="" />
       </div>
     </div>
     <div class="status">IOXIO Tag generator</div>
@@ -79,7 +79,7 @@
       <div class="description">
         <p>
           This application serves as a demonstration platform for generating QR codes specifically
-          designed for Data Product Passports.
+          designed for Digital Product Passports.
         </p>
         <p>
           Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be generated
@@ -91,7 +91,7 @@
     </div>
     <div class="footer">
       <span>Made by</span>
-      <img src={logoSvg} alt="" />
+      <img src={LogoSvg} alt="" />
     </div>
   </div>
 </div>
@@ -103,7 +103,6 @@
     margin: auto;
     width: 100%;
     min-height: 100vh;
-    overflow: hidden;
     .form-wrapper {
       padding: 7.5rem;
       background-color: white;
@@ -203,6 +202,7 @@
             margin-top: 2rem;
             display: block;
             color: rgba(60, 176, 142, 1);
+            text-decoration: none;
           }
         }
       }
