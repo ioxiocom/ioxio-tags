@@ -102,11 +102,11 @@
       <div class="qrcode">
         {#if status !== Status.GENERATING}
           <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+          <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
         {:else}
           <div class="frame anim" />
         {/if}
         <img class="effect" src={EffectSvg} alt="" aria-hidden="true" />
-        <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
       </div>
     </div>
     <div class="status">
