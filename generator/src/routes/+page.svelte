@@ -12,11 +12,13 @@
   import QuestionSvg from "$assets/question.svg?component"
   import SubtractSvg from "$assets/subtract.svg?url"
   import type { PageData } from "./$types"
+  import { Status } from "./types"
 
   export let data: PageData
 
   let productOption: string
   let signOption: string
+  let status: string = Status.READY
 </script>
 
 <svelte:head>
@@ -31,28 +33,51 @@
     <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
     <form>
       <div class="row">
-        <FormInputGroup name="domain" label="Issuer domain" placeholder="ex.tags.ioxio.dev" />
+        <FormInputGroup
+          name="domain"
+          label="Issuer domain"
+          placeholder="ex.tags.ioxio.dev"
+          disabled={status === Status.GENERATING}
+        />
       </div>
       <div class="row">
         <div class="toggle-row">
-          <Toggle options={["Arbitrary", "Premade"]} bind:value={productOption} />
+          <Toggle
+            options={["Arbitrary", "Premade"]}
+            bind:value={productOption}
+            disabled={status === Status.GENERATING}
+          />
         </div>
         <FormSelectGroup
           name="product"
           label="Product"
           placeholder="Type a product"
           options={data.options}
+          disabled={status === Status.GENERATING}
         />
       </div>
       <div class="row">
-        <FormInputGroup name="productId" label="Product ID" placeholder="ex. VV123456-12" />
+        <FormInputGroup
+          name="productId"
+          label="Product ID"
+          placeholder="ex. VV123456-12"
+          disabled={status === Status.GENERATING}
+        />
         <div class="toggle-row">
-          <Toggle options={["Signed", "Unsigned"]} bind:value={signOption} />
+          <Toggle
+            options={["Signed", "Unsigned"]}
+            bind:value={signOption}
+            disabled={status === Status.GENERATING}
+          />
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <FormCheckbox name="valid" label="Create valid signature" />
+          <FormCheckbox
+            name="valid"
+            label="Create valid signature"
+            disabled={status === Status.GENERATING}
+          />
           <Tooltip tip="Whats this?" top>
             <span class="question-icon">
               <QuestionSvg />
@@ -61,7 +86,13 @@
         </div>
       </div>
       <div class="actions-wrapper">
-        <Button title="Generate IOXIO Tag" onClick={() => {}} />
+        <Button
+          disabled={status === Status.GENERATING}
+          title="Generate IOXIO Tag"
+          onClick={() => {
+            status = Status.GENERATING
+          }}
+        />
       </div>
     </form>
   </div>
@@ -69,25 +100,40 @@
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
       <div class="qrcode">
-        <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+        {#if status !== Status.GENERATING}
+          <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+        {:else}
+          <div class="frame anim" />
+        {/if}
         <img class="effect" src={EffectSvg} alt="" aria-hidden="true" />
         <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
       </div>
     </div>
-    <div class="status">IOXIO Tag generator</div>
+    <div class="status">
+      {#if status === Status.READY}
+        IOXIO Tag generator
+      {:else if status === Status.GENERATING}
+        Generating...
+      {:else}
+        Finished!
+      {/if}
+    </div>
     <div class="product-area">
-      <div class="description">
-        <p>
-          This application serves as a demonstration platform for generating QR codes specifically
-          designed for Digital Product Passports.
-        </p>
-        <p>
-          Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be generated
-          to serve as digital passports for various Data Products. These QR codes can be read using
-          a compatible reader application, enabling access to relevant product details in real time.
-        </p>
-        <a class="documentation" href="/">See documentation →</a>
-      </div>
+      {#if status === Status.READY}
+        <div class="description">
+          <p>
+            This application serves as a demonstration platform for generating QR codes specifically
+            designed for Digital Product Passports.
+          </p>
+          <p>
+            Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be
+            generated to serve as digital passports for various Data Products. These QR codes can be
+            read using a compatible reader application, enabling access to relevant product details
+            in real time.
+          </p>
+          <a class="documentation" href="/">See documentation →</a>
+        </div>
+      {/if}
     </div>
     <div class="footer">
       <span>Made by</span>
@@ -190,7 +236,7 @@
         padding: 1rem 0;
       }
       .product-area {
-        flex: 1;
+        flex: 0.7;
         margin-bottom: 5rem;
         .description {
           color: white;
@@ -242,5 +288,45 @@
     align-items: center;
     flex-direction: row;
     cursor: pointer;
+  }
+  .anim {
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+  }
+  .anim::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 200%;
+    right: calc(50% - 50px);
+    bottom: 50%;
+    animation: rotate 4s linear infinite;
+    transform-origin: bottom center;
+  }
+  .anim::after {
+    content: "";
+    position: absolute;
+    background: #111920;
+    inset: 2px;
+    border-radius: 18px;
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+      background: linear-gradient(to right, #8ebfd3, #85f8c3);
+    }
+    25% {
+      transform: rotate(120deg);
+      background: linear-gradient(to right, #85f8c3, #8fbbd4);
+    }
+    50% {
+      transform: rotate(240deg);
+      background: linear-gradient(to right, #8fbbd4, #9a78e8);
+    }
+    100% {
+      transform: rotate(360deg);
+      background: linear-gradient(to right, #9a78e8, #8ebfd3);
+    }
   }
 </style>

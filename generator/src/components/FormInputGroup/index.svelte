@@ -2,11 +2,12 @@
   export let name: string
   export let label: string
   export let placeholder: string = ""
+  export let disabled: boolean = false
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <input id={name} type="text" {name} {placeholder} />
+  <input id={name} type="text" {disabled} {name} {placeholder} />
 </div>
 
 <style lang="scss">
@@ -25,11 +26,11 @@
       padding-left: 0.5rem;
       padding-right: 0.5rem;
       box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);
-      &:focus-visible {
+      &:not(:disabled):focus-visible {
         outline: none;
         border: 1px solid #555;
       }
-      &:active {
+      &:not(:disabled):active {
         border: 1px solid #555;
       }
       &::placeholder {

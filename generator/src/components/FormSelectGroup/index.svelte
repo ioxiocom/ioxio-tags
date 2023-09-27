@@ -12,11 +12,12 @@
   export let label: string
   export let placeholder: string = ""
   export let options: Option[] = []
+  export let disabled: boolean = false
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <Svelecte inputId={name} {options} {placeholder} />
+  <Svelecte inputId={name} {disabled} {options} {placeholder} />
 </div>
 
 <style lang="scss">
@@ -27,5 +28,9 @@
       margin-bottom: 0.5rem;
       color: rgba(16, 25, 32, 1);
     }
+  }
+  :global(.form-group > .svelecte .sv-control.is-disabled) {
+    background-color: rgba(239, 239, 239, 0.3);
+    border-color: #ccc;
   }
 </style>
