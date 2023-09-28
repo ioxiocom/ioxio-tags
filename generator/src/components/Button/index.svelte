@@ -1,16 +1,17 @@
 <script lang="ts">
-  export let onClick: () => void
+  export let onClick: (() => void) | null = null
   export let icon: string | null = null
   export let title: string
   export let disabled: boolean = false
+  export let type: "button" | "submit" | "reset" | null | undefined = "button"
 
-  function onClickHandler() {
+  function onClickHandler(e) {
     if (disabled) return
-    onClick()
+    if (onClick) onClick()
   }
 </script>
 
-<button class="button" on:click|preventDefault={onClickHandler} class:disabled>
+<button class="button" on:click={onClickHandler} class:disabled {type}>
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
@@ -40,8 +41,14 @@
   .button:not(.disabled):active {
     opacity: 0.7;
   }
+  img {
+    z-index: 2;
+    margin-right: 0.5rem;
+  }
   .title {
     color: white;
     font-size: 1.3rem;
+    position: relative;
+    z-index: 2;
   }
 </style>

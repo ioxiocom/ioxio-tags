@@ -6,19 +6,86 @@
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
   import LogoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
+  import LogoTagsBlackSvg from "$assets/ioxio-tags-logo-black.svg?url"
   import EffectSvg from "$assets/effect.svg?url"
   import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
   import LogoSvg from "$assets/ioxio-logo.svg?url"
   import QuestionSvg from "$assets/question.svg?component"
   import SubtractSvg from "$assets/subtract.svg?url"
+  import DownloadSvg from "$assets/download.svg?url"
   import type { PageData } from "./$types"
   import { Status } from "./types"
+  import { enhance } from "$app/forms"
+  import { invalidateAll } from "$app/navigation"
+  import { env } from "$env/dynamic/public"
+  import axios from "axios"
+
+  const API_BASE_URL = env.PUBLIC_DEVELOPMENT
+    ? env.PUBLIC_API_BASE_URL_LOCAL
+    : env.PUBLIC_API_BASE_URL_PROD
+  const GENERATE_URL = `${API_BASE_URL}/tag/generate/secure/v1/`
+
+  type InputData = {
+    iss?: string
+    product?: string
+    id?: string
+    valid?: boolean
+  }
 
   export let data: PageData
+  export let form
 
   let productOption: string
   let signOption: string
   let status: string = Status.READY
+  let qrcodeElement: HTMLImageElement
+  let inputData: InputData
+
+  async function onGenerate(event: FormDataEvent) {
+    status = Status.GENERATING
+    const formEl = event.target as HTMLFormElement
+    const formData = new FormData(formEl)
+    const iss = formData.get("iss") as string
+    const product = formData.get("product") as string
+    const id = formData.get("id") as string
+    const valid = formData.get("valid") === "on"
+    const data = { iss, product, valid, id }
+    inputData = data
+
+    axios
+      .post(GENERATE_URL, data, {
+        responseType: "blob",
+        headers: {
+          Accept: "image/png",
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        status = Status.FINISHED
+        if (response.status !== 200) {
+          alert(response.statusText)
+          return
+        }
+        var reader = new window.FileReader()
+        reader.readAsDataURL(response.data)
+        reader.onload = function () {
+          var imageDataUrl = reader.result
+          if (imageDataUrl) {
+            qrcodeElement.setAttribute("src", imageDataUrl?.toString())
+          }
+        }
+      })
+    await invalidateAll()
+  }
+
+  async function onDownloadQRcode() {
+    const link = document.createElement("a")
+    link.href = qrcodeElement.src
+    link.download = "Download"
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
 </script>
 
 <svelte:head>
@@ -31,13 +98,14 @@
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
     <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-    <form>
+    <form method="POST" on:submit|preventDefault={onGenerate}>
       <div class="row">
         <FormInputGroup
-          name="domain"
+          name="iss"
           label="Issuer domain"
           placeholder="ex.tags.ioxio.dev"
-          disabled={status === Status.GENERATING}
+          disabled={status === Status.GENERATING || form?.valid}
+          required
         />
       </div>
       <div class="row">
@@ -54,14 +122,16 @@
           placeholder="Type a product"
           options={data.options}
           disabled={status === Status.GENERATING}
+          required
         />
       </div>
       <div class="row">
         <FormInputGroup
-          name="productId"
+          name="id"
           label="Product ID"
           placeholder="ex. VV123456-12"
           disabled={status === Status.GENERATING}
+          required
         />
         <div class="toggle-row">
           <Toggle
@@ -86,23 +156,23 @@
         </div>
       </div>
       <div class="actions-wrapper">
-        <Button
-          disabled={status === Status.GENERATING}
-          title="Generate IOXIO Tag"
-          onClick={() => {
-            status = Status.GENERATING
-          }}
-        />
+        <Button disabled={status === Status.GENERATING} title="Generate IOXIO Tag" type="submit" />
       </div>
     </form>
   </div>
   <!-- Right Panel -->
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
-      <div class="qrcode">
+      <div class="qrcode-frame">
         {#if status !== Status.GENERATING}
           <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
           <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
+          {#if status === Status.FINISHED}
+            <img class="qrcode" alt="" aria-hidden="true" src="" bind:this={qrcodeElement} />
+            <div class="ioxio-tag-frame">
+              <img class="tag" src={LogoTagsBlackSvg} alt="" aria-hidden="true" />
+            </div>
+          {/if}
         {:else}
           <div class="frame anim" />
         {/if}
@@ -133,6 +203,20 @@
           </p>
           <a class="documentation" href="/">See documentation →</a>
         </div>
+      {:else if status === Status.FINISHED}
+        <div class="result">
+          <p class="label">Issuer domain</p>
+          <p class="value">{inputData.iss}</p>
+          <p class="label">Issuer domain</p>
+          <p class="value">{inputData.product}</p>
+          <p class="label">Issuer domain</p>
+          <p class="value">{inputData.id}</p>
+          <div class="download">
+            <Button title="Download QR code" icon={DownloadSvg} onClick={onDownloadQRcode} />
+          </div>
+        </div>
+      {:else}
+        <div />
       {/if}
     </div>
     <div class="footer">
@@ -209,6 +293,43 @@
           top: -2rem;
         }
         .qrcode {
+          width: 14rem;
+          height: 14rem;
+          position: absolute;
+          left: 1rem;
+          top: 0.2rem;
+          z-index: 2;
+        }
+        .ioxio-tag-frame {
+          width: 17rem;
+          height: 17rem;
+          position: absolute;
+          left: -0.5rem;
+          top: -0.5rem;
+          z-index: 1;
+          background-color: white;
+          border-radius: 0.2rem;
+          &::after {
+            content: "";
+            width: 15rem;
+            height: 15.8rem;
+            position: absolute;
+            left: 1rem;
+            top: 0.2rem;
+            border: 1px solid black;
+            z-index: 0;
+          }
+          .tag {
+            position: absolute;
+            z-index: 2;
+            bottom: 0.1rem;
+            width: 6rem;
+            padding: 0.2rem;
+            background: white;
+            left: 5.5rem;
+          }
+        }
+        .qrcode-frame {
           width: 16rem;
           height: 16rem;
           position: relative;
@@ -268,6 +389,41 @@
     }
     @media screen and (max-width: 1000px) {
       flex-direction: column-reverse;
+    }
+  }
+
+  .result {
+    .label {
+      color: #828282;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+      margin-top: 0;
+    }
+    .value {
+      color: #eeefec;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+  }
+  .download {
+    display: flex;
+    :global(button) {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(45deg, #9a75e9 0%, #85fbc2 100%) !important;
+      &::after {
+        content: "";
+        position: absolute;
+        width: calc(100% - 3px);
+        height: calc(100% - 3px);
+        top: 1.5px;
+        left: 1.5px;
+        border-radius: 0.4rem;
+        background-color: #111920;
+      }
     }
   }
   .row {

@@ -13,11 +13,12 @@
   export let placeholder: string = ""
   export let options: Option[] = []
   export let disabled: boolean = false
+  export let required: boolean = false
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <Svelecte inputId={name} {disabled} {options} {placeholder} />
+  <Svelecte inputId={name} {name} {required} {disabled} {options} {placeholder} />
 </div>
 
 <style lang="scss">

@@ -3,11 +3,12 @@
   export let label: string
   export let placeholder: string = ""
   export let disabled: boolean = false
+  export let required: boolean = false
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <input id={name} type="text" {disabled} {name} {placeholder} />
+  <input id={name} type="text" {disabled} {name} {placeholder} {required} />
 </div>
 
 <style lang="scss">

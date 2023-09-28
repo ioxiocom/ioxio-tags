@@ -3,11 +3,12 @@
   export let name: string
   export let label: string = ""
   export let disabled: boolean = false
+  export let required: boolean = false
 </script>
 
 <div class="wrapper">
   <div class="checkbox">
-    <input type="checkbox" id={name} {disabled} />
+    <input type="checkbox" id={name} {disabled} {name} {required} />
     <label for={name} style="--size: 20px">
       <Checkbox />
     </label>
