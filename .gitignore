@@ -5,3 +5,6 @@ node_modules
 __pycache__
 *.pyc
 *.pem
+*.pub
+jwks.json
+package-lock.json
