@@ -40,6 +40,7 @@
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
   let inputData: InputData
+  let isValid: boolean
 
   async function onGenerate(event: FormDataEvent) {
     status = Status.GENERATING
@@ -86,6 +87,7 @@
     link.click()
     document.body.removeChild(link)
   }
+  console.log(isValid)
 </script>
 
 <svelte:head>
@@ -104,7 +106,7 @@
           name="iss"
           label="Issuer domain"
           placeholder="ex.tags.ioxio.dev"
-          disabled={status === Status.GENERATING || form?.valid}
+          disabled={status === Status.GENERATING || isValid}
           required
         />
       </div>
@@ -147,6 +149,7 @@
             name="valid"
             label="Create valid signature"
             disabled={status === Status.GENERATING}
+            bind:value={isValid}
           />
           <Tooltip tip="Whats this?" top>
             <span class="question-icon">
