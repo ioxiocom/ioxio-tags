@@ -7,20 +7,20 @@ from urllib.parse import quote_plus
 
 import cbor2
 import cwt
-from httpx import HTTPError
-from cwt.cwt import COSEKeyInterface
-from base45 import b45encode, b45decode
 import qrcode
+from base45 import b45encode, b45decode
+from cwt.cwt import COSEKeyInterface
+from httpx import HTTPError
 from pydantic import BaseModel
 from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.colormasks import SolidFillColorMask
 
+import app.routes.tag as tag
 from app.errors import CannotSignInvalidIssuer, TagsError
 from app.log import logger
 from app.utils import fetch_json_file
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
-import app.routes.tag as tag
 
 # COSE algorithms from technical format to string argment format
 # https://python-cwt.readthedocs.io/en/stable/algorithms.html#cose-algorithms

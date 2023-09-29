@@ -1,7 +1,7 @@
 import anyio
 import httpx
-from httpx import RequestError
 import validators
+from httpx import RequestError
 
 
 async def fetch_json_file(url: str) -> dict:

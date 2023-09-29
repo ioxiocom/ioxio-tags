@@ -1,8 +1,8 @@
-from async_lru import alru_cache
 from urllib.parse import quote_plus
 
 import anyio
 import httpx
+from async_lru import alru_cache
 
 from app.errors import TagsError
 from app.utils import fetch_json_file

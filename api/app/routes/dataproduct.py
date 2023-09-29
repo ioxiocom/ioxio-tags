@@ -1,6 +1,6 @@
 from typing import Any, Annotated
 
-from fastapi import APIRouter, Request, Body
+from fastapi import APIRouter, Body, Path
 from fastapi.responses import JSONResponse
 from pydantic import AfterValidator
 
@@ -10,9 +10,6 @@ from app.responses import TagsErrorResponse
 from app.utils import domain_validator
 
 router = APIRouter(prefix="/dataproduct")
-
-
-from fastapi import Path
 
 
 @router.post("/fetch/{dataspace_domain}/{product_path:path}",
