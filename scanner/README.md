@@ -1,4 +1,4 @@
-# IOXIO Tags Scanner demo application
+# IOXIO Tags Scanner™️ demo application
 
 ## Developing
 
@@ -7,6 +7,21 @@ pnpm run dev
 ```
 
 ## Building
+
+```bash
+pnpm run build
+```
+
+Testing Docker image:
+
+```shell
+docker build . -t scanner
+docker run --rm -p 8080:8080 -it scanner
+```
+
+## iOS
+
+TODO: Document most of this
 
 ```bash
 pnpm run build
