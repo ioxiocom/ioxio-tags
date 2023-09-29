@@ -100,7 +100,7 @@
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
     <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-    <form method="POST" on:submit|preventDefault={onGenerate}>
+    <form on:submit|preventDefault={onGenerate}>
       <div class="row">
         <FormInputGroup
           name="iss"
