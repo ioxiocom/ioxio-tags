@@ -1,20 +1,30 @@
-from typing import Any
+from typing import Any, Annotated
 
 from fastapi import APIRouter, Request, Body
 from fastapi.responses import JSONResponse
+from pydantic import AfterValidator
 
 import app.dataproduct as dataproduct
 from app.errors import TagsError
 from app.responses import TagsErrorResponse
+from app.utils import domain_validator
 
 router = APIRouter(prefix="/dataproduct")
+
+
+from fastapi import Path
 
 
 @router.post("/fetch/{dataspace_domain}/{product_path:path}",
              summary="Fetch a data product from the dataspace. Documentation for each is in Dataspace's definitions.",
              tags=["dataproduct"],
              )
-async def dataproduct_fetch(dataspace_domain: str, product_path: str, source: str, payload: Any = Body()):
+async def dataproduct_fetch(
+        product_path: str,
+        source: str,
+        dataspace_domain: str = Path(annotation=Annotated[str, AfterValidator(domain_validator)]),
+        payload: Any = Body(),
+):
     try:
         def _filter_headers(headers: dict) -> dict:
             valid_headers = [

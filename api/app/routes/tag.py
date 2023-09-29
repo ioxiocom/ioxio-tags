@@ -1,12 +1,15 @@
+from typing import Annotated
+
 from starlette.responses import JSONResponse
 
 from app.errors import CannotSignInvalidIssuer, TagsError
 from app.responses import TagsErrorResponse
 from fastapi import APIRouter, Response
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, AfterValidator
 from starlette import status
 
 from app.tag import make_cose_code, make_url_code, verify_code, fetch_metadata
+from app.utils import domain_validator
 from settings import conf
 
 router = APIRouter(prefix="/tag")
@@ -23,7 +26,7 @@ class VerifyV1Request(BaseModel):
 
 
 class MetadataV1Request(BaseModel):
-    iss: str = Field(..., title="Issuer of the code, aka iss from the QR code data")
+    iss: Annotated[str, AfterValidator(domain_validator)] = Field(..., title="Issuer of the code, aka iss from the QR code data")
     product: str = Field(..., title="Product category, aka product from the QR code data")
 
 
@@ -44,14 +47,14 @@ class MetadataV1Response(BaseModel):
 
 
 class GenerateSecureV1Request(BaseModel):
-    iss: str = Field(..., title="Issuer to be put in the code")
+    iss: Annotated[str, AfterValidator(domain_validator)] = Field(..., title="Issuer to be put in the code")
     product: str = Field(..., title="Product category to be put in the code")
     id: str = Field(..., title="Unique ID to be put in the code")
     valid: bool = Field(..., title="If the generated signature should be valid or not")
 
 
 class GenerateURLV1Request(BaseModel):
-    iss: str = Field(..., title="Issuer to be put in the code")
+    iss: Annotated[str, AfterValidator(domain_validator)] = Field(..., title="Issuer to be put in the code")
     product: str = Field(..., title="Product category to be put in the code")
     id: str = Field(..., title="Unique ID to be put in the code")
 
