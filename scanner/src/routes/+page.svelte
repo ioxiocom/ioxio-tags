@@ -3,6 +3,14 @@
   import IoxioLogo from "$assets/ioxio-logo.svg"
   import IoxioTagLogo from "$assets/ioxio-tag-logo.svg"
   import Circle from "$assets/circle.svg"
+  import { goto } from "$app/navigation"
+  import { onMount } from "svelte"
+
+  onMount(() => {
+    setTimeout(() => {
+      goto("/main")
+    }, 3000)
+  })
 </script>
 
 <div class="container">

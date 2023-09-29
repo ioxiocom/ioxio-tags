@@ -45,7 +45,7 @@
       </div>
       <div class="relative actions-wrapper">
         <div>
-          <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+          <Button onClick={() => goto("/main/scan")} icon={Camera} title="Turn on" />
         </div>
         {#if data.isDevelopment}
           <div>
