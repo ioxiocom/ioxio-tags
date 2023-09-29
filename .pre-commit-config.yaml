@@ -41,12 +41,12 @@ repos:
     hooks:
       - id: export-api
         name: export-api
-        entry: python export_api.py
+        entry: python3 export_api.py
         language: system
         pass_filenames: false
       - id: import-api
         name: import-api
-        entry: python import_api.py
+        entry: python3 import_api.py
         language: system
         pass_filenames: false
 
