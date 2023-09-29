@@ -20,9 +20,7 @@
   import { env } from "$env/dynamic/public"
   import axios from "axios"
 
-  const API_BASE_URL = env.PUBLIC_DEVELOPMENT
-    ? env.PUBLIC_API_BASE_URL_LOCAL
-    : env.PUBLIC_API_BASE_URL_PROD
+  const API_BASE_URL = env.PUBLIC_API_BASE_URL
   const GENERATE_URL = `${API_BASE_URL}/tag/generate/secure/v1/`
 
   type InputData = {
@@ -33,7 +31,6 @@
   }
 
   export let data: PageData
-  export let form
 
   let productOption: string
   let signOption: string
@@ -87,7 +84,6 @@
     link.click()
     document.body.removeChild(link)
   }
-  console.log(isValid)
 </script>
 
 <svelte:head>
