@@ -2,7 +2,8 @@
 # warnings.filterwarnings("ignore", message="pkg_resources is deprecated as an API")  # fake_useragent
 from unittest.mock import patch
 
-from httpx import AsyncClient
+import httpx
+from httpx import AsyncClient, Response
 
 import pytest
 from main import app
@@ -61,5 +62,20 @@ async def fake_hosting():
 
         raise NotImplementedError(f"Unexpected request to fetch {url}, which we have no test data for")
 
-    with patch('app.tag.fetch_json_file', _fetch_json_file):
+    with patch('app.utils.fetch_json_file', _fetch_json_file):
+        yield
+
+
+@pytest.fixture
+async def fake_dataspace():
+    async def _fetch_dataproduct(dataspace: str, product: str, source: str, payload: str) -> Response:
+        return Response(
+            status_code=200,
+            headers=[],
+            json={
+                "some": "response",
+            },
+        )
+
+    with patch('app.dataproduct.fetch_dataproduct', _fetch_dataproduct):
         yield

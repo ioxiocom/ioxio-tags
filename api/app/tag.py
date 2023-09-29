@@ -5,11 +5,9 @@ from copy import copy
 from io import BytesIO
 from urllib.parse import quote_plus
 
-import anyio
 import cbor2
 import cwt
-import httpx
-from httpx import HTTPError, RequestError
+from httpx import HTTPError
 from cwt.cwt import COSEKeyInterface
 from base45 import b45encode, b45decode
 import qrcode
@@ -19,6 +17,7 @@ from qrcode.image.styles.colormasks import SolidFillColorMask
 
 from app.errors import CannotSignInvalidIssuer, TagsError
 from app.log import logger
+from app.utils import fetch_json_file
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
 import app.routes.tag as tag
@@ -73,18 +72,6 @@ def get_product_passport_uri(iss: str):
 
 def get_product_metadata_uri(iss: str, product: str):
     return f"https://{iss}/.well-known/product-passport/products/{product}.json"
-
-
-async def fetch_json_file(url: str) -> dict:
-    async with httpx.AsyncClient() as client:
-        try:
-            res = await client.get(url)
-        except anyio.EndOfStream:
-            raise RequestError(f"Failed to connect to {url}")
-
-        res.raise_for_status()
-
-        return res.json()
 
 
 def ioxio_tag_str_to_cose_bytes(code: str) -> bytes:
