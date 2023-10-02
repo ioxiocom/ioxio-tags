@@ -15,9 +15,8 @@
   import DownloadSvg from "$assets/download.svg?url"
   import type { PageData } from "./$types"
   import { Status } from "./types"
-  import { invalidateAll } from "$app/navigation"
   import type { InputData } from "$lib/types"
-  import { generateSecureQrcode } from "$lib/api"
+  import { API_BASE_URL, generateSecureQrcode } from "$lib/api"
 
   export let data: PageData
 
@@ -40,26 +39,55 @@
     const data = { iss, product, valid, id }
     inputData = data
 
-    const generateRequest = generateSecureQrcode(data)
-    const result = await generateRequest.result
+    // implementation by apity
+    // const generateRequest = generateSecureQrcode.fetch(data)
+    // const result = await generateRequest.result
 
-    status = Status.FINISHED
-    if (result?.ok) {
-      var reader = new window.FileReader()
-      reader.readAsDataURL(result.data as Blob)
-      reader.onload = function () {
-        var imageDataUrl = reader.result
-        if (imageDataUrl) {
-          qrcodeElement.setAttribute("src", imageDataUrl?.toString())
+    // status = Status.FINISHED
+    // if (result?.ok) {
+    //   var reader = new window.FileReader()
+    //   reader.readAsDataURL(result.data as Blob)
+    //   reader.onload = function () {
+    //     var imageDataUrl = reader.result
+    //     if (imageDataUrl) {
+    //       qrcodeElement.setAttribute("src", imageDataUrl?.toString())
+    //     }
+    //   }
+    //   return
+    // }
+    // if (result.status === 201) {
+    // }
+    // if (result.status === 400) {
+    // }
+    // console.log(result)
+
+    // implementation by fetch
+    const url = `${API_BASE_URL}/tag/generate/secure/v1/`
+    const result = await fetch(url, {
+      method: "POST",
+      headers: {
+        Accept: "image/png",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    })
+      .then((response: any) => response.blob())
+      .then((response) => {
+        const reader = new window.FileReader()
+        reader.readAsDataURL(response as Blob)
+        reader.onload = function () {
+          var imageDataUrl = reader.result
+          if (imageDataUrl) {
+            qrcodeElement.setAttribute("src", imageDataUrl?.toString())
+          }
         }
-      }
-      return
-    }
-    if (result.status === 201) {
-    }
-    if (result.status === 400) {
-    }
-    console.log(result)
+      })
+      .catch((error) => {
+        console.log(error)
+      })
+      .finally(() => {
+        status = Status.FINISHED
+      })
   }
 
   async function onDownloadQRcode() {
