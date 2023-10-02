@@ -5,7 +5,7 @@ const apity = Apity.for<paths>()
 
 apity.configure({
   // TODO: Read URL from settings. Change to http://localhost:8081 locally
-  baseUrl: "https://api.tags.ioxio.dev",
+  baseUrl: "http://localhost:8081",
 })
 
 export const dataProduct = {
