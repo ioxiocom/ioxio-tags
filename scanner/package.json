@@ -37,6 +37,7 @@
     "@capacitor/core": "^5.2.3",
     "@capacitor/ios": "^5.2.3",
     "@capacitor/splash-screen": "^5.0.6",
+    "@cocreators-ee/apity": "^0.0.4",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@fontsource/poppins": "^5.0.8",
     "@zxing/library": "^0.20.0",
