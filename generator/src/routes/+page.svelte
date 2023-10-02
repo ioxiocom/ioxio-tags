@@ -15,20 +15,9 @@
   import DownloadSvg from "$assets/download.svg?url"
   import type { PageData } from "./$types"
   import { Status } from "./types"
-  import { enhance } from "$app/forms"
   import { invalidateAll } from "$app/navigation"
-  import { env } from "$env/dynamic/public"
-  import axios from "axios"
-
-  const API_BASE_URL = env.PUBLIC_API_BASE_URL
-  const GENERATE_URL = `${API_BASE_URL}/tag/generate/secure/v1/`
-
-  type InputData = {
-    iss?: string
-    product?: string
-    id?: string
-    valid?: boolean
-  }
+  import type { InputData } from "$lib/types"
+  import { generateSecureQrcode } from "$lib/api"
 
   export let data: PageData
 
@@ -43,6 +32,7 @@
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
+
     const iss = formData.get("iss") as string
     const product = formData.get("product") as string
     const id = formData.get("id") as string
@@ -50,30 +40,26 @@
     const data = { iss, product, valid, id }
     inputData = data
 
-    axios
-      .post(GENERATE_URL, data, {
-        responseType: "blob",
-        headers: {
-          Accept: "image/png",
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        status = Status.FINISHED
-        if (response.status !== 200) {
-          alert(response.statusText)
-          return
+    const generateRequest = generateSecureQrcode(data)
+    const result = await generateRequest.result
+
+    status = Status.FINISHED
+    if (result?.ok) {
+      var reader = new window.FileReader()
+      reader.readAsDataURL(result.data as Blob)
+      reader.onload = function () {
+        var imageDataUrl = reader.result
+        if (imageDataUrl) {
+          qrcodeElement.setAttribute("src", imageDataUrl?.toString())
         }
-        var reader = new window.FileReader()
-        reader.readAsDataURL(response.data)
-        reader.onload = function () {
-          var imageDataUrl = reader.result
-          if (imageDataUrl) {
-            qrcodeElement.setAttribute("src", imageDataUrl?.toString())
-          }
-        }
-      })
-    await invalidateAll()
+      }
+      return
+    }
+    if (result.status === 201) {
+    }
+    if (result.status === 400) {
+    }
+    console.log(result)
   }
 
   async function onDownloadQRcode() {
