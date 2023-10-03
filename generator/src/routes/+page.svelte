@@ -5,18 +5,95 @@
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
-  import LogoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
+  import IoxioTagsLogo from "$assets/ioxio-tags-logo.svg?url"
   import EffectSvg from "$assets/effect.svg?url"
   import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
   import LogoSvg from "$assets/ioxio-logo.svg?url"
   import QuestionSvg from "$assets/question.svg?component"
   import SubtractSvg from "$assets/subtract.svg?url"
+  import DownloadSvg from "$assets/download.svg?url"
   import type { PageData } from "./$types"
+  import { Status } from "./types"
+  import type { components } from "$lib/openapi"
+  import { tag } from "$lib/api"
+  import { settings } from "$lib/settings"
 
   export let data: PageData
+  type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
-  let productOption: string
+  let productOption: string = "Arbitrary"
   let signOption: string
+  let status: string = Status.READY
+  let qrcodeElement: HTMLImageElement
+  let inputData: GenerateSecureV1Request
+  let isValid: boolean = false
+  let issValue: string = ""
+
+  function slugify(input: string): string {
+    let value = input.toLowerCase().trim()
+    value = value.replace(/[^.\w\s-]/, "")
+    return value.replace("-s", "-")
+  }
+
+  async function onGenerate(event: SubmitEvent) {
+    status = Status.GENERATING
+    const formEl = event.target as HTMLFormElement
+    const formData = new FormData(formEl)
+
+    const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
+    const product = formData.get("product") as string
+    const id = formData.get("id") as string
+    const valid = formData.get("valid") === "on"
+    const data = { iss, product, valid, id }
+    inputData = data
+
+    // implementation by apity
+    const generateRequest = tag.generateSecureV1(data)
+    const result = await generateRequest.result
+
+    status = Status.FINISHED
+    if (result?.ok) {
+      var reader = new window.FileReader()
+      reader.readAsDataURL(result.data as Blob)
+      reader.onload = function () {
+        var imageDataUrl = reader.result
+        if (imageDataUrl) {
+          qrcodeElement.setAttribute("src", imageDataUrl?.toString())
+        }
+      }
+      return
+    } else {
+      // TODO: Better error handling
+      console.error("Generating tag failed", result)
+    }
+  }
+
+  async function onDownloadQRcode() {
+    // "Signed" and "Create valid signature" == "signed"
+    // "Signed" and not "Create valid signature" == "invalid"
+    // "Unsigned" == "url"
+    const security: "signed" | "invalid" | "url" = "signed"
+    const filenameParts = [
+      slugify(inputData.iss),
+      slugify(inputData.product),
+      slugify(inputData.id),
+      `${security}.png`,
+    ]
+
+    const link = document.createElement("a")
+    link.href = qrcodeElement.src
+    link.download = filenameParts.join("_")
+    document.body.appendChild(link)
+    link.click()
+    document.body.removeChild(link)
+  }
+
+  function onChangeValidSignature(event: Event) {
+    const target = event.target as HTMLInputElement
+    if (target.checked) {
+      issValue = settings.ISS_DOMAIN
+    }
+  }
 </script>
 
 <svelte:head>
@@ -29,30 +106,63 @@
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
     <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-    <form>
+    <form on:submit={onGenerate}>
       <div class="row">
-        <FormInputGroup name="domain" label="Issuer domain" placeholder="ex.tags.ioxio.dev" />
-      </div>
-      <div class="row">
-        <div class="toggle-row">
-          <Toggle options={["Arbitrary", "Premade"]} bind:value={productOption} />
-        </div>
-        <FormSelectGroup
-          name="product"
-          label="Product"
-          placeholder="Type a product"
-          options={data.options}
+        <FormInputGroup
+          name="iss"
+          label="Issuer domain"
+          placeholder="ex.tags.ioxio.dev"
+          bind:value={issValue}
+          disabled={status === Status.GENERATING || isValid}
+          required
         />
       </div>
       <div class="row">
-        <FormInputGroup name="productId" label="Product ID" placeholder="ex. VV123456-12" />
         <div class="toggle-row">
-          <Toggle options={["Signed", "Unsigned"]} bind:value={signOption} />
+          <Toggle
+            options={["Arbitrary", "Premade"]}
+            bind:value={productOption}
+            disabled={status === Status.GENERATING}
+          />
+        </div>
+        {#if productOption === "Arbitrary"}
+          <FormInputGroup name="product" label="Product" placeholder="" required />
+        {:else}
+          <FormSelectGroup
+            name="product"
+            label="Product"
+            placeholder="Type a product"
+            options={data.options}
+            disabled={status === Status.GENERATING}
+            required
+          />
+        {/if}
+      </div>
+      <div class="row">
+        <FormInputGroup
+          name="id"
+          label="Product ID"
+          placeholder="ex. VV123456-12"
+          disabled={status === Status.GENERATING}
+          required
+        />
+        <div class="toggle-row">
+          <Toggle
+            options={["Signed", "Unsigned"]}
+            bind:value={signOption}
+            disabled={status === Status.GENERATING}
+          />
         </div>
       </div>
       <div class="row">
         <div class="col">
-          <FormCheckbox name="valid" label="Create valid signature" />
+          <FormCheckbox
+            name="valid"
+            label="Create valid signature"
+            disabled={status === Status.GENERATING}
+            bind:checked={isValid}
+            onChange={onChangeValidSignature}
+          />
           <Tooltip tip="Whats this?" top>
             <span class="question-icon">
               <QuestionSvg />
@@ -61,33 +171,65 @@
         </div>
       </div>
       <div class="actions-wrapper">
-        <Button title="Generate IOXIO Tag" onClick={() => {}} />
+        <Button disabled={status === Status.GENERATING} title="Generate IOXIO Tag" type="submit" />
       </div>
     </form>
   </div>
   <!-- Right Panel -->
   <div class="qrcode-area-wrapper">
     <div class="qrcode-area">
-      <div class="qrcode">
-        <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+      <div class="qrcode-frame">
+        {#if status !== Status.GENERATING}
+          <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
+          <img class="logo" src={IoxioTagsLogo} alt="" aria-hidden="true" />
+          {#if status === Status.FINISHED}
+            <img class="qrcode" alt="" aria-hidden="true" src="" bind:this={qrcodeElement} />
+          {/if}
+        {:else}
+          <div class="frame anim" />
+        {/if}
         <img class="effect" src={EffectSvg} alt="" aria-hidden="true" />
-        <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
       </div>
     </div>
-    <div class="status">IOXIO Tag generator</div>
+    <div class="status">
+      {#if status === Status.READY}
+        IOXIO Tags™️ generator
+      {:else if status === Status.GENERATING}
+        Generating...
+      {:else}
+        Finished!
+      {/if}
+    </div>
     <div class="product-area">
-      <div class="description">
-        <p>
-          This application serves as a demonstration platform for generating QR codes specifically
-          designed for Digital Product Passports.
-        </p>
-        <p>
-          Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be generated
-          to serve as digital passports for various Data Products. These QR codes can be read using
-          a compatible reader application, enabling access to relevant product details in real time.
-        </p>
-        <a class="documentation" href="/">See documentation →</a>
-      </div>
+      {#if status === Status.READY}
+        <div class="description">
+          <p>
+            This application serves as a demonstration platform for generating QR codes specifically
+            designed for Digital Product Passports.
+          </p>
+          <p>
+            Utilizing the IOXIO Dataspace technology, this app showcases how QR codes can be
+            generated to serve as digital passports for various Data Products. These QR codes can be
+            read using a compatible reader application, enabling access to relevant product details
+            in real time.
+          </p>
+          <a class="documentation" href={settings.DOCUMENTATION_URL}>See documentation →</a>
+        </div>
+      {:else if status === Status.FINISHED}
+        <div class="result">
+          <p class="label">Issuer domain</p>
+          <p class="value">{inputData.iss}</p>
+          <p class="label">Product</p>
+          <p class="value">{inputData.product}</p>
+          <p class="label">Product ID</p>
+          <p class="value">{inputData.id}</p>
+          <div class="download">
+            <Button title="Download QR code" icon={DownloadSvg} onClick={onDownloadQRcode} />
+          </div>
+        </div>
+      {:else}
+        <div />
+      {/if}
     </div>
     <div class="footer">
       <span>Made by</span>
@@ -165,6 +307,14 @@
         .qrcode {
           width: 16rem;
           height: 16rem;
+          position: absolute;
+          left: 0rem;
+          top: 0rem;
+          z-index: 2;
+        }
+        .qrcode-frame {
+          width: 16rem;
+          height: 16rem;
           position: relative;
         }
         .effect {
@@ -190,7 +340,7 @@
         padding: 1rem 0;
       }
       .product-area {
-        flex: 1;
+        flex: 0.7;
         margin-bottom: 5rem;
         .description {
           color: white;
@@ -224,6 +374,41 @@
       flex-direction: column-reverse;
     }
   }
+
+  .result {
+    .label {
+      color: #828282;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 0.3rem;
+      margin-top: 0;
+    }
+    .value {
+      color: #eeefec;
+      font-size: 1rem;
+      font-weight: 400;
+      margin-bottom: 1rem;
+      margin-top: 0;
+    }
+  }
+  .download {
+    display: flex;
+    :global(button) {
+      position: relative;
+      width: 100%;
+      background: linear-gradient(45deg, #9a75e9 0%, #85fbc2 100%) !important;
+      &::after {
+        content: "";
+        position: absolute;
+        width: calc(100% - 3px);
+        height: calc(100% - 3px);
+        top: 1.5px;
+        left: 1.5px;
+        border-radius: 0.4rem;
+        background-color: #111920;
+      }
+    }
+  }
   .row {
     margin-bottom: 2.2rem;
   }
@@ -242,5 +427,45 @@
     align-items: center;
     flex-direction: row;
     cursor: pointer;
+  }
+  .anim {
+    overflow: hidden;
+    border-radius: 20px;
+    position: relative;
+  }
+  .anim::before {
+    content: "";
+    position: absolute;
+    width: 100px;
+    height: 200%;
+    right: calc(50% - 50px);
+    bottom: 50%;
+    animation: rotate 4s linear infinite;
+    transform-origin: bottom center;
+  }
+  .anim::after {
+    content: "";
+    position: absolute;
+    background: #111920;
+    inset: 2px;
+    border-radius: 18px;
+  }
+  @keyframes rotate {
+    0% {
+      transform: rotate(0deg);
+      background: linear-gradient(to right, #8ebfd3, #85f8c3);
+    }
+    25% {
+      transform: rotate(120deg);
+      background: linear-gradient(to right, #85f8c3, #8fbbd4);
+    }
+    50% {
+      transform: rotate(240deg);
+      background: linear-gradient(to right, #8fbbd4, #9a78e8);
+    }
+    100% {
+      transform: rotate(360deg);
+      background: linear-gradient(to right, #9a78e8, #8ebfd3);
+    }
   }
 </style>

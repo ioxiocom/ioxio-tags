@@ -1,14 +1,23 @@
 <script lang="ts">
   export let options: string[] = []
   export let value: string
+  export let disabled: boolean = false
+
+  function onClickHandler(option: string) {
+    if (disabled) {
+      return
+    }
+    value = option
+  }
 </script>
 
 <div class="wrapper">
-  {#each options as option, i}
+  {#each options as option}
     <button
       class="toggle-item"
       class:active={value && value === option}
-      on:click|preventDefault={() => (value = option)}
+      class:disabled
+      on:click|preventDefault={() => onClickHandler(option)}
     >
       {option}
     </button>
@@ -44,6 +53,11 @@
         border-top-right-radius: 0.3rem;
         border-bottom-right-radius: 0.3rem;
       }
+    }
+    .disabled {
+      cursor: not-allowed;
+      background-color: #d9d9d9;
+      color: #828282;
     }
   }
 </style>
