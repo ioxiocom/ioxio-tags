@@ -27,6 +27,12 @@
   let inputData: InputData
   let isValid: boolean
 
+  function slugify(input: string): string {
+    let value = input.toLowerCase().trim()
+    value = value.replace(/[^.\w\s-]/, "")
+    return value.replace("-s", "-")
+  }
+
   async function onGenerate(event: FormDataEvent) {
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
@@ -62,9 +68,20 @@
   }
 
   async function onDownloadQRcode() {
+    // "Signed" and "Create valid signature" == "signed"
+    // "Signed" and not "Create valid signature" == "invalid"
+    // "Unsigned" == "url"
+    const security: "signed" | "invalid" | "url" = "signed"
+    const filenameParts = [
+      slugify(inputData.iss),
+      slugify(inputData.product),
+      slugify(inputData.id),
+      `${security}.png`,
+    ]
+
     const link = document.createElement("a")
     link.href = qrcodeElement.src
-    link.download = "Download"
+    link.download = filenameParts.join("_")
     document.body.appendChild(link)
     link.click()
     document.body.removeChild(link)
