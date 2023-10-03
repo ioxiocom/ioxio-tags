@@ -1,7 +1,7 @@
 <script lang="ts">
   export let options: string[] = []
   export let value: string
-  export let disabled: boolean = false
+  export let disabled: boolean | undefined
 
   function onClickHandler(option: string) {
     if (disabled) return

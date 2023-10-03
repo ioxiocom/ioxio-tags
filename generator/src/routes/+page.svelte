@@ -16,7 +16,7 @@
   import type { PageData } from "./$types"
   import { Status } from "./types"
   import type { InputData } from "$lib/types"
-  import { API_BASE_URL, generateSecureQrcode } from "$lib/api"
+  import { tag } from "$lib/api"
 
   export let data: PageData
 
@@ -40,54 +40,25 @@
     inputData = data
 
     // implementation by apity
-    // const generateRequest = generateSecureQrcode.fetch(data)
-    // const result = await generateRequest.result
+    const generateRequest = tag.generateSecureV1(data)
+    const result = await generateRequest.result
 
-    // status = Status.FINISHED
-    // if (result?.ok) {
-    //   var reader = new window.FileReader()
-    //   reader.readAsDataURL(result.data as Blob)
-    //   reader.onload = function () {
-    //     var imageDataUrl = reader.result
-    //     if (imageDataUrl) {
-    //       qrcodeElement.setAttribute("src", imageDataUrl?.toString())
-    //     }
-    //   }
-    //   return
-    // }
-    // if (result.status === 201) {
-    // }
-    // if (result.status === 400) {
-    // }
-    // console.log(result)
-
-    // implementation by fetch
-    const url = `${API_BASE_URL}/tag/generate/secure/v1/`
-    const result = await fetch(url, {
-      method: "POST",
-      headers: {
-        Accept: "image/png",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response: any) => response.blob())
-      .then((response) => {
-        const reader = new window.FileReader()
-        reader.readAsDataURL(response as Blob)
-        reader.onload = function () {
-          var imageDataUrl = reader.result
-          if (imageDataUrl) {
-            qrcodeElement.setAttribute("src", imageDataUrl?.toString())
-          }
+    status = Status.FINISHED
+    if (result?.ok) {
+      var reader = new window.FileReader()
+      reader.readAsDataURL(result.data as Blob)
+      reader.onload = function () {
+        var imageDataUrl = reader.result
+        if (imageDataUrl) {
+          qrcodeElement.setAttribute("src", imageDataUrl?.toString())
         }
-      })
-      .catch((error) => {
-        console.log(error)
-      })
-      .finally(() => {
-        status = Status.FINISHED
-      })
+      }
+      return
+    }
+    if (result.status === 201) {
+    }
+    if (result.status === 400) {
+    }
   }
 
   async function onDownloadQRcode() {

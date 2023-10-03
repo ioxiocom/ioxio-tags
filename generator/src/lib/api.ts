@@ -10,6 +10,6 @@ apity.configure({
   baseUrl: API_BASE_URL,
 })
 
-export const generateSecureQrcode = {
-  fetch: apity.path("/tag/generate/secure/v1/").method("post").create(),
+export const tag = {
+  generateSecureV1: apity.path("/tag/generate/secure/v1/").method("post").create(),
 }

@@ -1,9 +1,9 @@
 <script lang="ts">
   import Checkbox from "$assets/check.svg?component"
   export let name: string
-  export let label: string = ""
-  export let value: boolean = false
-  export let disabled: boolean = false
+  export let label: string | undefined
+  export let value: boolean | undefined
+  export let disabled: boolean | undefined
   export let required: boolean = false
 </script>
 
