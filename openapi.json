@@ -10,8 +10,8 @@
         "tags": [
           "dataproduct"
         ],
-        "summary": "Fetch a data product from the dataspace",
-        "operationId": "account_status_dataproduct_fetch__dataspace_domain___product_path__post",
+        "summary": "Fetch a data product from the dataspace. Documentation for each is in Dataspace's definitions.",
+        "operationId": "dataproduct_fetch_dataproduct_fetch__dataspace_domain___product_path__post",
         "parameters": [
           {
             "name": "dataspace_domain",
@@ -30,16 +30,33 @@
               "type": "string",
               "title": "Product Path"
             }
+          },
+          {
+            "name": "source",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Source"
+            }
           }
         ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "title": "Payload"
+              }
+            }
+          }
+        },
         "responses": {
           "200": {
             "description": "Successful Response",
             "content": {
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/DataProductFetchRequest"
-                }
+                "schema": {}
               }
             }
           },
@@ -248,11 +265,6 @@
   },
   "components": {
     "schemas": {
-      "DataProductFetchRequest": {
-        "properties": {},
-        "type": "object",
-        "title": "DataProductFetchRequest"
-      },
       "GenerateSecureV1Request": {
         "properties": {
           "iss": {

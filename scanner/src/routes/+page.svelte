@@ -8,6 +8,8 @@
   import { tryParseIoxioTags } from "$lib/parse"
   import type { PageData } from "./$types"
   import Loading from "$components/Loading/index.svelte"
+  import { dataProduct } from "$lib/api"
+  import { onMount } from "svelte"
 
   export let data: PageData
 
@@ -28,6 +30,18 @@
       consoleLog("No IOXIO Tag detected", "warn")
     }
   }
+
+  onMount(async () => {
+    // Just an example of fetching a data product
+    const req = await dataProduct.fetch({
+      dataspace_domain: "sandbox.ioxio-dataspace.com",
+      product_path: "DPP/Energy/Battery/ProductDataSheet_v0.1",
+      source: "dpp_demo",
+      product: "MPP48V",
+      id: "test",
+    })
+    console.log(await req.result)
+  })
 </script>
 
 <div class="container">

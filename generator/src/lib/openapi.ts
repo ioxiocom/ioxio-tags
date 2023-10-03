@@ -6,8 +6,8 @@
 
 export interface paths {
   "/dataproduct/fetch/{dataspace_domain}/{product_path}": {
-    /** Fetch a data product from the dataspace */
-    post: operations["account_status_dataproduct_fetch__dataspace_domain___product_path__post"];
+    /** Fetch a data product from the dataspace. Documentation for each is in Dataspace's definitions. */
+    post: operations["dataproduct_fetch_dataproduct_fetch__dataspace_domain___product_path__post"];
   };
   "/tag/verify/v1/": {
     /** Verify the COSE signature in a IOXIO Tag -code */
@@ -31,8 +31,6 @@ export type webhooks = Record<string, never>;
 
 export interface components {
   schemas: {
-    /** DataProductFetchRequest */
-    DataProductFetchRequest: Record<string, never>;
     /** GenerateSecureV1Request */
     GenerateSecureV1Request: {
       /** Issuer to be put in the code */
@@ -122,19 +120,27 @@ export type external = Record<string, never>;
 
 export interface operations {
 
-  /** Fetch a data product from the dataspace */
-  account_status_dataproduct_fetch__dataspace_domain___product_path__post: {
+  /** Fetch a data product from the dataspace. Documentation for each is in Dataspace's definitions. */
+  dataproduct_fetch_dataproduct_fetch__dataspace_domain___product_path__post: {
     parameters: {
+      query: {
+        source: string;
+      };
       path: {
         dataspace_domain: string;
         product_path: string;
+      };
+    };
+    requestBody: {
+      content: {
+        "application/json": unknown;
       };
     };
     responses: {
       /** @description Successful Response */
       200: {
         content: {
-          "application/json": components["schemas"]["DataProductFetchRequest"];
+          "application/json": unknown;
         };
       };
       /** @description Validation Error */
