@@ -18,7 +18,6 @@
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
   import { DOCUMENTATION_URL, ISS_DOMAIN } from "$lib/config"
-  import type { EventHandler } from "svelte/elements"
 
   export let data: PageData
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
