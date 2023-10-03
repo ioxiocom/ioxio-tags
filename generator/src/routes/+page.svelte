@@ -6,7 +6,6 @@
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
   import IoxioTagsLogo from "$assets/ioxio-tags-logo.svg?url"
-  import IoxioTagsQrcodeFrame from "$assets/frame.png"
   import EffectSvg from "$assets/effect.svg?url"
   import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
   import LogoSvg from "$assets/ioxio-logo.svg?url"
@@ -17,7 +16,7 @@
   import { Status } from "./types"
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
-  import { DOCUMENTATION_URL, ISS_DOMAIN } from "$lib/config"
+  import { settings } from "$lib/settings"
 
   export let data: PageData
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
@@ -41,7 +40,7 @@
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
 
-    const iss = (formData.get("iss") as string) || ISS_DOMAIN[0]
+    const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
     const product = formData.get("product") as string
     const id = formData.get("id") as string
     const valid = formData.get("valid") === "on"
@@ -92,7 +91,7 @@
   function onChangeValidSignature(event: Event) {
     const target = event.target as HTMLInputElement
     if (target.checked) {
-      issValue = ISS_DOMAIN[0]
+      issValue = settings.ISS_DOMAIN
     }
   }
 </script>
@@ -185,7 +184,6 @@
           <img class="logo" src={IoxioTagsLogo} alt="" aria-hidden="true" />
           {#if status === Status.FINISHED}
             <img class="qrcode" alt="" aria-hidden="true" src="" bind:this={qrcodeElement} />
-            <img class="ioxio-tag-frame" src={IoxioTagsQrcodeFrame} alt="" aria-hidden="true" />
           {/if}
         {:else}
           <div class="frame anim" />
@@ -215,15 +213,15 @@
             read using a compatible reader application, enabling access to relevant product details
             in real time.
           </p>
-          <a class="documentation" href={DOCUMENTATION_URL}>See documentation →</a>
+          <a class="documentation" href={settings.DOCUMENTATION_URL}>See documentation →</a>
         </div>
       {:else if status === Status.FINISHED}
         <div class="result">
           <p class="label">Issuer domain</p>
           <p class="value">{inputData.iss}</p>
-          <p class="label">Issuer domain</p>
+          <p class="label">Product</p>
           <p class="value">{inputData.product}</p>
-          <p class="label">Issuer domain</p>
+          <p class="label">Product ID</p>
           <p class="value">{inputData.id}</p>
           <div class="download">
             <Button title="Download QR code" icon={DownloadSvg} onClick={onDownloadQRcode} />
@@ -307,20 +305,12 @@
           top: -2rem;
         }
         .qrcode {
-          width: 13.2rem;
-          height: 13.2rem;
+          width: 16rem;
+          height: 16rem;
           position: absolute;
-          left: 1.5rem;
-          top: 0.8rem;
+          left: 0rem;
+          top: 0rem;
           z-index: 2;
-        }
-        .ioxio-tag-frame {
-          width: 17rem;
-          height: 17rem;
-          position: absolute;
-          left: -0.5rem;
-          top: -0.5rem;
-          z-index: 1;
         }
         .qrcode-frame {
           width: 16rem;

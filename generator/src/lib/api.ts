@@ -1,6 +1,6 @@
 import { Apity } from "@cocreators-ee/apity"
 import type { paths } from "$lib/openapi"
-import { settings } from "./config"
+import { settings } from "./settings"
 
 const apity = Apity.for<paths>()
 apity.configure({
