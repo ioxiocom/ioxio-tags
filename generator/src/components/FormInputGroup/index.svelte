@@ -4,11 +4,12 @@
   export let placeholder: string | undefined
   export let disabled: boolean = false
   export let required: boolean = false
+  export let value: string | undefined = undefined
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <input id={name} type="text" {disabled} {name} {placeholder} {required} />
+  <input id={name} type="text" {disabled} {name} {placeholder} {required} bind:value />
 </div>
 
 <style lang="scss">

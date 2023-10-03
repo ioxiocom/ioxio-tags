@@ -6,7 +6,7 @@
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
   import IoxioTagsLogo from "$assets/ioxio-tags-logo.svg?url"
-  import IoxioTagsLogoBlack from "$assets/ioxio-tags-logo-black.svg?url"
+  import IoxioTagsQrcodeFrame from "$assets/frame.png"
   import EffectSvg from "$assets/effect.svg?url"
   import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
   import LogoSvg from "$assets/ioxio-logo.svg?url"
@@ -17,17 +17,19 @@
   import { Status } from "./types"
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
-  import { DOCUMENTATION_URL } from "$lib/config"
-  type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
+  import { DOCUMENTATION_URL, ISS_DOMAIN } from "$lib/config"
+  import type { EventHandler } from "svelte/elements"
 
   export let data: PageData
+  type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
-  let productOption: string
+  let productOption: string = "Arbitrary"
   let signOption: string
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
   let inputData: GenerateSecureV1Request
-  let isValid: boolean
+  let isValid: boolean = false
+  let issValue: string = ""
 
   function slugify(input: string): string {
     let value = input.toLowerCase().trim()
@@ -40,7 +42,7 @@
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
 
-    const iss = formData.get("iss") as string
+    const iss = (formData.get("iss") as string) || ISS_DOMAIN[0]
     const product = formData.get("product") as string
     const id = formData.get("id") as string
     const valid = formData.get("valid") === "on"
@@ -87,6 +89,13 @@
     link.click()
     document.body.removeChild(link)
   }
+
+  function onChangeValidSignature(event: Event) {
+    const target = event.target as HTMLInputElement
+    if (target.checked) {
+      issValue = ISS_DOMAIN[0]
+    }
+  }
 </script>
 
 <svelte:head>
@@ -105,6 +114,7 @@
           name="iss"
           label="Issuer domain"
           placeholder="ex.tags.ioxio.dev"
+          bind:value={issValue}
           disabled={status === Status.GENERATING || isValid}
           required
         />
@@ -117,14 +127,18 @@
             disabled={status === Status.GENERATING}
           />
         </div>
-        <FormSelectGroup
-          name="product"
-          label="Product"
-          placeholder="Type a product"
-          options={data.options}
-          disabled={status === Status.GENERATING}
-          required
-        />
+        {#if productOption === "Arbitrary"}
+          <FormInputGroup name="product" label="Product" placeholder="" required />
+        {:else}
+          <FormSelectGroup
+            name="product"
+            label="Product"
+            placeholder="Type a product"
+            options={data.options}
+            disabled={status === Status.GENERATING}
+            required
+          />
+        {/if}
       </div>
       <div class="row">
         <FormInputGroup
@@ -149,6 +163,7 @@
             label="Create valid signature"
             disabled={status === Status.GENERATING}
             bind:checked={isValid}
+            onChange={onChangeValidSignature}
           />
           <Tooltip tip="Whats this?" top>
             <span class="question-icon">
@@ -171,9 +186,7 @@
           <img class="logo" src={IoxioTagsLogo} alt="" aria-hidden="true" />
           {#if status === Status.FINISHED}
             <img class="qrcode" alt="" aria-hidden="true" src="" bind:this={qrcodeElement} />
-            <div class="ioxio-tag-frame">
-              <img class="tag" src={IoxioTagsLogoBlack} alt="" aria-hidden="true" />
-            </div>
+            <img class="ioxio-tag-frame" src={IoxioTagsQrcodeFrame} alt="" aria-hidden="true" />
           {/if}
         {:else}
           <div class="frame anim" />
@@ -295,11 +308,11 @@
           top: -2rem;
         }
         .qrcode {
-          width: 14rem;
-          height: 14rem;
+          width: 13.2rem;
+          height: 13.2rem;
           position: absolute;
-          left: 1rem;
-          top: 0.2rem;
+          left: 1.5rem;
+          top: 0.8rem;
           z-index: 2;
         }
         .ioxio-tag-frame {
@@ -309,27 +322,6 @@
           left: -0.5rem;
           top: -0.5rem;
           z-index: 1;
-          background-color: white;
-          border-radius: 0.2rem;
-          &::after {
-            content: "";
-            width: 15rem;
-            height: 15.8rem;
-            position: absolute;
-            left: 1rem;
-            top: 0.2rem;
-            border: 1px solid black;
-            z-index: 0;
-          }
-          .tag {
-            position: absolute;
-            z-index: 2;
-            bottom: 0.1rem;
-            width: 6rem;
-            padding: 0.2rem;
-            background: white;
-            left: 5.5rem;
-          }
         }
         .qrcode-frame {
           width: 16rem;

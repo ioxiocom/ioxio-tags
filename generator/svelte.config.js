@@ -27,7 +27,7 @@ const config = {
         "img-src": ["'self'", "data:"],
         "style-src": ["'self'", "'unsafe-inline'"],
         "script-src": ["'self'"],
-        "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io", "localhost:8081"],
+        "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io", "localhost:*"],
       },
     },
     alias: {
