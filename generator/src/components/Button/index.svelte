@@ -1,13 +1,17 @@
 <script lang="ts">
-  export let onClick: (() => void) | null = null
-  export let icon: string | null = null
+  export let onClick: (() => void) | undefined = undefined
+  export let icon: string | undefined = undefined
   export let title: string
   export let disabled: boolean = false
-  export let type: "button" | "submit" | "reset" | null | undefined = "button"
+  export let type: "button" | "submit" | "reset" = "button"
 
-  function onClickHandler(e) {
-    if (disabled) return
-    if (onClick) onClick()
+  function onClickHandler() {
+    if (disabled) {
+      return
+    }
+    if (onClick) {
+      onClick()
+    }
   }
 </script>
 

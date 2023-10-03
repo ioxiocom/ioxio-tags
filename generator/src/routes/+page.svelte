@@ -5,8 +5,8 @@
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
   import Button from "$components/Button/index.svelte"
   import Toggle from "$components/Toggle/index.svelte"
-  import LogoTagsSvg from "$assets/ioxio-tags-logo.svg?url"
-  import LogoTagsBlackSvg from "$assets/ioxio-tags-logo-black.svg?url"
+  import IoxioTagsLogo from "$assets/ioxio-tags-logo.svg?url"
+  import IoxioTagsLogoBlack from "$assets/ioxio-tags-logo-black.svg?url"
   import EffectSvg from "$assets/effect.svg?url"
   import LogomarkSvg from "$assets/ioxio-logomark.svg?url"
   import LogoSvg from "$assets/ioxio-logo.svg?url"
@@ -15,8 +15,10 @@
   import DownloadSvg from "$assets/download.svg?url"
   import type { PageData } from "./$types"
   import { Status } from "./types"
-  import type { InputData } from "$lib/types"
+  import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
+  import { DOCUMENTATION_URL } from "$lib/config"
+  type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
   export let data: PageData
 
@@ -24,7 +26,7 @@
   let signOption: string
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
-  let inputData: InputData
+  let inputData: GenerateSecureV1Request
   let isValid: boolean
 
   function slugify(input: string): string {
@@ -33,7 +35,7 @@
     return value.replace("-s", "-")
   }
 
-  async function onGenerate(event: FormDataEvent) {
+  async function onGenerate(event: SubmitEvent) {
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
@@ -60,10 +62,9 @@
         }
       }
       return
-    }
-    if (result.status === 201) {
-    }
-    if (result.status === 400) {
+    } else {
+      // TODO: Better error handling
+      console.error("Generating tag failed", result)
     }
   }
 
@@ -98,7 +99,7 @@
   <div class="form-wrapper">
     <div class="title">Generate a product passport</div>
     <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-    <form on:submit|preventDefault={onGenerate}>
+    <form on:submit={onGenerate}>
       <div class="row">
         <FormInputGroup
           name="iss"
@@ -147,7 +148,7 @@
             name="valid"
             label="Create valid signature"
             disabled={status === Status.GENERATING}
-            bind:value={isValid}
+            bind:checked={isValid}
           />
           <Tooltip tip="Whats this?" top>
             <span class="question-icon">
@@ -167,11 +168,11 @@
       <div class="qrcode-frame">
         {#if status !== Status.GENERATING}
           <img class="frame" src={SubtractSvg} alt="" aria-hidden="true" />
-          <img class="logo" src={LogoTagsSvg} alt="" aria-hidden="true" />
+          <img class="logo" src={IoxioTagsLogo} alt="" aria-hidden="true" />
           {#if status === Status.FINISHED}
             <img class="qrcode" alt="" aria-hidden="true" src="" bind:this={qrcodeElement} />
             <div class="ioxio-tag-frame">
-              <img class="tag" src={LogoTagsBlackSvg} alt="" aria-hidden="true" />
+              <img class="tag" src={IoxioTagsLogoBlack} alt="" aria-hidden="true" />
             </div>
           {/if}
         {:else}
@@ -182,7 +183,7 @@
     </div>
     <div class="status">
       {#if status === Status.READY}
-        IOXIO Tag generator
+        IOXIO Tags™️ generator
       {:else if status === Status.GENERATING}
         Generating...
       {:else}
@@ -202,7 +203,7 @@
             read using a compatible reader application, enabling access to relevant product details
             in real time.
           </p>
-          <a class="documentation" href="/">See documentation →</a>
+          <a class="documentation" href={DOCUMENTATION_URL}>See documentation →</a>
         </div>
       {:else if status === Status.FINISHED}
         <div class="result">

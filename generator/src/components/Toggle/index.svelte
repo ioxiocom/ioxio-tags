@@ -1,10 +1,12 @@
 <script lang="ts">
   export let options: string[] = []
   export let value: string
-  export let disabled: boolean | undefined
+  export let disabled: boolean = false
 
   function onClickHandler(option: string) {
-    if (disabled) return
+    if (disabled) {
+      return
+    }
     value = option
   }
 </script>

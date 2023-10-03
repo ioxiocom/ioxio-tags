@@ -2,7 +2,7 @@
   export let name: string
   export let label: string
   export let placeholder: string | undefined
-  export let disabled: boolean | undefined
+  export let disabled: boolean = false
   export let required: boolean = false
 </script>
 

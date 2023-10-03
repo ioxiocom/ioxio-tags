@@ -2,14 +2,14 @@
   import Checkbox from "$assets/check.svg?component"
   export let name: string
   export let label: string | undefined
-  export let value: boolean | undefined
-  export let disabled: boolean | undefined
+  export let checked: boolean = false
+  export let disabled: boolean = false
   export let required: boolean = false
 </script>
 
 <div class="wrapper">
   <div class="checkbox">
-    <input type="checkbox" id={name} {disabled} {name} {required} bind:checked={value} />
+    <input type="checkbox" id={name} {disabled} {name} {required} bind:checked />
     <label for={name} style="--size: 20px">
       <Checkbox />
     </label>
