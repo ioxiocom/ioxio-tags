@@ -24,7 +24,7 @@
     <div class="title">{data.name}</div>
   </div>
   <div class="card">
-    <div class="basic-information">BASIC INFORMATION</div>
+    <div class="basic-information">Basic Information</div>
     <div class="row">
       <div class="property">Verification state:</div>
       <div class="value">
@@ -35,7 +35,7 @@
       </div>
     </div>
     <div class="row">
-      <div class="property">product Code:</div>
+      <div class="property">Product Code:</div>
       <div class="value">{data.product}</div>
     </div>
     <div class="row">
