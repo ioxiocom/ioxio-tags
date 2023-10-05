@@ -7,7 +7,6 @@
   import { consoleLog } from "$lib/common"
   import { tryParseIoxioTags } from "$lib/parse"
   import type { PageData } from "./$types"
-  import Loading from "$components/Loading/index.svelte"
   import Documentation from "$components/Documentation/index.svelte"
 
   export let data: PageData
@@ -54,56 +53,9 @@
     </div>
   </div>
 </div>
-<div class="test">
-  <div class="test-card">
-    <div class="split">
-      <div>
-        <h2>Available Dataproduct name</h2>
-        <span>Dataproduct description</span>
-      </div>
-      <div>
-        <Button title="Fetch >" onClick={() => {}} />
-      </div>
-    </div>
-    <hr />
-    <Loading type="light" />
-  </div>
-  <Loading type="dark" />
-</div>
 <Documentation />
 
 <style lang="scss">
-  .test {
-    display: none; // This element just for testing, to be removed later
-    position: absolute;
-    z-index: 2123153;
-    bottom: 5rem;
-  }
-
-  .test-card {
-    .split {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      align-items: end;
-    }
-
-    color: #fff;
-    font-family: "Poppins", sans-serif;
-
-    h2 {
-      margin: 0;
-    }
-
-    hr {
-      border-color: #20303e;
-    }
-
-    background: #1a2934;
-    padding: 2rem;
-    border-radius: 5px;
-  }
-
   main {
     display: flex;
     flex-direction: column;
