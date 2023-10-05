@@ -21,9 +21,10 @@
     "/X1U66+CHCEMXI0P274GSM.6. LBDD"
 
   async function scanPreset() {
-    const detected = await tryParseIoxioTags(PRESET_DATA)
-    if (detected) {
+    const payload = await tryParseIoxioTags(PRESET_DATA)
+    if (payload) {
       consoleLog("Detected IOXIO Tag")
+      goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
     } else {
       consoleLog("No IOXIO Tag detected", "warn")
     }
@@ -45,7 +46,7 @@
       <div>
         <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
       </div>
-      {#if data.isDevelopment}
+      {#if !data.isDevelopment}
         <div>
           <Button onClick={scanPreset} title="Simulate scan of preset data" />
         </div>

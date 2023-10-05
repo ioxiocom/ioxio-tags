@@ -47,11 +47,12 @@
 
     // If the result has content
     if (result.hasContent) {
-      const detected = await tryParseIoxioTags(result.content)
+      const payload = await tryParseIoxioTags(result.content)
 
-      if (detected) {
+      if (payload) {
         // Stop scanning
         consoleLog("Detected IOXIO Tag")
+        goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
@@ -63,19 +64,6 @@
   onMount(() => {
     startScan()
   })
-
-  setTimeout(() => {
-    goto(`/loading`, {
-      replaceState: true,
-      state: {
-        dataspace_domain: "sandbox.ioxio-dataspace.com",
-        product_path: "DPP/Energy/Battery/ProductDataSheet_v0.1",
-        source: "dpp_demo",
-        product: "MPP48V",
-        id: "test",
-      },
-    })
-  }, 2000)
 </script>
 
 <div class="relative barcode-scanner-area-wrapper">
@@ -92,7 +80,7 @@
     Here's an example to identify an <strong>IOXIO Tag</strong>
   </div>
   <div class="example-code">
-    <img src={IoxioTagExample} alt="code" />
+    <img src={IoxioTagExample} alt="An example IOXIO Tag" />
   </div>
 </div>
 <Documentation />

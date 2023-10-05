@@ -28,13 +28,15 @@ const PRESET_JWKS = {
 
 const IOXIO_TAGS_VERSION_PREFIX = "IT1:"
 
+type Payload = {
+  iss: string // Issuer domain
+  product: string // Generic product name / category
+  id: string // Unique ID of the product
+}
+
 type RawSecureTagParseResult = {
   kid: string // JWKS key ID
-  payload: {
-    iss: string // Issuer domain
-    product: string // Generic product name / category
-    id: string // Unique ID of the product
-  }
+  payload: Payload
 }
 
 function isTagsURL(url: string) {
@@ -79,12 +81,12 @@ async function verifyCose(message: Buffer, jwk: object): Promise<boolean> {
   return true
 }
 
-export async function tryParseIoxioTags(contents: string): Promise<boolean> {
+export async function tryParseIoxioTags(contents: string): Promise<Payload | null> {
   const isValidURL = isTagsURL(contents)
   if (isValidURL) {
     consoleLog("Found low security IOXIO Tag URL")
     consoleLog(contents)
-    return true
+    return null
   } else {
     consoleLog("Didn't scan an IOXIO Tag URL, maybe it's B45-COSE?", "warn")
     consoleLog(contents, "warn")
@@ -124,11 +126,11 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
             }
           }
 
-          return true
+          return cborData.payload
         }
       } else {
         // No IT1: prefix
-        return false
+        return null
       }
     } catch (e: unknown) {
       if (e.toString().indexOf("Invalid base45 string") !== -1) {
@@ -137,7 +139,7 @@ export async function tryParseIoxioTags(contents: string): Promise<boolean> {
       } else {
         // TODO: Show error
         consoleLog(e, "warn")
-        return false
+        return null
       }
     }
   }

@@ -1,106 +1,134 @@
 <script lang="ts">
   import Header from "$components/Header/index.svelte"
   import Footer from "$components/Footer/index.svelte"
-  import BatteryPng from "$assets/battery.png"
   import GreenCheckSvg from "$assets/green-check.svg"
   import ChevronLeftSvg from "$assets/chevron-left.svg"
-  import { onMount } from "svelte"
+  import Loading from "$components/Loading/index.svelte"
   import { page } from "$app/stores"
+  import { onMount } from "svelte"
+  import { fetchMetaDataV1 } from "$lib/api"
 
-  let data: any = {}
+  let loading: boolean
   let availableProductFetched: boolean = false
   let secondProductFetched: boolean = false
+  let meta: any = null
 
-  onMount(async () => {
-    data = history.state
-    console.log(data)
-  })
+  async function load() {
+    loading = true
+    const result = await fetchMetaDataV1({
+      iss: $page.params.iss,
+      product: $page.params.product,
+    }).result
+    console.log(result)
+    if (result.ok) {
+      meta = result.data
+    } else {
+      console.error("Generating tag failed", result)
+      meta = null
+    }
+    loading = false
+  }
+  load()
 </script>
 
-<Header />
-<div class="content">
-  <div class="logo-title">
-    <div class="logo"><img src={BatteryPng} alt="" aria-hidden="true" /></div>
-    <div class="title">{data.name}</div>
+{#if Boolean(loading)}
+  <div class="loader">
+    <Loading type="light" />
   </div>
-  <div class="card">
-    <div class="basic-information">Basic Information</div>
-    <div class="row">
-      <div class="property">Verification state:</div>
-      <div class="value">
-        <div class="flex-item">
-          <img src={GreenCheckSvg} alt="" aria-hidden="true" />
-          <span class:trusted={true}>Trusted</span>
+{:else if !meta}
+  Error
+{:else}
+  <Header logoUrl={meta.logo_url} />
+  <div class="content">
+    <div class="logo-title">
+      <div class="logo"><img src={meta.image_url} alt="" aria-hidden="true" /></div>
+      <div class="title">{meta.names.en_US}</div>
+    </div>
+    <div class="card">
+      <div class="basic-information">Basic Information</div>
+      <div class="row">
+        <div class="property">Verification state:</div>
+        <div class="value">
+          <div class="flex-item">
+            <img src={GreenCheckSvg} alt="" aria-hidden="true" />
+            <span class:trusted={true}>Trusted</span>
+          </div>
         </div>
       </div>
-    </div>
-    <div class="row">
-      <div class="property">Product Code:</div>
-      <div class="value">{data.product}</div>
-    </div>
-    <div class="row">
-      <div class="property capitalize">Dataspace domain:</div>
-      <div class="value">{$page.params.iss}</div>
-    </div>
-  </div>
-  <div class="card">
-    <div class="header" class:divider={availableProductFetched}>
-      <div>
-        <div class="dataproduct-name">Available Dataproduct name</div>
-        <div class="subtitle">Data product description</div>
+      <div class="row">
+        <div class="property">Product Code:</div>
+        <div class="value">{$page.params.product}</div>
       </div>
-      <button
-        class="button"
-        class:fetch={!availableProductFetched}
-        class:close={availableProductFetched}
-        on:click={() => (availableProductFetched = !availableProductFetched)}
-      >
-        <span>{availableProductFetched ? "Close" : "Fetch"}</span>
-        <img src={ChevronLeftSvg} alt="" aria-hidden="true" />
-      </button>
+      <div class="row">
+        <div class="property capitalize">Dataspace domain:</div>
+        <div class="value">{$page.params.iss}</div>
+      </div>
     </div>
-    {#if availableProductFetched}
-      <div class="information">
-        {#each Object.keys(data).filter((key) => !key.includes("svelte")) as key}
-          <div class="row">
-            <div class="property capitalize">{key.replace(/([a-z])([A-Z])/g, "$1 $2")}:</div>
-            <div class="value">
-              {#if data[key] instanceof Array}
-                {#each data[key] as value}
-                  <div class="item">{value}</div>
-                {/each}
-              {:else if typeof data[key] === "object"}
-                {#each Object.keys(data[key]) as nestKey}
-                  <div class="item">
-                    <span class="capitalize">{nestKey.replace(/([a-z])([A-Z])/g, "$1 $2")}</span>
-                    {data[key][nestKey]}
-                  </div>
-                {/each}
-              {:else}
-                {data[key]}
-              {/if}
+    <div class="card">
+      <div class="header" class:divider={availableProductFetched}>
+        <div>
+          <div class="dataproduct-name">Available Dataproduct name</div>
+          <div class="subtitle">Data product description</div>
+        </div>
+        <button
+          class="button"
+          class:fetch={!availableProductFetched}
+          class:close={availableProductFetched}
+          on:click={() => (availableProductFetched = !availableProductFetched)}
+        >
+          <span>{availableProductFetched ? "Close" : "Fetch"}</span>
+          <img src={ChevronLeftSvg} alt="" aria-hidden="true" />
+        </button>
+      </div>
+      {#if availableProductFetched}
+        <div class="information">
+          {#each Object.keys(meta).filter((key) => !key.includes("svelte")) as key}
+            <div class="row">
+              <div class="property capitalize">{key.replace(/([a-z])([A-Z])/g, "$1 $2")}:</div>
+              <div class="value">
+                {#if meta[key] instanceof Array}
+                  {#each meta[key] as value}
+                    <div class="item">{value}</div>
+                  {/each}
+                {:else if typeof meta[key] === "object"}
+                  {#each Object.keys(meta[key]) as nestKey}
+                    <div class="item">
+                      <span class="capitalize">{nestKey.replace(/([a-z])([A-Z])/g, "$1 $2")}</span>
+                      {meta[key][nestKey]}
+                    </div>
+                  {/each}
+                {:else}
+                  {meta[key]}
+                {/if}
+              </div>
             </div>
-          </div>
-        {/each}
-      </div>
-    {/if}
-  </div>
-  <div class="card">
-    <div class="header">
-      <div>
-        <div class="dataproduct-name">Second Dataproduct name</div>
-        <div class="subtitle">Data product description</div>
-      </div>
-      <button class="button unsupport" on:click={() => alert("unsupported")}>Unsupported</button>
+          {/each}
+        </div>
+      {/if}
     </div>
-    {#if secondProductFetched}
-      <div class="information" />
-    {/if}
+    <div class="card">
+      <div class="header">
+        <div>
+          <div class="dataproduct-name">Second Dataproduct name</div>
+          <div class="subtitle">Data product description</div>
+        </div>
+        <button class="button unsupport" on:click={() => alert("unsupported")}>Unsupported</button>
+      </div>
+      {#if secondProductFetched}
+        <div class="information" />
+      {/if}
+    </div>
   </div>
-</div>
-<Footer />
+  <Footer />
+{/if}
 
 <style lang="scss">
+  .loader {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
   .content {
     flex: 1;
     padding: 1rem 0;

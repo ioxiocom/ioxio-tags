@@ -1,8 +1,9 @@
 <script lang="ts">
   import Question from "$assets/question.svg"
+  import { settings } from "$lib/settings"
 </script>
 
-<a class="wrapper" href="/">
+<a class="wrapper" href={settings.DOCUMENTATION_URL}>
   <img alt="question" src={Question} />
   <span class="label">Documentation</span>
 </a>

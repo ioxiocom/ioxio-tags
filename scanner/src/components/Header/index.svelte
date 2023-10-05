@@ -1,15 +1,17 @@
 <script lang="ts">
   import LeftArrowSvg from "$assets/left-arrow.svg"
   import QuestionSvg from "$assets/question.svg"
-  import MetaDataPng from "$assets/metadata.png"
+  import { settings } from "$lib/settings"
+
+  export let logoUrl: string
 </script>
 
 <div class="wrapper">
   <a href="/">
     <img class="left-arrow" src={LeftArrowSvg} alt="" aria-hidden="true" />
   </a>
-  <img class="question" src={MetaDataPng} alt="" aria-hidden="true" />
-  <a href="/">
+  <img class="question" src={logoUrl} alt="" aria-hidden="true" />
+  <a href={settings.DOCUMENTATION_URL}>
     <img class="metadata" src={QuestionSvg} alt="" aria-hidden="true" />
   </a>
 </div>
