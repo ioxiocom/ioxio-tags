@@ -3,6 +3,7 @@ import re
 import unicodedata
 from copy import copy
 from io import BytesIO
+from typing import Literal
 from urllib.parse import quote_plus
 
 import cbor2
@@ -200,7 +201,15 @@ async def fetch_metadata(iss: str, product: str):
         product_dataspace=product_passport.product_dataspace,
         names=product_metadata.names,
         image_url=product_metadata.image_url,
-        supported_dataproducts=product_metadata.supported_dataproducts,
+        supported_dataproducts=[
+            # TODO: These should be extracted from `gateway.{dataspace_domain}/openapi.json`
+            {
+                "name": sdp["path"].replace("/", " "),
+                "description": f"{sdp['path'].replace('/', ' ')} from {sdp['source']}",
+                **sdp,
+            }
+            for sdp in product_metadata.supported_dataproducts
+        ],
     )
 
 
@@ -225,7 +234,7 @@ def make_image_filename(iss: str, product: str, id: str, security: str) -> str:
     return f"{slugify(iss)}_{slugify(product)}_{slugify(id)}_{slugify(security)}.png"
 
 
-def make_image(payload: bytes, frame_type: str) -> bytes:
+def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes:
     qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL])
     qr.add_data(payload)
 

@@ -14,21 +14,21 @@
         "operationId": "dataproduct_fetch_dataproduct_fetch__dataspace_domain___product_path__post",
         "parameters": [
           {
-            "name": "dataspace_domain",
-            "in": "path",
-            "required": true,
-            "schema": {
-              "type": "string",
-              "title": "Dataspace Domain"
-            }
-          },
-          {
             "name": "product_path",
             "in": "path",
             "required": true,
             "schema": {
               "type": "string",
               "title": "Product Path"
+            }
+          },
+          {
+            "name": "dataspace_domain",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "title": "Dataspace Domain"
             }
           },
           {
@@ -388,6 +388,14 @@
       },
       "SupportedDataproduct": {
         "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name of the data product to be shown in UI"
+          },
+          "description": {
+            "type": "string",
+            "title": "Description of the data product for the UI"
+          },
           "path": {
             "type": "string",
             "title": "Path for the data product on the dataspace",
@@ -402,6 +410,8 @@
         },
         "type": "object",
         "required": [
+          "name",
+          "description",
           "path",
           "source"
         ],
