@@ -31,6 +31,8 @@ class MetadataV1Request(BaseModel):
 
 
 class SupportedDataproduct(BaseModel):
+    name: str = Field(..., title="Name of the data product to be shown in UI")
+    description: str = Field(..., title="Description of the data product for the UI")
     path: str = Field(..., title="Path for the data product on the dataspace",
                       examples=["DPP/Energy/Battery/ProductDataSheet_v0.1"])
     source: str = Field(..., title="The supported source for this data product on the dataspace")

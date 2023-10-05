@@ -80,6 +80,10 @@ export interface components {
     };
     /** SupportedDataproduct */
     SupportedDataproduct: {
+      /** Name of the data product to be shown in UI */
+      name: string;
+      /** Description of the data product for the UI */
+      description: string;
       /** Path for the data product on the dataspace */
       path: string;
       /** The supported source for this data product on the dataspace */
@@ -127,8 +131,8 @@ export interface operations {
         source: string;
       };
       path: {
-        dataspace_domain: string;
         product_path: string;
+        dataspace_domain: string;
       };
     };
     requestBody: {
