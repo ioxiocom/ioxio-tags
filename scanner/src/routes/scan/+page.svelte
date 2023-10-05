@@ -6,6 +6,8 @@
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
   import { onMount } from "svelte"
+  import Documentation from "$components/Documentation/index.svelte"
+  import { goto } from "$app/navigation"
 
   const originalBodyBg = typeof document !== "undefined" ? document.body.style.background : ""
 
@@ -61,27 +63,39 @@
   onMount(() => {
     startScan()
   })
+
+  setTimeout(() => {
+    goto(`/loading`, {
+      replaceState: true,
+      state: {
+        dataspace_domain: "sandbox.ioxio-dataspace.com",
+        product_path: "DPP/Energy/Battery/ProductDataSheet_v0.1",
+        source: "dpp_demo",
+        product: "MPP48V",
+        id: "test",
+      },
+    })
+  }, 2000)
 </script>
 
-<div class="container">
-  <div class="relative barcode-scanner-area-wrapper">
-    <div class="relative barcode-scanner-area">
-      <img alt="subtract" class="subtract-image" src={Subtract} />
-      <div class="square surround-cover" />
-    </div>
-    <div class="relative">
-      <p class="description">Scan a Product Passport QR code to view product data</p>
-    </div>
+<div class="relative barcode-scanner-area-wrapper">
+  <div class="relative barcode-scanner-area">
+    <img alt="subtract" class="subtract-image" src={Subtract} />
+    <div class="square surround-cover" />
   </div>
-  <div class="relative example-code-wrapper">
-    <div class="example-description">
-      Here's an example to identify an <strong>IOXIO Tag</strong>
-    </div>
-    <div class="example-code">
-      <img src={IoxioTagExample} alt="code" />
-    </div>
+  <div class="relative">
+    <p class="description">Scan a Product Passport QR code to view product data</p>
   </div>
 </div>
+<div class="relative example-code-wrapper">
+  <div class="example-description">
+    Here's an example to identify an <strong>IOXIO Tag</strong>
+  </div>
+  <div class="example-code">
+    <img src={IoxioTagExample} alt="code" />
+  </div>
+</div>
+<Documentation />
 
 <style>
   .barcode-scanner-area-wrapper {

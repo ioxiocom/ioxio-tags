@@ -8,8 +8,7 @@
   import { tryParseIoxioTags } from "$lib/parse"
   import type { PageData } from "./$types"
   import Loading from "$components/Loading/index.svelte"
-  import { dataProduct } from "$lib/api"
-  import { onMount } from "svelte"
+  import Documentation from "$components/Documentation/index.svelte"
 
   export let data: PageData
 
@@ -30,62 +29,48 @@
       consoleLog("No IOXIO Tag detected", "warn")
     }
   }
-
-  onMount(async () => {
-    // Just an example of fetching a data product
-    const req = await dataProduct.fetch({
-      dataspace_domain: "sandbox.ioxio-dataspace.com",
-      product_path: "DPP/Energy/Battery/ProductDataSheet_v0.1",
-      source: "dpp_demo",
-      product: "MPP48V",
-      id: "test",
-    })
-    console.log(await req.result)
-  })
 </script>
 
-<div class="container">
-  <div class="background" />
-  <div class="relative barcode-scanner-area-wrapper">
-    <div class="relative barcode-scanner-area">
-      <img alt="subtract" class="subtract-image" src={Subtract} />
-      <img class="logo" src={IoxioTagLogo} alt="logo" />
-    </div>
-    <div>
-      <div class="relative">
-        <p class="description">
-          Turn on your camera for scan a Product Passport QR code to view product data
-        </p>
-      </div>
-      <div class="relative actions-wrapper">
-        <div>
-          <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
-        </div>
-        {#if data.isDevelopment}
-          <div>
-            <Button onClick={scanPreset} title="Simulate scan of preset data" />
-          </div>
-        {/if}
-      </div>
-    </div>
+<div class="relative barcode-scanner-area-wrapper">
+  <div class="relative barcode-scanner-area">
+    <img alt="subtract" class="subtract-image" src={Subtract} />
+    <img class="logo" src={IoxioTagLogo} alt="logo" />
   </div>
-  <div class="test">
-    <div class="test-card">
-      <div class="split">
-        <div>
-          <h2>Available Dataproduct name</h2>
-          <span>Dataproduct description</span>
-        </div>
-        <div>
-          <Button title="Fetch >" onClick={() => {}} />
-        </div>
-      </div>
-      <hr />
-      <Loading type="light" />
+  <div>
+    <div class="relative">
+      <p class="description">
+        Turn on your camera for scan a Product Passport QR code to view product data
+      </p>
     </div>
-    <Loading type="dark" />
+    <div class="relative actions-wrapper">
+      <div>
+        <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+      </div>
+      {#if data.isDevelopment}
+        <div>
+          <Button onClick={scanPreset} title="Simulate scan of preset data" />
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
+<div class="test">
+  <div class="test-card">
+    <div class="split">
+      <div>
+        <h2>Available Dataproduct name</h2>
+        <span>Dataproduct description</span>
+      </div>
+      <div>
+        <Button title="Fetch >" onClick={() => {}} />
+      </div>
+    </div>
+    <hr />
+    <Loading type="light" />
+  </div>
+  <Loading type="dark" />
+</div>
+<Documentation />
 
 <style lang="scss">
   .test {
@@ -141,14 +126,6 @@
     z-index: 1;
   }
 
-  .background {
-    background: rgba(16, 25, 32, 1);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
   .barcode-scanner-area-wrapper {
     flex: 1;
     height: 100%;

@@ -1,16 +1,14 @@
 <script lang="ts">
   import "./style.css"
-  import Question from "$assets/question.svg"
   import { SvelteToast } from "@zerodevx/svelte-toast"
 </script>
 
 <main>
-  <div id="reader">
-    <slot />
-    <a class="relative documentation-wrapper" href="/">
-      <img alt="question" src={Question} />
-      <p class="documentation-label">Documentation</p>
-    </a>
+  <div class="container">
+    <div class="background" />
+    <div id="reader">
+      <slot />
+    </div>
   </div>
   <SvelteToast />
 </main>
@@ -28,40 +26,22 @@
   #reader {
     width: 100%;
     height: 100vh;
-    min-height: 500px;
+    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    position: relative;
   }
 
   :global(.container) {
     flex: 1;
     display: flex;
     flex-direction: column;
+    width: 100%;
   }
 
   :global(.relative) {
     position: relative;
     z-index: 1;
-  }
-
-  .documentation-wrapper {
-    text-decoration: none;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-top: 1rem;
-    font-weight: 600;
-    line-height: 1.5rem;
-    gap: 0.5rem;
-  }
-
-  .documentation-wrapper img {
-    width: 2rem;
-  }
-
-  .documentation-label {
-    color: white;
-    font-size: 1.2rem;
   }
 </style>
