@@ -5,10 +5,7 @@
 
 <main>
   <div class="container">
-    <div class="background" />
-    <div id="reader">
-      <slot />
-    </div>
+    <slot />
   </div>
   <SvelteToast />
 </main>
@@ -23,21 +20,13 @@
     background: transparent;
   }
 
-  #reader {
+  .container {
     width: 100%;
     height: 100vh;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     padding: 1rem;
     position: relative;
-  }
-
-  :global(.container) {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
   }
 
   :global(.relative) {

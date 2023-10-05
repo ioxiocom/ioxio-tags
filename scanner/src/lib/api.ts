@@ -8,4 +8,10 @@ apity.configure({
   baseUrl: settings.PUBLIC_API_BASE_URL,
 })
 
-export const fetchMetaDataV1 = apity.path("/tag/metadata/v1/").method("post").create()
+export const tag = {
+  fetchMetaDataV1: apity.path("/tag/metadata/v1/").method("post").create(),
+  fetchDataProduct: apity
+    .path("/dataproduct/fetch/{dataspace_domain}/{product_path}")
+    .method("post")
+    .create({ source: true }),
+}

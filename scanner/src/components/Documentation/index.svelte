@@ -19,6 +19,7 @@
     line-height: 1.5rem;
     gap: 0.5rem;
     position: relative;
+    z-index: 1;
   }
 
   img {

@@ -5,7 +5,7 @@
 
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
-  import { onMount } from "svelte"
+  import { onDestroy, onMount } from "svelte"
   import Documentation from "$components/Documentation/index.svelte"
   import { goto } from "$app/navigation"
 
@@ -13,12 +13,10 @@
 
   export function hideBackground() {
     BarcodeScanner.hideBackground()
-    document.body.style.background = "transparent"
   }
 
   export function showBackground() {
     BarcodeScanner.showBackground()
-    document.body.style.background = originalBodyBg
   }
 
   export function sleep(ms: number): Promise<void> {
@@ -27,7 +25,7 @@
 
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
   // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
-  export async function startScan() {
+  export async function startScan(): Promise<void> {
     // TODO: Permissions cannot be ignored
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!permissionResult.granted) {
@@ -50,8 +48,10 @@
       const payload = await tryParseIoxioTags(result.content)
 
       if (payload) {
-        // Stop scanning
         consoleLog("Detected IOXIO Tag")
+        // Stop scanning
+        BarcodeScanner.stopScan()
+        // Go to MetaData screen
         goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
@@ -63,6 +63,10 @@
 
   onMount(() => {
     startScan()
+  })
+
+  onDestroy(() => {
+    BarcodeScanner.stopScan()
   })
 </script>
 
