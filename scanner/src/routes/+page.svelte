@@ -47,7 +47,7 @@
       <div>
         <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
       </div>
-      {#if !data.isDevelopment}
+      {#if data.isDevelopment}
         <div>
           <Button onClick={scanPreset} title="Simulate scan of preset data" />
         </div>
