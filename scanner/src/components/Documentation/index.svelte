@@ -2,13 +2,13 @@
   import Question from "$assets/question.svg"
 </script>
 
-<a class="relative documentation-wrapper" href="/">
+<a class="wrapper" href="/">
   <img alt="question" src={Question} />
-  <p class="documentation-label">Documentation</p>
+  <span class="label">Documentation</span>
 </a>
 
 <style>
-  .documentation-wrapper {
+  .wrapper {
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -17,13 +17,14 @@
     font-weight: 600;
     line-height: 1.5rem;
     gap: 0.5rem;
+    position: relative;
   }
 
-  .documentation-wrapper img {
+  img {
     width: 2rem;
   }
 
-  .documentation-label {
+  .label {
     color: white;
     font-size: 1.2rem;
   }

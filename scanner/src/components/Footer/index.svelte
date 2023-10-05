@@ -4,7 +4,7 @@
 
 <div class="wrapper">
   <p>Made by</p>
-  <img class="logo" src={IoxioLogoSvg} alt="" aria-hidden="true" />
+  <img class="logo" src={IoxioLogoSvg} alt="IOXIO" />
 </div>
 
 <style>
