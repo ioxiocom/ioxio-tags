@@ -40,12 +40,7 @@
     {#if meta}
       <BasicInformation {meta} product={$page.params.product} />
       {#each meta.supported_dataproducts as dataProduct}
-        <DataProduct
-          productBrief={dataProduct}
-          dataspaceDomain={meta.product_dataspace}
-          product={$page.params.product}
-          logoUrl={meta.logo_url}
-        />
+        <DataProduct productBrief={dataProduct} />
       {/each}
     {:else}
       Error

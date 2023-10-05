@@ -20,7 +20,6 @@
     gap: 0.2rem;
     color: white;
   }
-
   .logo {
     height: 1rem;
   }
