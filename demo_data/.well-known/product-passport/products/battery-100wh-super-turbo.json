@@ -2,7 +2,8 @@
   "names": {
     "fi_FI": "Tosi Hyvä Akku",
     "se_FI": "Jätte Bra Akku",
-    "en_FI": "Rili Guud Akku"
+    "en_FI": "Rili Guud Akku",
+    "en_US": "Really good battery"
   },
   "image_url": "https://ioxio-showroom.com/img/modular-power-pack.png",
   "supported_dataproducts": [
