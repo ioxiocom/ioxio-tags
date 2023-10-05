@@ -49,8 +49,6 @@
 
       if (payload) {
         consoleLog("Detected IOXIO Tag")
-        // Stop scanning
-        BarcodeScanner.stopScan()
         // Go to MetaData screen
         goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
       } else {
