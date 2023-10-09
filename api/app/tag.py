@@ -5,6 +5,9 @@ from copy import copy
 from io import BytesIO
 from typing import Literal
 from urllib.parse import quote_plus
+from PIL import Image, ImageDraw, ImageOps
+import cairosvg
+from pathlib import Path
 
 import cbor2
 import cwt
@@ -246,11 +249,42 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
         image_factory=StyledPilImage,
     )
 
-    # TODO: Wrap in frame using cairosvg + pillow
+    # Get the dimensions of the image in pixels
+    img_width, img_height = img.size
 
-    # Get image contents as bytes
+    # Convert the SVG frame to a PNG image
+    api_root = Path(__file__).parent.parent.absolute()
+    frame_path = str(api_root) + "/tags_frame_signed.svg" if frame_type == "secure" else str(
+        api_root) + "/tags_frame_simple.svg"
+    with open(frame_path, "rb") as svg_file:
+        svg_data = svg_file.read()
+        png_data = cairosvg.svg2png(bytestring=svg_data)
+        frame = Image.open(BytesIO(png_data))
+
+    # Calculate the new image dimensions
+    percentage_modifier = 1.2
+    new_width = int(img_width * percentage_modifier)
+    new_height = int(img_height * percentage_modifier)
+
+    # Resize the frame to match the dimensions of the new image
+    frame = frame.resize((new_width, new_height))
+
+    # Create a new image with the calculated dimensions
+    new_image = Image.new("RGB", (new_width, new_height))
+
+    # Paste the frame onto the new image
+    new_image.paste(frame, (0, 0))
+
+    # Calculate the position to draw the image centered within the frame
+    x_position = (new_width - img_width) // 2
+    y_position = (new_height - img_height) // 2
+
+    # Paste the image onto the new image at the calculated position
+    new_image.paste(img, (x_position, y_position))
+
+    # Convert the PIL image to bytes
     container = BytesIO()
-    img.save(container)
+    new_image.save(container, format="PNG")
     return container.getvalue()
 
 
