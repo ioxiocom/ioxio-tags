@@ -6,13 +6,13 @@
   import DataProduct from "$components/DataProduct/index.svelte"
   import { page } from "$app/stores"
   import { tag } from "$lib/api"
+  import { onMount } from "svelte"
 
-  let loading: boolean
-  let meta: any = null
+  let loading: boolean = false
+  let meta: any = undefined
 
   async function load() {
     loading = true
-    console.log($page.params)
     const result = await tag.fetchMetaDataV1({
       iss: $page.params.iss,
       product: $page.params.product,
@@ -20,31 +20,28 @@
 
     if (result.ok) {
       meta = result.data
-      console.log(meta)
     } else {
-      console.error("Generating tag failed", result)
-      meta = null
+      console.error("Fetching metadata failed", result)
+      meta = undefined
     }
     loading = false
   }
-  load()
+  onMount(() => {
+    load()
+  })
 </script>
 
-{#if Boolean(loading)}
+{#if loading || !meta}
   <div class="loader">
     <Loading type="light" />
   </div>
 {:else}
-  <Header logoUrl={meta?.logo_url} />
   <div class="content">
-    {#if meta}
-      <BasicInformation {meta} product={$page.params.product} />
-      {#each meta.supported_dataproducts as dataProduct}
-        <DataProduct productBrief={dataProduct} />
-      {/each}
-    {:else}
-      Error
-    {/if}
+    <Header logoUrl={meta.logo_url} />
+    <BasicInformation {meta} product={$page.params.product} />
+    {#each meta.supported_dataproducts as dataProduct}
+      <DataProduct productBrief={dataProduct} />
+    {/each}
   </div>
   <Footer />
 {/if}

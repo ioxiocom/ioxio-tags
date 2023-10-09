@@ -24,8 +24,7 @@
     const payload = await tryParseIoxioTags(PRESET_DATA)
     if (payload) {
       consoleLog("Detected IOXIO Tag")
-      // goto(`/q/${payload.iss}/${payload.product}/${payload.id}`)
-      goto("q/tags.ioxio.dev/battery-100wh-super-turbo/test")
+      goto(`/q/${payload.iss}/${payload.product}/${payload.id}`)
     } else {
       consoleLog("No IOXIO Tag detected", "warn")
     }

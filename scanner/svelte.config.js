@@ -25,7 +25,7 @@ const config = {
     csp: {
       // Unused for adapter-static, configuration is in Nginx
       directives: {
-        "img-src": ["'self'", "data:", "ioxio.com", "ioxio-showroom.com"],
+        "img-src": ["'self'", "data:", "https:"],
         "style-src": ["'self'", "'unsafe-inline'"],
         "script-src": ["'self'", "'unsafe-inline'"],
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io", "localhost:*"],
