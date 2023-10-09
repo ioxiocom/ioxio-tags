@@ -70,7 +70,8 @@
       } else if (result.status === 422) {
         error = result.data.detail[0].msg
       } else {
-        error = "Server error"
+        error = "Generating tag failed. Check developer console for details, or try again later."
+        console.error("Generating tag failed", result)
       }
       status = Status.READY
     }
@@ -303,7 +304,7 @@
     .error-wrapper {
       margin-top: 5rem;
       box-shadow: 0px 1px 2px 0px #1018280d;
-      border: 1.07px solid #ccd5e1;
+      border: 1px solid #ccd5e1;
       border-radius: 0.3rem;
       padding: 1rem;
       position: relative;
