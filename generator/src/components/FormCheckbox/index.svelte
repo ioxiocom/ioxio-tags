@@ -63,14 +63,14 @@
     border: 1.5px solid #21a796;
     width: var(--size);
     height: var(--size);
-    border-radius: 6px;
+    border-radius: 3125rem;
     cursor: pointer;
     transition: all 0.2s ease;
   }
 
   .checkbox input + label:active {
     transform: scale(1.05);
-    border-radius: 12px;
+    border-radius: 0.75rem;
   }
 
   :global(.checkbox input + label svg) {

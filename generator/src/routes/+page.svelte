@@ -306,7 +306,7 @@
       margin-top: 5rem;
       box-shadow: 0px 1px 2px 0px #1018280d;
       border: 1px solid #ccd5e1;
-      border-radius: 0.3rem;
+      border-radius: 0.3125rem;
       padding: 1rem;
       position: relative;
       background: #ffffff;
@@ -449,7 +449,7 @@
         height: calc(100% - 3px);
         top: 1.5px;
         left: 1.5px;
-        border-radius: 0.4rem;
+        border-radius: 0.3125rem;
         background-color: #111920;
       }
     }
