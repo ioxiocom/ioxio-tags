@@ -38,6 +38,7 @@
   }
 
   async function onGenerate(event: SubmitEvent) {
+    event.preventDefault()
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
