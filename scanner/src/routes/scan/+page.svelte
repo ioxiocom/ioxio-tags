@@ -52,7 +52,7 @@
       if (payload) {
         consoleLog("Detected IOXIO Tag")
         // Go to MetaData screen
-        goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
+        goto(`/q/${payload.iss}/${payload.product}/${payload.id}`)
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
