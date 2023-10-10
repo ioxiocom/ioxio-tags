@@ -274,7 +274,7 @@
       position: relative;
       display: flex;
       flex-direction: column;
-      justify-content: space-evenly;
+      justify-content: center;
       @media screen and (max-width: 1440px) {
         flex: 1;
         padding: 3rem;
@@ -292,7 +292,7 @@
         position: relative;
       }
       .actions-wrapper {
-        margin-top: 5rem;
+        margin-top: 4rem;
       }
       .logomarkSvg {
         width: 30%;
@@ -303,7 +303,7 @@
       }
     }
     .error-wrapper {
-      margin-top: 5rem;
+      margin-top: 4rem;
       box-shadow: 0px 1px 2px 0px #1018280d;
       border: 1px solid #ccd5e1;
       border-radius: 0.3125rem;
@@ -455,7 +455,7 @@
     }
   }
   .row {
-    margin-bottom: 2.2rem;
+    margin-bottom: 2.125rem;
   }
   .col {
     display: flex;
