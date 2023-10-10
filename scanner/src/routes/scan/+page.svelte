@@ -5,18 +5,18 @@
 
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
-  import { onMount } from "svelte"
+  import { onDestroy, onMount } from "svelte"
+  import Documentation from "$components/Documentation/index.svelte"
+  import { goto } from "$app/navigation"
 
   const originalBodyBg = typeof document !== "undefined" ? document.body.style.background : ""
 
   export function hideBackground() {
     BarcodeScanner.hideBackground()
-    document.body.style.background = "transparent"
   }
 
   export function showBackground() {
     BarcodeScanner.showBackground()
-    document.body.style.background = originalBodyBg
   }
 
   export function sleep(ms: number): Promise<void> {
@@ -25,7 +25,7 @@
 
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
   // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
-  export async function startScan() {
+  export async function startScan(): Promise<void> {
     // TODO: Permissions cannot be ignored
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!permissionResult.granted) {
@@ -45,11 +45,12 @@
 
     // If the result has content
     if (result.hasContent) {
-      const detected = await tryParseIoxioTags(result.content)
+      const payload = await tryParseIoxioTags(result.content)
 
-      if (detected) {
-        // Stop scanning
+      if (payload) {
         consoleLog("Detected IOXIO Tag")
+        // Go to MetaData screen
+        goto(`/q/${payload.iss}}/${payload.product}/${payload.id}`)
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
@@ -61,27 +62,30 @@
   onMount(() => {
     startScan()
   })
+
+  onDestroy(() => {
+    BarcodeScanner.stopScan()
+  })
 </script>
 
-<div class="container">
-  <div class="relative barcode-scanner-area-wrapper">
-    <div class="relative barcode-scanner-area">
-      <img alt="subtract" class="subtract-image" src={Subtract} />
-      <div class="square surround-cover" />
-    </div>
-    <div class="relative">
-      <p class="description">Scan a Product Passport QR code to view product data</p>
-    </div>
+<div class="relative barcode-scanner-area-wrapper">
+  <div class="relative barcode-scanner-area">
+    <img alt="subtract" class="subtract-image" src={Subtract} />
+    <div class="square surround-cover" />
   </div>
-  <div class="relative example-code-wrapper">
-    <div class="example-description">
-      Here's an example to identify an <strong>IOXIO Tag</strong>
-    </div>
-    <div class="example-code">
-      <img src={IoxioTagExample} alt="code" />
-    </div>
+  <div class="relative">
+    <p class="description">Scan a Product Passport QR code to view product data</p>
   </div>
 </div>
+<div class="relative example-code-wrapper">
+  <div class="example-description">
+    Here's an example to identify an <strong>IOXIO Tag</strong>
+  </div>
+  <div class="example-code">
+    <img src={IoxioTagExample} alt="An example IOXIO Tag" />
+  </div>
+</div>
+<Documentation />
 
 <style>
   .barcode-scanner-area-wrapper {

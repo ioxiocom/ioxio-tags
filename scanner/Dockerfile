@@ -1,7 +1,7 @@
 # --- BUILD ---
 FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
 
-ENV DEVELOPMENT="false"
+ENV PUBLIC_DEVELOPMENT="false"
 
 WORKDIR /src/scanner
 
