@@ -7,9 +7,10 @@
   import { page } from "$app/stores"
   import { tag } from "$lib/api"
   import { onMount } from "svelte"
+  import type { components } from "$lib/openapi"
 
   let loading: boolean = false
-  let meta: any = undefined
+  let meta: components["schemas"]["MetadataV1Response"] | undefined = undefined
 
   async function load() {
     loading = true
