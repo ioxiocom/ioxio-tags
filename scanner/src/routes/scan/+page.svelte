@@ -13,10 +13,12 @@
 
   export function hideBackground() {
     BarcodeScanner.hideBackground()
+    document.body.style.background = "transparent"
   }
 
   export function showBackground() {
     BarcodeScanner.showBackground()
+    document.body.style.background = originalBodyBg
   }
 
   export function sleep(ms: number): Promise<void> {
