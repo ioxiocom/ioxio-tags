@@ -11,6 +11,8 @@ if (typeof window !== "undefined") {
 }
 
 const IOXIO_TAGS_VERSION_PREFIX = "IT1:"
+// /q/{iss}/{product}/{id}
+const IOXIO_URL_REGEX = /\/q\/([^/]+)\/([^/]+)\/([^/]+)/
 
 type Payload = {
   iss: string // Issuer domain
@@ -24,7 +26,7 @@ type RawSecureTagParseResult = {
 }
 
 function isTagsURL(url: string) {
-  const urlPattern = /https:\/\/tags\.ioxio\.(dev|io)\/.*$/
+  const urlPattern = /https:\/\/tags\.ioxio\.(dev|io)\/q\/.*$/
   return urlPattern.test(url)
 }
 
@@ -56,18 +58,19 @@ async function parseCoseInsecure(message: Buffer): Promise<RawSecureTagParseResu
 export async function tryParseIoxioTags(contents: string): Promise<Payload | undefined> {
   const isValidURL = isTagsURL(contents)
   if (isValidURL) {
-    consoleLog("Found low security IOXIO Tag URL")
-    consoleLog(contents)
-    return undefined
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    const [_, iss, product, id] = Array.prototype.slice.apply(contents.match(IOXIO_URL_REGEX))
+    const payload = { iss, product, id }
+    consoleLog("Parsed IOXIO Tag: " + JSON.stringify(payload), "info")
+    return payload
   } else {
-    consoleLog("Didn't scan an IOXIO Tag URL, maybe it's B45-COSE?", "warn")
-    consoleLog(contents, "warn")
+    console.log(contents)
     try {
       if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
         const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
         const b45decoded = decodeBase45(withoutVersion)
         const cborData = await parseCoseInsecure(b45decoded)
-        consoleLog("Parsed insecure data:" + cborData, "info")
+        consoleLog("Parsed IOXIO Tag: " + JSON.stringify(cborData), "info")
         if (
           cborData.kid &&
           cborData.payload.iss &&
@@ -75,13 +78,8 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
           cborData.payload.id
         ) {
           // This is an IOXIO Tags QR code
-          consoleLog("IOXIO Tag detected, should continue to do more things")
-          consoleLog(JSON.stringify(cborData.payload))
-
-          // TODO: Fetch metadata + JWKS keys from cborData.iss
-          // TODO: Verify COSE signature with JWKS key
-          // TODO: Display available data products based on metadata
-
+          // TODO: verify the signature in `contents` with `/tag/verify/v1`
+          // TODO: if verification fails, ask for user to confirm if they want to continue anyway
           return cborData.payload
         }
       } else {
