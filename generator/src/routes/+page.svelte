@@ -463,8 +463,8 @@
     align-items: center;
   }
   .toggle-row {
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .question-icon {
     margin-left: 1rem;
