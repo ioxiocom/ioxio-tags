@@ -41,9 +41,9 @@ function Uint8ArrayToString(value: Uint8Array): string {
 async function parseCoseInsecure(message: Buffer): Promise<RawSecureTagParseResult> {
   // No verification of signature performed here
   const coseContainer = decodeCbor(message)
-  const [_headers1, _headers2, cborPayload, _signature] = coseContainer.value
 
-  consoleLog(JSON.stringify({ _headers1, _headers2, cborPayload, _signature }))
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [_headers1, _headers2, cborPayload, _signature] = coseContainer.value
 
   // Extract key ID from headers
   // https://www.iana.org/assignments/cose/cose.xhtml
