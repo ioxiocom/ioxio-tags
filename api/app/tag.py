@@ -242,7 +242,7 @@ def make_image_filename(iss: str, product: str, id: str, security: str) -> str:
 
 
 def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes:
-    qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL])
+    qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL], border=0)
     qr.add_data(payload)
 
     img = qr.make_image(
@@ -264,8 +264,10 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     # Convert the SVG frame to a PNG image
     if frame_type == "secure":
         frame_path = signed_tag_frame
+        y_offset = 0
     else:
         frame_path = simple_tag_frame
+        y_offset = 42
 
     with open(frame_path, "rb") as svg_file:
         svg_data = svg_file.read()
@@ -287,7 +289,7 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
 
     # Calculate the position to draw the image centered within the frame
     x_position = (new_width + pad - img_width) // 2
-    y_position = (new_height - pad // 2 - img_height) // 2
+    y_position = (new_height - pad + y_offset - img_height) // 2
 
     # Paste the image onto the new image at the calculated position
     new_image.paste(img, (x_position, y_position))
