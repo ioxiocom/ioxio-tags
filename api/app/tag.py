@@ -26,6 +26,10 @@ from app.utils import fetch_json_file
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
 
+api_root = Path(__file__).parent.parent.absolute()
+signed_tag_frame = str(api_root) + "/tags_frame_signed.svg"
+simple_tag_frame = str(api_root) + "/tags_frame_simple.svg"
+
 # COSE algorithms from technical format to string argment format
 # https://python-cwt.readthedocs.io/en/stable/algorithms.html#cose-algorithms
 ALGS = {
@@ -252,32 +256,38 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     # Get the dimensions of the image in pixels
     img_width, img_height = img.size
 
-    # Convert the SVG frame to a PNG image
-    api_root = Path(__file__).parent.parent.absolute()
-    frame_path = str(api_root) + "/tags_frame_signed.svg" if frame_type == "secure" else str(
-        api_root) + "/tags_frame_simple.svg"
-    with open(frame_path, "rb") as svg_file:
-        svg_data = svg_file.read()
-        png_data = cairosvg.svg2png(bytestring=svg_data)
-        frame = Image.open(BytesIO(png_data))
-
-    # Calculate the new image dimensions
-    percentage_modifier = 1.2
+    # Calculate the new image dimension
+    percentage_modifier = 1.3
     new_width = int(img_width * percentage_modifier)
     new_height = int(img_height * percentage_modifier)
 
-    # Resize the frame to match the dimensions of the new image
-    frame = frame.resize((new_width, new_height))
+    # Convert the SVG frame to a PNG image
+    if frame_type == "secure":
+        frame_path = signed_tag_frame
+    else:
+        frame_path = simple_tag_frame
+
+    with open(frame_path, "rb") as svg_file:
+        svg_data = svg_file.read()
+        png_data = cairosvg.svg2png(
+            bytestring=svg_data,
+            background_color="#FFFFFF",
+            output_width=new_width,
+            output_height=new_height,
+        )
+        frame = Image.open(BytesIO(png_data))
+
+    pad = 40
 
     # Create a new image with the calculated dimensions
-    new_image = Image.new("RGB", (new_width, new_height))
+    new_image = Image.new("RGB", (new_width + pad, new_height + pad), color=(255, 255, 255))
 
     # Paste the frame onto the new image
-    new_image.paste(frame, (0, 0))
+    new_image.paste(frame, (pad // 2, pad // 2))
 
     # Calculate the position to draw the image centered within the frame
-    x_position = (new_width - img_width) // 2
-    y_position = (new_height - img_height) // 2
+    x_position = (new_width + pad - img_width) // 2
+    y_position = (new_height - pad // 2 - img_height) // 2
 
     # Paste the image onto the new image at the calculated position
     new_image.paste(img, (x_position, y_position))
