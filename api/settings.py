@@ -27,7 +27,7 @@ class Settings(BaseSettings):
 
     # RGB tuples
     QR_BACKGROUND: tuple[int, int, int] = (255, 255, 255)  # "Sand" IOXIO Brand color
-    QR_FOREGROUND: tuple[int, int, int] = (15, 37, 67)  # "Sea" IOXIO Brand color
+    QR_FOREGROUND: tuple[int, int, int] = (0, 0, 0)  # "Sea" IOXIO Brand color
 
     #
     # For local only

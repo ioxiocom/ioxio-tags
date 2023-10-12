@@ -257,19 +257,17 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     img_width, img_height = img.size
 
     # Calculate the new image dimension
-    percentage_modifier = 1.3
+    percentage_modifier = 1.35
     new_width = int(img_width * percentage_modifier)
     new_height = int(img_height * percentage_modifier)
 
     # Convert the SVG frame to a PNG image
     if frame_type == "secure":
         frame_path = signed_tag_frame
-        y_correction = 0
-        x_correction = 10
+        y_correction = 80
     else:
         frame_path = simple_tag_frame
-        y_correction = 42
-        x_correction = 0
+        y_correction = 40
 
     with open(frame_path, "rb") as svg_file:
         svg_data = svg_file.read()
@@ -281,17 +279,16 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
         )
         frame = Image.open(BytesIO(png_data))
 
-    pad = 40
 
     # Create a new image with the calculated dimensions
-    new_image = Image.new("RGB", (new_width + pad, new_height + pad), color=(255, 255, 255))
+    new_image = Image.new("RGB", (new_width, new_height), color=(255, 255, 255))
 
     # Paste the frame onto the new image
-    new_image.paste(frame, (pad // 2, pad // 2))
+    new_image.paste(frame, (0, 0))
 
     # Calculate the position to draw the image centered within the frame
-    x_position = (new_width + pad + x_correction - img_width) // 2
-    y_position = (new_height - pad + y_correction - img_height) // 2
+    x_position = (new_width  - img_width) // 2
+    y_position = (new_height - y_correction - img_height) // 2
 
     # Paste the image onto the new image at the calculated position
     new_image.paste(img, (x_position, y_position))
