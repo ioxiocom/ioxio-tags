@@ -87,6 +87,9 @@
     justify-content: center;
     padding: 1rem;
     margin: auto;
+    @media screen and (max-height: 600px) {
+      justify-content: space-around;
+    }
   }
   .barcode-scanner-area {
     display: flex;
@@ -100,6 +103,9 @@
     width: auto;
     z-index: 1;
     max-height: 40vh;
+    @media screen and (max-height: 600px) {
+      max-height: 30vh;
+    }
   }
   @media screen and (max-width: 520px) {
     .subtract-image {
@@ -111,6 +117,10 @@
     font-size: 1rem;
     color: white;
     margin-top: 3rem;
+    @media screen and (max-height: 600px) {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
   }
   .actions-wrapper {
     display: flex;
@@ -118,6 +128,9 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+    @media screen and (max-height: 600px) {
+      margin-top: 1rem;
+    }
   }
   .logo {
     width: 80%;

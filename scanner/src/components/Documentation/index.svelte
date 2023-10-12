@@ -8,7 +8,7 @@
   <span class="label">Documentation</span>
 </a>
 
-<style>
+<style lang="scss">
   .wrapper {
     text-decoration: none;
     display: flex;
@@ -20,14 +20,23 @@
     gap: 0.5rem;
     position: relative;
     z-index: 1;
+    @media screen and (max-height: 600px) {
+      margin-top: 0.2rem;
+    }
   }
 
   img {
     width: 2rem;
+    @media screen and (max-height: 600px) {
+      width: 1.2rem;
+    }
   }
 
   .label {
     color: white;
     font-size: 1.2rem;
+    @media screen and (max-height: 600px) {
+      font-size: 0.8rem;
+    }
   }
 </style>

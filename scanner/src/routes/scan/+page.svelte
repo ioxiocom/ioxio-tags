@@ -93,7 +93,7 @@
 </div>
 <Documentation />
 
-<style>
+<style lang="scss">
   .barcode-scanner-area-wrapper {
     flex: 1;
     display: flex;
@@ -101,6 +101,9 @@
     justify-content: center;
     padding: 1rem;
     margin: auto;
+    @media screen and (max-height: 600px) {
+      padding: 0.5rem 0;
+    }
   }
   .barcode-scanner-area {
     display: flex;
@@ -114,6 +117,9 @@
     width: auto;
     z-index: 1;
     max-height: 40vh;
+    @media screen and (max-height: 600px) {
+      max-height: 30vh;
+    }
   }
   @media screen and (max-width: 520px) {
     .subtract-image {
@@ -136,6 +142,10 @@
     font-size: 1rem;
     color: white;
     margin-top: 3rem;
+    @media screen and (max-height: 600px) {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+    }
   }
   .example-code-wrapper {
     border-radius: 0.5rem;
@@ -145,11 +155,19 @@
     flex-direction: row;
     align-items: center;
     gap: 1rem;
+    @media screen and (max-height: 600px) {
+      padding: 0.5rem;
+      margin-bottom: 0.5rem;
+      gap: 0.5rem;
+    }
   }
   .example-description {
     color: white;
     font-size: 1.1rem;
     flex: 1;
+    @media screen and (max-height: 600px) {
+      font-size: 0.7rem;
+    }
   }
   .example-code {
     padding: 0.5rem;
@@ -157,6 +175,9 @@
     border-radius: 0.5rem;
     max-width: 7rem;
     display: flex;
+    @media screen and (max-height: 600px) {
+      max-width: 3rem;
+    }
   }
   .example-code img {
     width: 100%;
