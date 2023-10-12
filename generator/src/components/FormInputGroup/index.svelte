@@ -24,7 +24,7 @@
       height: 38px;
       width: 100%;
       border: 1px solid #ccc;
-      border-radius: 0.3rem;
+      border-radius: 0.3125rem;
       padding-left: 0.5rem;
       padding-right: 0.5rem;
       box-shadow: 0px 1px 2px 0px rgba(16, 24, 40, 0.05);

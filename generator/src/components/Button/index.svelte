@@ -27,7 +27,7 @@
     cursor: pointer;
     padding: 1rem 1.5rem;
     background: rgba(15, 37, 67, 1);
-    border-radius: 0.5rem;
+    border-radius: 0.3125rem;
     border: none;
     min-width: 8rem;
     display: flex;
