@@ -120,6 +120,7 @@
     @media screen and (max-height: 600px) {
       margin-top: 1rem;
       font-size: 0.8rem;
+      line-height: 0.75rem;
     }
   }
   .actions-wrapper {

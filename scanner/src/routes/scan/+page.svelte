@@ -145,6 +145,7 @@
     @media screen and (max-height: 600px) {
       margin-top: 1rem;
       font-size: 0.8rem;
+      line-height: 0.75rem;
     }
   }
   .example-code-wrapper {
@@ -167,6 +168,7 @@
     flex: 1;
     @media screen and (max-height: 600px) {
       font-size: 0.7rem;
+      line-height: 0.75rem;
     }
   }
   .example-code {
