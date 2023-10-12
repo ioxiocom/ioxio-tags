@@ -23,6 +23,8 @@ from app.utils import fetch_json_file
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
 
+from app.dataproduct import get_dataspace_configuration
+
 # COSE algorithms from technical format to string argment format
 # https://python-cwt.readthedocs.io/en/stable/algorithms.html#cose-algorithms
 ALGS = {
@@ -196,19 +198,33 @@ async def fetch_metadata(iss: str, product: str):
             code="failed_to_fetch_metadata",
         )
 
+    try:
+        config = await get_dataspace_configuration(product_passport.product_dataspace)
+        gateway = config["product_gateway_url"]
+    except KeyError:
+        logger.exception(
+            f"product_gateway_url not found in {product_passport.product_dataspace} configuration")
+        raise TagsError(
+            error="Product gateway URL not found in dataspace configuration.",
+            code="failed_to_fetch_metadata",
+        )
+
+    pgw_openapi = await fetch_json_file(f"{gateway}/openapi.json")
+
+    sdp_definitions = pgw_openapi.get("paths", {})
+
     return tag.MetadataV1Response(
         logo_url=product_passport.logo_url,
         product_dataspace=product_passport.product_dataspace,
         names=product_metadata.names,
         image_url=product_metadata.image_url,
         supported_dataproducts=[
-            # TODO: These should be extracted from `gateway.{dataspace_domain}/openapi.json`
             {
-                "name": sdp["path"].replace("/", " "),
-                "description": f"{sdp['path'].replace('/', ' ')} from {sdp['source']}",
-                **sdp,
+                "name": found_sdp['post']['summary'],
+                "description": found_sdp['post']['description'],
+                **sdp
             }
-            for sdp in product_metadata.supported_dataproducts
+            for sdp in product_metadata.supported_dataproducts if (found_sdp := sdp_definitions.get(sdp['path']))
         ],
     )
 
