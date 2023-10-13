@@ -198,16 +198,8 @@ async def fetch_metadata(iss: str, product: str):
             code="failed_to_fetch_metadata",
         )
 
-    try:
-        config = await get_dataspace_configuration(product_passport.product_dataspace)
-        gateway = config["product_gateway_url"]
-    except KeyError:
-        logger.exception(
-            f"product_gateway_url not found in {product_passport.product_dataspace} configuration")
-        raise TagsError(
-            error="Product gateway URL not found in dataspace configuration.",
-            code="failed_to_fetch_metadata",
-        )
+    config = await get_dataspace_configuration(product_passport.product_dataspace)
+    gateway = config["product_gateway_url"]
 
     pgw_openapi = await fetch_json_file(f"{gateway}/openapi.json")
 
