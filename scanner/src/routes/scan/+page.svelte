@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { BarcodeScanner } from "@capacitor-community/barcode-scanner"
+  import { BarcodeScanner } from "@capacitor-community/barcode-scanner/src/index"
   import { consoleLog } from "$lib/common"
   import { tryParseIoxioTags } from "$lib/parse"
 

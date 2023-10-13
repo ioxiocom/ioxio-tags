@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@capacitor-community/barcode-scanner':
-    specifier: ^4.0.1
-    version: 4.0.1(@capacitor/core@5.2.3)
+    specifier: git://github.com/pkunszt/barcode-scanner.git#back-cam-default
+    version: github.com/pkunszt/barcode-scanner/ebaa784321609eb67d48266658054cffcdb9be5a(@capacitor/core@5.2.3)
   '@capacitor/android':
     specifier: ^5.2.3
     version: 5.2.3(@capacitor/core@5.2.3)
@@ -112,16 +112,6 @@ packages:
       '@jridgewell/gen-mapping': 0.3.3
       '@jridgewell/trace-mapping': 0.3.19
     dev: true
-
-  /@capacitor-community/barcode-scanner@4.0.1(@capacitor/core@5.2.3):
-    resolution: {integrity: sha512-acuhDU2mqskSeCIQMc5TGNnDszXXs4IqEES+3C2JDiq+MkJMTr+B2Dhq4k55hlkRFMOumMhlnbr2R9G6qyFPhw==}
-    peerDependencies:
-      '@capacitor/core': ^5.0.0
-    dependencies:
-      '@capacitor/core': 5.2.3
-      '@zxing/browser': 0.1.4(@zxing/library@0.20.0)
-      '@zxing/library': 0.20.0
-    dev: false
 
   /@capacitor/android@5.2.3(@capacitor/core@5.2.3):
     resolution: {integrity: sha512-TqXOq5RIniMACcAckn/X84XajPP2GU4VH7Er390Ja2Y2BWSeUKgk7T8aURcwLYu2hnv+Op9eTww5MTBb3zBtmg==}
@@ -2540,3 +2530,16 @@ packages:
     resolution: {integrity: sha512-rVksvsnNCdJ/ohGc6xgPwyN8eheCxsiLM8mxuE/t/mOVqJewPuO1miLpTHQiRgTKCLexL4MeAFVagts7HmNZ2Q==}
     engines: {node: '>=10'}
     dev: true
+
+  github.com/pkunszt/barcode-scanner/ebaa784321609eb67d48266658054cffcdb9be5a(@capacitor/core@5.2.3):
+    resolution: {tarball: https://codeload.github.com/pkunszt/barcode-scanner/tar.gz/ebaa784321609eb67d48266658054cffcdb9be5a}
+    id: github.com/pkunszt/barcode-scanner/ebaa784321609eb67d48266658054cffcdb9be5a
+    name: '@capacitor-community/barcode-scanner'
+    version: 4.0.1
+    peerDependencies:
+      '@capacitor/core': ^5.0.0
+    dependencies:
+      '@capacitor/core': 5.2.3
+      '@zxing/browser': 0.1.4(@zxing/library@0.20.0)
+      '@zxing/library': 0.20.0
+    dev: false
