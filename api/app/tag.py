@@ -203,7 +203,7 @@ async def fetch_metadata(iss: str, product: str):
 
     pgw_openapi = await fetch_json_file(f"{gateway}/openapi.json")
 
-    sdp_definitions = pgw_openapi.get("paths", {})
+    definition_paths = pgw_openapi.get("paths", {})
 
     return tag.MetadataV1Response(
         logo_url=product_passport.logo_url,
