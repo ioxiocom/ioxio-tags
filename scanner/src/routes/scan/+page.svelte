@@ -9,16 +9,22 @@
   import Documentation from "$components/Documentation/index.svelte"
   import { goto } from "$app/navigation"
 
-  const originalBodyBg = typeof document !== "undefined" ? document.body.style.background : ""
+  let originalBodyBg
 
   export function hideBackground() {
     BarcodeScanner.hideBackground()
-    document.body.style.background = "transparent"
+
+    if (typeof document !== "undefined") {
+      document.body.style.background = "transparent"
+    }
   }
 
   export function showBackground() {
     BarcodeScanner.showBackground()
-    document.body.style.background = originalBodyBg
+
+    if (typeof document !== "undefined") {
+      document.body.style.background = originalBodyBg
+    }
   }
 
   export function sleep(ms: number): Promise<void> {
@@ -66,6 +72,10 @@
   }
 
   onMount(() => {
+    if (typeof document !== "undefined") {
+      originalBodyBg = document.body.style.background
+    }
+
     startScan()
   })
 
@@ -89,7 +99,7 @@
     Here's an example to identify an <strong>IOXIO Tag</strong>
   </div>
   <div class="example-code">
-    <img src={IoxioTagExample} alt="An example IOXIO Tag" />
+    <img alt="An example IOXIO Tag" src={IoxioTagExample} />
   </div>
 </div>
 <Documentation />
@@ -106,6 +116,7 @@
       padding: 0.5rem 0;
     }
   }
+
   .barcode-scanner-area {
     display: flex;
     justify-content: center;
@@ -113,6 +124,7 @@
     margin-left: auto;
     margin-right: auto;
   }
+
   .subtract-image {
     position: relative;
     width: auto;
@@ -122,14 +134,17 @@
       max-height: 30vh;
     }
   }
+
   @media screen and (max-width: 520px) {
     .subtract-image {
       width: 100%;
     }
   }
+
   .surround-cover {
     box-shadow: 0 0 0 99999px rgba(16, 25, 32, 0.83);
   }
+
   .square {
     position: absolute;
     left: 0.5rem;
@@ -138,6 +153,7 @@
     height: calc(100% - 1rem);
     border-radius: 0.8rem;
   }
+
   .description {
     text-align: center;
     font-size: 1rem;
@@ -149,6 +165,7 @@
       line-height: 0.75rem;
     }
   }
+
   .example-code-wrapper {
     border-radius: 0.5rem;
     padding: 1rem;
@@ -163,6 +180,7 @@
       gap: 0.5rem;
     }
   }
+
   .example-description {
     color: white;
     font-size: 1.1rem;
@@ -172,6 +190,7 @@
       line-height: 0.75rem;
     }
   }
+
   .example-code {
     padding: 0.5rem;
     background-color: white;
@@ -182,6 +201,7 @@
       max-width: 3rem;
     }
   }
+
   .example-code img {
     width: 100%;
   }
