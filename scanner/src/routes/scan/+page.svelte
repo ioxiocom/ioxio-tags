@@ -49,7 +49,6 @@
     if (result.hasContent) {
       const payload = await tryParseIoxioTags(result.content)
 
-      showBackground()
       if (payload) {
         consoleLog("Detected IOXIO Tag")
 
@@ -61,6 +60,7 @@
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
+        showBackground()
       }
     }
   }
@@ -71,6 +71,7 @@
 
   onDestroy(() => {
     BarcodeScanner.stopScan()
+    showBackground()
   })
 </script>
 
