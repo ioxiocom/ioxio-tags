@@ -16,4 +16,6 @@ div:has(> video) {
 }
 video {
   object-fit: cover;
+  -webkit-transform: scaleX(1) !important;
+  transform: scaleX(1) !important;
 }
