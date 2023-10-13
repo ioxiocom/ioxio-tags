@@ -216,7 +216,7 @@ async def fetch_metadata(iss: str, product: str):
                 "description": found_sdp['post']['description'],
                 **sdp
             }
-            for sdp in product_metadata.supported_dataproducts if (found_sdp := sdp_definitions.get(sdp['path']))
+            for sdp in product_metadata.supported_dataproducts if (found_sdp := definition_paths.get(sdp['path']))
         ],
     )
 
