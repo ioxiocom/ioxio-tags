@@ -59,6 +59,6 @@ pnpm run dev
 ### Scanner
 
 ```shell
-cd generator
+cd scanner
 pnpm run dev
 ```
