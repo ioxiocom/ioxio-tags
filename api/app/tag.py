@@ -261,14 +261,14 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     new_width = int(img_width * percentage_modifier)
     new_height = int(img_height * percentage_modifier)
 
-    # Convert the SVG frame to a PNG image
     if frame_type == "secure":
         frame_path = signed_tag_frame
-        y_correction = 80
+        y_correction = 90
     else:
         frame_path = simple_tag_frame
-        y_correction = 40
+        y_correction = 36
 
+    # Load SVG frame and convert to PNG
     with open(frame_path, "rb") as svg_file:
         svg_data = svg_file.read()
         png_data = cairosvg.svg2png(
