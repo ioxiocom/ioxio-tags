@@ -23,7 +23,7 @@
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
   let issValue: string = ""
-  let productType: string = ProductType.ARBITRARY
+  let productType: string = ProductType.PREMADE
   let product: string
   let productId: string
   let signOption: string
