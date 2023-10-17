@@ -47,7 +47,9 @@
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
-    if (!product) return
+    if (!product) {
+      return
+    }
 
     const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
     const id = formData.get("id") as string
@@ -106,15 +108,18 @@
   function clearError() {
     error = null
   }
+
   function onChangeValidSignature() {
     if (isValid) {
       issValue = settings.ISS_DOMAIN
     }
   }
+
   function onChangeProductType() {
     productId = ""
     product = ""
   }
+
   function onChangeProductId() {
     if (productType === ProductType.PREMADE) {
       product = premadeProducts.find((product) => product.id === productId)?.product!
