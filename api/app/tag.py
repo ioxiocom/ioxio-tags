@@ -263,10 +263,10 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
 
     if frame_type == "secure":
         frame_path = signed_tag_frame
-        y_correction = 90
+        y_correction = img_height // 20
     else:
         frame_path = simple_tag_frame
-        y_correction = 36
+        y_correction = img_height // 20
 
     # Load SVG frame and convert to PNG
     with open(frame_path, "rb") as svg_file:
@@ -287,7 +287,7 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
 
     # Calculate the position to draw the image centered within the frame
     x_position = (new_width - img_width) // 2
-    y_position = (new_height - y_correction - img_height) // 2
+    y_position = ((new_height - img_height) // 2) - y_correction
 
     # Paste the image onto the new image at the calculated position
     new_image.paste(img, (x_position, y_position))
