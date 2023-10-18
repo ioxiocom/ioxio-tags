@@ -26,8 +26,8 @@ class Settings(BaseSettings):
     QR_CORRECTION_LEVEL: str = "Q"  # L = ~7%, M = ~15%, Q = ~25%, H = ~30%
 
     # RGB tuples
-    QR_BACKGROUND: tuple[int, int, int] = (255, 255, 255)  # "Sand" IOXIO Brand color
-    QR_FOREGROUND: tuple[int, int, int] = (0, 0, 0)  # "Sea" IOXIO Brand color
+    QR_BACKGROUND: tuple[int, int, int] = (255, 255, 255)  # White
+    QR_FOREGROUND: tuple[int, int, int] = (0, 0, 0)  # Black
 
     #
     # For local only
