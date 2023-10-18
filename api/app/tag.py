@@ -263,10 +263,8 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
 
     if frame_type == "secure":
         frame_path = signed_tag_frame
-        y_correction = img_height // 20
     else:
         frame_path = simple_tag_frame
-        y_correction = img_height // 20
 
     # Load SVG frame and convert to PNG
     with open(frame_path, "rb") as svg_file:
@@ -285,11 +283,12 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     # Paste the frame onto the new image
     new_image.paste(frame, (0, 0))
 
-    # Calculate the position to draw the image centered within the frame
+    # Calculate the position to draw the QR code within the frame
+    y_correction = img_height // 20
     x_position = (new_width - img_width) // 2
     y_position = ((new_height - img_height) // 2) - y_correction
 
-    # Paste the image onto the new image at the calculated position
+    # Paste the QR code onto the new image at the calculated position
     new_image.paste(img, (x_position, y_position))
 
     # Convert the PIL image to bytes
