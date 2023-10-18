@@ -15,5 +15,6 @@ apt-get install -y --no-install-recommends \
         libcairo2 \
         libcairo2-dev \
         # Intentionally left blank
+        
 # Ensure user cannot edit the filesystem contents
 chown -R root:root .
