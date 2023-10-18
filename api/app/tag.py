@@ -5,6 +5,9 @@ from copy import copy
 from io import BytesIO
 from typing import Literal
 from urllib.parse import quote_plus
+from PIL import Image, ImageDraw, ImageOps
+import cairosvg
+from pathlib import Path
 
 import cbor2
 import cwt
@@ -17,13 +20,16 @@ from qrcode.image.styledpil import StyledPilImage
 from qrcode.image.styles.colormasks import SolidFillColorMask
 
 import app.routes.tag as tag
+from app.dataproduct import get_dataspace_configuration
 from app.errors import CannotSignInvalidIssuer, TagsError
 from app.log import logger
 from app.utils import fetch_json_file
 from settings import conf
 from testdata import INVALID_KEY_DATA, DUMMY_JWK
 
-from app.dataproduct import get_dataspace_configuration
+api_root = Path(__file__).parent.parent.absolute()
+signed_tag_frame = str(api_root) + "/tags_frame_signed.svg"
+simple_tag_frame = str(api_root) + "/tags_frame_simple.svg"
 
 # COSE algorithms from technical format to string argment format
 # https://python-cwt.readthedocs.io/en/stable/algorithms.html#cose-algorithms
@@ -244,7 +250,7 @@ def make_image_filename(iss: str, product: str, id: str, security: str) -> str:
 
 
 def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes:
-    qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL])
+    qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL], border=0)
     qr.add_data(payload)
 
     img = qr.make_image(
@@ -255,11 +261,47 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
         image_factory=StyledPilImage,
     )
 
-    # TODO: Wrap in frame using cairosvg + pillow
+    # Get the dimensions of the image in pixels
+    img_width, img_height = img.size
 
-    # Get image contents as bytes
+    # Calculate the new image dimension
+    percentage_modifier = 1.35
+    new_width = int(img_width * percentage_modifier)
+    new_height = int(img_height * percentage_modifier)
+
+    if frame_type == "secure":
+        frame_path = signed_tag_frame
+    else:
+        frame_path = simple_tag_frame
+
+    # Load SVG frame and convert to PNG
+    with open(frame_path, "rb") as svg_file:
+        svg_data = svg_file.read()
+        png_data = cairosvg.svg2png(
+            bytestring=svg_data,
+            background_color="#FFFFFF",
+            output_width=new_width,
+            output_height=new_height,
+        )
+        frame = Image.open(BytesIO(png_data))
+
+    # Create a new image with the calculated dimensions
+    new_image = Image.new("RGB", (new_width, new_height), color=(255, 255, 255))
+
+    # Paste the frame onto the new image
+    new_image.paste(frame, (0, 0))
+
+    # Calculate the position to draw the QR code within the frame
+    y_correction = int(img_height * 0.05)
+    x_position = (new_width - img_width) // 2
+    y_position = ((new_height - img_height) // 2) - y_correction
+
+    # Paste the QR code onto the new image at the calculated position
+    new_image.paste(img, (x_position, y_position))
+
+    # Convert the PIL image to bytes
     container = BytesIO()
-    img.save(container)
+    new_image.save(container, format="PNG")
     return container.getvalue()
 
 
