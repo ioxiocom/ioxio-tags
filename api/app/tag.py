@@ -284,7 +284,7 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     new_image.paste(frame, (0, 0))
 
     # Calculate the position to draw the QR code within the frame
-    y_correction = img_height // 20
+    y_correction = int(img_height * 0.05)
     x_position = (new_width - img_width) // 2
     y_position = ((new_height - img_height) // 2) - y_correction
 
