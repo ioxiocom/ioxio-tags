@@ -10,5 +10,10 @@ set -exuo pipefail
 cd /src/api
 su "${USER}" -c ". ${POETRY_HOME}/env; poetry install --no-dev"
 
+apt-get update
+apt-get install -y --no-install-recommends \
+        libcairo2 \
+        libcairo2-dev \
+
 # Ensure user cannot edit the filesystem contents
 chown -R root:root .
