@@ -11,7 +11,7 @@
   <span class="title">{title}</span>
 </button>
 
-<style>
+<style lang="scss">
   .button {
     cursor: pointer;
     margin: auto;
@@ -24,6 +24,9 @@
     align-items: center;
     justify-content: center;
     gap: 0.5rem;
+    @media screen and (max-height: 600px) {
+      padding: 0.3rem 1rem;
+    }
   }
   .button:active {
     opacity: 0.7;

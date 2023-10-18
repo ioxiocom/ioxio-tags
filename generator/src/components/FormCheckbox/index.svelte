@@ -1,5 +1,5 @@
 <script lang="ts">
-  import Checkbox from "$assets/check.svg?component"
+  import Checkbox from "$assets/checkbox.svg?component"
   import type { ChangeEventHandler } from "svelte/elements"
   export let name: string
   export let label: string | undefined
@@ -48,6 +48,7 @@
   .checkbox input {
     position: absolute;
     opacity: 0;
+    z-index: 10;
   }
 
   :global(.checkbox input:checked + label svg path) {
@@ -63,7 +64,7 @@
     border: 1.5px solid #21a796;
     width: var(--size);
     height: var(--size);
-    border-radius: 6px;
+    border-radius: 0.3125rem;
     cursor: pointer;
     transition: all 0.2s ease;
   }

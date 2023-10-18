@@ -7,9 +7,7 @@
   import { consoleLog } from "$lib/common"
   import { tryParseIoxioTags } from "$lib/parse"
   import type { PageData } from "./$types"
-  import Loading from "$components/Loading/index.svelte"
-  import { dataProduct } from "$lib/api"
-  import { onMount } from "svelte"
+  import Documentation from "$components/Documentation/index.svelte"
 
   export let data: PageData
 
@@ -23,102 +21,42 @@
     "/X1U66+CHCEMXI0P274GSM.6. LBDD"
 
   async function scanPreset() {
-    const detected = await tryParseIoxioTags(PRESET_DATA)
-    if (detected) {
+    const payload = await tryParseIoxioTags(PRESET_DATA)
+    if (payload) {
       consoleLog("Detected IOXIO Tag")
+      goto(`/q/${payload.iss}/${payload.product}/${payload.id}`)
     } else {
       consoleLog("No IOXIO Tag detected", "warn")
     }
   }
-
-  onMount(async () => {
-    // Just an example of fetching a data product
-    const req = await dataProduct.fetch({
-      dataspace_domain: "sandbox.ioxio-dataspace.com",
-      product_path: "DPP/Energy/Battery/ProductDataSheet_v0.1",
-      source: "dpp_demo",
-      product: "MPP48V",
-      id: "test",
-    })
-    console.log(await req.result)
-  })
 </script>
 
-<div class="container">
-  <div class="background" />
-  <div class="relative barcode-scanner-area-wrapper">
-    <div class="relative barcode-scanner-area">
-      <img alt="subtract" class="subtract-image" src={Subtract} />
-      <img class="logo" src={IoxioTagLogo} alt="logo" />
-    </div>
-    <div>
-      <div class="relative">
-        <p class="description">
-          Turn on your camera for scan a Product Passport QR code to view product data
-        </p>
-      </div>
-      <div class="relative actions-wrapper">
-        <div>
-          <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
-        </div>
-        {#if data.isDevelopment}
-          <div>
-            <Button onClick={scanPreset} title="Simulate scan of preset data" />
-          </div>
-        {/if}
-      </div>
-    </div>
+<div class="relative barcode-scanner-area-wrapper">
+  <div class="relative barcode-scanner-area">
+    <img alt="subtract" class="subtract-image" src={Subtract} />
+    <img class="logo" src={IoxioTagLogo} alt="logo" />
   </div>
-  <div class="test">
-    <div class="test-card">
-      <div class="split">
-        <div>
-          <h2>Available Dataproduct name</h2>
-          <span>Dataproduct description</span>
-        </div>
-        <div>
-          <Button title="Fetch >" onClick={() => {}} />
-        </div>
-      </div>
-      <hr />
-      <Loading type="light" />
+  <div>
+    <div class="relative">
+      <p class="description">
+        Turn on your camera for scan a Product Passport QR code to view product data
+      </p>
     </div>
-    <Loading type="dark" />
+    <div class="relative actions-wrapper">
+      <div>
+        <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+      </div>
+      {#if data.isDevelopment}
+        <div>
+          <Button onClick={scanPreset} title="Simulate scan of preset data" />
+        </div>
+      {/if}
+    </div>
   </div>
 </div>
+<Documentation />
 
 <style lang="scss">
-  .test {
-    display: none; // This element just for testing, to be removed later
-    position: absolute;
-    z-index: 2123153;
-    bottom: 5rem;
-  }
-
-  .test-card {
-    .split {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-      align-items: end;
-    }
-
-    color: #fff;
-    font-family: "Poppins", sans-serif;
-
-    h2 {
-      margin: 0;
-    }
-
-    hr {
-      border-color: #20303e;
-    }
-
-    background: #1a2934;
-    padding: 2rem;
-    border-radius: 5px;
-  }
-
   main {
     display: flex;
     flex-direction: column;
@@ -141,14 +79,6 @@
     z-index: 1;
   }
 
-  .background {
-    background: rgba(16, 25, 32, 1);
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    top: 0;
-    left: 0;
-  }
   .barcode-scanner-area-wrapper {
     flex: 1;
     height: 100%;
@@ -157,6 +87,9 @@
     justify-content: center;
     padding: 1rem;
     margin: auto;
+    @media screen and (max-height: 600px) {
+      justify-content: space-around;
+    }
   }
   .barcode-scanner-area {
     display: flex;
@@ -170,6 +103,9 @@
     width: auto;
     z-index: 1;
     max-height: 40vh;
+    @media screen and (max-height: 600px) {
+      max-height: 30vh;
+    }
   }
   @media screen and (max-width: 520px) {
     .subtract-image {
@@ -181,6 +117,11 @@
     font-size: 1rem;
     color: white;
     margin-top: 3rem;
+    @media screen and (max-height: 600px) {
+      margin-top: 1rem;
+      font-size: 0.8rem;
+      line-height: 0.75rem;
+    }
   }
   .actions-wrapper {
     display: flex;
@@ -188,6 +129,9 @@
     justify-content: center;
     gap: 1rem;
     margin-top: 2rem;
+    @media screen and (max-height: 600px) {
+      margin-top: 1rem;
+    }
   }
   .logo {
     width: 80%;

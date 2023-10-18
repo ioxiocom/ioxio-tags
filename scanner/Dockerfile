@@ -1,7 +1,10 @@
 # --- BUILD ---
 FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
 
-ENV DEVELOPMENT="false"
+ARG API_BASE_URL="https://api.tags.ioxio.dev"
+
+ENV PUBLIC_API_BASE_URL=$API_BASE_URL
+ENV PUBLIC_DEVELOPMENT="false"
 
 WORKDIR /src/scanner
 

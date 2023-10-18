@@ -16,7 +16,7 @@ const config = {
       // these options are set automatically — see below
       pages: "build",
       assets: "build",
-      fallback: null,
+      fallback: "index.html",
       // precompress: true,
       strict: true,
     }),
@@ -25,7 +25,7 @@ const config = {
     csp: {
       // Unused for adapter-static, configuration is in Nginx
       directives: {
-        "img-src": ["'self'", "data:"],
+        "img-src": ["'self'", "data:", "https:"],
         "style-src": ["'self'", "'unsafe-inline'"],
         "script-src": ["'self'", "'unsafe-inline'"],
         "connect-src": ["'self'", "api.tags.ioxio.dev", "api.tags.ioxio.io", "localhost:*"],

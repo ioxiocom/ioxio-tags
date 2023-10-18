@@ -16,7 +16,7 @@
 <style lang="scss">
   $height: 48px;
   .loading {
-    margin: 1rem;
+    margin: 1rem auto;
     position: relative;
     width: 100%;
     display: flex;

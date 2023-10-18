@@ -1,7 +1,7 @@
-import { config } from "$lib/config"
+import { settings } from "$lib/settings"
 
 export function load() {
   return {
-    isDevelopment: config.DEVELOPMENT,
+    isDevelopment: settings.DEVELOPMENT,
   }
 }

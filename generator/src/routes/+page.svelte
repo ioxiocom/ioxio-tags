@@ -12,6 +12,7 @@
   import QuestionSvg from "$assets/question.svg?component"
   import SubtractSvg from "$assets/subtract.svg?url"
   import DownloadSvg from "$assets/download.svg?url"
+  import WarnSvg from "$assets/warn.svg?url"
   import type { PageData } from "./$types"
   import { Status } from "./types"
   import type { components } from "$lib/openapi"
@@ -28,6 +29,7 @@
   let inputData: GenerateSecureV1Request
   let isValid: boolean = false
   let issValue: string = ""
+  let error: string | null = null
 
   function slugify(input: string): string {
     let value = input.toLowerCase().trim()
@@ -36,6 +38,7 @@
   }
 
   async function onGenerate(event: SubmitEvent) {
+    event.preventDefault()
     status = Status.GENERATING
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
@@ -63,8 +66,15 @@
       }
       return
     } else {
-      // TODO: Better error handling
-      console.error("Generating tag failed", result)
+      if (result.status === 400) {
+        error = result.data.error
+      } else if (result.status === 422) {
+        error = result.data.detail[0].msg
+      } else {
+        error = "Generating tag failed. Check developer console for details, or try again later."
+        console.error("Generating tag failed", result)
+      }
+      status = Status.READY
     }
   }
 
@@ -104,76 +114,88 @@
 <div class="container">
   <!-- Left Panel -->
   <div class="form-wrapper">
-    <div class="title">Generate a product passport</div>
-    <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-    <form on:submit={onGenerate}>
-      <div class="row">
-        <FormInputGroup
-          name="iss"
-          label="Issuer domain"
-          placeholder="ex.tags.ioxio.dev"
-          bind:value={issValue}
-          disabled={status === Status.GENERATING || isValid}
-          required
-        />
-      </div>
-      <div class="row">
-        <div class="toggle-row">
-          <Toggle
-            options={["Arbitrary", "Premade"]}
-            bind:value={productOption}
-            disabled={status === Status.GENERATING}
+    <div>
+      <div class="title">Generate a product passport</div>
+      <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
+      <form on:submit={onGenerate} on:change={() => (error = null)}>
+        <div class="row">
+          <FormInputGroup
+            name="iss"
+            label="Issuer domain"
+            placeholder="ex.tags.ioxio.dev"
+            bind:value={issValue}
+            disabled={status === Status.GENERATING || isValid}
+            required
           />
         </div>
-        {#if productOption === "Arbitrary"}
-          <FormInputGroup name="product" label="Product" placeholder="" required />
-        {:else}
-          <FormSelectGroup
-            name="product"
-            label="Product"
-            placeholder="Type a product"
-            options={data.options}
+        <div class="row">
+          <div class="toggle-row">
+            <Toggle
+              options={["Arbitrary", "Premade"]}
+              bind:value={productOption}
+              disabled={status === Status.GENERATING}
+            />
+          </div>
+          {#if productOption === "Arbitrary"}
+            <FormInputGroup name="product" label="Product" placeholder="" required />
+          {:else}
+            <FormSelectGroup
+              name="product"
+              label="Product"
+              placeholder="Type a product"
+              options={data.options}
+              disabled={status === Status.GENERATING}
+              required
+            />
+          {/if}
+        </div>
+        <div class="row">
+          <FormInputGroup
+            name="id"
+            label="Product ID"
+            placeholder="ex. VV123456-12"
             disabled={status === Status.GENERATING}
             required
           />
-        {/if}
-      </div>
-      <div class="row">
-        <FormInputGroup
-          name="id"
-          label="Product ID"
-          placeholder="ex. VV123456-12"
-          disabled={status === Status.GENERATING}
-          required
-        />
-        <div class="toggle-row">
-          <Toggle
-            options={["Signed", "Unsigned"]}
-            bind:value={signOption}
+          <div class="toggle-row">
+            <Toggle
+              options={["Signed", "Unsigned"]}
+              bind:value={signOption}
+              disabled={status === Status.GENERATING}
+            />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <FormCheckbox
+              name="valid"
+              label="Create valid signature"
+              disabled={status === Status.GENERATING}
+              bind:checked={isValid}
+              onChange={onChangeValidSignature}
+            />
+            <Tooltip tip="Whats this?" top>
+              <span class="question-icon">
+                <QuestionSvg />
+              </span>
+            </Tooltip>
+          </div>
+        </div>
+        <div class="actions-wrapper">
+          <Button
             disabled={status === Status.GENERATING}
+            title="Generate IOXIO Tag"
+            type="submit"
           />
         </div>
+      </form>
+    </div>
+    {#if error}
+      <div class="error-wrapper">
+        <img src={WarnSvg} alt="" aria-hidden="true" />
+        <p>{error}</p>
       </div>
-      <div class="row">
-        <div class="col">
-          <FormCheckbox
-            name="valid"
-            label="Create valid signature"
-            disabled={status === Status.GENERATING}
-            bind:checked={isValid}
-            onChange={onChangeValidSignature}
-          />
-          <Tooltip tip="Whats this?" top>
-            <span class="question-icon">
-              <QuestionSvg />
-            </span>
-          </Tooltip>
-        </div>
-      </div>
-      <div class="actions-wrapper">
-        <Button disabled={status === Status.GENERATING} title="Generate IOXIO Tag" type="submit" />
-      </div>
-    </form>
+    {/if}
   </div>
   <!-- Right Panel -->
   <div class="qrcode-area-wrapper">
@@ -250,6 +272,9 @@
       background-color: white;
       width: 50%;
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
       @media screen and (max-width: 1440px) {
         flex: 1;
         padding: 3rem;
@@ -267,7 +292,7 @@
         position: relative;
       }
       .actions-wrapper {
-        margin-top: 5rem;
+        margin-top: 4rem;
       }
       .logomarkSvg {
         width: 30%;
@@ -275,6 +300,26 @@
         bottom: 2rem;
         left: -2%;
         z-index: 0;
+      }
+    }
+    .error-wrapper {
+      margin-top: 4rem;
+      box-shadow: 0px 1px 2px 0px #1018280d;
+      border: 1px solid #ccd5e1;
+      border-radius: 0.3125rem;
+      padding: 1rem;
+      position: relative;
+      background: #ffffff;
+      color: #dd596a;
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      gap: 1rem;
+      p {
+        margin: 0;
+        font-size: 0.75rem;
+        font-weight: 400;
+        line-height: 1.125rem;
       }
     }
     .qrcode-area-wrapper {
@@ -404,13 +449,13 @@
         height: calc(100% - 3px);
         top: 1.5px;
         left: 1.5px;
-        border-radius: 0.4rem;
+        border-radius: 0.3125rem;
         background-color: #111920;
       }
     }
   }
   .row {
-    margin-bottom: 2.2rem;
+    margin-bottom: 2.125rem;
   }
   .col {
     display: flex;
@@ -418,8 +463,8 @@
     align-items: center;
   }
   .toggle-row {
-    margin-top: 1.2rem;
-    margin-bottom: 1.2rem;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
   }
   .question-icon {
     margin-left: 1rem;
