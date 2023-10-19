@@ -1,11 +1,12 @@
 <script lang="ts">
   import IoxioLogoSvg from "$assets/ioxio-logo.svg"
+  import { settings } from "$lib/settings"
 </script>
 
-<div class="wrapper">
+<a href={settings.IOXIO_URL} class="wrapper">
   <p>Made by</p>
   <img class="logo" src={IoxioLogoSvg} alt="IOXIO" />
-</div>
+</a>
 
 <style>
   .wrapper {
@@ -19,6 +20,7 @@
     line-height: 1.5rem;
     gap: 0.2rem;
     color: white;
+    text-decoration: none;
   }
   .logo {
     height: 1rem;
