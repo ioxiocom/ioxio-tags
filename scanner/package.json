@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm install && vite dev --host",
+    "dev": "pnpm install && vite dev",
     "build": "vite build && npx cap copy",
     "android": "npx cap copy android",
     "ios": "npx cap copy ios",
