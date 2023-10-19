@@ -1,18 +1,19 @@
 <script lang="ts">
+  import type { Option } from "$lib/premadeProducts"
   import Svelecte from "svelecte"
 
   export let name: string
   export let label: string
   export let placeholder: string = ""
-  export let options = []
+  export let options: Option[] = []
   export let disabled: boolean = false
   export let required: boolean = false
-  export let value: string
+  export let onSelect = (event: CustomEvent) => {}
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <Svelecte inputId={name} {required} {disabled} {options} {placeholder} bind:value />
+  <Svelecte inputId={name} {required} {disabled} {options} {placeholder} on:change={onSelect} />
 </div>
 
 <style lang="scss">

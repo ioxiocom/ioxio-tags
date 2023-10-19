@@ -1,15 +1,27 @@
 <script lang="ts">
+  import type { ChangeEventHandler } from "svelte/elements"
+
   export let name: string
   export let label: string
   export let placeholder: string | undefined
   export let disabled: boolean = false
   export let required: boolean = false
-  export let value: string | undefined = undefined
+  export let value: string
+  export let onChange: ChangeEventHandler<HTMLInputElement>
 </script>
 
 <div class="form-group">
   <label for={name}>{label}</label>
-  <input id={name} type="text" {disabled} {name} {placeholder} {required} bind:value />
+  <input
+    id={name}
+    type="text"
+    {disabled}
+    {name}
+    {placeholder}
+    {required}
+    bind:value
+    on:change={onChange}
+  />
 </div>
 
 <style lang="scss">

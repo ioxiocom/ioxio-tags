@@ -44,13 +44,13 @@
     event.preventDefault()
     clearError()
 
-    status = Status.GENERATING
-    const formEl = event.target as HTMLFormElement
-    const formData = new FormData(formEl)
     if (!product) {
       return
     }
 
+    const formEl = event.target as HTMLFormElement
+    const formData = new FormData(formEl)
+    status = Status.GENERATING
     const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
     const id = formData.get("id") as string
     const valid = formData.get("valid") === "on"
@@ -109,28 +109,50 @@
     error = null
   }
 
-  function onChangeValidSignature() {
+  function onChangeIssValue(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    issValue = target.value
+  }
+
+  function onChangeValidSignature(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    isValid = target.checked
     if (isValid) {
       issValue = settings.ISS_DOMAIN
     }
   }
 
-  function onChangeProductType() {
+  function onChangeProductType(value: string) {
+    clearError()
+    productType = value
     productId = ""
     product = ""
   }
 
-  function onChangeProductId() {
-    if (productType === ProductType.PREMADE) {
-      product = premadeProducts.find((product) => product.id === productId)?.product!
-    }
+  function onChangeArbitraryProduct(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    product = target.value
   }
 
-  $: isValid, onChangeValidSignature(), clearError()
-  $: productType, onChangeProductType(), clearError()
-  $: productId, onChangeProductId(), clearError()
-  $: issValue, clearError()
-  $: signOption, clearError()
+  function onChangeProductId(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    productId = target.value
+  }
+
+  function onChangePremadeProduct(event: CustomEvent) {
+    clearError()
+    productId = event.detail.id
+    product = event.detail.product
+  }
+
+  function onChangeSignOption(value: string) {
+    clearError()
+    signOption = value
+  }
 </script>
 
 <svelte:head>
@@ -151,6 +173,7 @@
             label="Issuer domain"
             placeholder="ex.tags.ioxio.dev"
             bind:value={issValue}
+            onChange={onChangeIssValue}
             disabled={status === Status.GENERATING || isValid}
             required
           />
@@ -159,7 +182,7 @@
           <div class="toggle-row">
             <Toggle
               options={productTypes}
-              bind:value={productType}
+              onChange={onChangeProductType}
               disabled={status === Status.GENERATING}
             />
           </div>
@@ -170,6 +193,7 @@
               placeholder=""
               required
               bind:value={product}
+              onChange={onChangeArbitraryProduct}
             />
           {:else}
             <FormSelectGroup
@@ -177,7 +201,7 @@
               label="Product"
               placeholder="Type a product"
               options={premadeProducts}
-              bind:value={productId}
+              onSelect={onChangePremadeProduct}
               disabled={status === Status.GENERATING}
               required
             />
@@ -188,13 +212,14 @@
             name="id"
             label="Product ID"
             placeholder="ex. VV123456-12"
+            onChange={onChangeProductId}
             bind:value={productId}
             required
           />
           <div class="toggle-row">
             <Toggle
               options={["Signed", "Unsigned"]}
-              bind:value={signOption}
+              onChange={onChangeSignOption}
               disabled={status === Status.GENERATING}
             />
           </div>
@@ -205,7 +230,6 @@
               name="valid"
               label="Create valid signature"
               disabled={status === Status.GENERATING}
-              bind:checked={isValid}
               onChange={onChangeValidSignature}
             />
             <Tooltip tip="Whats this?" top>
