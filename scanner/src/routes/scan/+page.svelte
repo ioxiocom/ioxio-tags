@@ -1,17 +1,21 @@
 <script lang="ts">
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner/src/index"
   import { consoleLog } from "$lib/common"
-  import { tryParseIoxioTags } from "$lib/parse"
+  import { tryParseIoxioTags, type Payload } from "$lib/parse"
+  import Button from "$components/Button/index.svelte"
 
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
+  import Failed from "$assets/failed.svg"
   import { onDestroy, onMount } from "svelte"
   import Documentation from "$components/Documentation/index.svelte"
   import { goto } from "$app/navigation"
 
-  let originalBodyBg
+  let originalBodyBg: string
+  let isScanning: boolean = true
+  let scanResult: Payload
 
-  export function hideBackground() {
+  function hideBackground() {
     BarcodeScanner.hideBackground()
 
     if (typeof document !== "undefined") {
@@ -19,7 +23,7 @@
     }
   }
 
-  export function showBackground() {
+  function showBackground() {
     BarcodeScanner.showBackground()
 
     if (typeof document !== "undefined") {
@@ -27,13 +31,19 @@
     }
   }
 
-  export function sleep(ms: number): Promise<void> {
-    return new Promise((resolve) => setTimeout(resolve, ms))
+  function rescan() {
+    isScanning = true
+    startScan()
+  }
+
+  function showMetaData(verified = true) {
+    // Go to MetaData screen
+    goto(`/q/${scanResult.iss}/${scanResult.product}/${scanResult.id}?verified=${verified}`)
   }
 
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
   // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
-  export async function startScan(): Promise<void> {
+  async function startScan(): Promise<void> {
     // TODO: Permissions cannot be ignored
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!permissionResult.granted) {
@@ -61,8 +71,14 @@
         // No more need to scan
         BarcodeScanner.stopScan().then(() => {})
 
-        // Go to MetaData screen
-        goto(`/q/${payload.iss}/${payload.product}/${payload.id}`)
+        scanResult = payload
+
+        if (scanResult.verified) {
+          showMetaData()
+        } else {
+          showBackground()
+          isScanning = false
+        }
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
@@ -85,24 +101,35 @@
   })
 </script>
 
-<div class="relative barcode-scanner-area-wrapper">
-  <div class="relative barcode-scanner-area">
-    <img alt="subtract" class="subtract-image" src={Subtract} />
-    <div class="square surround-cover" />
+{#if isScanning}
+  <div class="relative barcode-scanner-area-wrapper">
+    <div class="relative barcode-scanner-area">
+      <img alt="subtract" class="subtract-image" src={Subtract} />
+      <div class="square surround-cover" />
+    </div>
+    <div class="relative">
+      <p class="description">Scan a Product Passport QR code to view product data</p>
+    </div>
   </div>
-  <div class="relative">
-    <p class="description">Scan a Product Passport QR code to view product data</p>
+  <div class="relative example-code-wrapper">
+    <div class="example-description">
+      Here's an example to identify an <strong>IOXIO Tag</strong>
+    </div>
+    <div class="example-code">
+      <img alt="An example IOXIO Tag" src={IoxioTagExample} />
+    </div>
   </div>
-</div>
-<div class="relative example-code-wrapper">
-  <div class="example-description">
-    Here's an example to identify an <strong>IOXIO Tag</strong>
+  <Documentation />
+{:else}
+  <div class="relative failed-verification-wrapper">
+    <img src={Failed} alt="" aria-hidden="true" />
+    <p>Code failed authenticity verification<br />Continue anyway?</p>
   </div>
-  <div class="example-code">
-    <img alt="An example IOXIO Tag" src={IoxioTagExample} />
+  <div class="actions-wrapper">
+    <Button title="No" width="100%" onClick={rescan} />
+    <Button title="Yes" background="#E47987" width="100%" onClick={() => showMetaData(false)} />
   </div>
-</div>
-<Documentation />
+{/if}
 
 <style lang="scss">
   .barcode-scanner-area-wrapper {
@@ -115,6 +142,37 @@
     @media screen and (max-height: 600px) {
       padding: 0.5rem 0;
     }
+  }
+  .failed-verification-wrapper {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 3.1875rem;
+    margin: auto;
+    @media screen and (max-height: 600px) {
+      padding: 0.5rem 0;
+    }
+    img {
+      width: 5rem;
+      height: 5rem;
+    }
+    p {
+      color: #eeefec;
+      text-align: center;
+      font-size: 1rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 150%; /* 24px */
+    }
+  }
+  .actions-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
   }
 
   .barcode-scanner-area {

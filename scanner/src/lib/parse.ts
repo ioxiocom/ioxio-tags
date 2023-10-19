@@ -14,10 +14,11 @@ const IOXIO_TAGS_VERSION_PREFIX = "IT1:"
 // /q/{iss}/{product}/{id}
 const IOXIO_URL_REGEX = /\/q\/([^/]+)\/([^/]+)\/([^/]+)/
 
-type Payload = {
+export type Payload = {
   iss: string // Issuer domain
   product: string // Generic product name / category
   id: string // Unique ID of the product
+  verified: boolean // Verification status
 }
 
 type RawSecureTagParseResult = {
@@ -60,7 +61,7 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
   if (isValidURL) {
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, iss, product, id] = Array.prototype.slice.apply(contents.match(IOXIO_URL_REGEX))
-    const payload = { iss, product, id }
+    const payload = { iss, product, id, verified: true }
     consoleLog("Parsed IOXIO Tag: " + JSON.stringify(payload), "info")
     return payload
   } else {
@@ -80,7 +81,10 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
           // This is an IOXIO Tags QR code
           // TODO: verify the signature in `contents` with `/tag/verify/v1`
           // TODO: if verification fails, ask for user to confirm if they want to continue anyway
-          return cborData.payload
+          return {
+            ...cborData.payload,
+            verified: false,
+          }
         }
       } else {
         // No IT1: prefix

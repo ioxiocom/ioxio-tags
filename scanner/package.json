@@ -3,7 +3,7 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "pnpm install && vite dev",
+    "dev": "pnpm install && vite dev --host",
     "build": "vite build && npx cap copy",
     "android": "npx cap copy android",
     "ios": "npx cap copy ios",
@@ -46,6 +46,7 @@
     "cbor-x": "^1.5.4",
     "html5-qrcode": "^2.3.8",
     "openapi-typescript": "^6.6.1",
+    "query-string": "^8.1.0",
     "sass": "^1.68.0"
   }
 }

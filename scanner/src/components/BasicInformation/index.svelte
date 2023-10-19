@@ -1,11 +1,13 @@
 <script lang="ts">
   import type { components } from "$lib/openapi"
-  import GreenCheckSvg from "$assets/green-check.svg"
+  import VerificationSuccessSvg from "$assets/verification-success.svg"
+  import VerificationFailedSvg from "$assets/verification-failed.svg"
 
   type MetadataV1Response = components["schemas"]["MetadataV1Response"]
 
   export let meta: MetadataV1Response
   export let product: string
+  export let verified: boolean
 </script>
 
 <div class="logo-title">
@@ -18,8 +20,13 @@
     <div class="property">Verification state:</div>
     <div class="value">
       <div class="flex-item">
-        <img src={GreenCheckSvg} alt="" aria-hidden="true" />
-        <span class:trusted={true}>Trusted</span>
+        {#if verified}
+          <img src={VerificationSuccessSvg} alt="" aria-hidden="true" />
+          <span class="status" class:trusted={true}>Trusted</span>
+        {:else}
+          <img src={VerificationFailedSvg} alt="" aria-hidden="true" />
+          <span class="status" class:failed={true}>Verification failed</span>
+        {/if}
       </div>
     </div>
   </div>
@@ -92,6 +99,24 @@
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+    }
+    .status {
+      font-size: 12px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 150%; /* 18px */
+    }
+    .trusted {
+      color: #3cb08e;
+    }
+    .failed {
+      color: #dd596a;
+    }
+    .flex-item {
+      display: flex;
+      flex-direction: row;
+      gap: 0.3rem;
+      align-items: center;
     }
   }
 </style>
