@@ -8,8 +8,8 @@ from app.routes.tag import router as tag_router
 from settings import conf
 
 APP_KWARGS = {}
-if conf.is_local_env():
-    APP_KWARGS["debug"] = True
+if not conf.is_local_env():
+    APP_KWARGS["debug"] = False
     origins = [
         "https://tags.ioxio.io",
         "https://generator.tags.ioxio.io",
@@ -17,7 +17,6 @@ if conf.is_local_env():
         "https://tags.ioxio.dev",
         "https://generator.tags.ioxio.dev",
         "https://scanner.tags.ioxio.dev",
-        "http://localhost:5173",
     ]
 else:
     APP_KWARGS["debug"] = True
