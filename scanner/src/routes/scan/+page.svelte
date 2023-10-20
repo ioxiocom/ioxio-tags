@@ -12,17 +12,15 @@
   let originalBodyBg
 
   export function hideBackground() {
-    BarcodeScanner.hideBackground()
-
     if (typeof document !== "undefined") {
+      BarcodeScanner.hideBackground()
       document.body.style.background = "transparent"
     }
   }
 
   export function showBackground() {
-    BarcodeScanner.showBackground()
-
     if (typeof document !== "undefined") {
+      BarcodeScanner.showBackground()
       document.body.style.background = originalBodyBg
     }
   }
