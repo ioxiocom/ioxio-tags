@@ -74,9 +74,8 @@
   onMount(() => {
     if (typeof document !== "undefined") {
       originalBodyBg = document.body.style.background
+      startScan()
     }
-
-    startScan()
   })
 
   onDestroy(() => {
