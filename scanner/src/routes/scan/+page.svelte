@@ -179,6 +179,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    @media screen and (min-width: 36rem) {
+      max-width: 33rem;
+      width: 100%;
+      margin: auto;
+    }
   }
 
   .barcode-scanner-area {
