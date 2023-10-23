@@ -16,17 +16,15 @@
   let scanResult: Payload
 
   function hideBackground() {
-    BarcodeScanner.hideBackground()
-
     if (typeof document !== "undefined") {
+      BarcodeScanner.hideBackground()
       document.body.style.background = "transparent"
     }
   }
 
   function showBackground() {
-    BarcodeScanner.showBackground()
-
     if (typeof document !== "undefined") {
+      BarcodeScanner.showBackground()
       document.body.style.background = originalBodyBg
     }
   }
@@ -90,9 +88,8 @@
   onMount(() => {
     if (typeof document !== "undefined") {
       originalBodyBg = document.body.style.background
+      startScan()
     }
-
-    startScan()
   })
 
   onDestroy(() => {
