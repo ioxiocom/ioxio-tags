@@ -253,10 +253,10 @@
         <div />
       {/if}
     </div>
-    <div class="footer">
+    <a href={settings.IOXIO_URL} class="footer">
       <span>Made by</span>
       <img src={LogoSvg} alt="" aria-hidden="true" />
-    </div>
+    </a>
   </div>
 </div>
 
@@ -402,6 +402,7 @@
         }
       }
       .footer {
+        text-decoration: none;
         display: flex;
         align-items: center;
         justify-content: center;
