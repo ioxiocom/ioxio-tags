@@ -22,7 +22,7 @@
 
   .container {
     width: 100%;
-    height: 100svh;
+    min-height: 100svh;
     display: flex;
     flex-direction: column;
     padding: 1rem;

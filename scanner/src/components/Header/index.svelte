@@ -18,11 +18,10 @@
 
 <style>
   .wrapper {
-    height: 3rem;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0.5rem 0;
+    padding: 0.5rem 0 1rem;
   }
   .left-arrow {
     height: 1.2rem;

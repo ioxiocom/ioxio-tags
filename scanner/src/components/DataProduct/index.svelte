@@ -50,6 +50,7 @@
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
+      gap: 1rem;
     }
     .divider {
       padding-bottom: 0.5rem;
@@ -66,6 +67,7 @@
     border: none;
     color: white;
     width: 5.625rem;
+    flex: 0 0 5.625rem;
     padding: 0.5rem 0.25rem;
     display: flex;
     align-items: center;
