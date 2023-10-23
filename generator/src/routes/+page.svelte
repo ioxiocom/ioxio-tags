@@ -17,7 +17,7 @@
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
   import { settings } from "$lib/settings"
-  import { ProductType, productTypes } from "$lib/types"
+  import { ProductType, SignOption, productTypes, signOptions } from "$lib/types"
   import { premadeProducts } from "$lib/premadeProducts"
 
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
@@ -26,7 +26,7 @@
   let productType: string = ProductType.PREMADE
   let product: string
   let productId: string
-  let signOption: string
+  let signOption: string = SignOption.UNSIGNED
   let isValid: boolean = false
 
   let status: string = Status.READY
@@ -183,6 +183,7 @@
             <Toggle
               options={productTypes}
               onChange={onChangeProductType}
+              bind:value={productType}
               disabled={status === Status.GENERATING}
             />
           </div>
@@ -218,8 +219,9 @@
           />
           <div class="toggle-row">
             <Toggle
-              options={["Signed", "Unsigned"]}
+              options={signOptions}
               onChange={onChangeSignOption}
+              bind:value={signOption}
               disabled={status === Status.GENERATING}
             />
           </div>
