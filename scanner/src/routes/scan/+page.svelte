@@ -120,11 +120,20 @@
 {:else}
   <div class="relative failed-verification-wrapper">
     <img src={Failed} alt="" aria-hidden="true" />
-    <p>Code failed authenticity verification<br />Continue anyway?</p>
+    <div>
+      <p>Code failed authenticity verification</p>
+      <p>Continue anyway?</p>
+    </div>
   </div>
   <div class="actions-wrapper">
-    <Button title="No" width="100%" onClick={rescan} />
-    <Button title="Yes" background="#E47987" width="100%" onClick={() => showMetaData(false)} />
+    <Button title="No" width="100%" height="3.125rem" onClick={rescan} />
+    <Button
+      title="Yes"
+      background="#E47987"
+      width="100%"
+      height="3.125rem"
+      onClick={() => showMetaData(false)}
+    />
   </div>
 {/if}
 
@@ -170,6 +179,11 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    @media screen and (min-width: 36rem) {
+      max-width: 33rem;
+      width: 100%;
+      margin: auto;
+    }
   }
 
   .barcode-scanner-area {
