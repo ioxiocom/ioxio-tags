@@ -3,7 +3,7 @@
   export let icon: string | null = null
   export let title: string
   export let background: string = "#3CB08E"
-  export let width: string
+  export let width: string = "100%"
 </script>
 
 <button class="button" on:click={onClick} style="--background: {background}; --width: {width}">

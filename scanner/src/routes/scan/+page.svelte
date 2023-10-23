@@ -123,7 +123,10 @@
 {:else}
   <div class="relative failed-verification-wrapper">
     <img src={Failed} alt="" aria-hidden="true" />
-    <p>Code failed authenticity verification<br />Continue anyway?</p>
+    <div>
+      <p>Code failed authenticity verification</p>
+      <p>Continue anyway?</p>
+    </div>
   </div>
   <div class="actions-wrapper">
     <Button title="No" width="100%" onClick={rescan} />
