@@ -6,13 +6,23 @@
 
   import IoxioTagExample from "$assets/ioxio-tag-example.png"
   import Subtract from "$assets/subtract.svg"
-  import Failed from "$assets/failed.svg"
+  import FailedSvg from "$assets/failed.svg"
+  import ErrorSvg from "$assets/error.svg"
   import { onDestroy, onMount } from "svelte"
   import Documentation from "$components/Documentation/index.svelte"
   import { goto } from "$app/navigation"
 
+  const Status = {
+    SCANNING: "SCANNING",
+    SCAN_SUCCESS_VERIFIED: "SCAN_SUCCESS_VERIFIED",
+    SCAN_SUCCESS_NOT_VERIFIED: "SCAN_SUCCESS_NOT_VERIFIED",
+    SCAN_FAILED: "SCAN_FAILED",
+  } as const
+
+  type Status = typeof Status[keyof typeof Status]
+
   let originalBodyBg: string
-  let isScanning: boolean = true
+  let status: Status
   let scanResult: Payload
 
   function hideBackground() {
@@ -30,7 +40,6 @@
   }
 
   function rescan() {
-    isScanning = true
     startScan()
   }
 
@@ -42,6 +51,7 @@
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
   // TODO: https://github.com/capacitor-community/barcode-scanner#permissions for how to ask properly
   async function startScan(): Promise<void> {
+    status = Status.SCANNING
     // TODO: Permissions cannot be ignored
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!permissionResult.granted) {
@@ -73,14 +83,16 @@
 
         if (scanResult.verified) {
           showMetaData()
+          status = Status.SCAN_SUCCESS_VERIFIED
         } else {
           showBackground()
-          isScanning = false
+          status = Status.SCAN_SUCCESS_NOT_VERIFIED
         }
       } else {
         consoleLog("No IOXIO Tag detected", "warn")
         // TODO: This should just continue scanning
         showBackground()
+        status = Status.SCAN_FAILED
       }
     }
   }
@@ -98,7 +110,7 @@
   })
 </script>
 
-{#if isScanning}
+{#if status === Status.SCANNING || status === Status.SCAN_SUCCESS_VERIFIED}
   <div class="relative barcode-scanner-area-wrapper">
     <div class="relative barcode-scanner-area">
       <img alt="subtract" class="subtract-image" src={Subtract} />
@@ -117,9 +129,9 @@
     </div>
   </div>
   <Documentation />
-{:else}
+{:else if status === Status.SCAN_SUCCESS_NOT_VERIFIED}
   <div class="relative failed-verification-wrapper">
-    <img src={Failed} alt="" aria-hidden="true" />
+    <img src={FailedSvg} alt="" aria-hidden="true" />
     <div>
       <p>Code failed authenticity verification</p>
       <p>Continue anyway?</p>
@@ -134,6 +146,17 @@
       height="3.125rem"
       onClick={() => showMetaData(false)}
     />
+  </div>
+{:else}
+  <div class="relative failed-verification-wrapper">
+    <img src={ErrorSvg} alt="" aria-hidden="true" />
+    <div>
+      <p>Code is not recognized.</p>
+      <p>Please try again or use another code</p>
+    </div>
+  </div>
+  <div class="actions-wrapper">
+    <Button title="Scan again" width="100%" height="3.125rem" onClick={rescan} />
   </div>
 {/if}
 
@@ -179,10 +202,14 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+    margin-bottom: 0.875rem;
     @media screen and (min-width: 36rem) {
       max-width: 33rem;
       width: 100%;
       margin: auto;
+    }
+    :global(button) {
+      max-width: 10.6875rem;
     }
   }
 
