@@ -44,11 +44,11 @@
     </div>
     <div class="relative actions-wrapper">
       <div>
-        <Button onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
+        <Button width="9rem" onClick={() => goto("/scan")} icon={Camera} title="Turn on" />
       </div>
       {#if data.isDevelopment}
         <div>
-          <Button onClick={scanPreset} title="Simulate scan of preset data" />
+          <Button width="100%" onClick={scanPreset} title="Simulate scan of preset data" />
         </div>
       {/if}
     </div>

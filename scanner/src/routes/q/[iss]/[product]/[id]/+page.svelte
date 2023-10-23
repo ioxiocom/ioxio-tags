@@ -5,12 +5,14 @@
   import BasicInformation from "$components/BasicInformation/index.svelte"
   import DataProduct from "$components/DataProduct/index.svelte"
   import { page } from "$app/stores"
-  import { tag } from "$lib/api"
+  import queryString from "query-string"
   import { onMount } from "svelte"
   import type { components } from "$lib/openapi"
+  import { tag } from "$lib/api"
 
   let loading: boolean = false
   let meta: components["schemas"]["MetadataV1Response"] | undefined = undefined
+  let verified: boolean = queryString.parse($page.url.search).verified === "true"
 
   async function load() {
     loading = true
@@ -39,7 +41,7 @@
 {:else}
   <div class="content">
     <Header logoUrl={meta.logo_url} />
-    <BasicInformation {meta} product={$page.params.product} />
+    <BasicInformation {meta} product={$page.params.product} {verified} />
     {#each meta.supported_dataproducts as dataProduct}
       <DataProduct productBrief={dataProduct} />
     {/each}

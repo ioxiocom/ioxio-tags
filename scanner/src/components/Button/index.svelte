@@ -2,9 +2,16 @@
   export let onClick: () => void
   export let icon: string | null = null
   export let title: string
+  export let background: string = "#3CB08E"
+  export let width: string = "100%"
+  export let height: string = "auto"
 </script>
 
-<button class="button" on:click={onClick}>
+<button
+  class="button"
+  on:click={onClick}
+  style="--background: {background}; --width: {width}; --height: {height};"
+>
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
@@ -16,10 +23,11 @@
     cursor: pointer;
     margin: auto;
     padding: 0.5rem 1rem;
-    background-color: rgba(60, 176, 142, 1);
-    border-radius: 0.5rem;
+    background-color: var(--background);
+    border-radius: 0.3125rem;
     border: none;
-    min-width: 8rem;
+    width: var(--width);
+    height: var(--height);
     display: flex;
     align-items: center;
     justify-content: center;
