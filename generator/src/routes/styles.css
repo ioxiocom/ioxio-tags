@@ -6,5 +6,7 @@
 body {
   min-height: 100vh;
   margin: 0;
+  height: 100%;
   background-size: 100vw 100vh;
+  background-color: #ccd5e1;
 }

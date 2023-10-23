@@ -13,22 +13,25 @@
   import SubtractSvg from "$assets/subtract.svg?url"
   import DownloadSvg from "$assets/download.svg?url"
   import WarnSvg from "$assets/warn.svg?url"
-  import type { PageData } from "./$types"
   import { Status } from "./types"
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
   import { settings } from "$lib/settings"
+  import { ProductType, productTypes } from "$lib/types"
+  import { premadeProducts } from "$lib/premadeProducts"
 
-  export let data: PageData
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
-  let productOption: string = "Arbitrary"
+  let issValue: string = ""
+  let productType: string = ProductType.PREMADE
+  let product: string
+  let productId: string
   let signOption: string
+  let isValid: boolean = false
+
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
   let inputData: GenerateSecureV1Request
-  let isValid: boolean = false
-  let issValue: string = ""
   let error: string | null = null
 
   function slugify(input: string): string {
@@ -39,12 +42,16 @@
 
   async function onGenerate(event: SubmitEvent) {
     event.preventDefault()
-    status = Status.GENERATING
+    clearError()
+
+    if (!product) {
+      return
+    }
+
     const formEl = event.target as HTMLFormElement
     const formData = new FormData(formEl)
-
+    status = Status.GENERATING
     const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
-    const product = formData.get("product") as string
     const id = formData.get("id") as string
     const valid = formData.get("valid") === "on"
     const data = { iss, product, valid, id }
@@ -98,11 +105,53 @@
     document.body.removeChild(link)
   }
 
-  function onChangeValidSignature(event: Event) {
+  function clearError() {
+    error = null
+  }
+
+  function onChangeIssValue(event: Event) {
+    clearError()
     const target = event.target as HTMLInputElement
-    if (target.checked) {
+    issValue = target.value
+  }
+
+  function onChangeValidSignature(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    isValid = target.checked
+    if (isValid) {
       issValue = settings.ISS_DOMAIN
     }
+  }
+
+  function onChangeProductType(value: string) {
+    clearError()
+    productType = value
+    productId = ""
+    product = ""
+  }
+
+  function onChangeArbitraryProduct(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    product = target.value
+  }
+
+  function onChangeProductId(event: Event) {
+    clearError()
+    const target = event.target as HTMLInputElement
+    productId = target.value
+  }
+
+  function onChangePremadeProduct(event: CustomEvent) {
+    clearError()
+    productId = event.detail.id
+    product = event.detail.product
+  }
+
+  function onChangeSignOption(value: string) {
+    clearError()
+    signOption = value
   }
 </script>
 
@@ -117,13 +166,14 @@
     <div>
       <div class="title">Generate a product passport</div>
       <img class="logomarkSvg" src={LogomarkSvg} alt="" aria-hidden="true" />
-      <form on:submit={onGenerate} on:change={() => (error = null)}>
+      <form on:submit={onGenerate}>
         <div class="row">
           <FormInputGroup
             name="iss"
             label="Issuer domain"
             placeholder="ex.tags.ioxio.dev"
             bind:value={issValue}
+            onChange={onChangeIssValue}
             disabled={status === Status.GENERATING || isValid}
             required
           />
@@ -131,19 +181,27 @@
         <div class="row">
           <div class="toggle-row">
             <Toggle
-              options={["Arbitrary", "Premade"]}
-              bind:value={productOption}
+              options={productTypes}
+              onChange={onChangeProductType}
               disabled={status === Status.GENERATING}
             />
           </div>
-          {#if productOption === "Arbitrary"}
-            <FormInputGroup name="product" label="Product" placeholder="" required />
+          {#if productType === ProductType.ARBITRARY}
+            <FormInputGroup
+              name="product"
+              label="Product"
+              placeholder=""
+              required
+              bind:value={product}
+              onChange={onChangeArbitraryProduct}
+            />
           {:else}
             <FormSelectGroup
               name="product"
               label="Product"
               placeholder="Type a product"
-              options={data.options}
+              options={premadeProducts}
+              onSelect={onChangePremadeProduct}
               disabled={status === Status.GENERATING}
               required
             />
@@ -154,13 +212,14 @@
             name="id"
             label="Product ID"
             placeholder="ex. VV123456-12"
-            disabled={status === Status.GENERATING}
+            onChange={onChangeProductId}
+            bind:value={productId}
             required
           />
           <div class="toggle-row">
             <Toggle
               options={["Signed", "Unsigned"]}
-              bind:value={signOption}
+              onChange={onChangeSignOption}
               disabled={status === Status.GENERATING}
             />
           </div>
@@ -171,7 +230,6 @@
               name="valid"
               label="Create valid signature"
               disabled={status === Status.GENERATING}
-              bind:checked={isValid}
               onChange={onChangeValidSignature}
             />
             <Tooltip tip="Whats this?" top>
@@ -253,10 +311,10 @@
         <div />
       {/if}
     </div>
-    <div class="footer">
+    <a href={settings.IOXIO_URL} class="footer">
       <span>Made by</span>
       <img src={LogoSvg} alt="" aria-hidden="true" />
-    </div>
+    </a>
   </div>
 </div>
 
@@ -266,7 +324,14 @@
     flex-direction: row;
     margin: auto;
     width: 100%;
-    min-height: 100vh;
+    @media screen and (min-width: 90rem) {
+      max-width: 90rem;
+      max-height: 64rem;
+      min-width: none;
+    }
+    @media screen and (max-width: 90rem) {
+      min-height: 100vh;
+    }
     .form-wrapper {
       padding: 7.5rem;
       background-color: white;
@@ -275,9 +340,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      @media screen and (max-width: 1440px) {
+      border-top-left-radius: 0.9375rem;
+      border-bottom-left-radius: 0.9375rem;
+      @media screen and (max-width: 90rem) {
         flex: 1;
         padding: 3rem;
+        border-top-left-radius: 0rem;
+        border-bottom-left-radius: 0rem;
       }
       @media screen and (max-width: 1000px) {
         width: 100%;
@@ -295,11 +364,16 @@
         margin-top: 4rem;
       }
       .logomarkSvg {
-        width: 30%;
+        width: 80%;
         position: absolute;
         bottom: 2rem;
-        left: -2%;
+        left: -5%;
         z-index: 0;
+        display: none;
+        opacity: 0.2;
+        @media screen and (max-width: 90rem) {
+          display: block;
+        }
       }
     }
     .error-wrapper {
@@ -328,11 +402,15 @@
       width: 50%;
       display: flex;
       flex-direction: column;
-      @media screen and (max-width: 1440px) {
+      border-top-right-radius: 0.9375rem;
+      border-bottom-right-radius: 0.9375rem;
+      @media screen and (max-width: 90rem) {
         flex: 1;
         padding: 1rem 3rem;
+        border-top-right-radius: 0rem;
+        border-bottom-right-radius: 0rem;
       }
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 62.5rem) {
         width: 100%;
       }
       .qrcode-area {
@@ -402,6 +480,7 @@
         }
       }
       .footer {
+        text-decoration: none;
         display: flex;
         align-items: center;
         justify-content: center;
