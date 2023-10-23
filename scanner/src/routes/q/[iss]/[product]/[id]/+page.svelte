@@ -66,7 +66,7 @@
     <p>{error}</p>
   </div>
   <div class="actions-wrapper">
-    <p>Redirecting to Scan page...</p>
+    <p>Returning to scanning mode...</p>
   </div>
 {/if}
 
