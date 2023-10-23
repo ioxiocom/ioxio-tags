@@ -36,7 +36,9 @@
   </div>
   <div class="row">
     <div class="property capitalize">Dataspace domain:</div>
-    <div class="value">{meta.product_dataspace}</div>
+    <a class="value domain" href={`https:${meta.product_dataspace}`} target="blank"
+      >{meta.product_dataspace}</a
+    >
   </div>
 </div>
 
@@ -70,7 +72,7 @@
     background: #1a2934;
     border-radius: 0.5rem;
     padding: 1rem 0.5rem;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
@@ -78,6 +80,7 @@
     .basic-information {
       color: #798893;
       margin-bottom: 1rem;
+      font-size: 0.75rem;
     }
   }
   .row {
@@ -89,7 +92,7 @@
       margin-bottom: 1rem;
     }
     .property {
-      font-size: 0.75rem;
+      font-size: 1rem;
       font-weight: 400;
       flex: 0 0 40%;
       padding-right: 0.5rem;
@@ -101,7 +104,7 @@
       align-items: flex-start;
     }
     .status {
-      font-size: 12px;
+      font-size: 1rem;
       font-style: normal;
       font-weight: 600;
       line-height: 150%; /* 18px */
@@ -117,6 +120,10 @@
       flex-direction: row;
       gap: 0.3rem;
       align-items: center;
+    }
+    .domain {
+      color: #3cb08e;
+      text-decoration: none;
     }
   }
 </style>
