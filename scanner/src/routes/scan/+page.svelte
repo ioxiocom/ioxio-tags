@@ -126,8 +126,14 @@
     </div>
   </div>
   <div class="actions-wrapper">
-    <Button title="No" width="100%" onClick={rescan} />
-    <Button title="Yes" background="#E47987" width="100%" onClick={() => showMetaData(false)} />
+    <Button title="No" width="100%" height="3.125rem" onClick={rescan} />
+    <Button
+      title="Yes"
+      background="#E47987"
+      width="100%"
+      height="3.125rem"
+      onClick={() => showMetaData(false)}
+    />
   </div>
 {/if}
 

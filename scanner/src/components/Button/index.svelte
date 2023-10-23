@@ -4,9 +4,14 @@
   export let title: string
   export let background: string = "#3CB08E"
   export let width: string = "100%"
+  export let height: string = "auto"
 </script>
 
-<button class="button" on:click={onClick} style="--background: {background}; --width: {width}">
+<button
+  class="button"
+  on:click={onClick}
+  style="--background: {background}; --width: {width}; --height: {height};"
+>
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
   {/if}
@@ -22,6 +27,7 @@
     border-radius: 0.3125rem;
     border: none;
     width: var(--width);
+    height: var(--height);
     display: flex;
     align-items: center;
     justify-content: center;
