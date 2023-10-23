@@ -2,8 +2,8 @@
   export let options: string[] = []
   export let disabled: boolean = false
   export let onChange = (value: string) => {}
+  export let value: string
 
-  let value: string
   function onClickHandler(option: string) {
     if (disabled) {
       return
