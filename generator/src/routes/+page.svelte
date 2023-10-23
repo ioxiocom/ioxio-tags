@@ -266,7 +266,14 @@
     flex-direction: row;
     margin: auto;
     width: 100%;
-    min-height: 100vh;
+    @media screen and (min-width: 90rem) {
+      max-width: 90rem;
+      max-height: 64rem;
+      min-width: none;
+    }
+    @media screen and (max-width: 90rem) {
+      min-height: 100vh;
+    }
     .form-wrapper {
       padding: 7.5rem;
       background-color: white;
@@ -275,9 +282,13 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      @media screen and (max-width: 1440px) {
+      border-top-left-radius: 0.9375rem;
+      border-bottom-left-radius: 0.9375rem;
+      @media screen and (max-width: 90rem) {
         flex: 1;
         padding: 3rem;
+        border-top-left-radius: 0rem;
+        border-bottom-left-radius: 0rem;
       }
       @media screen and (max-width: 1000px) {
         width: 100%;
@@ -295,11 +306,16 @@
         margin-top: 4rem;
       }
       .logomarkSvg {
-        width: 30%;
+        width: 80%;
         position: absolute;
         bottom: 2rem;
-        left: -2%;
+        left: -5%;
         z-index: 0;
+        display: none;
+        opacity: 0.2;
+        @media screen and (max-width: 90rem) {
+          display: block;
+        }
       }
     }
     .error-wrapper {
@@ -328,11 +344,15 @@
       width: 50%;
       display: flex;
       flex-direction: column;
-      @media screen and (max-width: 1440px) {
+      border-top-right-radius: 0.9375rem;
+      border-bottom-right-radius: 0.9375rem;
+      @media screen and (max-width: 90rem) {
         flex: 1;
         padding: 1rem 3rem;
+        border-top-right-radius: 0rem;
+        border-bottom-right-radius: 0rem;
       }
-      @media screen and (max-width: 1000px) {
+      @media screen and (max-width: 62.5rem) {
         width: 100%;
       }
       .qrcode-area {
