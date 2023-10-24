@@ -152,6 +152,9 @@
   function onChangeSignOption(value: string) {
     clearError()
     signOption = value
+    if (signOption === SignOption.UNSIGNED) {
+      isValid = false
+    }
   }
 </script>
 
@@ -226,22 +229,24 @@
             />
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <FormCheckbox
-              name="valid"
-              bind:checked={isValid}
-              label="Create valid signature"
-              disabled={status === Status.GENERATING}
-              onChange={onChangeValidSignature}
-            />
-            <Tooltip tip="Whats this?" top>
-              <span class="question-icon">
-                <QuestionSvg />
-              </span>
-            </Tooltip>
+        {#if signOption === SignOption.SIGNED}
+          <div class="row">
+            <div class="col">
+              <FormCheckbox
+                name="valid"
+                bind:checked={isValid}
+                label="Create valid signature"
+                disabled={status === Status.GENERATING}
+                onChange={onChangeValidSignature}
+              />
+              <Tooltip tip="Whats this?" top>
+                <span class="question-icon">
+                  <QuestionSvg />
+                </span>
+              </Tooltip>
+            </div>
           </div>
-        </div>
+        {/if}
         <div class="actions-wrapper">
           <Button
             disabled={status === Status.GENERATING}
