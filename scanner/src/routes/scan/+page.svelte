@@ -147,7 +147,7 @@
       onClick={() => showMetaData(false)}
     />
   </div>
-{:else}
+{:else if status === Status.SCAN_FAILED}
   <div class="relative failed-verification-wrapper">
     <img src={ErrorSvg} alt="" aria-hidden="true" />
     <div>
