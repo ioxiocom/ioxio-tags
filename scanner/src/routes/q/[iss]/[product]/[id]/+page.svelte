@@ -14,7 +14,8 @@
 
   let loading: boolean = false
   let meta: components["schemas"]["MetadataV1Response"] | undefined = undefined
-  let verified: boolean = queryString.parse($page.url.search).verified === "true"
+  let verifiedParam = queryString.parse($page.url.search).verified
+  let verified = verifiedParam === "true" ? true : verifiedParam === "false" ? false : undefined
   let error: string
 
   async function load() {
@@ -29,7 +30,10 @@
     } else {
       console.error("Fetching metadata failed", result)
       meta = undefined
-      error = result.data.detail[0].msg
+      error =
+        result.data.detail && result.data.detail.length > 0
+          ? result.data.detail[0].msg
+          : result.data.error
 
       setTimeout(() => {
         rescan()

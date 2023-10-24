@@ -2,16 +2,20 @@
   import type { components } from "$lib/openapi"
   import VerificationSuccessSvg from "$assets/verification-success.svg"
   import VerificationFailedSvg from "$assets/verification-failed.svg"
+  import InvalidSourceSvg from "$assets/invalid-source.svg"
+  import UnknownSvg from "$assets/unknown.svg"
 
   type MetadataV1Response = components["schemas"]["MetadataV1Response"]
 
   export let meta: MetadataV1Response
   export let product: string
-  export let verified: boolean
+  export let verified: boolean | undefined
 </script>
 
 <div class="logo-title">
-  <div class="logo"><img src={meta.image_url} alt="" aria-hidden="true" /></div>
+  <div class="logo" style="--background-logo: {meta.image_url ? '#e1e1e1' : '#1a2934'}">
+    <img src={meta.image_url || UnknownSvg} alt="" aria-hidden="true" />
+  </div>
   <div class="title">{meta.names.en_US}</div>
 </div>
 <div class="card">
@@ -20,7 +24,10 @@
     <div class="property">Verification state:</div>
     <div class="value">
       <div class="flex-item">
-        {#if verified}
+        {#if verified === undefined}
+          <img src={InvalidSourceSvg} alt="" aria-hidden="true" />
+          <span class="status" class:invalid={true}>Source not verified</span>
+        {:else if verified}
           <img src={VerificationSuccessSvg} alt="" aria-hidden="true" />
           <span class="status" class:trusted={true}>Trusted</span>
         {:else}
@@ -49,7 +56,7 @@
     .logo {
       width: 5rem;
       height: 5rem;
-      background: #e1e1e1;
+      background: var(--background-logo);
       border-radius: 0.5rem;
       display: flex;
       align-items: center;
@@ -111,6 +118,9 @@
     }
     .failed {
       color: #dd596a;
+    }
+    .invalid {
+      color: #e9862b;
     }
     .flex-item {
       display: flex;

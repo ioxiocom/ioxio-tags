@@ -10,7 +10,9 @@
   <a href="/scan">
     <img class="left-arrow" src={LeftArrowSvg} alt="" aria-hidden="true" />
   </a>
-  <img class="question" src={logoUrl} alt="" aria-hidden="true" />
+  {#if logoUrl}
+    <img class="question" src={logoUrl} alt="" aria-hidden="true" />
+  {/if}
   <a href={settings.DOCUMENTATION_URL}>
     <img class="metadata" src={QuestionSvg} alt="" aria-hidden="true" />
   </a>
