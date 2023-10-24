@@ -30,7 +30,6 @@
     background: #1a2934;
     border-radius: 0.5rem;
     padding: 1rem 0.5rem;
-    font-size: 0.75rem;
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
@@ -60,7 +59,7 @@
   }
   .button {
     color: white;
-    font-size: 0.75rem;
+    font-size: 1rem;
     font-weight: 600;
     text-align: center;
     border-radius: 0.3rem;
