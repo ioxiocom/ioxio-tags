@@ -572,7 +572,7 @@
       width: 15rem;
       box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
       opacity: 0;
-      transition: opacity 1s;
+      transition: opacity 0.15s;
 
       &::before {
         content: "";
