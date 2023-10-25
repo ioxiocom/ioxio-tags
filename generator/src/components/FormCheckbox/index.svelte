@@ -5,12 +5,21 @@
   export let label: string | undefined
   export let disabled: boolean = false
   export let required: boolean = false
+  export let checked: boolean = false
   export let onChange: ChangeEventHandler<HTMLInputElement> = () => {}
 </script>
 
 <div class="wrapper">
   <div class="checkbox">
-    <input type="checkbox" id={name} {disabled} {name} {required} on:change={onChange} />
+    <input
+      type="checkbox"
+      id={name}
+      {disabled}
+      {name}
+      {required}
+      on:change={onChange}
+      bind:checked
+    />
     <label for={name} style="--size: 20px">
       <Checkbox />
     </label>

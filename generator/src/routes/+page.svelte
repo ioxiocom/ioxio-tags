@@ -21,12 +21,12 @@
 
   type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
 
-  let issValue: string = ""
+  let issValue: string = settings.ISS_DOMAIN
   let productType: string = ProductType.PREMADE
   let product: string
   let productId: string
-  let signOption: string = SignOption.UNSIGNED
-  let isValid: boolean = false
+  let signOption: string = SignOption.SIGNED
+  let isValid: boolean = true
 
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
@@ -229,6 +229,7 @@
           <div class="col">
             <FormCheckbox
               name="valid"
+              bind:checked={isValid}
               label="Create valid signature"
               disabled={status === Status.GENERATING}
               onChange={onChangeValidSignature}
