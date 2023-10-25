@@ -22,7 +22,6 @@
     "@typescript-eslint/parser": "^6.3.0",
     "eslint": "^8.47.0",
     "sass": "^1.68.0",
-    "sv-tooltip": "^0.1.5",
     "svelecte": "^3.17.2",
     "svelte": "^4.0.5",
     "svelte-check": "^3.4.3",

@@ -1,5 +1,4 @@
 <script lang="ts">
-  import Tooltip from "sv-tooltip"
   import FormInputGroup from "$components/FormInputGroup/index.svelte"
   import FormSelectGroup from "$components/FormSelectGroup/index.svelte"
   import FormCheckbox from "$components/FormCheckbox/index.svelte"
@@ -234,11 +233,12 @@
               disabled={status === Status.GENERATING}
               onChange={onChangeValidSignature}
             />
-            <Tooltip tip="Whats this?" top>
-              <span class="question-icon">
-                <QuestionSvg />
-              </span>
-            </Tooltip>
+            <span class="question-icon">
+              <QuestionSvg />
+              <div class="tooltip">
+                Leave this off if you want to test handling of corrupted/invalid signatures
+              </div>
+            </span>
           </div>
         </div>
         <div class="actions-wrapper">
@@ -553,6 +553,39 @@
     align-items: center;
     flex-direction: row;
     cursor: pointer;
+    position: relative;
+    &:hover .tooltip {
+      visibility: visible;
+      opacity: 1;
+    }
+    .tooltip {
+      position: absolute;
+      left: calc(100% + 0.3125rem);
+      visibility: hidden;
+      color: #101920;
+      font-size: 0.75rem;
+      font-style: normal;
+      font-weight: 400;
+      line-height: 1.125rem;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.3125rem;
+      width: 15rem;
+      box-shadow: 0px 0px 4px 0px rgba(0, 0, 0, 0.15);
+      opacity: 0;
+      transition: opacity 0.15s;
+
+      &::before {
+        content: "";
+        position: absolute;
+        left: -0.3125rem;
+        top: calc(50% - 0.5rem);
+        border-top: 0.5rem solid transparent;
+        border-right: 0.3125rem solid #ffffff;
+        border-bottom: 0.5rem solid transparent;
+        filter: drop-shadow(0px 0px 4px rgba(0, 0, 0, 0.15));
+        z-index: 0;
+      }
+    }
   }
   .anim {
     overflow: hidden;
@@ -593,5 +626,28 @@
       transform: rotate(360deg);
       background: linear-gradient(to right, #9a78e8, #8ebfd3);
     }
+  }
+
+  @-webkit-keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes fadeIn {
+    0% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  .fadeIn {
+    -webkit-animation-name: fadeIn;
+    animation-name: fadeIn;
   }
 </style>
