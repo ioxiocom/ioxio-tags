@@ -152,9 +152,6 @@
   function onChangeSignOption(value: string) {
     clearError()
     signOption = value
-    if (signOption === SignOption.UNSIGNED) {
-      isValid = false
-    }
   }
 </script>
 
