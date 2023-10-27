@@ -9,4 +9,5 @@ apity.configure({
 
 export const tag = {
   generateSecureV1: apity.path("/tag/generate/secure/v1/").method("post").create(),
+  generateUrlV1: apity.path("/tag/generate/url/v1/").method("post").create(),
 }
