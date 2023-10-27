@@ -7,6 +7,10 @@
     {
       "path": "DigitalProductPassport/MetalArtifact/DataSheet_v0.1",
       "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/LogisticsEmissions_v0.1",
+      "source": "dpp_demo"
     }
   ]
 }
