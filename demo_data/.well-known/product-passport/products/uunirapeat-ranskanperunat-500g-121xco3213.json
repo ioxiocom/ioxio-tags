@@ -1,0 +1,16 @@
+{
+  "names": {
+    "en_US": "Oolannin Uunirapeat Ranskanperunat"
+  },
+  "image_url": "https://tags.ioxio.dev/images/uunirapeat-ranskanperunat-500g.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/MetalArtifact/DataSheet_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}
