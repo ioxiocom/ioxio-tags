@@ -1,0 +1,12 @@
+{
+  "names": {
+    "en_US": "SSAB Roll of Steel"
+  },
+  "image_url": "https://tags.ioxio.dev/images/ssab-roll-of-steel.jpg",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/LogisticsEmissions_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}

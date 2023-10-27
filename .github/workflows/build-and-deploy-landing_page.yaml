@@ -50,6 +50,7 @@ jobs:
       - name: Build and Push
         run: |-
           cp -r demo_data/.well-known landing_page/static
+          cp -r demo_data/images landing_page/static
           cd landing_page
           docker build -t ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} .
           docker push ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }}
