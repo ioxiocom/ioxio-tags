@@ -1,9 +1,18 @@
 <script lang="ts">
-  import "./style.css"
-  import { SvelteToast } from "@zerodevx/svelte-toast"
   import { Capacitor } from "@capacitor/core"
+  import { onMount } from "svelte"
+  import { goto } from "$app/navigation"
+  import { SvelteToast } from "@zerodevx/svelte-toast"
+  import "./style.css"
+
   const isMobile = ["android", "ios"].indexOf(Capacitor.getPlatform()) > -1
   const maxHeight = isMobile ? "100vh" : "100svh"
+
+  onMount(() => {
+    if (isMobile) {
+      goto("scan")
+    }
+  })
 </script>
 
 <main>
