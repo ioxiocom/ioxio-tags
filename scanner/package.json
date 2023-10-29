@@ -33,6 +33,7 @@
   "dependencies": {
     "@capacitor-community/barcode-scanner": "git://github.com/pkunszt/barcode-scanner.git#back-cam-default",
     "@capacitor/android": "^5.2.3",
+    "@capacitor/app": "^5.0.6",
     "@capacitor/cli": "^5.2.3",
     "@capacitor/core": "^5.2.3",
     "@capacitor/ios": "^5.2.3",
