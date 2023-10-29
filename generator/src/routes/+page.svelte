@@ -560,7 +560,7 @@
     }
     .tooltip {
       position: absolute;
-      left: calc(100% + 0.3125rem);
+      left: calc(100% + 0.625rem);
       visibility: hidden;
       color: #101920;
       font-size: 0.75rem;
