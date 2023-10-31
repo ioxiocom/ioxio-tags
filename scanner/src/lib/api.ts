@@ -14,4 +14,5 @@ export const tag = {
     .path("/dataproduct/fetch/{dataspace_domain}/{product_path}")
     .method("post")
     .create({ source: true }),
+  tagVerifyV1: apity.path("/tag/verify/v1/").method("post").create(),
 }

@@ -45,7 +45,8 @@
 
   function showMetaData(verified = true) {
     // Go to MetaData screen
-    goto(`/q/${scanResult.iss}/${scanResult.product}/${scanResult.id}?verified=${verified}`)
+    let url = `/q/${scanResult.iss}/${scanResult.product}/${scanResult.id}?verified=${verified}`
+    goto(url)
   }
 
   // TODO: On mobile devices where permissions allow for it, we should directly start scanning
@@ -134,6 +135,7 @@
     <img src={FailedSvg} alt="" aria-hidden="true" />
     <div>
       <p>Code failed authenticity verification</p>
+      <p>{scanResult.error}</p>
       <p>Continue anyway?</p>
     </div>
   </div>
