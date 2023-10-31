@@ -79,8 +79,6 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
           cborData.payload.id
         ) {
           // This is an IOXIO Tags QR code
-          // TODO: verify the signature in `contents` with `/tag/verify/v1`
-          // TODO: if verification fails, ask for user to confirm if they want to continue anyway
           const verifyV1 = await tag.tagVerifyV1({ code: contents }).result
           let error: string
           if (verifyV1.status === 400) {
