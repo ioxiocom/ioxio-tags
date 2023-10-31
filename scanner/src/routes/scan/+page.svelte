@@ -1,5 +1,7 @@
 <script lang="ts">
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner/src/index"
+  import { goto } from "$app/navigation"
+  import { App } from "@capacitor/app"
   import { consoleLog } from "$lib/common"
   import { tryParseIoxioTags, type Payload } from "$lib/parse"
   import Button from "$components/Button/index.svelte"
@@ -10,7 +12,6 @@
   import ErrorSvg from "$assets/error.svg"
   import { onDestroy, onMount } from "svelte"
   import Documentation from "$components/Documentation/index.svelte"
-  import { goto } from "$app/navigation"
 
   const Status = {
     SCANNING: "SCANNING",
@@ -101,6 +102,9 @@
     if (typeof document !== "undefined") {
       originalBodyBg = document.body.style.background
       startScan()
+      App.addListener("backButton", function (e) {
+        App.exitApp()
+      })
     }
   })
 
