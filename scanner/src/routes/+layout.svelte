@@ -10,7 +10,7 @@
 
   onMount(() => {
     if (isMobile) {
-      goto("scan")
+      goto("/scan")
     }
   })
 </script>
