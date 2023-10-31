@@ -22,12 +22,13 @@
     display: flex;
     flex-direction: column;
     min-height: 100vh;
+    width: 100%;
   }
 
   .logomarkSvg {
     width: 20%;
     position: absolute;
-    bottom: -1.8125rem;
+    bottom: 0;
     left: -2%;
     z-index: 0;
     @media screen and (max-width: 90rem) {
