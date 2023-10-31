@@ -2,6 +2,8 @@ import { decode as decodeCbor } from "cbor-x"
 import { Buffer } from "buffer"
 import { decode as decodeBase45 } from "base45"
 import { consoleLog } from "./common"
+import { tag } from "./api"
+import type { components } from "./openapi"
 
 // Very uncool way of trying to fix the low quality library
 if (typeof window !== "undefined") {
@@ -19,6 +21,7 @@ export type Payload = {
   product: string // Generic product name / category
   id: string // Unique ID of the product
   verified: boolean // Verification status
+  error?: string // Error message
 }
 
 type RawSecureTagParseResult = {
@@ -62,16 +65,13 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
     // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [_, iss, product, id] = Array.prototype.slice.apply(contents.match(IOXIO_URL_REGEX))
     const payload = { iss, product, id, verified: true }
-    consoleLog("Parsed IOXIO Tag: " + JSON.stringify(payload), "info")
     return payload
   } else {
-    console.log(contents)
     try {
       if (contents.startsWith(IOXIO_TAGS_VERSION_PREFIX)) {
         const withoutVersion = contents.substring(IOXIO_TAGS_VERSION_PREFIX.length)
         const b45decoded = decodeBase45(withoutVersion)
         const cborData = await parseCoseInsecure(b45decoded)
-        consoleLog("Parsed IOXIO Tag: " + JSON.stringify(cborData), "info")
         if (
           cborData.kid &&
           cborData.payload.iss &&
@@ -79,11 +79,24 @@ export async function tryParseIoxioTags(contents: string): Promise<Payload | und
           cborData.payload.id
         ) {
           // This is an IOXIO Tags QR code
-          // TODO: verify the signature in `contents` with `/tag/verify/v1`
-          // TODO: if verification fails, ask for user to confirm if they want to continue anyway
+          const verifyV1 = await tag.tagVerifyV1({ code: contents }).result
+          let error: string
+          if (verifyV1.status === 400) {
+            const data = verifyV1.data as components["schemas"]["TagsErrorResponse"]
+            error = data.error
+          } else if (verifyV1.status === 422) {
+            const data = verifyV1.data as components["schemas"]["HTTPValidationError"]
+            error = data.detail?.[0].msg || ""
+          } else {
+            return {
+              ...cborData.payload,
+              verified: true,
+            }
+          }
           return {
             ...cborData.payload,
             verified: false,
+            error,
           }
         }
       } else {
