@@ -6,11 +6,12 @@
   import DataProduct from "$components/DataProduct/index.svelte"
   import { page } from "$app/stores"
   import queryString from "query-string"
-  import { onMount } from "svelte"
+  import { onDestroy, onMount } from "svelte"
   import type { components } from "$lib/openapi"
   import { tag } from "$lib/api"
   import ErrorSvg from "$assets/error.svg"
   import { goto } from "$app/navigation"
+  import { App } from "@capacitor/app"
 
   let loading: boolean = false
   let meta: components["schemas"]["MetadataV1Response"] | undefined = undefined
@@ -48,6 +49,15 @@
 
   onMount(() => {
     load()
+    if (typeof document !== "undefined") {
+      App.addListener("backButton", function (e) {
+        goto("/")
+      })
+    }
+  })
+
+  onDestroy(() => {
+    App.removeAllListeners()
   })
 </script>
 

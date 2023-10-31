@@ -5,12 +5,13 @@
   export let background: string = "#3CB08E"
   export let width: string = "100%"
   export let height: string = "auto"
+  export let maxWidth: string = "10.6875rem"
 </script>
 
 <button
   class="button"
   on:click={onClick}
-  style="--background: {background}; --width: {width}; --height: {height};"
+  style="--background:{background}; --width:{width}; --height:{height}; --maxWidth:{maxWidth};"
 >
   {#if icon}
     <img class="icon" src={icon} alt="icon" />
@@ -26,6 +27,7 @@
     background-color: var(--background);
     border-radius: 0.3125rem;
     border: none;
+    max-width: var(--maxWidth);
     width: var(--width);
     height: var(--height);
     display: flex;

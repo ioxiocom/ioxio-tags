@@ -18,8 +18,7 @@
   import { settings } from "$lib/settings"
   import { ProductType, SignOption, productTypes, signOptions } from "$lib/types"
   import { premadeProducts } from "$lib/premadeProducts"
-
-  type GenerateSecureV1Request = components["schemas"]["GenerateSecureV1Request"]
+  type GenerateURLV1Request = components["schemas"]["GenerateURLV1Request"]
 
   let issValue: string = settings.ISS_DOMAIN
   let productType: string = ProductType.PREMADE
@@ -30,7 +29,6 @@
 
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
-  let inputData: GenerateSecureV1Request
   let error: string | null = null
 
   function slugify(input: string): string {
@@ -47,20 +45,21 @@
       return
     }
 
-    const formEl = event.target as HTMLFormElement
-    const formData = new FormData(formEl)
     status = Status.GENERATING
-    const iss = (formData.get("iss") as string) || settings.ISS_DOMAIN
-    const id = formData.get("id") as string
-    const valid = formData.get("valid") === "on"
-    const data = { iss, product, valid, id }
-    inputData = data
+    const iss = issValue
+    const id = productId
+    const valid = isValid
 
     // implementation by apity
-    const generateRequest = tag.generateSecureV1(data)
+    let generateRequest
+    if (signOption === SignOption.SIGNED) {
+      generateRequest = tag.generateSecureV1({ iss, product, id, valid })
+    } else {
+      generateRequest = tag.generateUrlV1({ iss, product, id })
+    }
     const result = await generateRequest.result
-
     status = Status.FINISHED
+
     if (result?.ok) {
       var reader = new window.FileReader()
       reader.readAsDataURL(result.data as Blob)
@@ -90,9 +89,9 @@
     // "Unsigned" == "url"
     const security: "signed" | "invalid" | "url" = "signed"
     const filenameParts = [
-      slugify(inputData.iss),
-      slugify(inputData.product),
-      slugify(inputData.id),
+      slugify(issValue),
+      slugify(product),
+      slugify(productId),
       `${security}.png`,
     ]
 
@@ -151,6 +150,9 @@
   function onChangeSignOption(value: string) {
     clearError()
     signOption = value
+    if (signOption === SignOption.UNSIGNED) {
+      isValid = false
+    }
   }
 </script>
 
@@ -225,23 +227,25 @@
             />
           </div>
         </div>
-        <div class="row">
-          <div class="col">
-            <FormCheckbox
-              name="valid"
-              bind:checked={isValid}
-              label="Create valid signature"
-              disabled={status === Status.GENERATING}
-              onChange={onChangeValidSignature}
-            />
-            <span class="question-icon">
-              <QuestionSvg />
-              <div class="tooltip">
-                Leave this off if you want to test handling of corrupted/invalid signatures
-              </div>
-            </span>
+        {#if signOption === SignOption.SIGNED}
+          <div class="row">
+            <div class="col">
+              <FormCheckbox
+                name="valid"
+                bind:checked={isValid}
+                label="Create valid signature"
+                disabled={status === Status.GENERATING}
+                onChange={onChangeValidSignature}
+              />
+              <span class="question-icon">
+                <QuestionSvg />
+                <div class="tooltip">
+                  Leave this off if you want to test handling of corrupted/invalid signatures
+                </div>
+              </span>
+            </div>
           </div>
-        </div>
+        {/if}
         <div class="actions-wrapper">
           <Button
             disabled={status === Status.GENERATING}
@@ -301,11 +305,11 @@
       {:else if status === Status.FINISHED}
         <div class="result">
           <p class="label">Issuer domain</p>
-          <p class="value">{inputData.iss}</p>
+          <p class="value">{issValue}</p>
           <p class="label">Product</p>
-          <p class="value">{inputData.product}</p>
+          <p class="value">{product}</p>
           <p class="label">Product ID</p>
-          <p class="value">{inputData.id}</p>
+          <p class="value">{productId}</p>
           <div class="download">
             <Button title="Download QR code" icon={DownloadSvg} onClick={onDownloadQRcode} />
           </div>
@@ -330,7 +334,7 @@
     @media screen and (min-width: 90rem) {
       max-width: 90rem;
       max-height: 64rem;
-      min-width: none;
+      min-width: 90rem;
     }
     @media screen and (max-width: 90rem) {
       min-height: 100vh;
@@ -561,7 +565,7 @@
     }
     .tooltip {
       position: absolute;
-      left: calc(100% + 0.3125rem);
+      left: calc(100% + 0.625rem);
       visibility: hidden;
       color: #101920;
       font-size: 0.75rem;

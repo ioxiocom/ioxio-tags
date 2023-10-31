@@ -1,5 +1,7 @@
 <script lang="ts">
   import { BarcodeScanner } from "@capacitor-community/barcode-scanner/src/index"
+  import { goto } from "$app/navigation"
+  import { App } from "@capacitor/app"
   import { consoleLog } from "$lib/common"
   import { tryParseIoxioTags, type Payload } from "$lib/parse"
   import Button from "$components/Button/index.svelte"
@@ -10,7 +12,6 @@
   import ErrorSvg from "$assets/error.svg"
   import { onDestroy, onMount } from "svelte"
   import Documentation from "$components/Documentation/index.svelte"
-  import { goto } from "$app/navigation"
 
   const Status = {
     SCANNING: "SCANNING",
@@ -21,6 +22,7 @@
 
   type Status = typeof Status[keyof typeof Status]
 
+  let noPermission = true
   let originalBodyBg: string
   let status: Status
   let scanResult: Payload
@@ -98,10 +100,29 @@
     }
   }
 
-  onMount(() => {
+  async function checkPermission() {
+    const permissionResult = await BarcodeScanner.checkPermission()
+    return !!permissionResult.granted
+  }
+
+  async function givePermission() {
+    const permissionResult = await BarcodeScanner.checkPermission({ force: true })
+    if (!!permissionResult.granted) {
+      noPermission = false
+      startScan()
+    }
+  }
+
+  onMount(async () => {
     if (typeof document !== "undefined") {
       originalBodyBg = document.body.style.background
-      startScan()
+      App.addListener("backButton", function (e) {
+        App.exitApp()
+      })
+      if (await checkPermission()) {
+        noPermission = false
+        startScan()
+      }
     }
   })
 
@@ -111,7 +132,23 @@
   })
 </script>
 
-{#if status === Status.SCANNING || status === Status.SCAN_SUCCESS_VERIFIED}
+{#if noPermission}
+  <div class="relative failed-verification-wrapper">
+    <img src={ErrorSvg} alt="" aria-hidden="true" />
+    <div>
+      <p>We need camera permissions</p>
+    </div>
+  </div>
+  <div class="actions-wrapper">
+    <Button
+      title="Give camera permissions"
+      maxWidth="17rem"
+      width="100%"
+      height="3.125rem"
+      onClick={givePermission}
+    />
+  </div>
+{:else if status === Status.SCANNING || status === Status.SCAN_SUCCESS_VERIFIED}
   <div class="relative barcode-scanner-area-wrapper">
     <div class="relative barcode-scanner-area">
       <img alt="subtract" class="subtract-image" src={Subtract} />
@@ -209,9 +246,6 @@
       max-width: 33rem;
       width: 100%;
       margin: auto;
-    }
-    :global(button) {
-      max-width: 10.6875rem;
     }
   }
 
