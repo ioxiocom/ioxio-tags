@@ -18,6 +18,43 @@ Demo environment deployed to [tags.ioxio.dev](https://tags.ioxio.dev), but for p
 capabilities out for use in your own organization you will want to run the demo components on your
 own. Otherwise you cannot e.g. make valid COSE signatures for your own domain.
 
+Technical documentation on creating and using IOXIO Tags™ is available at
+[docs.ioxio.dev/tags/](https://docs.ioxio.dev/tags/)
+
+## Demo data
+
+To publish more demo products or modify the demo data, you should look at the following:
+
+- [./demo_data](./demo_data) - Hosts public files, product metadata, and images. New product types
+  need a new file in
+  [.well-known/product-passport/products/{product}.json](./demo_data/.well-known/product-passport/products/).
+  The filename without extension needs to match the value of the `product` field in the code.
+- [./generator/src/lib/premadeProducts.ts](./generator/src/lib/premadeProducts.ts) lists the options
+  in the premade product dropdown in [generator.tags.ioxio.dev](https://generator.tags.ioxio.dev),
+  make sure the `product` field matches one of the filenames in
+  [./demo_data/.well-known/product-passport/products/](./demo_data/.well-known/product-passport/products/).
+- [./scanner/src/lib/dataproducts/\*.svelte](./scanner/src/lib/dataproducts/) has the components for
+  rendering the data product in the [scanner.tags.ioxio.dev](https://scanner.tags.ioxio.dev)
+  application.
+- [./scanner/src/lib/dataproducts.ts](./scanner/src/lib/dataproducts.ts) maps the data product paths
+  to the components to render them
+
+So, if you were to e.g. add a new product of an existing type, you can just add it to
+[premadeProducts.ts](./generator/src/lib/premadeProducts.ts).
+
+If you wanted to add a new type of product, make sure you add the
+[product metadata](./demo_data/.well-known/product-passport/products/) first, then
+[premadeProducts.ts](./generator/src/lib/premadeProducts.ts).
+
+If you are adding supported data products to demo products, modify the `supported_dataproducts`
+lists in [product metadata](./demo_data/.well-known/product-passport/products/).
+
+If you are adding new types of data products, create a
+[component to render it](./scanner/src/lib/dataproducts/) and then add it to the
+[map of supported data products](./scanner/src/lib/dataproducts.ts)
+
+## Development
+
 Prerequisites:
 
 - [Python 3.10+](https://www.python.org/downloads/)
@@ -29,11 +66,12 @@ If you plan on contributing to the repository ensure you install
 [pre-commit](https://pre-commit.com/#install) , and after checking out the repository ensure you run
 `pre-commit install` in the repo root.
 
+Both `generator` and `scanner` will actively use the API, so you will want that running when working
+on either of the frontend components.
+
 For testing you should first set up the `api`, then run `generator` and generate QR codes - we
 suggest printing them at 5x5cm size for easier testing, then run the `scanner`. Using a USB web
 camera will make testing the actual scanning easier.
-
-## Development
 
 ### API
 
@@ -62,3 +100,12 @@ pnpm run dev
 cd scanner
 pnpm run dev
 ```
+
+## Licensing
+
+[BSD 3-clause](./LICENSE)
+
+## Issues?
+
+If you run into any issues, you can join our [IOXIO Community Slack](https://slack.ioxio.com/) and
+discuss with us there, or [submit a new issue](https://github.com/ioxiocom/ioxio-tags/issues/new).

@@ -3,6 +3,7 @@ export type Option = {
   product: string
   id: string
 }
+
 export const premadeProducts = [
   {
     name: "Battery - Valmet Automotive MPP48V (MPP48V-296cde7f)",
