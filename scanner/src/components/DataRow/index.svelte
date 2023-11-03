@@ -25,9 +25,11 @@
   }
   .label {
     flex: 0 0 45%;
+    line-height: 1.5rem;
     padding-right: 0.5rem;
   }
   .value {
+    line-height: 1.5rem;
     flex: 0 0 55%;
   }
 </style>
