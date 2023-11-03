@@ -57,7 +57,9 @@
   })
 
   onDestroy(() => {
-    App.removeAllListeners()
+    if (typeof document !== "undefined") {
+      App.removeAllListeners()
+    }
   })
 </script>
 
@@ -70,7 +72,12 @@
     <Header logoUrl={meta.logo_url} />
     <BasicInformation {meta} product={$page.params.product} {verified} />
     {#each meta.supported_dataproducts as dataProduct}
-      <DataProduct productBrief={dataProduct} />
+      <DataProduct
+        dataspace={meta.product_dataspace}
+        product={$page.params.product}
+        id={$page.params.id}
+        productMetadata={dataProduct}
+      />
     {/each}
   </div>
   <Footer />

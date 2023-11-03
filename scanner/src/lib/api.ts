@@ -10,9 +10,12 @@ apity.configure({
 
 export const tag = {
   fetchMetaDataV1: apity.path("/tag/metadata/v1/").method("post").create(),
-  fetchDataProduct: apity
+  tagVerifyV1: apity.path("/tag/verify/v1/").method("post").create(),
+}
+
+export const dataproduct = {
+  fetch: apity
     .path("/dataproduct/fetch/{dataspace_domain}/{product_path}")
     .method("post")
     .create({ source: true }),
-  tagVerifyV1: apity.path("/tag/verify/v1/").method("post").create(),
 }

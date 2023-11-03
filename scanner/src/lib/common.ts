@@ -1,5 +1,7 @@
 import { toast } from "@zerodevx/svelte-toast"
 
+const NumberFormat = new Intl.NumberFormat()
+
 export function consoleLog(message: string, type: string = "info") {
   toast.push(message, { classes: [type === "info" ? "info" : "warn"] })
   if (type === "info") {
@@ -7,4 +9,16 @@ export function consoleLog(message: string, type: string = "info") {
   } else {
     console.error(message)
   }
+}
+
+export function formatNumber(input: number, unit = ""): string {
+  if (input === 0 || input === null || input === undefined) {
+    return "-"
+  }
+
+  let result = NumberFormat.format(input)
+  if (unit) {
+    result += ` ${unit}`
+  }
+  return result
 }
