@@ -11,6 +11,7 @@
 
   import { formatNumber } from "$lib/common"
 
+  export let status: number
   export let data: {
     energyContent: {
       energy: number // kJ

@@ -17,12 +17,14 @@
   let open: boolean = false
   let loading = false
 
+  let loadedStatus = undefined
   let loadedData = undefined
   let component = supportedDataProducts[productMetadata.path]
 
   async function onButtonClick() {
     if (open) {
       loadedData = undefined
+      loadedStatus = undefined
       open = false
       loading = false
       return
@@ -42,6 +44,7 @@
     const result = await req.result
 
     if (result.ok) {
+      loadedStatus = result.status
       loadedData = result.data
       open = true
     } else {
@@ -77,7 +80,7 @@
   </div>
   {#if loadedData}
     <section>
-      <svelte:component this={component} data={loadedData} />
+      <svelte:component this={component} status={loadedStatus} data={loadedData} />
     </section>
   {/if}
 </div>
