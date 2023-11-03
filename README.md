@@ -39,15 +39,16 @@ To publish more demo products or modify the demo data, you should look at the fo
 - [./scanner/src/lib/dataproducts.ts](./scanner/src/lib/dataproducts.ts) maps the data product paths
   to the components to render them
 
-So, if you were to e.g. add a new product of an existing type, you can just add it to
+So, if you were to e.g. add a new premade product of an existing type, you can just add it to
 [premadeProducts.ts](./generator/src/lib/premadeProducts.ts).
 
 If you wanted to add a new type of product, make sure you add the
-[product metadata](./demo_data/.well-known/product-passport/products/) first, then
+[product metadata](./demo_data/.well-known/product-passport/products/) first, then update
 [premadeProducts.ts](./generator/src/lib/premadeProducts.ts).
 
-If you are adding supported data products to demo products, modify the `supported_dataproducts`
-lists in [product metadata](./demo_data/.well-known/product-passport/products/).
+If you are adding supported data products or new sources for them to demo products, modify the
+`supported_dataproducts` lists in
+[product metadata](./demo_data/.well-known/product-passport/products/).
 
 If you are adding new types of data products, create a
 [component to render it](./scanner/src/lib/dataproducts/) and then add it to the
