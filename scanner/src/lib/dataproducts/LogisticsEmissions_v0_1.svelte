@@ -15,7 +15,7 @@
 
   type EmissionsPerTce = {
     description: string
-    emissions: 1.2 // CO2e tonnes
+    emissions: number // CO2e tonnes
     source: string
   }
 
@@ -27,8 +27,8 @@
     condition: string
     journeyType: string
     contractType: string
-    totalEmissions: 5.8 // CO2e tonnes
-    emissionIntensity: 200 // CO2e grams / tonne / km
+    totalEmissions: number // CO2e tonnes
+    emissionIntensity: number // CO2e grams / tonne / km
     emissionsPerTce: Array<EmissionsPerTce>
   }
 
