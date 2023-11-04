@@ -1,6 +1,6 @@
 <script lang="ts">
   export let label: string
-  export let value: string
+  export let value: string | string[]
 </script>
 
 <div class="row">
@@ -8,7 +8,13 @@
     {label}:
   </div>
   <div class="value">
-    {value}
+    {#if typeof value === "string"}
+      {value}
+    {:else}
+      {#each value as v}
+        <div>{v}</div>
+      {/each}
+    {/if}
   </div>
 </div>
 
