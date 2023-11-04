@@ -557,7 +557,6 @@
     display: flex;
     align-items: center;
     flex-direction: row;
-    cursor: pointer;
     position: relative;
     &:hover .tooltip {
       visibility: visible;
