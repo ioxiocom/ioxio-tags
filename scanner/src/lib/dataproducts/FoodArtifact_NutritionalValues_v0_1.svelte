@@ -10,6 +10,7 @@
    */
 
   import { formatNumber } from "$lib/common"
+  import DataRow from "$components/DataRow/index.svelte"
 
   export let status: number
   export let data: {
@@ -29,10 +30,14 @@
 </script>
 
 <article>
-  <div>
-    <div class="key">Energy:</div>
-    <div class="value">{formatNumber(data.energyContent.energy, "kJ")}</div>
-  </div>
+  <DataRow label="Energy" value={formatNumber(data.energyContent.energy, "kJ")} />
+  <DataRow label="Calories" value={formatNumber(data.energyContent.calories, "kcal")} />
+  <DataRow label="Fats" value={formatNumber(data.fatContent.fats, "g")} />
+  <DataRow label="Saturated fats" value={formatNumber(data.fatContent.saturatedFats, "g")} />
+  <DataRow label="Carbohydrates" value={formatNumber(data.carbonHydrates, "g")} />
+  <DataRow label="Sugar" value={formatNumber(data.sugar, "g")} />
+  <DataRow label="Protein" value={formatNumber(data.protein, "g")} />
+  <DataRow label="Salt" value={formatNumber(data.salt, "g")} />
 </article>
 
 <style lang="scss">

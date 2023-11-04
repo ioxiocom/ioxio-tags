@@ -64,11 +64,8 @@
 </script>
 
 <div class="card">
-  <div class="header" class:divider={open}>
-    <div class="descriptions">
-      <div class="dataproduct-name">{productMetadata.name}</div>
-      <div class="subtitle">{productMetadata.description}</div>
-    </div>
+  <div class="header">
+    <div class="dataproduct-name">{productMetadata.name}</div>
     {#if supported}
       <button class="button" class:fetch={!open} class:close={open} on:click={onButtonClick}>
         <span>{open ? "Close" : "Fetch"}</span>
@@ -78,6 +75,7 @@
       <button class="button unsupported" disabled> Unsupported </button>
     {/if}
   </div>
+  <div class="subtitle" class:divider={open}>{productMetadata.description}</div>
   {#if loadedData}
     <section>
       <svelte:component this={component} status={loadedStatus} data={loadedData} />
@@ -111,9 +109,9 @@
     margin-bottom: 1rem;
 
     .dataproduct-name {
+      flex-grow: 1;
       color: white;
       font-size: 1rem;
-      margin-bottom: 1rem;
     }
 
     .subtitle {
@@ -128,14 +126,11 @@
       align-items: center;
       justify-content: space-between;
       gap: 1rem;
-
-      .descriptions {
-        flex-grow: 1;
-      }
+      margin-bottom: 1rem;
     }
 
     .divider {
-      padding-bottom: 0.5rem;
+      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }
