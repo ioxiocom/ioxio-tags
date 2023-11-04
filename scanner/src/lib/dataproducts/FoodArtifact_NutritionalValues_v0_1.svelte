@@ -34,7 +34,7 @@
   <DataRow label="Calories" value={formatNumber(data.energyContent.calories, "kcal")} />
   <DataRow label="Fats" value={formatNumber(data.fatContent.fats, "g")} />
   <DataRow label="Saturated fats" value={formatNumber(data.fatContent.saturatedFats, "g")} />
-  <DataRow label="Carbon hydrates" value={formatNumber(data.carbonHydrates, "g")} />
+  <DataRow label="Carbohydrates" value={formatNumber(data.carbonHydrates, "g")} />
   <DataRow label="Sugar" value={formatNumber(data.sugar, "g")} />
   <DataRow label="Protein" value={formatNumber(data.protein, "g")} />
   <DataRow label="Salt" value={formatNumber(data.salt, "g")} />
