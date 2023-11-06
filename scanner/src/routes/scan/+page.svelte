@@ -106,6 +106,8 @@
   }
 
   async function givePermission() {
+    // checkPermission seems unreliable, getUserMedia might work better?
+    await navigator.mediaDevices.getUserMedia({ video: true })
     const permissionResult = await BarcodeScanner.checkPermission({ force: true })
     if (!!permissionResult.granted) {
       noPermission = false
