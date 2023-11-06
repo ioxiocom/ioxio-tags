@@ -77,8 +77,6 @@
       const payload = await tryParseIoxioTags(result.content)
 
       if (payload) {
-        consoleLog("Detected IOXIO Tag")
-
         // No more need to scan
         BarcodeScanner.stopScan().then(() => {})
 
