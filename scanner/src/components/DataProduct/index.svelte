@@ -22,6 +22,9 @@
   let component = supportedDataProducts[productMetadata.path]
 
   async function onButtonClick() {
+    if (loading) {
+      return
+    }
     if (open) {
       loadedData = undefined
       loadedStatus = undefined
@@ -106,7 +109,7 @@
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     .dataproduct-name {
       flex-grow: 1;
