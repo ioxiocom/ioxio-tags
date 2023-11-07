@@ -27,13 +27,13 @@
 </script>
 
 <article>
-  <DataRow label="Product Nme" value={data.productName} />
+  <DataRow label="Product Name" value={data.productName} />
   <DataRow label="Product Type" value={data.productType} />
   <DataRow label="Width" value={formatNumber(data.measures.width, "cm")} />
   <DataRow label="Length" value={formatNumber(data.measures.length, "cm")} />
   <DataRow label="Height" value={formatNumber(data.measures.height, "cm")} />
   <DataRow label="Net weight" value={formatNumber(data.netWeight, "kg")} />
-  <DataRow label="EN Standard Code" value={data.enStandardCertifications[0].enStandardCode} />
+  <DataRow label="EN Standard Code(s)" value={data.enStandardCertifications[0].enStandardCode} />
 </article>
 
 <style lang="scss">
