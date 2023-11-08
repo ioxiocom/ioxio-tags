@@ -57,7 +57,7 @@
     <div class="title">Road Freight Emissions</div>
     {#each data.roadFreightEmissions as roadFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
-      <div class="leg-id">{roadFreightEmission.legIdentifier}</div>
+      <div class="leg-id">{roadFreightEmission.legIdentifier || "-"}</div>
       <Road origin={roadFreightEmission.origin} destination={roadFreightEmission.destination} />
       <DataRow label="Freight type" value={roadFreightEmission.freightType} />
       <DataRow label="Condition" value={roadFreightEmission.condition} />
@@ -73,11 +73,13 @@
       />
       <DataRow
         label="Emissions Per TCE"
-        value={[
-          roadFreightEmission.emissionsPerTce[0].description,
-          formatNumber(roadFreightEmission.emissionsPerTce[0].emissions, "CO2e tonnes"),
-          roadFreightEmission.emissionsPerTce[0].source,
-        ]}
+        value={roadFreightEmission.emissionsPerTce
+          .map((emissionPerTce) => [
+            emissionPerTce.description || "",
+            formatNumber(emissionPerTce.emissions, "CO2e tonnes") || "",
+            emissionPerTce.source || "",
+          ])
+          .flat()}
       />
     {/each}
   {/if}
@@ -86,7 +88,7 @@
     <div class="title">Sea Freight Emissions</div>
     {#each data.seaFreightEmissions as seaFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
-      <div class="leg-id">{seaFreightEmission.legIdentifier}</div>
+      <div class="leg-id">{seaFreightEmission.legIdentifier || "-"}</div>
       <Road
         origin={seaFreightEmission.origin}
         destination={seaFreightEmission.destination}
@@ -105,11 +107,13 @@
       />
       <DataRow
         label="Emissions Per TCE"
-        value={[
-          seaFreightEmission.emissionsPerTce[0].description,
-          formatNumber(seaFreightEmission.emissionsPerTce[0].emissions, "CO2e tonnes"),
-          seaFreightEmission.emissionsPerTce[0].source,
-        ]}
+        value={seaFreightEmission.emissionsPerTce
+          .map((emissionPerTce) => [
+            emissionPerTce.description || "",
+            formatNumber(emissionPerTce.emissions, "CO2e tonnes") || "",
+            emissionPerTce.source || "",
+          ])
+          .flat()}
       />
     {/each}
   {/if}

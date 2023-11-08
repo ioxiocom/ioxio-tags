@@ -9,10 +9,14 @@
   </div>
   <div class="value">
     {#if typeof value === "string"}
-      {value}
+      {value.trim() || "-"}
+    {:else if value === null || value === undefined}
+      -
+    {:else if value.length === 0}
+      <div>-</div>
     {:else}
       {#each value as v}
-        <div>{v}</div>
+        <div>{v.trim() || "-"}</div>
       {/each}
     {/if}
   </div>
