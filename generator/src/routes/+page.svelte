@@ -30,6 +30,7 @@
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
   let error: string | null = null
+  let issError: string | null = null
 
   function slugify(input: string): string {
     let value = input.toLowerCase().trim()
@@ -37,11 +38,20 @@
     return value.replace("-s", "-")
   }
 
+  function validateIss() {
+    return !!issValue.match(/^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/)
+  }
+
   async function onGenerate(event: SubmitEvent) {
     event.preventDefault()
     clearError()
 
     if (!product) {
+      return
+    }
+
+    if (!validateIss()) {
+      issError = "Invalid domain"
       return
     }
 
@@ -105,6 +115,7 @@
 
   function clearError() {
     error = null
+    issError = null
   }
 
   function onChangeIssValue(event: Event) {
@@ -178,6 +189,9 @@
             disabled={status === Status.GENERATING || isValid}
             required
           />
+          {#if issError}
+            <p class="error">{issError}</p>
+          {/if}
         </div>
         <div class="row">
           <div class="toggle-row">
@@ -366,6 +380,12 @@
       }
       form {
         position: relative;
+        .error {
+          margin: 0.5rem 0;
+          color: red;
+          font-size: 0.8rem;
+          font-weight: 400;
+        }
       }
       .actions-wrapper {
         margin-top: 4rem;
