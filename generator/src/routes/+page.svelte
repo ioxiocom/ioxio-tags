@@ -382,7 +382,7 @@
         position: relative;
         .error {
           margin: 0.5rem 0;
-          color: red;
+          color: #dd596a;
           font-size: 0.8rem;
           font-weight: 400;
         }
