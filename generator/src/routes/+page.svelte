@@ -50,7 +50,6 @@
       !validator.isFQDN(issValue, {
         require_tld: true,
         allow_underscores: true,
-        allow_numeric_tld: true,
       })
     ) {
       issError = "Invalid domain"
