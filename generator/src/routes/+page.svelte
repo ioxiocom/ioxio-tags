@@ -51,7 +51,6 @@
         require_tld: true,
         allow_underscores: true,
         allow_numeric_tld: true,
-        ignore_max_length: false,
       })
     ) {
       issError = "Invalid domain"
