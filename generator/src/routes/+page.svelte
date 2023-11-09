@@ -18,7 +18,7 @@
   import { settings } from "$lib/settings"
   import { ProductType, SignOption, productTypes, signOptions } from "$lib/types"
   import { premadeProducts } from "$lib/premadeProducts"
-  type GenerateURLV1Request = components["schemas"]["GenerateURLV1Request"]
+  import validator from "validator"
 
   let issValue: string = settings.ISS_DOMAIN
   let productType: string = ProductType.PREMADE
@@ -30,6 +30,7 @@
   let status: string = Status.READY
   let qrcodeElement: HTMLImageElement
   let error: string | null = null
+  let issError: string | null = null
 
   function slugify(input: string): string {
     let value = input.toLowerCase().trim()
@@ -42,6 +43,16 @@
     clearError()
 
     if (!product) {
+      return
+    }
+
+    if (
+      !validator.isFQDN(issValue, {
+        require_tld: true,
+        allow_underscores: true,
+      })
+    ) {
+      issError = "Invalid domain"
       return
     }
 
@@ -105,6 +116,7 @@
 
   function clearError() {
     error = null
+    issError = null
   }
 
   function onChangeIssValue(event: Event) {
@@ -178,6 +190,9 @@
             disabled={status === Status.GENERATING || isValid}
             required
           />
+          {#if issError}
+            <p class="error">{issError}</p>
+          {/if}
         </div>
         <div class="row">
           <div class="toggle-row">
@@ -366,6 +381,12 @@
       }
       form {
         position: relative;
+        .error {
+          margin: 0.5rem 0;
+          color: #dd596a;
+          font-size: 0.8rem;
+          font-weight: 400;
+        }
       }
       .actions-wrapper {
         margin-top: 4rem;

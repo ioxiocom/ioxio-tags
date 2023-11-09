@@ -14,6 +14,9 @@ dependencies:
   openapi-typescript:
     specifier: ^6.6.1
     version: 6.7.0
+  validator:
+    specifier: ^13.11.0
+    version: 13.11.0
 
 devDependencies:
   '@cocreators-ee/apity':
@@ -34,6 +37,9 @@ devDependencies:
   '@types/cookie':
     specifier: ^0.5.1
     version: 0.5.2
+  '@types/validator':
+    specifier: ^13.11.6
+    version: 13.11.6
   '@typescript-eslint/eslint-plugin':
     specifier: ^6.3.0
     version: 6.7.4(@typescript-eslint/parser@6.7.4)(eslint@8.50.0)(typescript@5.2.2)
@@ -558,6 +564,10 @@ packages:
 
   /@types/semver@7.5.3:
     resolution: {integrity: sha512-OxepLK9EuNEIPxWNME+C6WwbRAOOI2o2BaQEGzz5Lu2e4Z5eDnEo+/aVEDMIXywoJitJ7xWd641wrGLZdtwRyw==}
+    dev: true
+
+  /@types/validator@13.11.6:
+    resolution: {integrity: sha512-HUgHujPhKuNzgNXBRZKYexwoG+gHKU+tnfPqjWXFghZAnn73JElicMkuSKJyLGr9JgyA8IgK7fj88IyA9rwYeQ==}
     dev: true
 
   /@typescript-eslint/eslint-plugin@6.7.4(@typescript-eslint/parser@6.7.4)(eslint@8.50.0)(typescript@5.2.2):
@@ -1975,6 +1985,11 @@ packages:
     dependencies:
       punycode: 2.3.0
     dev: true
+
+  /validator@13.11.0:
+    resolution: {integrity: sha512-Ii+sehpSfZy+At5nPdnyMhx78fEoPDkR2XW/zimHEL3MyGJQOCQ7WeP20jPYRz7ZCpcKLB21NxuXHF3bxjStBQ==}
+    engines: {node: '>= 0.10'}
+    dev: false
 
   /vite@4.4.9(sass@1.68.0):
     resolution: {integrity: sha512-2mbUn2LlUmNASWwSCNSJ/EG2HuSRTnVNaydp6vMCm5VIqJsjMfbIWtbH2kDuwUVW5mMUKKZvGPX/rqeqVvv1XA==}
