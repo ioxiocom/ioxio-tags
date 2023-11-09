@@ -18,7 +18,7 @@
   import { settings } from "$lib/settings"
   import { ProductType, SignOption, productTypes, signOptions } from "$lib/types"
   import { premadeProducts } from "$lib/premadeProducts"
-  type GenerateURLV1Request = components["schemas"]["GenerateURLV1Request"]
+  import validator from "validator"
 
   let issValue: string = settings.ISS_DOMAIN
   let productType: string = ProductType.PREMADE
@@ -38,10 +38,6 @@
     return value.replace("-s", "-")
   }
 
-  function validateIss() {
-    return !!issValue.match(/^[a-zA-Z0-9][a-zA-Z0-9-]{0,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/)
-  }
-
   async function onGenerate(event: SubmitEvent) {
     event.preventDefault()
     clearError()
@@ -50,7 +46,14 @@
       return
     }
 
-    if (!validateIss()) {
+    if (
+      !validator.isFQDN(issValue, {
+        require_tld: true,
+        allow_underscores: true,
+        allow_numeric_tld: true,
+        ignore_max_length: false,
+      })
+    ) {
       issError = "Invalid domain"
       return
     }
