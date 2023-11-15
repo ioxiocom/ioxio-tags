@@ -69,7 +69,11 @@
     {#if supported}
       <button class="button" class:fetch={!open} class:close={open} on:click={onButtonClick}>
         <span>{open ? "Close" : "Fetch"}</span>
-        <img class:loading src={loading ? LoadingSvg : ChevronLeftSvg} alt="" aria-hidden="true" />
+        {#if loading}
+          <img class="loading" src={LoadingSvg} alt="" aria-hidden="true" />
+        {:else}
+          <img src={ChevronLeftSvg} alt="" aria-hidden="true" />
+        {/if}
       </button>
     {:else}
       <button class="button unsupported" disabled> Unsupported </button>
@@ -106,7 +110,7 @@
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
 
     .dataproduct-name {
       flex-grow: 1;
@@ -150,6 +154,7 @@
     align-items: center;
     justify-content: center;
     gap: 0.75rem;
+    cursor: pointer;
 
     &.fetch {
       background-color: #3cb08e;
@@ -179,6 +184,7 @@
       font-style: normal;
       font-weight: 400;
       line-height: 150%; /* 18px */
+      cursor: not-allowed;
     }
   }
 </style>
