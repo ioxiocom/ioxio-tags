@@ -60,7 +60,7 @@
         consoleLog(`Error fetching: ${error}`)
       }
     } catch (error: any) {
-      error = error.message
+      consoleLog(`Error fetching: ${error}`)
     } finally {
       loading = false
     }
