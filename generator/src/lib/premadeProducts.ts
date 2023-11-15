@@ -6,7 +6,7 @@ export type Option = {
 
 export const premadeProducts = [
   {
-    name: "Really Good Battery",
+    name: "Lithium-titanate Battery",
     product: "battery-100wh-super-turbo",
     id: "MPP48V-296cde7f",
   },
