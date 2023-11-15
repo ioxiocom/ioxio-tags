@@ -22,44 +22,48 @@
   let component = supportedDataProducts[productMetadata.path]
 
   async function onButtonClick() {
-    if (open) {
-      loadedData = undefined
-      loadedStatus = undefined
-      open = false
-      loading = false
-      return
-    }
-
-    loading = true
-
-    const params = {
-      dataspace_domain: dataspace,
-      product_path: productMetadata.path,
-      source: productMetadata.source,
-      product: product,
-      id: id,
-    }
-
-    const req = dataproduct.fetch(params)
-    const result = await req.result
-
-    if (result.ok) {
-      loadedStatus = result.status
-      loadedData = result.data
-      open = true
-    } else {
-      let error = "Unknown error"
-      if (result.data.detail && result.data.detail[0].msg) {
-        error = result.data.detail[0].msg
-      } else if (result.data.detail) {
-        error = result.data.detail
-      } else if (result.data.message) {
-        error = result.data.message
+    try {
+      if (open) {
+        loadedData = undefined
+        loadedStatus = undefined
+        open = false
+        loading = false
+        return
       }
-      consoleLog(`Error fetching: ${error}`)
-    }
 
-    loading = false
+      loading = true
+
+      const params = {
+        dataspace_domain: dataspace,
+        product_path: productMetadata.path,
+        source: productMetadata.source,
+        product: product,
+        id: id,
+      }
+
+      const req = dataproduct.fetch(params)
+      const result = await req.result
+
+      if (result.ok) {
+        loadedStatus = result.status
+        loadedData = result.data
+        open = true
+      } else {
+        let error = "Unknown error"
+        if (result.data.detail && result.data.detail[0].msg) {
+          error = result.data.detail[0].msg
+        } else if (result.data.detail) {
+          error = result.data.detail
+        } else if (result.data.message) {
+          error = result.data.message
+        }
+        consoleLog(`Error fetching: ${error}`)
+      }
+    } catch (error: any) {
+      error = error.message
+    } finally {
+      loading = false
+    }
   }
 </script>
 
