@@ -86,6 +86,7 @@
       color: #798893;
       margin-bottom: 1rem;
       font-size: 0.75rem;
+      text-transform: uppercase;
     }
   }
   .row {
