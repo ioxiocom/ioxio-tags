@@ -126,11 +126,11 @@
     }
 
     // Permission detection logic can't detect if autoplay is blocked
-    window.onunhandledrejection = (event) => {
-      const reason = String(event.reason)
-      const redirectErrors = ["NotAllowedError", "play() can only be initiated by a user gesture"]
-      for (let errText of redirectErrors) {
-        if (reason.indexOf(errText) !== -1) {
+    window.onunhandledrejection = function _handleRejection(event) {
+      const reasonText = String(event.reason)
+      const scanErrors = ["NotAllowedError", "play() can only be initiated by a user gesture"]
+      for (let scanError of scanErrors) {
+        if (reasonText.includes(scanError)) {
           goto("/")
           break
         }
@@ -143,9 +143,7 @@
     showBackground()
 
     if (typeof window !== "undefined") {
-      window.onunhandledrejection = function () {
-        // Do nothing
-      }
+      window.onunhandledrejection = () => {}
     }
   })
 </script>
