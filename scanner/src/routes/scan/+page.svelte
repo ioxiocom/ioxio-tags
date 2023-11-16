@@ -124,11 +124,27 @@
         startScan()
       }
     }
+
+    // Permission detection logic can't detect if autoplay is blocked
+    window.onunhandledrejection = function _handleRejection(event) {
+      const reasonText = String(event.reason)
+      const scanErrors = ["NotAllowedError", "play() can only be initiated by a user gesture"]
+      for (let scanError of scanErrors) {
+        if (reasonText.includes(scanError)) {
+          goto("/")
+          break
+        }
+      }
+    }
   })
 
   onDestroy(() => {
     BarcodeScanner.stopScan()
     showBackground()
+
+    if (typeof window !== "undefined") {
+      window.onunhandledrejection = () => {}
+    }
   })
 </script>
 
@@ -211,6 +227,7 @@
       padding: 0.5rem 0;
     }
   }
+
   .failed-verification-wrapper {
     flex: 1;
     display: flex;
@@ -222,10 +239,12 @@
     @media screen and (max-height: 600px) {
       padding: 0.5rem 0;
     }
+
     img {
       width: 5rem;
       height: 5rem;
     }
+
     p {
       color: #eeefec;
       text-align: center;
@@ -235,6 +254,7 @@
       line-height: 150%; /* 24px */
     }
   }
+
   .actions-wrapper {
     display: flex;
     flex-direction: row;
