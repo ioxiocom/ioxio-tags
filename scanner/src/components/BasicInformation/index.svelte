@@ -81,11 +81,12 @@
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
-    margin-bottom: 1rem;
+    margin-bottom: 1.5rem;
     .basic-information {
       color: #798893;
       margin-bottom: 1rem;
       font-size: 0.75rem;
+      text-transform: uppercase;
     }
   }
   .row {
