@@ -3,7 +3,7 @@
   import { settings } from "$lib/settings"
 </script>
 
-<a class="wrapper" href={settings.DOCUMENTATION_URL}>
+<a class="wrapper" href={settings.DOCUMENTATION_URL} target="_blank">
   <img alt="question" src={Question} />
   <span class="label">Documentation</span>
 </a>

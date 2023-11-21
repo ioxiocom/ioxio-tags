@@ -13,7 +13,7 @@
   {#if logoUrl}
     <img class="question" src={logoUrl} alt="" aria-hidden="true" />
   {/if}
-  <a href={settings.DOCUMENTATION_URL}>
+  <a href={settings.DOCUMENTATION_URL} target="_blank">
     <img class="metadata" src={QuestionSvg} alt="" aria-hidden="true" />
   </a>
 </div>
