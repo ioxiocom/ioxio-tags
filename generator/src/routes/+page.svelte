@@ -315,9 +315,14 @@
             read using a compatible reader application, enabling access to relevant product details
             in real time.
           </p>
-          <a class="documentation" href={settings.DOCUMENTATION_URL} target="_blank"
-            >See documentation →</a
+          <a
+            class="documentation"
+            href={settings.DOCUMENTATION_URL}
+            target="_blank"
+            rel="noreferer"
           >
+            See documentation →
+          </a>
         </div>
       {:else if status === Status.FINISHED}
         <div class="result">
@@ -335,7 +340,7 @@
         <div />
       {/if}
     </div>
-    <a href={settings.IOXIO_URL} class="footer" target="_blank">
+    <a href={settings.IOXIO_URL} class="footer" target="_blank" rel="noreferer">
       <span>Made by</span>
       <img src={LogoSvg} alt="" aria-hidden="true" />
     </a>

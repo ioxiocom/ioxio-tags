@@ -3,7 +3,7 @@
   import { settings } from "$lib/settings"
 </script>
 
-<a href={settings.IOXIO_URL} class="wrapper" target="_blank">
+<a href={settings.IOXIO_URL} class="wrapper" target="_blank" rel="noreferer">
   <p>Made by</p>
   <img class="logo" src={IoxioLogoSvg} alt="IOXIO" />
 </a>
