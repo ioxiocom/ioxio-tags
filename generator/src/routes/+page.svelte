@@ -97,9 +97,9 @@
   async function onDownloadQRcode() {
     // "Signed" and "Create valid signature" == "signed"
     // "Signed" and not "Create valid signature" == "invalid"
-    // "Unsigned" == "url"
-    const security: "signed" | "invalid" | "url" =
-      signOption === SignOption.SIGNED ? (isValid ? "signed" : "invalid") : "url"
+    // "Unsigned" == "unsigned"
+    const security: "signed" | "invalid" | "unsigned" =
+      signOption === SignOption.SIGNED ? (isValid ? "signed" : "invalid") : "unsigned"
     const filenameParts = [
       slugify(issValue),
       slugify(product),
