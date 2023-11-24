@@ -315,12 +315,7 @@
             read using a compatible reader application, enabling access to relevant product details
             in real time.
           </p>
-          <a
-            class="documentation"
-            href={settings.DOCUMENTATION_URL}
-            target="_blank"
-            rel="noreferrer"
-          >
+          <a class="documentation" href={settings.TAGS_DOCS_URL} target="_blank" rel="noreferrer">
             See documentation →
           </a>
         </div>
@@ -340,7 +335,7 @@
         <div />
       {/if}
     </div>
-    <a href={settings.IOXIO_URL} class="footer" target="_blank" rel="noreferrer">
+    <a href="https://ioxio.com/" class="footer" target="_blank" rel="noreferrer">
       <span>Made by</span>
       <img src={LogoSvg} alt="" aria-hidden="true" />
     </a>
