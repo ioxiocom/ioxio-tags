@@ -16,18 +16,18 @@
     </p>
   </div>
   <section>
-    <a href={settings.SCANNER_URL} target="_blank">
+    <a href={settings.SCANNER_URL} target="_blank" rel="noreferrer">
       <div class="card">Scan IOXIO Tags</div>
     </a>
-    <a href={settings.GENERATOR_URL} target="_blank">
+    <a href={settings.GENERATOR_URL} target="_blank" rel="noreferrer">
       <div class="card">Generate tags</div>
     </a>
-    <a href={settings.TAGS_DOCS_URL} target="_blank">
+    <a href={settings.TAGS_DOCS_URL} target="_blank" rel="noreferrer">
       <div class="card">Documentation</div>
     </a>
   </section>
   <footer>
-    Made by <a href="https://ioxio.com" target="_blank">IOXIO®️</a>
+    Made by <a href="https://ioxio.com" target="_blank" rel="noreferrer">IOXIO®️</a>
   </footer>
 </main>
 
