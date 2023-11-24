@@ -1,3 +1,7 @@
+<script>
+  import { settings } from "../lib/settings"
+</script>
+
 <main>
   <h1>IOXIO Tags™️</h1>
   <div>
@@ -12,18 +16,18 @@
     </p>
   </div>
   <section>
-    <a href="https://scanner.tags.ioxio.dev">
+    <a href={settings.SCANNER_URL} target="_blank" rel="noreferrer">
       <div class="card">Scan IOXIO Tags</div>
     </a>
-    <a href="https://generator.tags.ioxio.dev">
+    <a href={settings.GENERATOR_URL} target="_blank" rel="noreferrer">
       <div class="card">Generate tags</div>
     </a>
-    <a href="https://docs.ioxio.dev/tags">
+    <a href={settings.TAGS_DOCS_URL} target="_blank" rel="noreferrer">
       <div class="card">Documentation</div>
     </a>
   </section>
   <footer>
-    Made by <a href="https://ioxio.com">IOXIO®️</a>
+    Made by <a href="https://ioxio.com" target="_blank" rel="noreferrer">IOXIO®️</a>
   </footer>
 </main>
 
