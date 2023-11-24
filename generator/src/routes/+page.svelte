@@ -319,7 +319,7 @@
             class="documentation"
             href={settings.DOCUMENTATION_URL}
             target="_blank"
-            rel="noreferer"
+            rel="noreferrer"
           >
             See documentation →
           </a>
@@ -340,7 +340,7 @@
         <div />
       {/if}
     </div>
-    <a href={settings.IOXIO_URL} class="footer" target="_blank" rel="noreferer">
+    <a href={settings.IOXIO_URL} class="footer" target="_blank" rel="noreferrer">
       <span>Made by</span>
       <img src={LogoSvg} alt="" aria-hidden="true" />
     </a>

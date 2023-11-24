@@ -22,7 +22,7 @@
     <a href={settings.GENERATOR_URL} target="_blank">
       <div class="card">Generate tags</div>
     </a>
-    <a href={settings.IOXIO_URL} target="_blank">
+    <a href={settings.TAGS_DOCS_URL} target="_blank">
       <div class="card">Documentation</div>
     </a>
   </section>
