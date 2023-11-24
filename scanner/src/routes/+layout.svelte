@@ -34,6 +34,7 @@
 
   .container {
     width: 100%;
+    max-width: 42rem;
     min-height: var(--maxHeight);
     display: flex;
     flex-direction: column;
