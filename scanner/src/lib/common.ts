@@ -1,6 +1,7 @@
 import { toast } from "@zerodevx/svelte-toast"
 
-const NumberFormat = new Intl.NumberFormat()
+const locale = new Intl.NumberFormat().resolvedOptions().locale
+const NumberFormat = new Intl.NumberFormat(locale, {minimumSignificantDigits: 1})
 
 export function consoleLog(message: string, type: string = "info") {
   toast.push(message, { classes: [type === "info" ? "info" : "warn"] })
