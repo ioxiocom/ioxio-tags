@@ -21,12 +21,12 @@ export const premadeProducts = [
     id: "4750976000",
   },
   {
-    name: "SSAB Roll of Steel (steel-roll-1234a)",
+    name: "Roll of Steel (steel-roll-1234a)",
     product: "177389-09633",
     id: "steel-roll-1234a",
   },
   {
-    name: "SSAB Roll of Steel (steel-roll-1234b)",
+    name: "Roll of Steel (steel-roll-1234b)",
     product: "177389-09633",
     id: "steel-roll-1234b",
   },
