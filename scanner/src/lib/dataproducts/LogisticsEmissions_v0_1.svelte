@@ -119,7 +119,7 @@
     />
     <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
     <DataRow
-      label="Total Emissions intensity"
+      label="Total emissions intensity"
       value={formatNumber(totalEmissionsIntensity, "CO2e grams / tonne / km")}
     />
     <DataRow
@@ -130,7 +130,7 @@
       label="Total Emissions Per TCE"
       value={formatNumber(totalEmissionsPerTce, "CO2e tonnes")}
     />
-    <DataRow label="Emissions sources" value={emissionSources} />
+    <DataRow label="Emission sources" value={emissionSources} />
   {/if}
   <div class="divider" />
   {#if data.roadFreightEmissions.length > 0}
