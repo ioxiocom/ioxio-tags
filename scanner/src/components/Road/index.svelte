@@ -5,6 +5,7 @@
   export let origin: string
   export let destination: string
   export let isTruck: boolean = true
+  export let isTotal: boolean = false
 </script>
 
 <div class="wrapper">
@@ -15,9 +16,11 @@
   <div class="road">
     <div class="line" />
     <div class="circle left" style="--size: 1rem;" />
-    <div class="circle center" style="--size: 2.25rem;">
-      <img src={isTruck ? Truck : Ship} alt="" aria-hidden="true" />
-    </div>
+    {#if !isTotal}
+      <div class="circle center" style="--size: 2.25rem;">
+        <img src={isTruck ? Truck : Ship} alt="" aria-hidden="true" />
+      </div>
+    {/if}
     <div class="circle right" style="--size: 1rem;" />
   </div>
 </div>

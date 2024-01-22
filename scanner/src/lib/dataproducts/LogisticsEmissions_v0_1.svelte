@@ -50,9 +50,106 @@
     seaFreightEmissions: Array<SeaFreightEmissions>
     waybillNumber: string
   }
+
+  const totalEmissionsRoadFreight = data.roadFreightEmissions.reduce(
+    (acc, roadFreightEmission) => acc + roadFreightEmission.totalEmissions,
+    0
+  )
+  const totalEmissionsSeaFreight = data.seaFreightEmissions.reduce(
+    (acc, seaFreightEmission) => acc + seaFreightEmission.totalEmissions,
+    0
+  )
+  const totalEmissions = totalEmissionsRoadFreight + totalEmissionsSeaFreight
+
+  const totalEmissionsIntensityRoadFreight = data.roadFreightEmissions.reduce(
+    (acc, roadFreightEmission) => acc + roadFreightEmission.emissionIntensity,
+    0
+  )
+  const totalEmissionsIntensitySeaFreight = data.seaFreightEmissions.reduce(
+    (acc, seaFreightEmission) => acc + seaFreightEmission.emissionIntensity,
+    0
+  )
+  const totalEmissionsIntensity =
+    totalEmissionsIntensityRoadFreight + totalEmissionsIntensitySeaFreight
+
+  const averageEmissionsIntensityRoadFreight =
+    totalEmissionsIntensityRoadFreight / data.roadFreightEmissions.length
+  const averageEmissionsIntensitySeaFreight =
+    totalEmissionsIntensitySeaFreight / data.seaFreightEmissions.length
+  function averageEmissionsIntensity() {
+    if (isNaN(averageEmissionsIntensityRoadFreight)) {
+      if (isNaN(averageEmissionsIntensitySeaFreight)) {
+        return 0
+      } else {
+        return averageEmissionsIntensitySeaFreight
+      }
+    } else {
+      if (isNaN(averageEmissionsIntensitySeaFreight)) {
+        return averageEmissionsIntensityRoadFreight
+      } else {
+        return (averageEmissionsIntensityRoadFreight + averageEmissionsIntensitySeaFreight) / 2
+      }
+    }
+  }
+
+  const totalEmissionsPerTceSeaFreight = data.seaFreightEmissions.reduce(
+    (allSeaTotal, seaFreightEmission) => {
+      const seaTotal = seaFreightEmission.emissionsPerTce.reduce(
+        (acc, emissionPerTce) => acc + emissionPerTce.emissions,
+        0
+      )
+      return allSeaTotal + seaTotal
+    },
+    0
+  )
+  const totalEmissionsPerTceRoadFreight = data.roadFreightEmissions.reduce(
+    (allRoadTotal, roadFreightEmission) => {
+      const roadTotal = roadFreightEmission.emissionsPerTce.reduce(
+        (acc, emissionPerTce) => acc + emissionPerTce.emissions,
+        0
+      )
+      return allRoadTotal + roadTotal
+    },
+    0
+  )
+  const totalEmissionsPerTce = totalEmissionsPerTceRoadFreight + totalEmissionsPerTceSeaFreight
+
+  const roadEmissionSources = data.roadFreightEmissions.map((roadFreightEmission) =>
+    roadFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
+  )
+  const seaEmissionSources = data.seaFreightEmissions.map((seaFreightEmission) =>
+    seaFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
+  )
+  const emissionSources = removeDuplicates(roadEmissionSources.concat(seaEmissionSources).flat())
+  function removeDuplicates(array: Array<string>) {
+    return array.filter((value, index) => array.indexOf(value) === index)
+  }
 </script>
 
 <article>
+  {#if data.roadFreightEmissions.length > 0 || data.seaFreightEmissions.length > 0}
+    <div class="title">Total emissions of the transports</div>
+    <Road
+      origin={data.roadFreightEmissions[0].origin}
+      destination={data.roadFreightEmissions[data.roadFreightEmissions.length - 1].destination}
+      isTotal
+    />
+    <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
+    <DataRow
+      label="Total Emissions intensity"
+      value={formatNumber(totalEmissionsIntensity, "CO2e grams / tonne / km")}
+    />
+    <DataRow
+      label="Average Emissions intensity"
+      value={formatNumber(averageEmissionsIntensity(), "CO2e grams / tonne / km")}
+    />
+    <DataRow
+      label="Total Emissions Per TCE"
+      value={formatNumber(totalEmissionsPerTce, "CO2e tonnes")}
+    />
+    <DataRow label="Emissions sources" value={emissionSources} />
+  {/if}
+  <div class="divider" />
   {#if data.roadFreightEmissions.length > 0}
     <div class="title">Road Freight Emissions</div>
     {#each data.roadFreightEmissions as roadFreightEmission}
