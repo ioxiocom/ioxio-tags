@@ -119,7 +119,7 @@
     />
     <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
     <DataRow
-      label="Total Emissions intensity"
+      label="Total emissions intensity"
       value={formatNumber(totalEmissionsIntensity, "CO2e grams / tonne / km")}
     />
     <DataRow
