@@ -24,7 +24,7 @@ else:
         "http://localhost",
         "http://localhost:5173",
         # Port 5174 added because running both scanner and generator locally
-        # makes one of them use the next avauilable port. This can be removed
+        # makes one of them use the next available port. This can be removed
         # once a default port is set for both.
         "http://localhost:5174",
         "http://localhost:4173",
