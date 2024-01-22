@@ -72,25 +72,8 @@
   const totalEmissionsIntensity =
     totalEmissionsIntensityRoadFreight + totalEmissionsIntensitySeaFreight
 
-  const averageEmissionsIntensityRoadFreight =
-    totalEmissionsIntensityRoadFreight / data.roadFreightEmissions.length
-  const averageEmissionsIntensitySeaFreight =
-    totalEmissionsIntensitySeaFreight / data.seaFreightEmissions.length
-  function averageEmissionsIntensity() {
-    if (isNaN(averageEmissionsIntensityRoadFreight)) {
-      if (isNaN(averageEmissionsIntensitySeaFreight)) {
-        return 0
-      } else {
-        return averageEmissionsIntensitySeaFreight
-      }
-    } else {
-      if (isNaN(averageEmissionsIntensitySeaFreight)) {
-        return averageEmissionsIntensityRoadFreight
-      } else {
-        return (averageEmissionsIntensityRoadFreight + averageEmissionsIntensitySeaFreight) / 2
-      }
-    }
-  }
+  const averageEmissionsIntensity =
+    totalEmissionsIntensity / (data.roadFreightEmissions.length + data.seaFreightEmissions.length)
 
   const totalEmissionsPerTceSeaFreight = data.seaFreightEmissions.reduce(
     (allSeaTotal, seaFreightEmission) => {
