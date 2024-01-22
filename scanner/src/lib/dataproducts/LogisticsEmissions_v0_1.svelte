@@ -103,10 +103,7 @@
   const seaEmissionSources = data.seaFreightEmissions.map((seaFreightEmission) =>
     seaFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
   )
-  const emissionSources = removeDuplicates(roadEmissionSources.concat(seaEmissionSources).flat())
-  function removeDuplicates(array: Array<string>) {
-    return array.filter((value, index) => array.indexOf(value) === index)
-  }
+  const emissionSources = [...new Set(roadEmissionSources.concat(seaEmissionSources).flat())]
 </script>
 
 <article>
