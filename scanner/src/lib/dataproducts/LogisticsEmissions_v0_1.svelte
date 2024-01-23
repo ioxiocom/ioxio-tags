@@ -75,28 +75,6 @@
   const averageEmissionsIntensity =
     totalEmissionsIntensity / (data.roadFreightEmissions.length + data.seaFreightEmissions.length)
 
-  const totalEmissionsPerTceSeaFreight = data.seaFreightEmissions.reduce(
-    (allSeaTotal, seaFreightEmission) => {
-      const seaTotal = seaFreightEmission.emissionsPerTce.reduce(
-        (acc, emissionPerTce) => acc + emissionPerTce.emissions,
-        0
-      )
-      return allSeaTotal + seaTotal
-    },
-    0
-  )
-  const totalEmissionsPerTceRoadFreight = data.roadFreightEmissions.reduce(
-    (allRoadTotal, roadFreightEmission) => {
-      const roadTotal = roadFreightEmission.emissionsPerTce.reduce(
-        (acc, emissionPerTce) => acc + emissionPerTce.emissions,
-        0
-      )
-      return allRoadTotal + roadTotal
-    },
-    0
-  )
-  const totalEmissionsPerTce = totalEmissionsPerTceRoadFreight + totalEmissionsPerTceSeaFreight
-
   const roadEmissionSources = data.roadFreightEmissions.map((roadFreightEmission) =>
     roadFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
   )
@@ -116,17 +94,10 @@
     />
     <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
     <DataRow
-      label="Total emissions intensity"
-      value={formatNumber(totalEmissionsIntensity, "CO2e grams / tonne / km")}
-    />
-    <DataRow
       label="Average Emissions intensity"
       value={formatNumber(averageEmissionsIntensity, "CO2e grams / tonne / km")}
     />
-    <DataRow
-      label="Total Emissions Per TCE"
-      value={formatNumber(totalEmissionsPerTce, "CO2e tonnes")}
-    />
+
     <DataRow label="Emission sources" value={emissionSources} />
   {/if}
   <div class="divider" />
