@@ -1,8 +1,8 @@
 {
   "names": {
-    "en_US": "SSAB Roll of Steel"
+    "en_US": "Roll of Steel"
   },
-  "image_url": "https://tags.ioxio.dev/images/ssab-roll-of-steel.jpg",
+  "image_url": "https://tags.ioxio.dev/images/roll-of-steel.jpg",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/MetalArtifact/DataSheet_v0.1",

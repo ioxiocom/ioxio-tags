@@ -50,9 +50,57 @@
     seaFreightEmissions: Array<SeaFreightEmissions>
     waybillNumber: string
   }
+
+  const totalEmissionsRoadFreight = data.roadFreightEmissions.reduce(
+    (acc, roadFreightEmission) => acc + roadFreightEmission.totalEmissions,
+    0
+  )
+  const totalEmissionsSeaFreight = data.seaFreightEmissions.reduce(
+    (acc, seaFreightEmission) => acc + seaFreightEmission.totalEmissions,
+    0
+  )
+  const totalEmissions = totalEmissionsRoadFreight + totalEmissionsSeaFreight
+
+  const totalEmissionsIntensityRoadFreight = data.roadFreightEmissions.reduce(
+    (acc, roadFreightEmission) => acc + roadFreightEmission.emissionIntensity,
+    0
+  )
+  const totalEmissionsIntensitySeaFreight = data.seaFreightEmissions.reduce(
+    (acc, seaFreightEmission) => acc + seaFreightEmission.emissionIntensity,
+    0
+  )
+  const totalEmissionsIntensity =
+    totalEmissionsIntensityRoadFreight + totalEmissionsIntensitySeaFreight
+
+  const averageEmissionsIntensity =
+    totalEmissionsIntensity / (data.roadFreightEmissions.length + data.seaFreightEmissions.length)
+
+  const roadEmissionSources = data.roadFreightEmissions.map((roadFreightEmission) =>
+    roadFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
+  )
+  const seaEmissionSources = data.seaFreightEmissions.map((seaFreightEmission) =>
+    seaFreightEmission.emissionsPerTce.map((emissionPerTce) => emissionPerTce.source)
+  )
+  const emissionSources = [...new Set(roadEmissionSources.concat(seaEmissionSources).flat())]
 </script>
 
 <article>
+  {#if data.roadFreightEmissions.length > 0 || data.seaFreightEmissions.length > 0}
+    <div class="title">Total emissions of the transports</div>
+    <Road
+      origin={data.roadFreightEmissions[0].origin}
+      destination={data.roadFreightEmissions[data.roadFreightEmissions.length - 1].destination}
+      isTotal
+    />
+    <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
+    <DataRow
+      label="Average Emissions intensity"
+      value={formatNumber(averageEmissionsIntensity, "CO2e grams / tonne / km")}
+    />
+
+    <DataRow label="Emission sources" value={emissionSources} />
+  {/if}
+  <div class="divider" />
   {#if data.roadFreightEmissions.length > 0}
     <div class="title">Road Freight Emissions</div>
     {#each data.roadFreightEmissions as roadFreightEmission}

@@ -6,7 +6,11 @@ from io import BytesIO
 from typing import Literal
 from urllib.parse import quote_plus
 from PIL import Image, ImageDraw, ImageOps
-import cairosvg
+try:
+    import cairosvg
+except (ImportError, OSError):
+    cairosvg = None
+    print("cairosvg not installed, cannot generate QR codes")
 from pathlib import Path
 
 import cbor2
