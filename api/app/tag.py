@@ -6,6 +6,7 @@ from io import BytesIO
 from typing import Literal
 from urllib.parse import quote_plus
 from PIL import Image, ImageDraw, ImageOps
+
 try:
     import cairosvg
 except (ImportError, OSError):
@@ -79,12 +80,20 @@ class ProductMetadata(BaseModel):
     supported_dataproducts: list[dict]
 
 
+def get_issuer_base_url(iss: str):
+    if settings.OVERRIDE_ISSUER_BASE_URL:
+        return settings.OVERRIDE_ISSUER_BASE_URL
+    return f"https://{iss}"
+
+
 def get_product_passport_uri(iss: str):
-    return f"https://{iss}/.well-known/product-passport.json"
+    base = get_issuer_base_url(iss)
+    return f"{base}/.well-known/product-passport.json"
 
 
 def get_product_metadata_uri(iss: str, product: str):
-    return f"https://{iss}/.well-known/product-passport/products/{product}.json"
+    base = get_issuer_base_url(iss)
+    return f"{base}/.well-known/product-passport/products/{product}.json"
 
 
 def ioxio_tag_str_to_cose_bytes(code: str) -> bytes:

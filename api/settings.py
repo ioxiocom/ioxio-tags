@@ -1,5 +1,5 @@
 from pathlib import Path
-from typing import Literal
+from typing import Literal, Optional
 
 from pydantic_settings import BaseSettings, SettingsConfigDict
 
@@ -28,6 +28,9 @@ class Settings(BaseSettings):
     # RGB tuples
     QR_BACKGROUND: tuple[int, int, int] = (255, 255, 255)  # White
     QR_FOREGROUND: tuple[int, int, int] = (0, 0, 0)  # Black
+
+    # Set to e.g. http://localhost:8000 for local testing
+    OVERRIDE_ISSUER_BASE_URL: Optional[str] = None
 
     #
     # For local only
