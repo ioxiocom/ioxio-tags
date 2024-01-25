@@ -1,0 +1,16 @@
+{
+  "names": {
+    "en_US": "Sandvik DL422ie"
+  },
+  "image_url": "https://tags.ioxio.dev/images/roll-of-steel.jpg",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/MobileWorkMachine/Drill/ManufacturingDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/MobileWorkMachine/EnvironmentalFootprint_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}

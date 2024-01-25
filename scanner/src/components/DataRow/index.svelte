@@ -41,5 +41,6 @@
   .value {
     line-height: 1.5rem;
     flex: 0 0 55%;
+    word-break: break-word;
   }
 </style>

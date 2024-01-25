@@ -1,0 +1,16 @@
+{
+  "names": {
+    "en_US": "Sandvik Salt Battery"
+  },
+  "image_url": "https://tags.ioxio.dev/images/sandvik-salt-battery.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/Battery/CarbonFootprint_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/ManufacturingDataSheet_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}

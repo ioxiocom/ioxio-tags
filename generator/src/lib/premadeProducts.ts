@@ -20,4 +20,14 @@ export const premadeProducts = [
     product: "177389-09633",
     id: "steel-roll-1234b",
   },
+  {
+    name: "Sandvik Salt Battery Z37-310-76 75kWh (TBA)",
+    product: "fzsonick-sodium-nickel-chloride",
+    id: "TBA",
+  },
+  {
+    name: "Sandvik DL422ie (71b51878-8a00-11ee-b9d1-0242ac120002)",
+    product: "dl422ie",
+    id: "71b51878-8a00-11ee-b9d1-0242ac120002",
+  },
 ]
