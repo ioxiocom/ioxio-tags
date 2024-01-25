@@ -81,8 +81,8 @@ class ProductMetadata(BaseModel):
 
 
 def get_issuer_base_url(iss: str):
-    if settings.OVERRIDE_ISSUER_BASE_URL:
-        return settings.OVERRIDE_ISSUER_BASE_URL
+    if conf.OVERRIDE_ISSUER_BASE_URL:
+        return conf.OVERRIDE_ISSUER_BASE_URL
     return f"https://{iss}"
 
 
