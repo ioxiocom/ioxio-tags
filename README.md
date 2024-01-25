@@ -88,6 +88,14 @@ Will by default listen to port 8081, and will likely fail by default. Read
 To sync the FastAPI route definitions to `openapi.ts` -files, run `pre-commit run --all-files` at
 the root of the project.
 
+If you plan on testing new demo data locally, it is easiest by setting in `api/.env` an
+`OVERRIDE_ISSUER_BASE_URL`. E.g. you can run `python -m http.server` in the `demo_data` folder to
+host its contents locally, then in API's `.env` set:
+
+```
+OVERRIDE_ISSUER_BASE_URL=http://localhost:8000
+```
+
 ### Generator
 
 ```shell
@@ -101,6 +109,10 @@ pnpm run dev
 cd scanner
 pnpm run dev
 ```
+
+To test data product rendering locally the easiest way is to generate an unsigned one off
+[generator.tags.ioxio.dev](https://generator.tags.ioxio.dev) or a locally running version, then use
+the `OVERRIDE_ISSUER_BASE_URL` setting for the [API](#api).
 
 ## Licensing
 

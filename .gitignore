@@ -8,3 +8,4 @@ __pycache__
 *.pub
 jwks.json
 package-lock.json
+.env
