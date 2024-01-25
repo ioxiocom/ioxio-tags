@@ -196,7 +196,6 @@ async def verify_code(code_b45: str):
 async def fetch_metadata(iss: str, product: str):
     product_passport_uri = get_product_passport_uri(iss)
     product_uri = get_product_metadata_uri(iss, product)
-    print(product_passport_uri, product_uri)
     try:
         product_passport, product_metadata = await asyncio.gather(
             fetch_json_file(product_passport_uri),
