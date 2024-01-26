@@ -11,6 +11,10 @@
     {
       "path": "DigitalProductPassport/Battery/ManufacturingDataSheet_v0.1",
       "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/HealthData_v0.1",
+      "source": "dpp_demo"
     }
   ]
 }

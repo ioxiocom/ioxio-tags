@@ -8,7 +8,7 @@
   <div class="label">
     {label}:
   </div>
-  {#if link}
+  {#if link || (typeof value === "string" && value.startsWith("https"))}
     <div class="value">
       {#if typeof value === "string"}
         <a class="link" href={value.trim()} target="_blank" rel="noreferrer">{value.trim()}</a>

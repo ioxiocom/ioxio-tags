@@ -62,7 +62,6 @@
     const result = s.replace(/([A-Z])/g, " $1")
     return result.charAt(0).toUpperCase() + result.slice(1)
   }
-  console.log(data)
 </script>
 
 <article>
@@ -72,7 +71,7 @@
   <DataRow label="Manufacturing Date" value={data.manufacturingDate} />
   <DataRow label="Weight" value={formatNumber(data.weight, "kg")} />
   <DataRow label="Capacity" value={formatNumber(data.capacity, "Ah")} />
-  <DataRow label="Power" value={formatNumber(data.power, "Ah")} />
+  <DataRow label="Power" value={formatNumber(data.power, "Wh")} />
   <DataRow label="Extinguishing Agents" value={data.extinguishingAgents.join(", ")} />
   <DataRow label="Warranty" value={data.warranty} />
   <div class="divider" />
