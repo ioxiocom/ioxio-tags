@@ -76,8 +76,8 @@ camera will make testing the actual scanning easier.
 
 ### For Windows Users
 
-To run `cairosvg` which is needed by the generator to generate the QR codes you might need to install GTK+
-for Windows.
+To run `cairosvg` which is needed by the generator to generate the QR codes you might need to
+install GTK+ for Windows.
 
 - [GTK+ for Windows Runtime Environment Installer](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases)
 
