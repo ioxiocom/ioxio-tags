@@ -43,7 +43,12 @@
   </div>
   <div class="row">
     <div class="property capitalize">Dataspace domain:</div>
-    <div class="value domain">{meta.product_dataspace}</div>
+    <a
+      class="value domain"
+      href={`https://${meta.product_dataspace}`}
+      target="_blank"
+      rel="noreferrer">{meta.product_dataspace}</a
+    >
   </div>
 </div>
 
@@ -132,7 +137,6 @@
     }
     .domain {
       color: #3cb08e;
-      text-decoration: none;
     }
   }
 </style>

@@ -62,6 +62,7 @@
     const result = s.replace(/([A-Z])/g, " $1")
     return result.charAt(0).toUpperCase() + result.slice(1)
   }
+  console.log(data)
 </script>
 
 <article>
@@ -122,7 +123,7 @@
     label="Requirement Conformity"
     value={data.legalConformity.requirementConformity.join(", ")}
   />
-  <DataRow label="Conformity Declaration" value={data.legalConformity.conformityDeclaration} />
+  <DataRow label="Conformity Declaration" link value={data.legalConformity.conformityDeclaration} />
 </article>
 
 <style lang="scss">

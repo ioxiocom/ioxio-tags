@@ -1,25 +1,38 @@
 <script lang="ts">
   export let label: string
   export let value: string | string[]
+  export let link: boolean = false
 </script>
 
 <div class="row">
   <div class="label">
     {label}:
   </div>
-  <div class="value">
-    {#if typeof value === "string"}
-      {value.trim() || "-"}
-    {:else if value === null || value === undefined}
-      -
-    {:else if value.length === 0}
-      <div>-</div>
-    {:else}
-      {#each value as v}
-        <div>{v.trim() || "-"}</div>
-      {/each}
-    {/if}
-  </div>
+  {#if link}
+    <div class="value">
+      {#if typeof value === "string"}
+        <a class="link" href={value.trim()} target="_blank" rel="noreferrer">{value.trim()}</a>
+      {:else if value === null || value === undefined || value.length === 0}
+        -
+      {:else}
+        {#each value as v}
+          <a class="link" href={v.trim()} target="_blank" rel="noreferrer">{v.trim()}</a>
+        {/each}
+      {/if}
+    </div>
+  {:else}
+    <div class="value">
+      {#if typeof value === "string"}
+        {value.trim()}
+      {:else if value === null || value === undefined || value.length === 0}
+        -
+      {:else}
+        {#each value as v}
+          <div>{v.trim()}</div>
+        {/each}
+      {/if}
+    </div>
+  {/if}
 </div>
 
 <style lang="scss">
@@ -42,5 +55,9 @@
     line-height: 1.5rem;
     flex: 0 0 55%;
     word-break: break-word;
+
+    .link {
+      color: #3cb08e;
+    }
   }
 </style>
