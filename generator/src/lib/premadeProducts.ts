@@ -27,7 +27,7 @@ export const premadeProducts = [
   },
   {
     name: "Sandvik DL422ie (71b51878-8a00-11ee-b9d1-0242ac120002)",
-    product: "dl422ie",
+    product: "undergound-drill-dd422i",
     id: "71b51878-8a00-11ee-b9d1-0242ac120002",
   },
 ]
