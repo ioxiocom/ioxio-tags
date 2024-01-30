@@ -9,7 +9,7 @@
     https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_post
      */
 
-  import { formatNumber } from "$lib/common"
+  import { camelCaseToWords, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
 
   export let data: {
@@ -56,11 +56,6 @@
       requirementConformity: string[]
       conformityDeclaration: string
     }
-  }
-
-  function camelCaseToWords(s: string) {
-    const result = s.replace(/([A-Z])/g, " $1")
-    return result.charAt(0).toUpperCase() + result.slice(1)
   }
 </script>
 
