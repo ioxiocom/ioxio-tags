@@ -26,7 +26,7 @@
 
 <article>
   {#if data.conformityDeclaration}
-    <DataRow label="Conformity Declaration" value={data.conformityDeclaration} />
+    <DataRow label="Conformity Declaration" link value={data.conformityDeclaration} />
   {/if}
   <div class="divider" />
   {#if data.carbonFootprint}
