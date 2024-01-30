@@ -28,8 +28,8 @@
   {#if data.conformityDeclaration}
     <DataRow label="Conformity Declaration" link value={data.conformityDeclaration} />
   {/if}
-  <div class="divider" />
   {#if data.carbonFootprint}
+    <div class="divider" />
     <div class="title no-bottom-margin">Carbon Footprint</div>
     <div class="subtitle">
       The details of the carbon footprint for the battery production phases
