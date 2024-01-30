@@ -11,24 +11,24 @@
   {#if link || (typeof value === "string" && value.startsWith("https://"))}
     <div class="value">
       {#if typeof value === "string"}
-        <a class="link" href={value.trim()} target="_blank" rel="noreferrer">{value.trim()}</a>
+        <a class="link" href={value} target="_blank" rel="noreferrer">{value}</a>
       {:else if value === null || value === undefined || value.length === 0}
         -
       {:else}
         {#each value as v}
-          <a class="link" href={v.trim()} target="_blank" rel="noreferrer">{v.trim()}</a>
+          <a class="link" href={v} target="_blank" rel="noreferrer">{v}</a>
         {/each}
       {/if}
     </div>
   {:else}
     <div class="value">
       {#if typeof value === "string"}
-        {value.trim()}
+        {value.trim().length || "-"}
       {:else if value === null || value === undefined || value.length === 0}
         -
       {:else}
         {#each value as v}
-          <div>{v.trim()}</div>
+          <div>{v.trim() || "-"}</div>
         {/each}
       {/if}
     </div>
