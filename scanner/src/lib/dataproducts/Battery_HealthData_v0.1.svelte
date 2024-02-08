@@ -45,43 +45,46 @@
 
 <article>
   <DataRow label="Status" value={data.status} />
-  <DataRow label="Manufacturing Date" value={data.manufacturingDate} />
-  <DataRow label="Service Initiation Date" value={data.serviceInitiationDate} />
+  <DataRow label="Manufacturing date" value={data.manufacturingDate} />
+  <DataRow label="Service initiation date" value={data.serviceInitiationDate} />
   <div class="divider" />
-  <div class="title no-bottom-margin">Original Performance</div>
+  <div class="title no-bottom-margin">Original performance</div>
   <div class="subtitle">The details of the original performance of the battery</div>
   <DataRow label="Capacity" value={formatNumber(data.originalPerformance.capacity, "Ah")} />
   <DataRow label="Power" value={formatNumber(data.originalPerformance.power, "Wh")} />
   <DataRow
-    label="Internal Resistance"
+    label="Internal resistance"
     value={formatNumber(data.originalPerformance.resistance, "Ω")}
   />
-  <DataRow label="Cycle Life" value={formatNumber(data.originalPerformance.cycleLife)} />
-  <DataRow label="Calendar Years" value={formatNumber(data.originalPerformance.years)} />
+  <DataRow label="Cycle life" value={formatNumber(data.originalPerformance.cycleLife)} />
+  <DataRow label="Calendar years" value={formatNumber(data.originalPerformance.years)} />
   <div class="divider" />
-  <div class="title no-bottom-margin">Health State</div>
+  <div class="title no-bottom-margin">Health state</div>
   <div class="subtitle">The state of the health of the battery</div>
   <DataRow
-    label="Cumulative Cycle Count"
+    label="Cumulative cycle count"
     value={formatNumber(data.healthState.cumulativeCycleCount)}
   />
-  <DataRow label="Capacity Fade" value={formatNumber(data.healthState.capacityFade, "%")} />
-  <DataRow label="Power Fade" value={formatNumber(data.healthState.powerFade, "%")} />
+  <DataRow label="Capacity fade" value={formatNumber(data.healthState.capacityFade, "%")} />
+  <DataRow label="Power fade" value={formatNumber(data.healthState.powerFade, "%")} />
   <DataRow
-    label="Resistance Increase"
+    label="Resistance increase"
     value={formatNumber(data.healthState.resistanceIncrease, "%")}
   />
+  <div class="divider" />
+  <div class="title no-bottom-margin">Operation detail</div>
+  <div class="subtitle">-</div>
   {#each data.healthState.operationDetails as operationDetail}
-    <DataRow label="Measurement Date:" value={operationDetail.measurementDate} />
-    <DataRow label="State of Charge" value={formatNumber(operationDetail.stateOfCharge, "Ah")} />
-    <DataRow label="Temperature" value={formatNumber(operationDetail.temperature, "C°")} />
+    <DataRow label="Measurement date:" value={operationDetail.measurementDate} />
+    <DataRow label="State of charge" value={formatNumber(operationDetail.stateOfCharge, "Ah")} />
+    <DataRow label="Temperature" value={formatNumber(operationDetail.temperature, "°C")} />
   {/each}
   <div class="divider" />
-  <div class="title no-bottom-margin">Harmful Events</div>
+  <div class="title no-bottom-margin">Harmful events</div>
   <div class="subtitle">The harmful events or incidents that have occurred for the battery</div>
   {#each data.harmfulEvents as harmfulEvent}
-    <DataRow label="Event Date" value={harmfulEvent.eventDate} />
-    <DataRow label="Event Description" value={harmfulEvent.eventDescription} />
+    <DataRow label="Event date" value={harmfulEvent.eventDate} />
+    <DataRow label="Event description" value={harmfulEvent.eventDescription} />
   {/each}
 </article>
 

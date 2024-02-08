@@ -1,6 +1,6 @@
 {
   "names": {
-    "en_US": "Sandvik DL422ie"
+    "en_US": "Sandvik DD422iE Underground drill"
   },
   "image_url": "https://tags.ioxio.dev/images/drill-machine.png",
   "supported_dataproducts": [
@@ -9,7 +9,7 @@
       "source": "dpp_demo"
     },
     {
-      "path": "DigitalProductPassport/MobileWorkMachine/Drill/ManufacturingDataSheet_v0.1",
+      "path": "DigitalProductPassport/MobileWorkMachine/Drill/ManufacturingDataSheet_v0.2",
       "source": "dpp_demo"
     }
   ]

@@ -23,7 +23,7 @@
   {:else}
     <div class="value">
       {#if typeof value === "string"}
-        {value.trim().length || "-"}
+        {value.trim() || "-"}
       {:else if value === null || value === undefined || value.length === 0}
         -
       {:else}

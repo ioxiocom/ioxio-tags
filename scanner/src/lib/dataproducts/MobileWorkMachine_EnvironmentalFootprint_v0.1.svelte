@@ -26,22 +26,22 @@
 </script>
 
 <article>
-  <div class="title no-bottom-margin">Carbon Footprint</div>
-  <div class="subtitle">Carbon Footprint of a Mobile Work Machine</div>
+  <div class="title no-bottom-margin">Carbon footprint</div>
+  <div class="subtitle">Carbon footprint of a Mobile Work Machine</div>
   <DataRow
-    label="Pre Production Footprint"
+    label="Pre production footprint"
     value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg of CO2e")}
   />
   <DataRow
-    label="Main Production Footprint"
+    label="Main production footprint"
     value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg of CO2e")}
   />
-  <DataRow label="Reference Material" link value={data.carbonFootprint.referenceMaterial} />
+  <DataRow label="Reference material" link value={data.carbonFootprint.referenceMaterial} />
   <div class="divider" />
-  <div class="title no-bottom-margin">Material Waste</div>
+  <div class="title no-bottom-margin">Material waste</div>
   <div class="subtitle">The details of the material waste generated during the production</div>
   <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
-  <DataRow label="Reference Material" link value={data.materialWaste.referenceMaterial} />
+  <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
 </article>
 
 <style lang="scss">
