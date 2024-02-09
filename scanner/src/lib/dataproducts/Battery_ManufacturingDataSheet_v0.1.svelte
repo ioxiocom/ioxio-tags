@@ -143,29 +143,33 @@
     label="Critical raw materials"
     value={data.materialComposition.criticalRawMaterials.join(", ")}
   />
-  {#if data.recycledContent.length === 0}
-    <div class="divider" />
-    <div class="title no-bottom-margin">Recycled content</div>
-    <div class="subtitle">The recycled content information present in the battery</div>
+  <div class="divider" />
+  <div class="title no-bottom-margin">Recycled content</div>
+  <div class="subtitle">The recycled content information present in the battery</div>
+  {#if data.recycledContent.length > 0}
     <ul>
       {#each data.recycledContent as content}
-        <li>
+        <li class="list-item">
           {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
         </li>
       {/each}
     </ul>
+  {:else}
+    <p>-</p>
   {/if}
-  {#if data.renewableContent.length === 0}
-    <div class="divider" />
-    <div class="title no-bottom-margin">Renewable content</div>
-    <div class="subtitle">The renewable content information present in the battery</div>
+  <div class="divider" />
+  <div class="title no-bottom-margin">Renewable content</div>
+  <div class="subtitle">The renewable content information present in the battery</div>
+  {#if data.renewableContent.length > 0}
     <ul>
       {#each data.renewableContent as content}
-        <li>
+        <li class="list-item">
           {content.substanceName}: {formatNumber(content.proportion, "%")}
         </li>
       {/each}
     </ul>
+  {:else}
+    <p>-</p>
   {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Legal conformity</div>
@@ -223,6 +227,9 @@
         width: 1.5rem;
         line-height: 1.5rem;
       }
+    }
+    .list-item {
+      line-height: 150%;
     }
   }
 </style>

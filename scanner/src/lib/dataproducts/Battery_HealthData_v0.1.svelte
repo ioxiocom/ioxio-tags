@@ -74,23 +74,31 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Operation detail</div>
   <div class="subtitle">The periodic information of the battery operation</div>
-  <div class="grid">
-    <div class="subtitle no-bottom-margin">Measurement date</div>
-    <div class="subtitle no-bottom-margin">State of charge</div>
-    <div class="subtitle no-bottom-margin">Temperature</div>
-    {#each data.healthState.operationDetails as operationDetail}
-      <div>{operationDetail.measurementDate}</div>
-      <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
-      <div>{formatNumber(operationDetail.temperature, "°C")}</div>
-    {/each}
-  </div>
+  {#if data.healthState.operationDetails.length > 0}
+    <div class="grid">
+      <div class="subtitle no-bottom-margin">Measurement date</div>
+      <div class="subtitle no-bottom-margin">State of charge</div>
+      <div class="subtitle no-bottom-margin">Temperature</div>
+      {#each data.healthState.operationDetails as operationDetail}
+        <div>{operationDetail.measurementDate}</div>
+        <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
+        <div>{formatNumber(operationDetail.temperature, "°C")}</div>
+      {/each}
+    </div>
+  {:else}
+    <p>-</p>
+  {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Harmful events</div>
   <div class="subtitle">The harmful events or incidents that have occurred for the battery</div>
-  {#each data.harmfulEvents as harmfulEvent}
-    <DataRow label="Event date" value={harmfulEvent.eventDate} />
-    <DataRow label="Event description" value={harmfulEvent.eventDescription} />
-  {/each}
+  {#if data.harmfulEvents.length > 0}
+    {#each data.harmfulEvents as harmfulEvent}
+      <DataRow label="Event date" value={harmfulEvent.eventDate} />
+      <DataRow label="Event description" value={harmfulEvent.eventDescription} />
+    {/each}
+  {:else}
+    <p>-</p>
+  {/if}
 </article>
 
 <style lang="scss">
