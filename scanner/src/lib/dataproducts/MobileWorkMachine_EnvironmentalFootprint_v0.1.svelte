@@ -27,7 +27,7 @@
 
 <article>
   <div class="title no-bottom-margin">Carbon footprint</div>
-  <div class="subtitle">Carbon footprint of a Mobile Work Machine</div>
+  <div class="subtitle">Carbon footprint of a mobile work machine</div>
   <DataRow
     label="Pre production footprint"
     value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg of CO2e")}

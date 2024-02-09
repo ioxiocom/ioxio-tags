@@ -61,6 +61,14 @@
       criticalRawMaterials: string[]
       hazardousSubstances: string[]
     }
+    recycledContent: {
+      substanceName: string
+      recyclingRate: number
+    }[]
+    renewableContent: {
+      substanceName: string
+      proportion: number
+    }[]
     legalConformity: {
       batteryActCompliance: boolean
       requirementConformity: string[]
@@ -135,6 +143,30 @@
     label="Critical raw materials"
     value={data.materialComposition.criticalRawMaterials.join(", ")}
   />
+  {#if data.recycledContent.length === 0}
+    <div class="divider" />
+    <div class="title no-bottom-margin">Recycled content</div>
+    <div class="subtitle">The recycled content information present in the battery</div>
+    <ul>
+      {#each data.recycledContent as content}
+        <li>
+          {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
+        </li>
+      {/each}
+    </ul>
+  {/if}
+  {#if data.renewableContent.length === 0}
+    <div class="divider" />
+    <div class="title no-bottom-margin">Renewable content</div>
+    <div class="subtitle">The renewable content information present in the battery</div>
+    <ul>
+      {#each data.renewableContent as content}
+        <li>
+          {content.substanceName}: {formatNumber(content.proportion, "%")}
+        </li>
+      {/each}
+    </ul>
+  {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Legal conformity</div>
   <div class="subtitle">

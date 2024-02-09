@@ -73,12 +73,17 @@
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Operation detail</div>
-  <div class="subtitle">-</div>
-  {#each data.healthState.operationDetails as operationDetail}
-    <DataRow label="Measurement date:" value={operationDetail.measurementDate} />
-    <DataRow label="State of charge" value={formatNumber(operationDetail.stateOfCharge, "Ah")} />
-    <DataRow label="Temperature" value={formatNumber(operationDetail.temperature, "°C")} />
-  {/each}
+  <div class="subtitle">The periodic information of the battery operation</div>
+  <div class="grid">
+    <div class="subtitle no-bottom-margin">Measurement date</div>
+    <div class="subtitle no-bottom-margin">State of charge</div>
+    <div class="subtitle no-bottom-margin">Temperature</div>
+    {#each data.healthState.operationDetails as operationDetail}
+      <div>{operationDetail.measurementDate}</div>
+      <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
+      <div>{formatNumber(operationDetail.temperature, "°C")}</div>
+    {/each}
+  </div>
   <div class="divider" />
   <div class="title no-bottom-margin">Harmful events</div>
   <div class="subtitle">The harmful events or incidents that have occurred for the battery</div>
@@ -106,11 +111,20 @@
       font-weight: 400;
       color: white;
       margin-bottom: 1rem;
+      &.no-bottom-margin {
+        margin-bottom: 0;
+      }
     }
     .divider {
       padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 1rem;
     }
   }
 </style>

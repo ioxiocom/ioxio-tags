@@ -43,7 +43,7 @@
 <article>
   <DataRow label="Battery model" value={data.batteryModel} />
   {#if data.conformityDeclaration}
-    <DataRow label="Conformity Declaration" link value={data.conformityDeclaration} />
+    <DataRow label="Conformity declaration" link value={data.conformityDeclaration} />
   {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>

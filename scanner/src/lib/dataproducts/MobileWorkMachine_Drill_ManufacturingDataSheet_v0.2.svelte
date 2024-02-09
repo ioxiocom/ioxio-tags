@@ -67,7 +67,6 @@
     default:
       powerSystemSvg = null
   }
-  console.log(data)
   function capitaliseFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1)
   }
@@ -109,7 +108,7 @@
     label="Electric motors"
     value={data.powerSystem.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
-  <div class="divider" />
+  <div class="divider no-bottom-padding" />
   <DataRow
     label="Batteries"
     value={data.powerSystem.batteries.map(
@@ -141,6 +140,9 @@
       padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
+      &.no-bottom-padding {
+        padding-bottom: 0;
+      }
     }
     .power-system-type {
       display: flex;

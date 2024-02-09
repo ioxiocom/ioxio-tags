@@ -94,7 +94,7 @@
     />
     <DataRow label="Total emissions" value={formatNumber(totalEmissions, "CO2e tonnes")} />
     <DataRow
-      label="Average Emissions intensity"
+      label="Average emissions intensity"
       value={formatNumber(averageEmissionsIntensity, "CO2e grams / tonne / km")}
     />
 
@@ -102,7 +102,7 @@
   {/if}
   <div class="divider" />
   {#if data.roadFreightEmissions.length > 0}
-    <div class="title">Road Freight Emissions</div>
+    <div class="title">Road freight emissions</div>
     {#each data.roadFreightEmissions as roadFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
       <div class="leg-id">{roadFreightEmission.legIdentifier || "-"}</div>
@@ -133,7 +133,7 @@
   {/if}
   <div class="divider" />
   {#if data.seaFreightEmissions.length > 0}
-    <div class="title">Sea Freight Emissions</div>
+    <div class="title">Sea freight emissions</div>
     {#each data.seaFreightEmissions as seaFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
       <div class="leg-id">{seaFreightEmission.legIdentifier || "-"}</div>
@@ -143,7 +143,7 @@
         isTruck={false}
       />
       <DataRow label="Vessel type" value={seaFreightEmission.vesselType} />
-      <DataRow label="Freight Condition" value={seaFreightEmission.freightCondition} />
+      <DataRow label="Freight condition" value={seaFreightEmission.freightCondition} />
       <DataRow label="Service type" value={seaFreightEmission.serviceType} />
       <DataRow
         label="Total emissions"
