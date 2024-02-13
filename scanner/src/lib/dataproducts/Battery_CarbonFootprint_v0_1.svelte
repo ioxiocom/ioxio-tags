@@ -65,11 +65,11 @@
     </div>
     <DataRow
       label="Pre production footprint"
-      value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg per kWh")}
+      value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
     />
     <DataRow
       label="Main production footprint"
-      value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg per kWh")}
+      value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
     />
     <DataRow label="Reference material" value={data.carbonFootprint.referenceMaterial} />
   {/if}

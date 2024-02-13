@@ -51,13 +51,16 @@
   <div class="title no-bottom-margin">Original performance</div>
   <div class="subtitle">The details of the original performance of the battery</div>
   <DataRow label="Capacity" value={formatNumber(data.originalPerformance.capacity, "Ah")} />
-  <DataRow label="Power" value={formatNumber(data.originalPerformance.power, "Wh")} />
+  <DataRow label="Power" value={formatNumber(data.originalPerformance.power, "W")} />
   <DataRow
     label="Internal resistance"
     value={formatNumber(data.originalPerformance.resistance, "Ω")}
   />
   <DataRow label="Cycle life" value={formatNumber(data.originalPerformance.cycleLife)} />
-  <DataRow label="Calendar years" value={formatNumber(data.originalPerformance.years)} />
+  <DataRow
+    label="Expected lifetime"
+    value={formatNumber(data.originalPerformance.years, "years")}
+  />
   <div class="divider" />
   <div class="title no-bottom-margin">Health state</div>
   <div class="subtitle">The state of the health of the battery</div>
@@ -72,7 +75,7 @@
     value={formatNumber(data.healthState.resistanceIncrease, "%")}
   />
   <div class="divider" />
-  <div class="title no-bottom-margin">Operation detail</div>
+  <div class="title no-bottom-margin">Operation details</div>
   <div class="subtitle">The periodic information of the battery operation</div>
   {#if data.healthState.operationDetails.length > 0}
     <div class="grid">
@@ -93,8 +96,9 @@
   <div class="subtitle">The harmful events or incidents that have occurred for the battery</div>
   {#if data.harmfulEvents.length > 0}
     {#each data.harmfulEvents as harmfulEvent}
-      <DataRow label="Event date" value={harmfulEvent.eventDate} />
-      <DataRow label="Event description" value={harmfulEvent.eventDescription} />
+      {#if harmfulEvent.eventDescription.trim() && harmfulEvent.eventDate.trim()}
+        <DataRow label={harmfulEvent.eventDate} value={harmfulEvent.eventDescription} />
+      {/if}
     {/each}
   {:else}
     <p>-</p>
@@ -133,6 +137,9 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1rem;
+      @media screen and (max-width: 450px) {
+        text-align: center;
+      }
     }
   }
 </style>

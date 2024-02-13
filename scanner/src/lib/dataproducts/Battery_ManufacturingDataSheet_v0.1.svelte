@@ -35,8 +35,8 @@
       email: string
     }
     manufacturingLocation: {
-      country: string
       city: string
+      country: string
     }
     roundTripEfficiency: {
       initialEnergyEfficieny: number
@@ -100,9 +100,8 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturing location</div>
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
-  {#each Object.entries(data.manufacturingLocation) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} {value} />
-  {/each}
+  <DataRow label="City" value={data.manufacturingLocation.city} />
+  <DataRow label="Country" value={data.manufacturingLocation.country} />
   <div class="divider" />
   <div class="title no-bottom-margin">Round trip efficiency</div>
   <div class="subtitle">The details of the round trip energy efficiency in energy storages</div>
@@ -149,9 +148,11 @@
   {#if data.recycledContent.length > 0}
     <ul>
       {#each data.recycledContent as content}
-        <li class="list-item">
-          {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
-        </li>
+        {#if content.substanceName.trim() && content.recyclingRate}
+          <li class="list-item">
+            {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
+          </li>
+        {/if}
       {/each}
     </ul>
   {:else}
@@ -163,9 +164,11 @@
   {#if data.renewableContent.length > 0}
     <ul>
       {#each data.renewableContent as content}
-        <li class="list-item">
-          {content.substanceName}: {formatNumber(content.proportion, "%")}
-        </li>
+        {#if content.substanceName.trim() && content.proportion}
+          <li class="list-item">
+            {content.substanceName}: {formatNumber(content.proportion, "%")}
+          </li>
+        {/if}
       {/each}
     </ul>
   {:else}
