@@ -30,11 +30,11 @@
   <div class="subtitle">Carbon footprint of a mobile work machine</div>
   <DataRow
     label="Pre production footprint"
-    value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg of CO2e")}
+    value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow
     label="Main production footprint"
-    value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg of CO2e")}
+    value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow label="Reference material" link value={data.carbonFootprint.referenceMaterial} />
   <div class="divider" />
