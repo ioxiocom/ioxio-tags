@@ -41,7 +41,7 @@
     <div class="property">Product Code:</div>
     <div class="value">{product}</div>
   </div>
-  <div class="row">
+  <div class="row link">
     <div class="property capitalize">Dataspace domain:</div>
     <div class="value domain">{meta.product_dataspace}</div>
   </div>
@@ -132,6 +132,10 @@
     }
     .domain {
       color: #3cb08e;
+    }
+
+    &.link {
+      flex-direction: column;
     }
   }
 </style>

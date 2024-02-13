@@ -36,27 +36,28 @@
     }
     carbonFootprint: CarbonFootprint
   }
-  data.manufacturerInformation.country = countryListAlpha3[data.manufacturerInformation.country]
-  data.manufacturingLocation.country = countryListAlpha3[data.manufacturingLocation.country]
 </script>
 
 <article>
   <DataRow label="Battery model" value={data.batteryModel} />
   {#if data.conformityDeclaration}
-    <DataRow label="Conformity declaration" link value={data.conformityDeclaration} />
+    <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the battery manufacturer</div>
-  {#each Object.entries(data.manufacturerInformation) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} {value} />
-  {/each}
+  <DataRow label="Name" value={data.manufacturerInformation.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
+  <DataRow label="Website" link column value={data.manufacturerInformation.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturing location</div>
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
-  {#each Object.entries(data.manufacturingLocation) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} {value} />
-  {/each}
+  <DataRow label="City" value={data.manufacturingLocation.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation.country]} />
   {#if data.carbonFootprint}
     <div class="divider" />
     <div class="title no-bottom-margin">Carbon footprint</div>
@@ -71,7 +72,12 @@
       label="Main production footprint"
       value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
     />
-    <DataRow label="Reference material" value={data.carbonFootprint.referenceMaterial} />
+    <DataRow
+      label="Reference material"
+      column
+      link
+      value={data.carbonFootprint.referenceMaterial}
+    />
   {/if}
 </article>
 
@@ -95,7 +101,6 @@
       margin-bottom: 1rem;
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }

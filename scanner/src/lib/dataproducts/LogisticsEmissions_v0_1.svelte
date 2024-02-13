@@ -189,7 +189,6 @@
       margin-bottom: 1rem;
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }

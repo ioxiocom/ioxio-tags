@@ -28,6 +28,7 @@
     warranty: string
     manufacturerInformation: {
       name: string
+      streetName: string
       postalCode: string
       city: string
       country: string
@@ -75,8 +76,6 @@
       conformityDeclaration: string
     }
   }
-  data.manufacturerInformation.country = countryListAlpha3[data.manufacturerInformation.country]
-  data.manufacturingLocation.country = countryListAlpha3[data.manufacturingLocation.country]
 </script>
 
 <article>
@@ -90,30 +89,39 @@
   <DataRow label="Cell type" value={data.cellType} />
   <DataRow label="Resistance" value={formatNumber(data.resistance, "Ω")} />
   <DataRow label="Extinguishing agents" value={data.extinguishingAgents.join(", ")} />
-  <DataRow label="Warranty" value={data.warranty} />
+  <DataRow label="Warranty valid until" value={data.warranty} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the battery manufacturer</div>
-  {#each Object.entries(data.manufacturerInformation) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} {value} />
-  {/each}
+  <DataRow label="Name" value={data.manufacturerInformation.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
+  <DataRow label="Website" column link value={data.manufacturerInformation.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturing location</div>
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
   <DataRow label="City" value={data.manufacturingLocation.city} />
-  <DataRow label="Country" value={data.manufacturingLocation.country} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation.country]} />
   <div class="divider" />
   <div class="title no-bottom-margin">Round trip efficiency</div>
   <div class="subtitle">The details of the round trip energy efficiency in energy storages</div>
-  {#each Object.entries(data.roundTripEfficiency) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} value={formatNumber(value, "%")} />
-  {/each}
+  <DataRow
+    label="Initial energy efficiency"
+    value={formatNumber(data.roundTripEfficiency.initialEnergyEfficieny, "%")}
+  />
+  <DataRow
+    label="Degraded energy efficiency"
+    value={formatNumber(data.roundTripEfficiency.degradedEnergyEfficiency, "%")}
+  />
   <div class="divider" />
   <div class="title no-bottom-margin">Voltage levels</div>
   <div class="subtitle">The details of the voltage levels of the battery</div>
-  {#each Object.entries(data.voltageLevels) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} value={formatNumber(value, "V")} />
-  {/each}
+  <DataRow label="Nominal" value={`${formatNumber(data.voltageLevels.nominalVoltage, "V")}`} />
+  <DataRow label="Maximum" value={`${formatNumber(data.voltageLevels.maximumVoltage, "V")}`} />
+  <DataRow label="Minimum" value={`${formatNumber(data.voltageLevels.minimumVoltage, "V")}`} />
   <div class="divider" />
   <div class="title no-bottom-margin">Temperature range</div>
   <div class="subtitle">The details of the acceptable temperature values of the battery</div>
@@ -127,9 +135,9 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Expected lifetime</div>
   <div class="subtitle">The details of the battery lifetime</div>
-  <DataRow label="Cycle Life" value={formatNumber(data.expectedLifetime.cycleLife)} />
-  <DataRow label="Reference Test" value={data.expectedLifetime.referenceTest} />
-  <DataRow label="Cycle Rate" value={data.expectedLifetime.cycleRate} />
+  <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime.cycleLife)} />
+  <DataRow label="Reference test" value={data.expectedLifetime.referenceTest} />
+  <DataRow label="Cycle rate" value={data.expectedLifetime.cycleRate} />
   <div class="divider" />
   <div class="title no-bottom-margin">Material composition</div>
   <div class="subtitle">The details of the material composition of the battery</div>
@@ -186,10 +194,15 @@
     </div>
   </div>
   <DataRow
-    label="Requirement Conformity"
+    label="Requirement conformity"
     value={data.legalConformity.requirementConformity.join(", ")}
   />
-  <DataRow label="Conformity Declaration" link value={data.legalConformity.conformityDeclaration} />
+  <DataRow
+    label="Conformity declaration"
+    column
+    link
+    value={data.legalConformity.conformityDeclaration}
+  />
 </article>
 
 <style lang="scss">
@@ -212,7 +225,6 @@
       margin-bottom: 1rem;
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }

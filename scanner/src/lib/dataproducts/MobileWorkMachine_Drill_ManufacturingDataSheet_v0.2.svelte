@@ -70,7 +70,6 @@
   function capitaliseFirstLetter(word: string) {
     return word.charAt(0).toUpperCase() + word.slice(1)
   }
-  data.manufacturerInformation.country = countryListAlpha3[data.manufacturerInformation.country]
 </script>
 
 <article>
@@ -81,14 +80,18 @@
   <DataRow label="Minimum hole diameter" value={formatNumber(data.minimumHoleDiameter, "mm")} />
   <DataRow label="Maximum hole diameter" value={formatNumber(data.maximumHoleDiameter, "mm")} />
   <DataRow label="Drilling power" value={formatNumber(data.drillingPower, "kW")} />
-  <DataRow label="Reference data sheet" link value={data.referenceDataSheet} />
-  <DataRow label="Safety data sheet" link value={data.safetyDataSheet} />
+  <DataRow label="Reference data sheet" column link value={data.referenceDataSheet} />
+  <DataRow label="Safety data sheet" column link value={data.safetyDataSheet} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the drill manufacturer</div>
-  {#each Object.entries(data.manufacturerInformation) as [key, value]}
-    <DataRow label={camelCaseToWords(key)} {value} />
-  {/each}
+  <DataRow label="Name" value={data.manufacturerInformation.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
+  <DataRow label="Website" column link value={data.manufacturerInformation.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Power system</div>
   <div class="subtitle">The details of the drill power system</div>
@@ -106,11 +109,13 @@
   <div class="divider" />
   <DataRow
     label="Electric motors"
+    column
     value={data.powerSystem.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
   <div class="divider no-bottom-padding" />
   <DataRow
     label="Batteries"
+    column
     value={data.powerSystem.batteries.map(
       (battery) => `${battery.count} x ${battery.cellType} ${formatNumber(battery.power, "kW")}`
     )}
@@ -137,7 +142,6 @@
       margin-bottom: 1rem;
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
       &.no-bottom-padding {
@@ -147,6 +151,7 @@
     .power-system-type {
       display: flex;
       align-items: center;
+      margin-bottom: 1rem;
       p {
         flex: 0 0 45%;
         line-height: 1.5rem;

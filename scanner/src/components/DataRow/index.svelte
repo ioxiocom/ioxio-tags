@@ -2,9 +2,10 @@
   export let label: string
   export let value: string | string[]
   export let link: boolean = false
+  export let column: boolean = false
 </script>
 
-<div class="row">
+<div class={`data ${column ? "column" : "row"}`}>
   <div class="label">
     {label}:
   </div>
@@ -36,14 +37,20 @@
 </div>
 
 <style lang="scss">
-  .row {
+  .data {
     display: flex;
-    flex-direction: row;
     font-size: 1rem;
     font-style: normal;
     font-weight: 400;
     &:not(:last-child) {
       margin-bottom: 1rem;
+    }
+    &.row {
+      flex-direction: row;
+      align-items: center;
+    }
+    &.column {
+      flex-direction: column;
     }
   }
   .label {

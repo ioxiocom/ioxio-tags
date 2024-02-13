@@ -29,19 +29,23 @@
   <div class="title no-bottom-margin">Carbon footprint</div>
   <div class="subtitle">Carbon footprint of a mobile work machine</div>
   <DataRow
-    label="Pre production footprint"
+    label="Pre-production footprint"
     value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow
     label="Main production footprint"
     value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
   />
-  <DataRow label="Reference material" link value={data.carbonFootprint.referenceMaterial} />
+  <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
   <div class="divider" />
   <div class="title no-bottom-margin">Material waste</div>
   <div class="subtitle">The details of the material waste generated during the production</div>
-  <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
-  <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
+  {#if data.materialWaste}
+    <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
+    <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
+  {:else}
+    <p>-</p>
+  {/if}
 </article>
 
 <style lang="scss">
@@ -64,7 +68,6 @@
       margin-bottom: 1rem;
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }

@@ -128,7 +128,6 @@
       }
     }
     .divider {
-      padding-bottom: 1rem;
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }
@@ -137,6 +136,7 @@
       display: grid;
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1rem;
+      margin-bottom: 1rem;
       @media screen and (max-width: 450px) {
         text-align: center;
       }
