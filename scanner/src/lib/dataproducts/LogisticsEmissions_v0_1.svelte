@@ -171,23 +171,27 @@
   article {
     color: white;
     font-style: normal;
+
     .title {
       font-size: 1rem;
       font-weight: 500;
       line-height: 1.5rem;
       margin-bottom: 1rem;
     }
+
     .leg-id-label {
       font-size: 0.75rem;
       line-height: 1.5rem;
       color: #798893;
       text-transform: uppercase;
     }
+
     .leg-id {
       font-size: 1rem;
       line-height: 1.5rem;
       margin-bottom: 1rem;
     }
+
     .divider {
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;

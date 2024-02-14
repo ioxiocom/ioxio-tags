@@ -127,41 +127,50 @@
   article {
     color: white;
     font-style: normal;
+
     .title {
       font-size: 1rem;
       font-weight: 500;
       line-height: 1.5rem;
       margin-bottom: 1rem;
+
       &.no-bottom-margin {
         margin-bottom: 0;
       }
     }
+
     .subtitle {
       font-size: 0.75rem;
       font-weight: 400;
       color: white;
       margin-bottom: 1rem;
     }
+
     .divider {
       border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
+
       &.no-bottom-padding {
         padding-bottom: 0;
       }
     }
+
     .power-system-type {
       display: flex;
       align-items: center;
       margin-bottom: 1rem;
+
       p {
         flex: 0 0 45%;
         line-height: 1.5rem;
         padding-right: 0.5rem;
       }
+
       .value {
         display: flex;
         flex-direction: row;
         align-items: center;
+
         .type-img {
           width: 1.5rem;
           line-height: 1.5rem;
