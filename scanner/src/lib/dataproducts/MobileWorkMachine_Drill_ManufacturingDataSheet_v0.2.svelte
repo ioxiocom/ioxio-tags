@@ -9,7 +9,7 @@
       https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2_DigitalProductPassport_MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2_post
        */
 
-  import { camelCaseToWords, countryListAlpha3, formatNumber } from "$lib/common"
+  import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Electric from "$assets/fully-electric.svg"
   import Hybrid from "$assets/hybrid.svg"
@@ -21,6 +21,7 @@
     FUEL_POWERED = "fuel powered",
   }
 
+  export let status: number
   export let data: {
     productName: string
     boomCoverage: number

@@ -18,6 +18,7 @@
     temperature: number
   }
 
+  export let status: number
   export let data: {
     status: string
     manufacturingDate: string

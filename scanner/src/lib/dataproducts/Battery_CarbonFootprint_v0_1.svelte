@@ -9,7 +9,7 @@
     https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Battery_CarbonFootprint_v0_1_DigitalProductPassport_Battery_CarbonFootprint_v0_1_post
      */
 
-  import { camelCaseToWords, countryListAlpha3, formatNumber } from "$lib/common"
+  import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
 
   type CarbonFootprint = {
@@ -18,6 +18,7 @@
     referenceMaterial: string
   }
 
+  export let status: number
   export let data: {
     batteryModel: string
     conformityDeclaration: string

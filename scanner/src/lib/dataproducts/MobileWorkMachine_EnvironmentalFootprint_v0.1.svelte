@@ -12,6 +12,7 @@
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
 
+  export let status: number
   export let data: {
     carbonFootprint: {
       mainProductionFootprint: number

@@ -65,7 +65,6 @@
       loading = false
     }
   }
-  console.log(productMetadata)
 </script>
 
 <div class="card">

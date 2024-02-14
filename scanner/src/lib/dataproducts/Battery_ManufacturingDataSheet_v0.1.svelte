@@ -9,11 +9,12 @@
     https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_post
      */
 
-  import { camelCaseToWords, countryListAlpha3, formatNumber } from "$lib/common"
+  import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import True from "$assets/true-circle.svg"
   import False from "$assets/false-circle.svg"
 
+  export let status: number
   export let data: {
     productName: string
     batteryModel: string
