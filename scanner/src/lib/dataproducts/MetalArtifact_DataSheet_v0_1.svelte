@@ -27,8 +27,8 @@
 </script>
 
 <article>
-  <DataRow label="Product Name" value={data.productName} />
-  <DataRow label="Product Type" value={data.productType} />
+  <DataRow label="Product name" value={data.productName} />
+  <DataRow label="Product type" value={data.productType} />
   <DataRow label="Width" value={formatNumber(data.measures.width, "cm")} />
   <DataRow label="Length" value={formatNumber(data.measures.length, "cm")} />
   <DataRow label="Height" value={formatNumber(data.measures.height, "cm")} />

@@ -74,6 +74,13 @@ For testing you should first set up the `api`, then run `generator` and generate
 suggest printing them at 5x5cm size for easier testing, then run the `scanner`. Using a USB web
 camera will make testing the actual scanning easier.
 
+### For Windows Users
+
+To run `cairosvg` which is needed by the generator to generate the QR codes you might need to
+install GTK+ for Windows.
+
+- [GTK+ for Windows Runtime Environment Installer](https://github.com/tschoonj/GTK-for-Windows-Runtime-Environment-Installer/releases)
+
 ### API
 
 ```shell
