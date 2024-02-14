@@ -12,12 +12,12 @@
   {#if link || (typeof value === "string" && value.startsWith("https://"))}
     <div class="value">
       {#if typeof value === "string"}
-        <a class="link" href={value} target="_blank" rel="noreferrer">{value}</a>
+        <a href={value} target="_blank" rel="noreferrer">{value}</a>
       {:else if value === null || value === undefined || value.length === 0}
         -
       {:else}
         {#each value as v}
-          <a class="link" href={v} target="_blank" rel="noreferrer">{v}</a>
+          <a href={v} target="_blank" rel="noreferrer">{v}</a>
         {/each}
       {/if}
     </div>
@@ -63,7 +63,7 @@
     flex: 0 0 55%;
     word-break: break-word;
 
-    .link {
+    a {
       color: #3cb08e;
     }
   }
