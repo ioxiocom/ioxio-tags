@@ -82,7 +82,7 @@
 <article>
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Battery model" value={data.batteryModel} />
-  <DataRow label="Battery category" value={data.batteryCategory} />
+  <DataRow label="Category" value={data.batteryCategory} />
   <DataRow label="Manufacturing date" value={data.manufacturingDate} />
   <DataRow label="Weight" value={formatNumber(data.weight, "kg")} />
   <DataRow label="Capacity" value={formatNumber(data.capacity, "Ah")} />
