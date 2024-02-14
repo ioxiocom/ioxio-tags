@@ -41,9 +41,7 @@
 
 <article>
   <DataRow label="Battery model" value={data.batteryModel} />
-  {#if data.conformityDeclaration}
-    <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
-  {/if}
+  <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the battery manufacturer</div>
@@ -59,27 +57,18 @@
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
   <DataRow label="City" value={data.manufacturingLocation.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation.country]} />
-  {#if data.carbonFootprint}
-    <div class="divider" />
-    <div class="title no-bottom-margin">Carbon footprint</div>
-    <div class="subtitle">
-      The details of the carbon footprint for the battery production phases
-    </div>
-    <DataRow
-      label="Pre-production footprint"
-      value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
-    />
-    <DataRow
-      label="Main production footprint"
-      value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
-    />
-    <DataRow
-      label="Reference material"
-      column
-      link
-      value={data.carbonFootprint.referenceMaterial}
-    />
-  {/if}
+  <div class="divider" />
+  <div class="title no-bottom-margin">Carbon footprint</div>
+  <div class="subtitle">The details of the carbon footprint for the battery production phases</div>
+  <DataRow
+    label="Pre-production footprint"
+    value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
+  />
+  <DataRow
+    label="Main production footprint"
+    value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
+  />
+  <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
 </article>
 
 <style lang="scss">
