@@ -11,8 +11,8 @@
 
   import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import True from "$assets/true-circle.svg"
-  import False from "$assets/false-circle.svg"
+  import TrueIcon from "$assets/true-circle.svg"
+  import FalseIcon from "$assets/false-circle.svg"
 
   export let status: number
   export let data: {
@@ -94,62 +94,61 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the battery manufacturer</div>
-  <DataRow label="Name" value={data.manufacturerInformation.name} />
-  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
-  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
-  <DataRow label="City" value={data.manufacturerInformation.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
-  <DataRow label="Website" column link value={data.manufacturerInformation.website} />
-  <DataRow label="Email" column value={data.manufacturerInformation.email} />
+  <DataRow label="Name" value={data.manufacturerInformation?.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation?.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
+  <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturing location</div>
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
-  <DataRow label="City" value={data.manufacturingLocation.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation.country]} />
+  <DataRow label="City" value={data.manufacturingLocation?.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
   <div class="divider" />
   <div class="title no-bottom-margin">Round trip efficiency</div>
   <div class="subtitle">The details of the round trip energy efficiency in energy storages</div>
   <DataRow
     label="Initial energy efficiency"
-    value={formatNumber(data.roundTripEfficiency.initialEnergyEfficieny, "%")}
+    value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficieny, "%")}
   />
   <DataRow
     label="Degraded energy efficiency"
-    value={formatNumber(data.roundTripEfficiency.degradedEnergyEfficiency, "%")}
+    value={formatNumber(data.roundTripEfficiency?.degradedEnergyEfficiency, "%")}
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Voltage levels</div>
   <div class="subtitle">The details of the voltage levels of the battery</div>
-  <DataRow label="Nominal" value={`${formatNumber(data.voltageLevels.nominalVoltage, "V")}`} />
-  <DataRow label="Maximum" value={`${formatNumber(data.voltageLevels.maximumVoltage, "V")}`} />
-  <DataRow label="Minimum" value={`${formatNumber(data.voltageLevels.minimumVoltage, "V")}`} />
+  <DataRow label="Nominal" value={formatNumber(data.voltageLevels?.nominalVoltage, "V")} />
+  <DataRow label="Maximum" value={formatNumber(data.voltageLevels?.maximumVoltage, "V")} />
+  <DataRow label="Minimum" value={formatNumber(data.voltageLevels?.minimumVoltage, "V")} />
   <div class="divider" />
   <div class="title no-bottom-margin">Temperature range</div>
   <div class="subtitle">The details of the acceptable temperature values of the battery</div>
   <DataRow
     label="Temperature range"
-    value={`${formatNumber(data.temperatureRange.minimumTemperature, "°C")} to ${formatNumber(
-      data.temperatureRange.maximumTemperature,
-      "°C"
-    )}`}
+    value={`${formatNumber(data.temperatureRange?.minimumTemperature, "°C")}
+     to
+     ${formatNumber(data.temperatureRange?.maximumTemperature, "°C")}`}
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Expected lifetime</div>
   <div class="subtitle">The details of the battery lifetime</div>
-  <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime.cycleLife)} />
-  <DataRow label="Reference test" value={data.expectedLifetime.referenceTest} />
-  <DataRow label="Cycle rate" value={data.expectedLifetime.cycleRate} />
+  <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
+  <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
+  <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
   <div class="divider" />
   <div class="title no-bottom-margin">Material composition</div>
   <div class="subtitle">The details of the material composition of the battery</div>
-  <DataRow label="Chemistry" value={data.materialComposition.chemistry.join(", ")} />
+  <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
   <DataRow
     label="Hazardous substances"
-    value={data.materialComposition.hazardousSubstances.join(", ")}
+    value={data.materialComposition?.hazardousSubstances.join(", ")}
   />
   <DataRow
     label="Critical raw materials"
-    value={data.materialComposition.criticalRawMaterials.join(", ")}
+    value={data.materialComposition?.criticalRawMaterials.join(", ")}
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Recycled content</div>
@@ -191,18 +190,25 @@
   <div class="act-compliance">
     <p class="label">Battery act compliance:</p>
     <div class="compliance-img">
-      <img src={data.legalConformity.batteryActCompliance ? True : False} alt="compliance status" />
+      <img
+        src={data.legalConformity?.batteryActCompliance ? TrueIcon : FalseIcon}
+        alt={`${
+          data.legalConformity?.batteryActCompliance
+            ? "Complies with the battery act"
+            : "Does not comply with the battery act"
+        }`}
+      />
     </div>
   </div>
   <DataRow
     label="Requirement conformity"
-    value={data.legalConformity.requirementConformity.join(", ")}
+    value={data.legalConformity?.requirementConformity.join(", ")}
   />
   <DataRow
     label="Conformity declaration"
     column
     link
-    value={data.legalConformity.conformityDeclaration}
+    value={data.legalConformity?.conformityDeclaration}
   />
 </article>
 
@@ -239,7 +245,9 @@
       align-items: center;
       margin-bottom: 1rem;
       p {
-        flex: 0 0 45%;
+        flex-grow: 0;
+        flex-shrink: 0;
+        flex-basis: 45%;
         line-height: 1.5rem;
         padding-right: 0.5rem;
       }

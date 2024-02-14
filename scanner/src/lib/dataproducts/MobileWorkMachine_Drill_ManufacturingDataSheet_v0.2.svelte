@@ -9,11 +9,11 @@
       https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2_DigitalProductPassport_MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2_post
        */
 
-  import { countryListAlpha3, formatNumber } from "$lib/common"
+  import { capitaliseFirstLetter, countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Electric from "$assets/fully-electric.svg"
-  import Hybrid from "$assets/hybrid.svg"
-  import FuelPowered from "$assets/fuel-powered.svg"
+  import ElectricIcon from "$assets/fully-electric.svg"
+  import HybridIcon from "$assets/hybrid.svg"
+  import FuelPoweredIcon from "$assets/fuel-powered.svg"
 
   enum PowerSystemType {
     FULLY_ELECTRIC = "fully electric",
@@ -22,6 +22,7 @@
   }
 
   export let status: number
+
   export let data: {
     productName: string
     boomCoverage: number
@@ -54,22 +55,17 @@
       }[]
     }
   }
+
   let powerSystemSvg: string | null
-  switch (data.powerSystem.type) {
-    case PowerSystemType.FULLY_ELECTRIC:
-      powerSystemSvg = Electric
-      break
-    case PowerSystemType.HYBRID:
-      powerSystemSvg = Hybrid
-      break
-    case PowerSystemType.FUEL_POWERED:
-      powerSystemSvg = FuelPowered
-      break
-    default:
-      powerSystemSvg = null
-  }
-  function capitaliseFirstLetter(word: string) {
-    return word.charAt(0).toUpperCase() + word.slice(1)
+
+  if (data.powerSystem.type === PowerSystemType.FULLY_ELECTRIC) {
+    powerSystemSvg = ElectricIcon
+  } else if (data.powerSystem.type === PowerSystemType.HYBRID) {
+    powerSystemSvg = HybridIcon
+  } else if (data.powerSystem.type === PowerSystemType.FUEL_POWERED) {
+    powerSystemSvg = FuelPoweredIcon
+  } else {
+    powerSystemSvg = null
   }
 </script>
 
@@ -86,38 +82,38 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the drill manufacturer</div>
-  <DataRow label="Name" value={data.manufacturerInformation.name} />
-  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
-  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
-  <DataRow label="City" value={data.manufacturerInformation.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
-  <DataRow label="Website" column link value={data.manufacturerInformation.website} />
-  <DataRow label="Email" column value={data.manufacturerInformation.email} />
+  <DataRow label="Name" value={data.manufacturerInformation?.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation?.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
+  <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Power system</div>
   <div class="subtitle">The details of the drill power system</div>
   <div class="power-system-type">
-    <p class="label">Type:</p>
+    <span class="label">Type:</span>
     <div class="value">
       <div class="type-img">
         {#if powerSystemSvg}
           <img src={powerSystemSvg} alt={data.powerSystem.type} />
         {/if}
       </div>
-      <p>{capitaliseFirstLetter(data.powerSystem.type)}</p>
+      <span>{capitaliseFirstLetter(data.powerSystem?.type) || "-"}</span>
     </div>
   </div>
   <div class="divider" />
   <DataRow
     label="Electric motors"
     column
-    value={data.powerSystem.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
+    value={data.powerSystem?.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
   <div class="divider no-bottom-padding" />
   <DataRow
     label="Batteries"
     column
-    value={data.powerSystem.batteries.map(
+    value={data.powerSystem?.batteries.map(
       (battery) => `${battery.count} x ${battery.cellType} ${formatNumber(battery.power, "kW")}`
     )}
   />
@@ -160,7 +156,7 @@
       align-items: center;
       margin-bottom: 1rem;
 
-      p {
+      span {
         flex: 0 0 45%;
         line-height: 1.5rem;
         padding-right: 0.5rem;

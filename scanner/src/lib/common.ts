@@ -27,6 +27,10 @@ export function formatNumber(input: number, unit = ""): string {
   return result
 }
 
+export function capitaliseFirstLetter(word: string) {
+  return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
 interface CountryList {
   [key: string]: string
 }

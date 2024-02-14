@@ -84,15 +84,13 @@
       <div class="subtitle no-bottom-margin">State of charge</div>
       <div class="subtitle no-bottom-margin">Temperature</div>
       {#each data.healthState.operationDetails as operationDetail}
-        {#if operationDetail.measurementDate.trim() && operationDetail.stateOfCharge && operationDetail.temperature}
-          <div>{operationDetail.measurementDate}</div>
-          <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
-          <div>{formatNumber(operationDetail.temperature, "°C")}</div>
-        {/if}
+        <div>{operationDetail.measurementDate || "-"}</div>
+        <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
+        <div>{formatNumber(operationDetail.temperature, "°C")}</div>
       {/each}
     </div>
   {:else}
-    <p>-</p>
+    <span>-</span>
   {/if}
   <div class="divider" />
   <div class="title no-bottom-margin">Harmful events</div>
@@ -104,7 +102,7 @@
       {/if}
     {/each}
   {:else}
-    <p>-</p>
+    <span>-</span>
   {/if}
 </article>
 
@@ -145,9 +143,9 @@
       grid-template-columns: 1fr 1fr 1fr;
       gap: 1rem;
       margin-bottom: 1rem;
-      @media screen and (max-width: 450px) {
+      /* @media screen and (max-width: 450px) {
         text-align: center;
-      }
+      } */
     }
   }
 </style>

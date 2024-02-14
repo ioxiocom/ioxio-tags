@@ -45,7 +45,7 @@
     <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
     <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
   {:else}
-    <p>-</p>
+    <span>-</span>
   {/if}
 </article>
 

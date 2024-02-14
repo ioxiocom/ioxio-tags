@@ -1,6 +1,6 @@
 <script lang="ts">
-  import Truck from "$assets/truck.svg"
-  import Ship from "$assets/ship.svg"
+  import TruckIcon from "$assets/truck.svg"
+  import ShipIcon from "$assets/ship.svg"
 
   export let origin: string
   export let destination: string
@@ -18,7 +18,7 @@
     <div class="circle left" style="--size: 1rem;" />
     {#if !isTotal}
       <div class="circle center" style="--size: 2.25rem;">
-        <img src={isTruck ? Truck : Ship} alt="" aria-hidden="true" />
+        <img src={isTruck ? TruckIcon : ShipIcon} alt="" aria-hidden="true" />
       </div>
     {/if}
     <div class="circle right" style="--size: 1rem;" />
