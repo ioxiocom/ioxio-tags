@@ -66,7 +66,7 @@
       The details of the carbon footprint for the battery production phases
     </div>
     <DataRow
-      label="Pre production footprint"
+      label="Pre-production footprint"
       value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
     />
     <DataRow
