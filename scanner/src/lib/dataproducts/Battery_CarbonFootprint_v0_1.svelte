@@ -45,30 +45,30 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturer information</div>
   <div class="subtitle">The details of the battery manufacturer</div>
-  <DataRow label="Name" value={data.manufacturerInformation.name} />
-  <DataRow label="Street name" value={data.manufacturerInformation.streetName} />
-  <DataRow label="Postal code" value={data.manufacturerInformation.postalCode} />
-  <DataRow label="City" value={data.manufacturerInformation.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation.country]} />
-  <DataRow label="Website" link column value={data.manufacturerInformation.website} />
-  <DataRow label="Email" column value={data.manufacturerInformation.email} />
+  <DataRow label="Name" value={data.manufacturerInformation?.name} />
+  <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
+  <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
+  <DataRow label="City" value={data.manufacturerInformation?.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
+  <DataRow label="Website" link column value={data.manufacturerInformation?.website} />
+  <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <div class="divider" />
   <div class="title no-bottom-margin">Manufacturing location</div>
   <div class="subtitle">The details of the location of the battery manufacturing plant</div>
-  <DataRow label="City" value={data.manufacturingLocation.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation.country]} />
+  <DataRow label="City" value={data.manufacturingLocation?.city} />
+  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
   <div class="divider" />
   <div class="title no-bottom-margin">Carbon footprint</div>
   <div class="subtitle">The details of the carbon footprint for the battery production phases</div>
   <DataRow
     label="Pre-production footprint"
-    value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
+    value={formatNumber(data.carbonFootprint?.preProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow
     label="Main production footprint"
-    value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
+    value={formatNumber(data.carbonFootprint?.mainProductionFootprint, "kg CO2e / kWh")}
   />
-  <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
+  <DataRow label="Reference material" column link value={data.carbonFootprint?.referenceMaterial} />
 </article>
 
 <style lang="scss">

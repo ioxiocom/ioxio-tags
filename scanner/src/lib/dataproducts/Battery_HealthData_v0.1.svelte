@@ -51,42 +51,44 @@
   <div class="divider" />
   <div class="title no-bottom-margin">Original performance</div>
   <div class="subtitle">The details of the original performance of the battery</div>
-  <DataRow label="Capacity" value={formatNumber(data.originalPerformance.capacity, "Ah")} />
-  <DataRow label="Power" value={formatNumber(data.originalPerformance.power, "W")} />
+  <DataRow label="Capacity" value={formatNumber(data.originalPerformance?.capacity, "Ah")} />
+  <DataRow label="Power" value={formatNumber(data.originalPerformance?.power, "W")} />
   <DataRow
     label="Internal resistance"
-    value={formatNumber(data.originalPerformance.resistance, "Ω")}
+    value={formatNumber(data.originalPerformance?.resistance, "Ω")}
   />
-  <DataRow label="Cycle life" value={formatNumber(data.originalPerformance.cycleLife)} />
+  <DataRow label="Cycle life" value={formatNumber(data.originalPerformance?.cycleLife)} />
   <DataRow
     label="Expected lifetime"
-    value={formatNumber(data.originalPerformance.years, "years")}
+    value={formatNumber(data.originalPerformance?.years, "years")}
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Health state</div>
   <div class="subtitle">The state of the health of the battery</div>
   <DataRow
     label="Cumulative cycle count"
-    value={formatNumber(data.healthState.cumulativeCycleCount)}
+    value={formatNumber(data.healthState?.cumulativeCycleCount)}
   />
-  <DataRow label="Capacity fade" value={formatNumber(data.healthState.capacityFade, "%")} />
-  <DataRow label="Power fade" value={formatNumber(data.healthState.powerFade, "%")} />
+  <DataRow label="Capacity fade" value={formatNumber(data.healthState?.capacityFade, "%")} />
+  <DataRow label="Power fade" value={formatNumber(data.healthState?.powerFade, "%")} />
   <DataRow
     label="Resistance increase"
-    value={formatNumber(data.healthState.resistanceIncrease, "%")}
+    value={formatNumber(data.healthState?.resistanceIncrease, "%")}
   />
   <div class="divider" />
   <div class="title no-bottom-margin">Operation details</div>
   <div class="subtitle">The periodic information of the battery operation</div>
-  {#if data.healthState.operationDetails.length > 0}
+  {#if data.healthState?.operationDetails.length > 0}
     <div class="grid">
       <div class="subtitle no-bottom-margin">Measurement date</div>
       <div class="subtitle no-bottom-margin">State of charge</div>
       <div class="subtitle no-bottom-margin">Temperature</div>
       {#each data.healthState.operationDetails as operationDetail}
-        <div>{operationDetail.measurementDate}</div>
-        <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
-        <div>{formatNumber(operationDetail.temperature, "°C")}</div>
+        {#if operationDetail.measurementDate.trim() && operationDetail.stateOfCharge && operationDetail.temperature}
+          <div>{operationDetail.measurementDate}</div>
+          <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
+          <div>{formatNumber(operationDetail.temperature, "°C")}</div>
+        {/if}
       {/each}
     </div>
   {:else}
