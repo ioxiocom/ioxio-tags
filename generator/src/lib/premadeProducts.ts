@@ -25,4 +25,9 @@ export const premadeProducts = [
     product: "177389-09633",
     id: "741b",
   },
+  {
+    name: "Battery 2000 (660e8400-e29b)",
+    product: "lithium-ion",
+    id: "660e8400-e29b",
+  },
 ]
