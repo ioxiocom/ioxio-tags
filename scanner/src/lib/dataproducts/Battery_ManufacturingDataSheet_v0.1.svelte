@@ -41,7 +41,7 @@
       country: string
     }
     roundTripEfficiency: {
-      initialEnergyEfficieny: number
+      initialEnergyEfficiency: number
       degradedEnergyEfficiency: number
     }
     voltageLevels: {
@@ -111,7 +111,7 @@
   <div class="subtitle">The details of the round trip energy efficiency in energy storages</div>
   <DataRow
     label="Initial energy efficiency"
-    value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficieny, "%")}
+    value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficiency, "%")}
   />
   <DataRow
     label="Degraded energy efficiency"
