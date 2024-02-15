@@ -1,8 +1,8 @@
 {
   "names": {
-    "en_US": "FZSONIC Battery 48 TL200"
+    "en_US": "Battery 2000"
   },
-  "image_url": "https://tags.ioxio.dev/images/fzsonic-battery.png",
+  "image_url": "https://tags.ioxio.dev/images/lithium-ion.png",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/Battery/CarbonFootprint_v0.1",
