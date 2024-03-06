@@ -187,9 +187,9 @@
   {/if}
   <Divider />
   <Title class="no-bottom-margin">Legal conformity</Title>
-  <SubTitle
-    >The details of the conformity of the battery with the legal and harmonized standards</SubTitle
-  >
+  <SubTitle>
+    The details of the conformity of the battery with the legal and harmonized standards
+  </SubTitle>
   <div class="act-compliance">
     <p class="label">Battery act compliance:</p>
     <div class="compliance-img">
