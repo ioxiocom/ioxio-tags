@@ -11,6 +11,9 @@
 
   import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
+  import Divider from "$components/Common/Divider/index.svelte"
+  import Title from "$components/Common/Title/index.svelte"
+  import SubTitle from "$components/Common/SubTitle/index.svelte"
 
   type CarbonFootprint = {
     preProductionFootprint: number
@@ -42,9 +45,9 @@
 <article>
   <DataRow label="Battery model" value={data.batteryModel} />
   <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Manufacturer information</div>
-  <div class="subtitle">The details of the battery manufacturer</div>
+  <Divider />
+  <Title class="no-bottom-margin">Manufacturer information</Title>
+  <SubTitle>The details of the battery manufacturer</SubTitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -52,14 +55,14 @@
   <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
   <DataRow label="Website" link column value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Manufacturing location</div>
-  <div class="subtitle">The details of the location of the battery manufacturing plant</div>
+  <Divider />
+  <Title class="no-bottom-margin">Manufacturing location</Title>
+  <SubTitle>The details of the location of the battery manufacturing plant</SubTitle>
   <DataRow label="City" value={data.manufacturingLocation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Carbon footprint</div>
-  <div class="subtitle">The details of the carbon footprint for the battery production phases</div>
+  <Divider />
+  <Title class="no-bottom-margin">Carbon footprint</Title>
+  <SubTitle>The details of the carbon footprint for the battery production phases</SubTitle>
   <DataRow
     label="Pre-production footprint"
     value={formatNumber(data.carbonFootprint?.preProductionFootprint, "kg CO2e / kWh")}
@@ -75,28 +78,5 @@
   article {
     color: white;
     font-style: normal;
-
-    .title {
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-
-      &.no-bottom-margin {
-        margin-bottom: 0;
-      }
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      border-bottom: 1px solid #20303e;
-      margin-bottom: 1rem;
-    }
   }
 </style>

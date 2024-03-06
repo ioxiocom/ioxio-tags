@@ -11,6 +11,9 @@
 
   import { capitaliseFirstLetter, countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
+  import Divider from "$components/Common/Divider/index.svelte"
+  import Title from "$components/Common/Title/index.svelte"
+  import SubTitle from "$components/Common/SubTitle/index.svelte"
   import ElectricIcon from "$assets/fully-electric.svg"
   import HybridIcon from "$assets/hybrid.svg"
   import FuelPoweredIcon from "$assets/fuel-powered.svg"
@@ -79,9 +82,9 @@
   <DataRow label="Drilling power" value={formatNumber(data.drillingPower, "kW")} />
   <DataRow label="Reference data sheet" column link value={data.referenceDataSheet} />
   <DataRow label="Safety data sheet" column link value={data.safetyDataSheet} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Manufacturer information</div>
-  <div class="subtitle">The details of the drill manufacturer</div>
+  <Divider />
+  <Title class="no-bottom-margin">Manufacturer information</Title>
+  <SubTitle>The details of the drill manufacturer</SubTitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -89,9 +92,9 @@
   <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
   <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Power system</div>
-  <div class="subtitle">The details of the drill power system</div>
+  <Divider />
+  <Title class="no-bottom-margin">Power system</Title>
+  <SubTitle>The details of the drill power system</SubTitle>
   <div class="power-system-type">
     <span class="label">Type:</span>
     <div class="value">
@@ -103,13 +106,13 @@
       <span>{capitaliseFirstLetter(data.powerSystem?.type) || "-"}</span>
     </div>
   </div>
-  <div class="divider" />
+  <Divider />
   <DataRow
     label="Electric motors"
     column
     value={data.powerSystem?.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
-  <div class="divider no-bottom-padding" />
+  <Divider class="no-bottom-padding" />
   <DataRow
     label="Batteries"
     column
@@ -123,33 +126,6 @@
   article {
     color: white;
     font-style: normal;
-
-    .title {
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-
-      &.no-bottom-margin {
-        margin-bottom: 0;
-      }
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      border-bottom: 1px solid #20303e;
-      margin-bottom: 1rem;
-
-      &.no-bottom-padding {
-        padding-bottom: 0;
-      }
-    }
 
     .power-system-type {
       display: flex;

@@ -11,6 +11,9 @@
 
   import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
+  import Divider from "$components/Common/Divider/index.svelte"
+  import Title from "$components/Common/Title/index.svelte"
+  import SubTitle from "$components/Common/SubTitle/index.svelte"
   import TrueIcon from "$assets/true-circle.svg"
   import FalseIcon from "$assets/false-circle.svg"
 
@@ -91,9 +94,9 @@
   <DataRow label="Resistance" value={formatNumber(data.resistance, "Ω")} />
   <DataRow label="Extinguishing agents" value={data.extinguishingAgents.join(", ")} />
   <DataRow label="Warranty valid until" value={data.warranty} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Manufacturer information</div>
-  <div class="subtitle">The details of the battery manufacturer</div>
+  <Divider />
+  <Title class="no-bottom-margin">Manufacturer information</Title>
+  <SubTitle>The details of the battery manufacturer</SubTitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -101,14 +104,14 @@
   <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
   <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Manufacturing location</div>
-  <div class="subtitle">The details of the location of the battery manufacturing plant</div>
+  <Divider />
+  <Title class="no-bottom-margin">Manufacturing location</Title>
+  <SubTitle>The details of the location of the battery manufacturing plant</SubTitle>
   <DataRow label="City" value={data.manufacturingLocation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Round trip efficiency</div>
-  <div class="subtitle">The details of the round trip energy efficiency in energy storages</div>
+  <Divider />
+  <Title class="no-bottom-margin">Round trip efficiency</Title>
+  <SubTitle>The details of the round trip energy efficiency in energy storages</SubTitle>
   <DataRow
     label="Initial energy efficiency"
     value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficiency, "%")}
@@ -117,30 +120,30 @@
     label="Degraded energy efficiency"
     value={formatNumber(data.roundTripEfficiency?.degradedEnergyEfficiency, "%")}
   />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Voltage levels</div>
-  <div class="subtitle">The details of the voltage levels of the battery</div>
+  <Divider />
+  <Title class="no-bottom-margin">Voltage levels</Title>
+  <SubTitle>The details of the voltage levels of the battery</SubTitle>
   <DataRow label="Nominal" value={formatNumber(data.voltageLevels?.nominalVoltage, "V")} />
   <DataRow label="Maximum" value={formatNumber(data.voltageLevels?.maximumVoltage, "V")} />
   <DataRow label="Minimum" value={formatNumber(data.voltageLevels?.minimumVoltage, "V")} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Temperature range</div>
-  <div class="subtitle">The details of the acceptable temperature values of the battery</div>
+  <Divider />
+  <Title class="no-bottom-margin">Temperature range</Title>
+  <SubTitle>The details of the acceptable temperature values of the battery</SubTitle>
   <DataRow
     label="Temperature range"
     value={`${formatNumber(data.temperatureRange?.minimumTemperature, "°C")}
      to
      ${formatNumber(data.temperatureRange?.maximumTemperature, "°C")}`}
   />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Expected lifetime</div>
-  <div class="subtitle">The details of the battery lifetime</div>
+  <Divider />
+  <Title class="no-bottom-margin">Expected lifetime</Title>
+  <SubTitle>The details of the battery lifetime</SubTitle>
   <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
   <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
   <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Material composition</div>
-  <div class="subtitle">The details of the material composition of the battery</div>
+  <Divider />
+  <Title class="no-bottom-margin">Material composition</Title>
+  <SubTitle>The details of the material composition of the battery</SubTitle>
   <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
   <DataRow
     label="Hazardous substances"
@@ -150,9 +153,9 @@
     label="Critical raw materials"
     value={data.materialComposition?.criticalRawMaterials.join(", ")}
   />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Recycled content</div>
-  <div class="subtitle">The recycled content information present in the battery</div>
+  <Divider />
+  <Title class="no-bottom-margin">Recycled content</Title>
+  <SubTitle>The recycled content information present in the battery</SubTitle>
   {#if data.recycledContent.length > 0}
     <ul>
       {#each data.recycledContent as content}
@@ -166,9 +169,9 @@
   {:else}
     <p>-</p>
   {/if}
-  <div class="divider" />
-  <div class="title no-bottom-margin">Renewable content</div>
-  <div class="subtitle">The renewable content information present in the battery</div>
+  <Divider />
+  <Title class="no-bottom-margin">Renewable content</Title>
+  <SubTitle>The renewable content information present in the battery</SubTitle>
   {#if data.renewableContent.length > 0}
     <ul>
       {#each data.renewableContent as content}
@@ -182,21 +185,19 @@
   {:else}
     <p>-</p>
   {/if}
-  <div class="divider" />
-  <div class="title no-bottom-margin">Legal conformity</div>
-  <div class="subtitle">
-    The details of the conformity of the battery with the legal and harmonized standards
-  </div>
+  <Divider />
+  <Title class="no-bottom-margin">Legal conformity</Title>
+  <SubTitle
+    >The details of the conformity of the battery with the legal and harmonized standards</SubTitle
+  >
   <div class="act-compliance">
     <p class="label">Battery act compliance:</p>
     <div class="compliance-img">
       <img
         src={data.legalConformity?.batteryActCompliance ? TrueIcon : FalseIcon}
-        alt={`${
-          data.legalConformity?.batteryActCompliance
-            ? "Complies with the battery act"
-            : "Does not comply with the battery act"
-        }`}
+        alt={data.legalConformity?.batteryActCompliance
+          ? "Complies with the battery act"
+          : "Does not comply with the battery act"}
       />
     </div>
   </div>
@@ -216,29 +217,6 @@
   article {
     color: white;
     font-style: normal;
-
-    .title {
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-
-      &.no-bottom-margin {
-        margin-bottom: 0;
-      }
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      border-bottom: 1px solid #20303e;
-      margin-bottom: 1rem;
-    }
 
     .act-compliance {
       display: flex;

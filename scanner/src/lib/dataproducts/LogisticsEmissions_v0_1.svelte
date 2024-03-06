@@ -12,6 +12,8 @@
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Road from "$components/Road/index.svelte"
+  import Divider from "$components/Common/Divider/index.svelte"
+  import Title from "$components/Common/Title/index.svelte"
 
   type EmissionsPerTce = {
     description: string
@@ -86,7 +88,7 @@
 
 <article>
   {#if data.roadFreightEmissions.length > 0 || data.seaFreightEmissions.length > 0}
-    <div class="title">Total emissions of the transports</div>
+    <Title>Total emissions of the transports</Title>
     <Road
       origin={data.roadFreightEmissions[0].origin}
       destination={data.roadFreightEmissions[data.roadFreightEmissions.length - 1].destination}
@@ -100,9 +102,9 @@
 
     <DataRow label="Emission sources" value={emissionSources} />
   {/if}
-  <div class="divider" />
+  <Divider />
   {#if data.roadFreightEmissions.length > 0}
-    <div class="title">Road freight emissions</div>
+    <Title>Road freight emissions</Title>
     {#each data.roadFreightEmissions as roadFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
       <div class="leg-id">{roadFreightEmission.legIdentifier || "-"}</div>
@@ -131,9 +133,9 @@
       />
     {/each}
   {/if}
-  <div class="divider" />
+  <Divider />
   {#if data.seaFreightEmissions.length > 0}
-    <div class="title">Sea freight emissions</div>
+    <Title>Sea freight emissions</Title>
     {#each data.seaFreightEmissions as seaFreightEmission}
       <div class="leg-id-label">LEG IDENTIFIER:</div>
       <div class="leg-id">{seaFreightEmission.legIdentifier || "-"}</div>
@@ -172,13 +174,6 @@
     color: white;
     font-style: normal;
 
-    .title {
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
     .leg-id-label {
       font-size: 0.75rem;
       line-height: 1.5rem;
@@ -189,11 +184,6 @@
     .leg-id {
       font-size: 1rem;
       line-height: 1.5rem;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      border-bottom: 1px solid #20303e;
       margin-bottom: 1rem;
     }
   }

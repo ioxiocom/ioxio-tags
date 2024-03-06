@@ -102,12 +102,14 @@
       font-weight: 400;
       flex: 0 0 40%;
       padding-right: 0.5rem;
+      line-height: 1.5rem;
     }
     .value {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      line-height: 1.5rem;
     }
     .status {
       font-size: 1rem;
