@@ -49,8 +49,8 @@
 
 <article>
   <DataRow label="Status" value={data.status} />
-  <DataRow label="Manufacturing date" value={localizeDate(data.manufacturingDate)} />
-  <DataRow label="Service initiation date" value={localizeDate(data.serviceInitiationDate)} />
+  <DataRow label="Manufacturing date" value={data.manufacturingDate} />
+  <DataRow label="Service initiation date" value={data.serviceInitiationDate} />
   <Divider />
   <Title class="no-bottom-margin">Original performance</Title>
   <SubTitle>The details of the original performance of the battery</SubTitle>

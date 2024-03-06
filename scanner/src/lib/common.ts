@@ -28,7 +28,7 @@ export function formatNumber(input: number, unit = ""): string {
 }
 
 export function localizeDate(date: string) {
-  return new Date(date).toLocaleDateString()
+  return new Intl.DateTimeFormat(locale).format(new Date(date))
 }
 
 export function capitaliseFirstLetter(word: string) {
