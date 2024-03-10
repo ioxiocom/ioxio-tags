@@ -14,6 +14,7 @@
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
   import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
 
   export let status: number
   export let data: {
@@ -29,7 +30,7 @@
   }
 </script>
 
-<article>
+<Article>
   <Title class="no-bottom-margin">Carbon footprint</Title>
   <SubTitle>Carbon footprint of a mobile work machine</SubTitle>
   <DataRow
@@ -50,11 +51,4 @@
   {:else}
     <span>-</span>
   {/if}
-</article>
-
-<style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
-  }
-</style>
+</Article>

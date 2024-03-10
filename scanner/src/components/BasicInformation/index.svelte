@@ -70,21 +70,24 @@
       color: white;
       font-size: 1.125rem;
       font-weight: 600;
-      line-height: 1.68rem;
+      line-height: 150%;
     }
   }
   .card {
     background: #1a2934;
     border-radius: 0.5rem;
-    padding: 1rem 0.5rem;
+    padding: 0.625rem;
     font-size: 1rem;
     font-weight: 400;
     line-height: 1.125rem;
     letter-spacing: 0em;
     margin-bottom: 1.5rem;
+    gap: 0.625rem;
+    display: flex;
+    flex-direction: column;
+
     .basic-information {
       color: #798893;
-      margin-bottom: 1rem;
       font-size: 0.75rem;
       text-transform: uppercase;
     }
@@ -94,28 +97,26 @@
     flex-direction: row;
     align-items: flex-start;
     color: white;
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
+
     .property {
       font-size: 1rem;
       font-weight: 400;
       flex: 0 0 40%;
       padding-right: 0.5rem;
-      line-height: 1.5rem;
+      line-height: 150%;
     }
     .value {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      line-height: 1.5rem;
+      line-height: 150%;
     }
     .status {
       font-size: 1rem;
       font-style: normal;
       font-weight: 600;
-      line-height: 150%; /* 18px */
+      line-height: 150%;
     }
     .trusted {
       color: #3cb08e;

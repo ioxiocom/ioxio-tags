@@ -1,10 +1,11 @@
 import { toast } from "@zerodevx/svelte-toast"
 
 const locale = new Intl.NumberFormat().resolvedOptions().locale
-const NumberFormat = new Intl.NumberFormat(locale, {
+const NumberFormatter = new Intl.NumberFormat(locale, {
   minimumSignificantDigits: 1,
   maximumSignificantDigits: 3,
 })
+const DateFormatter = new Intl.DateTimeFormat(locale)
 
 export function consoleLog(message: string, type: string = "info") {
   toast.push(message, { classes: [type === "info" ? "info" : "warn"] })
@@ -20,7 +21,7 @@ export function formatNumber(input: number, unit = ""): string {
     return "-"
   }
 
-  let result = NumberFormat.format(input)
+  let result = NumberFormatter.format(input)
   if (unit) {
     result += ` ${unit}`
   }
@@ -28,7 +29,7 @@ export function formatNumber(input: number, unit = ""): string {
 }
 
 export function localizeDate(date: string) {
-  return new Intl.DateTimeFormat(locale).format(new Date(date))
+  return DateFormatter.format(new Date(date))
 }
 
 export function capitaliseFirstLetter(word: string) {

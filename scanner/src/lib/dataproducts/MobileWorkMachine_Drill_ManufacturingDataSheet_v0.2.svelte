@@ -14,6 +14,7 @@
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
   import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
   import ElectricIcon from "$assets/fully-electric.svg"
   import HybridIcon from "$assets/hybrid.svg"
   import FuelPoweredIcon from "$assets/fuel-powered.svg"
@@ -72,7 +73,7 @@
   }
 </script>
 
-<article>
+<Article>
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Boom coverage" value={formatNumber(data.boomCoverage, "m")} />
   <DataRow label="Tramming distance" value={formatNumber(data.trammingDistance, "km")} />
@@ -120,34 +121,29 @@
       (battery) => `${battery.count} x ${battery.cellType} ${formatNumber(battery.power, "kW")}`
     )}
   />
-</article>
+</Article>
 
 <style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
+  .power-system-type {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
 
-    .power-system-type {
+    span {
+      flex: 0 0 45%;
+      line-height: 1.5rem;
+      padding-right: 0.5rem;
+    }
+
+    .value {
       display: flex;
+      flex-direction: row;
       align-items: center;
-      margin-bottom: 1rem;
 
-      span {
-        flex: 0 0 45%;
+      .type-img {
+        width: 1.5rem;
         line-height: 1.5rem;
-        padding-right: 0.5rem;
-      }
-
-      .value {
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-
-        .type-img {
-          width: 1.5rem;
-          line-height: 1.5rem;
-          margin-right: 1rem;
-        }
+        margin-right: 1rem;
       }
     }
   }

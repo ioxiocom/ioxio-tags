@@ -14,6 +14,7 @@
   import Road from "$components/Road/index.svelte"
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
 
   type EmissionsPerTce = {
     description: string
@@ -86,7 +87,7 @@
   const emissionSources = [...new Set(roadEmissionSources.concat(seaEmissionSources).flat())]
 </script>
 
-<article>
+<Article>
   {#if data.roadFreightEmissions.length > 0 || data.seaFreightEmissions.length > 0}
     <Title>Total emissions of the transports</Title>
     <Road
@@ -167,24 +168,19 @@
       />
     {/each}
   {/if}
-</article>
+</Article>
 
 <style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
+  .leg-id-label {
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    color: #798893;
+    text-transform: uppercase;
+  }
 
-    .leg-id-label {
-      font-size: 0.75rem;
-      line-height: 1.5rem;
-      color: #798893;
-      text-transform: uppercase;
-    }
-
-    .leg-id {
-      font-size: 1rem;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-    }
+  .leg-id {
+    font-size: 1rem;
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
   }
 </style>

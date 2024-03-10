@@ -14,6 +14,7 @@
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
   import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
 
   type CarbonFootprint = {
     preProductionFootprint: number
@@ -42,7 +43,7 @@
   }
 </script>
 
-<article>
+<Article>
   <DataRow label="Battery model" value={data.batteryModel} />
   <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   <Divider />
@@ -72,11 +73,4 @@
     value={formatNumber(data.carbonFootprint?.mainProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow label="Reference material" column link value={data.carbonFootprint?.referenceMaterial} />
-</article>
-
-<style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
-  }
-</style>
+</Article>

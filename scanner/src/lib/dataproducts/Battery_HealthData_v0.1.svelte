@@ -14,6 +14,7 @@
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
   import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
 
   type OperationDetail = {
     measurementDate: string
@@ -47,7 +48,7 @@
   }
 </script>
 
-<article>
+<Article>
   <DataRow label="Status" value={data.status} />
   <DataRow label="Manufacturing date" value={data.manufacturingDate} />
   <DataRow label="Service initiation date" value={data.serviceInitiationDate} />
@@ -110,21 +111,16 @@
   {:else}
     <span>-</span>
   {/if}
-</article>
+</Article>
 
 <style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
-
-    .grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr 1fr;
-      gap: 1rem;
-      margin-bottom: 1rem;
-      @media screen and (max-width: 330px) {
-        text-align: center;
-      }
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 1rem;
+    margin-bottom: 1rem;
+    @media screen and (max-width: 389px) {
+      text-align: center;
     }
   }
 </style>

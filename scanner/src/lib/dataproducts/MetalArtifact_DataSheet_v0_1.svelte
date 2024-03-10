@@ -11,6 +11,7 @@
 
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
 
   export let status: number
   export let data: {
@@ -26,7 +27,7 @@
   }
 </script>
 
-<article>
+<Article>
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Product type" value={data.productType} />
   <DataRow label="Width" value={formatNumber(data.measures.width, "cm")} />
@@ -37,16 +38,4 @@
     label="EN Standard Code(s)"
     value={data.enStandardCertifications.map((data) => data.enStandardCode)}
   />
-</article>
-
-<style lang="scss">
-  article {
-    color: white;
-
-    > div {
-      display: flex;
-      flex-direction: row;
-      gap: 2rem;
-    }
-  }
-</style>
+</Article>

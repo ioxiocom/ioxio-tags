@@ -110,9 +110,9 @@
   .card {
     background: #1a2934;
     border-radius: 0.5rem;
-    padding: 1rem 0.5rem;
+    padding: 0.625rem 0.5rem;
     font-weight: 400;
-    line-height: 1.125rem;
+    font-style: normal;
     letter-spacing: 0em;
     margin-bottom: 1.5rem;
 
@@ -120,12 +120,14 @@
       flex-grow: 1;
       color: white;
       font-size: 1rem;
+      line-height: 150%;
     }
 
     .subtitle {
       font-size: 0.75rem;
       font-weight: 400;
       color: white;
+      line-height: 150%;
     }
 
     .header {

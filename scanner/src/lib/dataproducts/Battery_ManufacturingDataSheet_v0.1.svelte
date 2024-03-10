@@ -14,6 +14,7 @@
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
   import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Article from "$components/Common/Article/index.svelte"
   import TrueIcon from "$assets/true-circle.svg"
   import FalseIcon from "$assets/false-circle.svg"
 
@@ -82,7 +83,7 @@
   }
 </script>
 
-<article>
+<Article>
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Battery model" value={data.batteryModel} />
   <DataRow label="Category" value={data.batteryCategory} />
@@ -211,33 +212,28 @@
     link
     value={data.legalConformity?.conformityDeclaration}
   />
-</article>
+</Article>
 
 <style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
-
-    .act-compliance {
-      display: flex;
-      align-items: center;
-      margin-bottom: 1rem;
-      p {
-        flex-grow: 0;
-        flex-shrink: 0;
-        flex-basis: 45%;
-        line-height: 1.5rem;
-        padding-right: 0.5rem;
-      }
-
-      .compliance-img {
-        width: 1.5rem;
-        line-height: 1.5rem;
-      }
+  .act-compliance {
+    display: flex;
+    align-items: center;
+    margin-bottom: 1rem;
+    p {
+      flex-grow: 0;
+      flex-shrink: 0;
+      flex-basis: 45%;
+      line-height: 1.5rem;
+      padding-right: 0.5rem;
     }
 
-    .list-item {
-      line-height: 150%;
+    .compliance-img {
+      width: 1.5rem;
+      line-height: 1.5rem;
     }
+  }
+
+  .list-item {
+    line-height: 150%;
   }
 </style>
