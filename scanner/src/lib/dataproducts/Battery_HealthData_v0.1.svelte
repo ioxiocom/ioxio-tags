@@ -119,8 +119,11 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 1rem;
     margin-bottom: 1rem;
+
     @media screen and (max-width: 389px) {
-      text-align: center;
+      :global(.subtitle) {
+        text-align: center;
+      }
     }
   }
 </style>
