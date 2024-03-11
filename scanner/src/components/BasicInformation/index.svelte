@@ -5,6 +5,8 @@
   import InvalidSourceSvg from "$assets/invalid-source.svg"
   import UnknownSvg from "$assets/unknown.svg"
 
+  import Card from "$components/Common/Card/index.svelte"
+
   type MetadataV1Response = components["schemas"]["MetadataV1Response"]
 
   export let meta: MetadataV1Response
@@ -18,7 +20,7 @@
   </div>
   <div class="title">{meta.names.en_US}</div>
 </div>
-<div class="card">
+<Card>
   <div class="basic-information">Basic Information</div>
   <div class="row">
     <div class="property">Verification state:</div>
@@ -45,7 +47,7 @@
     <div class="property capitalize">Dataspace domain:</div>
     <div class="value domain">{meta.product_dataspace}</div>
   </div>
-</div>
+</Card>
 
 <style lang="scss">
   .logo-title {
@@ -73,25 +75,13 @@
       line-height: 150%;
     }
   }
-  .card {
-    background: #1a2934;
-    border-radius: 0.5rem;
-    padding: 0.625rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.125rem;
-    letter-spacing: 0em;
-    margin-bottom: 1.5rem;
-    gap: 0.625rem;
-    display: flex;
-    flex-direction: column;
 
-    .basic-information {
-      color: #798893;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-    }
+  .basic-information {
+    color: #798893;
+    font-size: 0.75rem;
+    text-transform: uppercase;
   }
+
   .row {
     display: flex;
     flex-direction: row;

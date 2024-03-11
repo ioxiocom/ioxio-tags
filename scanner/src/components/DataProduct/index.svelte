@@ -6,6 +6,8 @@
   import { dataproduct } from "$lib/api"
   import { consoleLog } from "$lib/common"
 
+  import Card from "$components/Common/Card/index.svelte"
+
   type SupportedDataproduct = components["schemas"]["SupportedDataproduct"]
   export let productMetadata: SupportedDataproduct
   export let dataspace: string
@@ -67,7 +69,7 @@
   }
 </script>
 
-<div class="card">
+<Card>
   <div class="header">
     <div class="dataproduct-name">{productMetadata.name}</div>
     {#if supported}
@@ -83,13 +85,13 @@
       <button class="button unsupported" disabled> Unsupported </button>
     {/if}
   </div>
-  <div class="subtitle" class:divider={open}>{productMetadata.description}</div>
   {#if loadedData}
+    <div class="subtitle" class:divider={open}>{productMetadata.description}</div>
     <section>
       <svelte:component this={component} status={loadedStatus} data={loadedData} />
     </section>
   {/if}
-</div>
+</Card>
 
 <style lang="scss">
   @mixin keyframes($name) {
@@ -107,43 +109,31 @@
     }
   }
 
-  .card {
-    background: #1a2934;
-    border-radius: 0.5rem;
-    padding: 0.625rem 0.5rem;
+  .dataproduct-name {
+    flex-grow: 1;
+    color: white;
+    font-size: 1rem;
+    line-height: 150%;
+  }
+
+  .subtitle {
+    font-size: 0.75rem;
     font-weight: 400;
-    font-style: normal;
-    letter-spacing: 0em;
-    margin-bottom: 1.5rem;
+    color: white;
+    line-height: 150%;
+  }
 
-    .dataproduct-name {
-      flex-grow: 1;
-      color: white;
-      font-size: 1rem;
-      line-height: 150%;
-    }
+  .header {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+  }
 
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: white;
-      line-height: 150%;
-    }
-
-    .header {
-      display: flex;
-      flex-direction: row;
-      align-items: center;
-      justify-content: space-between;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      padding-bottom: 1rem;
-      border-bottom: 1px solid #20303e;
-      margin-bottom: 1rem;
-    }
+  .divider {
+    padding-bottom: 1rem;
+    border-bottom: 1px solid #20303e;
   }
 
   .button {
