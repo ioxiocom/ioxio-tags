@@ -1,4 +1,8 @@
-<div class={`divider ${$$props.class}`} />
+<script lang="ts">
+  export let noBottomPadding: boolean
+</script>
+
+<div class={"divider"} class:no-bottom-padding={noBottomPadding} />
 
 <style lang="scss">
   .divider {

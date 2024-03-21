@@ -31,7 +31,7 @@
 </script>
 
 <Article>
-  <Title class="no-bottom-margin">Carbon footprint</Title>
+  <Title noBottomMargin>Carbon footprint</Title>
   <SubTitle>Carbon footprint of a mobile work machine</SubTitle>
   <DataRow
     label="Pre-production footprint"
@@ -43,7 +43,7 @@
   />
   <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
   <Divider />
-  <Title class="no-bottom-margin">Material waste</Title>
+  <Title noBottomMargin>Material waste</Title>
   <SubTitle>The details of the material waste generated during the production</SubTitle>
   {#if data.materialWaste}
     <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />

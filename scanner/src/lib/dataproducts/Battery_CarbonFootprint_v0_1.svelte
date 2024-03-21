@@ -13,7 +13,7 @@
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Common/Divider/index.svelte"
   import Title from "$components/Common/Title/index.svelte"
-  import SubTitle from "$components/Common/SubTitle/index.svelte"
+  import Subtitle from "$components/Common/Subtitle/index.svelte"
   import Article from "$components/Common/Article/index.svelte"
 
   type CarbonFootprint = {
@@ -47,8 +47,8 @@
   <DataRow label="Battery model" value={data.batteryModel} />
   <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   <Divider />
-  <Title class="no-bottom-margin">Manufacturer information</Title>
-  <SubTitle>The details of the battery manufacturer</SubTitle>
+  <Title noBottomMargin>Manufacturer information</Title>
+  <Subtitle>The details of the battery manufacturer</Subtitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -57,13 +57,13 @@
   <DataRow label="Website" link column value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
-  <Title class="no-bottom-margin">Manufacturing location</Title>
-  <SubTitle>The details of the location of the battery manufacturing plant</SubTitle>
+  <Title noBottomMargin>Manufacturing location</Title>
+  <Subtitle>The details of the location of the battery manufacturing plant</Subtitle>
   <DataRow label="City" value={data.manufacturingLocation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
   <Divider />
-  <Title class="no-bottom-margin">Carbon footprint</Title>
-  <SubTitle>The details of the carbon footprint for the battery production phases</SubTitle>
+  <Title noBottomMargin>Carbon footprint</Title>
+  <Subtitle>The details of the carbon footprint for the battery production phases</Subtitle>
   <DataRow
     label="Pre-production footprint"
     value={formatNumber(data.carbonFootprint?.preProductionFootprint, "kg CO2e / kWh")}

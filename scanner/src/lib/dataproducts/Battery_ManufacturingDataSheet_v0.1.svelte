@@ -96,7 +96,7 @@
   <DataRow label="Extinguishing agents" value={data.extinguishingAgents.join(", ")} />
   <DataRow label="Warranty valid until" value={data.warranty} />
   <Divider />
-  <Title class="no-bottom-margin">Manufacturer information</Title>
+  <Title noBottomMargin>Manufacturer information</Title>
   <SubTitle>The details of the battery manufacturer</SubTitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
@@ -106,12 +106,12 @@
   <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
-  <Title class="no-bottom-margin">Manufacturing location</Title>
+  <Title noBottomMargin>Manufacturing location</Title>
   <SubTitle>The details of the location of the battery manufacturing plant</SubTitle>
   <DataRow label="City" value={data.manufacturingLocation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
   <Divider />
-  <Title class="no-bottom-margin">Round trip efficiency</Title>
+  <Title noBottomMargin>Round trip efficiency</Title>
   <SubTitle>The details of the round trip energy efficiency in energy storages</SubTitle>
   <DataRow
     label="Initial energy efficiency"
@@ -122,13 +122,13 @@
     value={formatNumber(data.roundTripEfficiency?.degradedEnergyEfficiency, "%")}
   />
   <Divider />
-  <Title class="no-bottom-margin">Voltage levels</Title>
+  <Title noBottomMargin>Voltage levels</Title>
   <SubTitle>The details of the voltage levels of the battery</SubTitle>
   <DataRow label="Nominal" value={formatNumber(data.voltageLevels?.nominalVoltage, "V")} />
   <DataRow label="Maximum" value={formatNumber(data.voltageLevels?.maximumVoltage, "V")} />
   <DataRow label="Minimum" value={formatNumber(data.voltageLevels?.minimumVoltage, "V")} />
   <Divider />
-  <Title class="no-bottom-margin">Temperature range</Title>
+  <Title noBottomMargin>Temperature range</Title>
   <SubTitle>The details of the acceptable temperature values of the battery</SubTitle>
   <DataRow
     label="Temperature range"
@@ -137,13 +137,13 @@
      ${formatNumber(data.temperatureRange?.maximumTemperature, "°C")}`}
   />
   <Divider />
-  <Title class="no-bottom-margin">Expected lifetime</Title>
+  <Title noBottomMargin>Expected lifetime</Title>
   <SubTitle>The details of the battery lifetime</SubTitle>
   <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
   <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
   <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
   <Divider />
-  <Title class="no-bottom-margin">Material composition</Title>
+  <Title noBottomMargin>Material composition</Title>
   <SubTitle>The details of the material composition of the battery</SubTitle>
   <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
   <DataRow
@@ -155,7 +155,7 @@
     value={data.materialComposition?.criticalRawMaterials.join(", ")}
   />
   <Divider />
-  <Title class="no-bottom-margin">Recycled content</Title>
+  <Title noBottomMargin>Recycled content</Title>
   <SubTitle>The recycled content information present in the battery</SubTitle>
   {#if data.recycledContent.length > 0}
     <ul>
@@ -171,7 +171,7 @@
     <p>-</p>
   {/if}
   <Divider />
-  <Title class="no-bottom-margin">Renewable content</Title>
+  <Title noBottomMargin>Renewable content</Title>
   <SubTitle>The renewable content information present in the battery</SubTitle>
   {#if data.renewableContent.length > 0}
     <ul>
@@ -187,7 +187,7 @@
     <p>-</p>
   {/if}
   <Divider />
-  <Title class="no-bottom-margin">Legal conformity</Title>
+  <Title noBottomMargin>Legal conformity</Title>
   <SubTitle>
     The details of the conformity of the battery with the legal and harmonized standards
   </SubTitle>

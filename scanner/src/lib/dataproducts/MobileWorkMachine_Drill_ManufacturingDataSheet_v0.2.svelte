@@ -84,7 +84,7 @@
   <DataRow label="Reference data sheet" column link value={data.referenceDataSheet} />
   <DataRow label="Safety data sheet" column link value={data.safetyDataSheet} />
   <Divider />
-  <Title class="no-bottom-margin">Manufacturer information</Title>
+  <Title noBottomMargin>Manufacturer information</Title>
   <SubTitle>The details of the drill manufacturer</SubTitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
@@ -94,7 +94,7 @@
   <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
-  <Title class="no-bottom-margin">Power system</Title>
+  <Title noBottomMargin>Power system</Title>
   <SubTitle>The details of the drill power system</SubTitle>
   <div class="power-system-type">
     <span class="label">Type:</span>
@@ -113,7 +113,7 @@
     column
     value={data.powerSystem?.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
-  <Divider class="no-bottom-padding" />
+  <Divider noBottomPadding />
   <DataRow
     label="Batteries"
     column

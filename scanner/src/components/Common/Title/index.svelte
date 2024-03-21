@@ -1,4 +1,8 @@
-<div class={`title ${$$props.class}`}>
+<script lang="ts">
+  export let noBottomMargin: boolean
+</script>
+
+<div class={"title"} class:no-bottom-margin={noBottomMargin}>
   <slot />
 </div>
 

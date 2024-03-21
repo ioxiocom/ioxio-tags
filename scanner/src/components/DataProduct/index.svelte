@@ -7,6 +7,7 @@
   import { consoleLog } from "$lib/common"
 
   import Card from "$components/Common/Card/index.svelte"
+  import Subtitle from "$components/Common/Subtitle/index.svelte"
 
   type SupportedDataproduct = components["schemas"]["SupportedDataproduct"]
   export let productMetadata: SupportedDataproduct
@@ -86,7 +87,7 @@
     {/if}
   </div>
   {#if loadedData}
-    <div class="subtitle" class:divider={open}>{productMetadata.description}</div>
+    <Subtitle noBottomMargin showDivider={open}>{productMetadata.description}</Subtitle>
     <section>
       <svelte:component this={component} status={loadedStatus} data={loadedData} />
     </section>
@@ -115,25 +116,12 @@
     font-size: 1rem;
     line-height: 150%;
   }
-
-  .subtitle {
-    font-size: 0.75rem;
-    font-weight: 400;
-    color: white;
-    line-height: 150%;
-  }
-
   .header {
     display: flex;
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
-  }
-
-  .divider {
-    padding-bottom: 1rem;
-    border-bottom: 1px solid #20303e;
   }
 
   .button {

@@ -53,7 +53,7 @@
   <DataRow label="Manufacturing date" value={data.manufacturingDate} />
   <DataRow label="Service initiation date" value={data.serviceInitiationDate} />
   <Divider />
-  <Title class="no-bottom-margin">Original performance</Title>
+  <Title noBottomMargin>Original performance</Title>
   <SubTitle>The details of the original performance of the battery</SubTitle>
   <DataRow label="Capacity" value={formatNumber(data.originalPerformance?.capacity, "Ah")} />
   <DataRow label="Power" value={formatNumber(data.originalPerformance?.power, "W")} />
@@ -67,7 +67,7 @@
     value={formatNumber(data.originalPerformance?.years, "years")}
   />
   <Divider />
-  <Title class="no-bottom-margin">Health state</Title>
+  <Title noBottomMargin>Health state</Title>
   <SubTitle>The state of the health of the battery</SubTitle>
   <DataRow
     label="Cumulative cycle count"
@@ -80,13 +80,13 @@
     value={formatNumber(data.healthState?.resistanceIncrease, "%")}
   />
   <Divider />
-  <Title class="no-bottom-margin">Operation details</Title>
+  <Title noBottomMargin>Operation details</Title>
   <SubTitle>The periodic information of the battery operation</SubTitle>
   {#if data.healthState?.operationDetails.length > 0}
     <div class="grid">
-      <SubTitle class="no-bottom-margin">Measurement date</SubTitle>
-      <SubTitle class="no-bottom-margin">State of charge</SubTitle>
-      <SubTitle class="no-bottom-margin">Temperature</SubTitle>
+      <SubTitle noBottomMargin>Measurement date</SubTitle>
+      <SubTitle noBottomMargin>State of charge</SubTitle>
+      <SubTitle noBottomMargin>Temperature</SubTitle>
       {#each data.healthState.operationDetails as operationDetail}
         <div>{localizeDate(operationDetail.measurementDate) || "-"}</div>
         <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
@@ -97,7 +97,7 @@
     <span>-</span>
   {/if}
   <Divider />
-  <Title class="no-bottom-margin">Harmful events</Title>
+  <Title noBottomMargin>Harmful events</Title>
   <SubTitle>The harmful events or incidents that have occurred for the battery</SubTitle>
   {#if data.harmfulEvents.length > 0}
     {#each data.harmfulEvents as harmfulEvent}
