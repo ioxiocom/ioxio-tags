@@ -12,9 +12,9 @@
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Road from "$components/Road/index.svelte"
-  import Divider from "$components/Common/Divider/index.svelte"
-  import Title from "$components/Common/Title/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Title from "$components/Title/index.svelte"
+  import Article from "$components/Article/index.svelte"
 
   type EmissionsPerTce = {
     description: string

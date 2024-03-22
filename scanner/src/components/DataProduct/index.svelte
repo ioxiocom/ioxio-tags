@@ -6,8 +6,8 @@
   import { dataproduct } from "$lib/api"
   import { consoleLog } from "$lib/common"
 
-  import Card from "$components/Common/Card/index.svelte"
-  import Subtitle from "$components/Common/Subtitle/index.svelte"
+  import Card from "$components/Card/index.svelte"
+  import Subtitle from "$components/Subtitle/index.svelte"
 
   type SupportedDataproduct = components["schemas"]["SupportedDataproduct"]
   export let productMetadata: SupportedDataproduct

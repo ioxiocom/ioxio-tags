@@ -11,10 +11,10 @@
 
   import { capitaliseFirstLetter, countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Divider from "$components/Common/Divider/index.svelte"
-  import Title from "$components/Common/Title/index.svelte"
-  import SubTitle from "$components/Common/SubTitle/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Title from "$components/Title/index.svelte"
+  import Subtitle from "$components/Subtitle/index.svelte"
+  import Article from "$components/Article/index.svelte"
   import ElectricIcon from "$assets/fully-electric.svg"
   import HybridIcon from "$assets/hybrid.svg"
   import FuelPoweredIcon from "$assets/fuel-powered.svg"
@@ -85,7 +85,7 @@
   <DataRow label="Safety data sheet" column link value={data.safetyDataSheet} />
   <Divider />
   <Title noBottomMargin>Manufacturer information</Title>
-  <SubTitle>The details of the drill manufacturer</SubTitle>
+  <Subtitle>The details of the drill manufacturer</Subtitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -95,7 +95,7 @@
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
   <Title noBottomMargin>Power system</Title>
-  <SubTitle>The details of the drill power system</SubTitle>
+  <Subtitle>The details of the drill power system</Subtitle>
   <div class="power-system-type">
     <span class="label">Type:</span>
     <div class="value">

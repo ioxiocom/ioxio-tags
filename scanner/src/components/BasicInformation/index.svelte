@@ -5,7 +5,7 @@
   import InvalidSourceSvg from "$assets/invalid-source.svg"
   import UnknownSvg from "$assets/unknown.svg"
 
-  import Card from "$components/Common/Card/index.svelte"
+  import Card from "$components/Card/index.svelte"
 
   type MetadataV1Response = components["schemas"]["MetadataV1Response"]
 

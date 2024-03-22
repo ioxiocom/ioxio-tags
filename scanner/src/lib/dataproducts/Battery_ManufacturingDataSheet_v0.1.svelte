@@ -11,10 +11,10 @@
 
   import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Divider from "$components/Common/Divider/index.svelte"
-  import Title from "$components/Common/Title/index.svelte"
-  import SubTitle from "$components/Common/SubTitle/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Title from "$components/Title/index.svelte"
+  import Subtitle from "$components/Subtitle/index.svelte"
+  import Article from "$components/Article/index.svelte"
   import TrueIcon from "$assets/true-circle.svg"
   import FalseIcon from "$assets/false-circle.svg"
 
@@ -97,7 +97,7 @@
   <DataRow label="Warranty valid until" value={data.warranty} />
   <Divider />
   <Title noBottomMargin>Manufacturer information</Title>
-  <SubTitle>The details of the battery manufacturer</SubTitle>
+  <Subtitle>The details of the battery manufacturer</Subtitle>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -107,12 +107,12 @@
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
   <Title noBottomMargin>Manufacturing location</Title>
-  <SubTitle>The details of the location of the battery manufacturing plant</SubTitle>
+  <Subtitle>The details of the location of the battery manufacturing plant</Subtitle>
   <DataRow label="City" value={data.manufacturingLocation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
   <Divider />
   <Title noBottomMargin>Round trip efficiency</Title>
-  <SubTitle>The details of the round trip energy efficiency in energy storages</SubTitle>
+  <Subtitle>The details of the round trip energy efficiency in energy storages</Subtitle>
   <DataRow
     label="Initial energy efficiency"
     value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficiency, "%")}
@@ -123,13 +123,13 @@
   />
   <Divider />
   <Title noBottomMargin>Voltage levels</Title>
-  <SubTitle>The details of the voltage levels of the battery</SubTitle>
+  <Subtitle>The details of the voltage levels of the battery</Subtitle>
   <DataRow label="Nominal" value={formatNumber(data.voltageLevels?.nominalVoltage, "V")} />
   <DataRow label="Maximum" value={formatNumber(data.voltageLevels?.maximumVoltage, "V")} />
   <DataRow label="Minimum" value={formatNumber(data.voltageLevels?.minimumVoltage, "V")} />
   <Divider />
   <Title noBottomMargin>Temperature range</Title>
-  <SubTitle>The details of the acceptable temperature values of the battery</SubTitle>
+  <Subtitle>The details of the acceptable temperature values of the battery</Subtitle>
   <DataRow
     label="Temperature range"
     value={`${formatNumber(data.temperatureRange?.minimumTemperature, "°C")}
@@ -138,13 +138,13 @@
   />
   <Divider />
   <Title noBottomMargin>Expected lifetime</Title>
-  <SubTitle>The details of the battery lifetime</SubTitle>
+  <Subtitle>The details of the battery lifetime</Subtitle>
   <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
   <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
   <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
   <Divider />
   <Title noBottomMargin>Material composition</Title>
-  <SubTitle>The details of the material composition of the battery</SubTitle>
+  <Subtitle>The details of the material composition of the battery</Subtitle>
   <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
   <DataRow
     label="Hazardous substances"
@@ -156,7 +156,7 @@
   />
   <Divider />
   <Title noBottomMargin>Recycled content</Title>
-  <SubTitle>The recycled content information present in the battery</SubTitle>
+  <Subtitle>The recycled content information present in the battery</Subtitle>
   {#if data.recycledContent.length > 0}
     <ul>
       {#each data.recycledContent as content}
@@ -172,7 +172,7 @@
   {/if}
   <Divider />
   <Title noBottomMargin>Renewable content</Title>
-  <SubTitle>The renewable content information present in the battery</SubTitle>
+  <Subtitle>The renewable content information present in the battery</Subtitle>
   {#if data.renewableContent.length > 0}
     <ul>
       {#each data.renewableContent as content}
@@ -188,9 +188,9 @@
   {/if}
   <Divider />
   <Title noBottomMargin>Legal conformity</Title>
-  <SubTitle>
+  <Subtitle>
     The details of the conformity of the battery with the legal and harmonized standards
-  </SubTitle>
+  </Subtitle>
   <div class="act-compliance">
     <p class="label">Battery act compliance:</p>
     <div class="compliance-img">

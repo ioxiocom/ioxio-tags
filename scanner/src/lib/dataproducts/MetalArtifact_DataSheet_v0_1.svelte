@@ -11,7 +11,7 @@
 
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Article from "$components/Article/index.svelte"
 
   export let status: number
   export let data: {

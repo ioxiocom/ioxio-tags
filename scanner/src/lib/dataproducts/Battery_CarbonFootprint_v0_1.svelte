@@ -11,10 +11,10 @@
 
   import { countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Divider from "$components/Common/Divider/index.svelte"
-  import Title from "$components/Common/Title/index.svelte"
-  import Subtitle from "$components/Common/Subtitle/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Title from "$components/Title/index.svelte"
+  import Subtitle from "$components/Subtitle/index.svelte"
+  import Article from "$components/Article/index.svelte"
 
   type CarbonFootprint = {
     preProductionFootprint: number

@@ -11,10 +11,10 @@
 
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
-  import Divider from "$components/Common/Divider/index.svelte"
-  import Title from "$components/Common/Title/index.svelte"
-  import SubTitle from "$components/Common/SubTitle/index.svelte"
-  import Article from "$components/Common/Article/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Title from "$components/Title/index.svelte"
+  import Subtitle from "$components/Subtitle/index.svelte"
+  import Article from "$components/Article/index.svelte"
 
   export let status: number
   export let data: {
@@ -32,7 +32,7 @@
 
 <Article>
   <Title noBottomMargin>Carbon footprint</Title>
-  <SubTitle>Carbon footprint of a mobile work machine</SubTitle>
+  <Subtitle>Carbon footprint of a mobile work machine</Subtitle>
   <DataRow
     label="Pre-production footprint"
     value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
@@ -44,7 +44,7 @@
   <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
   <Divider />
   <Title noBottomMargin>Material waste</Title>
-  <SubTitle>The details of the material waste generated during the production</SubTitle>
+  <Subtitle>The details of the material waste generated during the production</Subtitle>
   {#if data.materialWaste}
     <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
     <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
