@@ -12,9 +12,9 @@
   import { formatNumber, localizeDate } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Divider/index.svelte"
-  import Title from "$components/Title/index.svelte"
   import Subtitle from "$components/Subtitle/index.svelte"
   import Article from "$components/Article/index.svelte"
+  import SectionHeader from "$components/SectionHeader/index.svelte"
 
   type OperationDetail = {
     measurementDate: string
@@ -53,8 +53,9 @@
   <DataRow label="Manufacturing date" value={data.manufacturingDate} />
   <DataRow label="Service initiation date" value={data.serviceInitiationDate} />
   <Divider />
-  <Title noBottomMargin>Original performance</Title>
-  <Subtitle>The details of the original performance of the battery</Subtitle>
+  <SectionHeader title="Original performance">
+    The details of the original performance of the battery
+  </SectionHeader>
   <DataRow label="Capacity" value={formatNumber(data.originalPerformance?.capacity, "Ah")} />
   <DataRow label="Power" value={formatNumber(data.originalPerformance?.power, "W")} />
   <DataRow
@@ -67,8 +68,7 @@
     value={formatNumber(data.originalPerformance?.years, "years")}
   />
   <Divider />
-  <Title noBottomMargin>Health state</Title>
-  <Subtitle>The state of the health of the battery</Subtitle>
+  <SectionHeader title="Health state">The state of the health of the battery</SectionHeader>
   <DataRow
     label="Cumulative cycle count"
     value={formatNumber(data.healthState?.cumulativeCycleCount)}
@@ -80,13 +80,14 @@
     value={formatNumber(data.healthState?.resistanceIncrease, "%")}
   />
   <Divider />
-  <Title noBottomMargin>Operation details</Title>
-  <Subtitle>The periodic information of the battery operation</Subtitle>
+  <SectionHeader title="Operation details">
+    The periodic information of the battery operation
+  </SectionHeader>
   {#if data.healthState?.operationDetails.length > 0}
     <div class="grid">
-      <Subtitle noBottomMargin>Measurement date</Subtitle>
-      <Subtitle noBottomMargin>State of charge</Subtitle>
-      <Subtitle noBottomMargin>Temperature</Subtitle>
+      <Subtitle>Measurement date</Subtitle>
+      <Subtitle>State of charge</Subtitle>
+      <Subtitle>Temperature</Subtitle>
       {#each data.healthState.operationDetails as operationDetail}
         <div>{localizeDate(operationDetail.measurementDate) || "-"}</div>
         <div>{formatNumber(operationDetail.stateOfCharge, "Ah")}</div>
@@ -97,8 +98,9 @@
     <span>-</span>
   {/if}
   <Divider />
-  <Title noBottomMargin>Harmful events</Title>
-  <Subtitle>The harmful events or incidents that have occurred for the battery</Subtitle>
+  <SectionHeader title="Harmful events">
+    The harmful events or incidents that have occurred for the battery
+  </SectionHeader>
   {#if data.harmfulEvents.length > 0}
     {#each data.harmfulEvents as harmfulEvent}
       {#if harmfulEvent.eventDescription.trim() && harmfulEvent.eventDate.trim()}

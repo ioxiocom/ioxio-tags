@@ -87,7 +87,8 @@
     {/if}
   </div>
   {#if loadedData}
-    <Subtitle noBottomMargin showDivider={open}>{productMetadata.description}</Subtitle>
+    <Subtitle>{productMetadata.description}</Subtitle>
+    <div class="divider" />
     <section>
       <svelte:component this={component} status={loadedStatus} data={loadedData} />
     </section>
@@ -122,6 +123,10 @@
     align-items: center;
     justify-content: space-between;
     gap: 1rem;
+  }
+
+  .divider {
+    border-bottom: 1px solid #20303e;
   }
 
   .button {

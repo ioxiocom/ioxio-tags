@@ -12,12 +12,11 @@
   import { capitaliseFirstLetter, countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Divider/index.svelte"
-  import Title from "$components/Title/index.svelte"
-  import Subtitle from "$components/Subtitle/index.svelte"
   import Article from "$components/Article/index.svelte"
   import ElectricIcon from "$assets/fully-electric.svg"
   import HybridIcon from "$assets/hybrid.svg"
   import FuelPoweredIcon from "$assets/fuel-powered.svg"
+  import SectionHeader from "$components/SectionHeader/index.svelte"
 
   enum PowerSystemType {
     FULLY_ELECTRIC = "fully electric",
@@ -84,8 +83,9 @@
   <DataRow label="Reference data sheet" column link value={data.referenceDataSheet} />
   <DataRow label="Safety data sheet" column link value={data.safetyDataSheet} />
   <Divider />
-  <Title noBottomMargin>Manufacturer information</Title>
-  <Subtitle>The details of the drill manufacturer</Subtitle>
+  <SectionHeader title="Manufacturer information">
+    The details of the drill manufacturer
+  </SectionHeader>
   <DataRow label="Name" value={data.manufacturerInformation?.name} />
   <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
@@ -94,8 +94,7 @@
   <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
   <DataRow label="Email" column value={data.manufacturerInformation?.email} />
   <Divider />
-  <Title noBottomMargin>Power system</Title>
-  <Subtitle>The details of the drill power system</Subtitle>
+  <SectionHeader title="Power system">The details of the drill power system</SectionHeader>
   <div class="power-system-type">
     <span class="label">Type:</span>
     <div class="value">
@@ -113,7 +112,7 @@
     column
     value={data.powerSystem?.electricMotors.map((motor) => `${motor.count} x ${motor.motorType}`)}
   />
-  <Divider noBottomPadding />
+  <Divider />
   <DataRow
     label="Batteries"
     column
