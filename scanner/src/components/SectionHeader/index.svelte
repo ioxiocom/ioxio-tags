@@ -5,7 +5,7 @@
 <div class="title">
   {title}
 </div>
-<div class="subtitle">
+<div class="description">
   <slot />
 </div>
 
@@ -15,7 +15,7 @@
     font-weight: 500;
     line-height: 1.5rem;
   }
-  .subtitle {
+  .description {
     font-size: 0.75rem;
     font-weight: 400;
     color: white;
