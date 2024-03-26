@@ -77,7 +77,7 @@
   }
 
   .basic-information {
-    color: #798893;
+    color: $color-primary-light;
     font-size: 0.75rem;
     text-transform: uppercase;
   }

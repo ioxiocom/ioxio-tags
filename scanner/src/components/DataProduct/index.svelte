@@ -126,7 +126,7 @@
   }
 
   .divider {
-    border-bottom: 1px solid #20303e;
+    border-bottom: 1px solid $color-primary-dark;
   }
 
   .button {
@@ -168,7 +168,7 @@
 
     &.unsupported {
       border-radius: 3px;
-      background-color: #20303e;
+      background-color: $color-primary-dark;
       font-size: 12px;
       font-style: normal;
       font-weight: 400;

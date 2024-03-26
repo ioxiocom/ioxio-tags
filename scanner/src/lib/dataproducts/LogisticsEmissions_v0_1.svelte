@@ -174,7 +174,7 @@
   .leg-id-label {
     font-size: 0.75rem;
     line-height: 1.5rem;
-    color: #798893;
+    color: $color-primary-light;
     text-transform: uppercase;
   }
 
