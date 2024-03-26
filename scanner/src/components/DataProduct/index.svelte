@@ -96,6 +96,8 @@
 </Card>
 
 <style lang="scss">
+  @import "$styles/variables";
+
   @mixin keyframes($name) {
     @keyframes #{$name} {
       @content;

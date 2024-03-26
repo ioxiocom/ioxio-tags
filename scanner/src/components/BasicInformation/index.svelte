@@ -50,6 +50,8 @@
 </Card>
 
 <style lang="scss">
+  @import "$styles/variables.scss";
+
   .logo-title {
     display: flex;
     align-items: center;
