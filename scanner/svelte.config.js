@@ -35,7 +35,7 @@ const config = {
       $lib: "src/lib",
       $assets: "./src/assets",
       $components: "./src/components",
-      $styles: "./src/styles"
+      $styles: "./src/styles",
     },
   },
 }
