@@ -55,13 +55,13 @@
   .logo-title {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 1rem;
     .logo {
       width: 5rem;
       height: 5rem;
       background: var(--background-logo);
-      border-radius: 0.5rem;
+      border-radius: 0.313rem;
       display: flex;
       align-items: center;
       justify-content: center;
