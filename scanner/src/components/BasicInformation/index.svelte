@@ -5,6 +5,8 @@
   import InvalidSourceSvg from "$assets/invalid-source.svg"
   import UnknownSvg from "$assets/unknown.svg"
 
+  import Card from "$components/Card/index.svelte"
+
   type MetadataV1Response = components["schemas"]["MetadataV1Response"]
 
   export let meta: MetadataV1Response
@@ -18,7 +20,7 @@
   </div>
   <div class="title">{meta.names.en_US}</div>
 </div>
-<div class="card">
+<Card>
   <div class="basic-information">Basic Information</div>
   <div class="row">
     <div class="property">Verification state:</div>
@@ -45,19 +47,21 @@
     <div class="property capitalize">Dataspace domain:</div>
     <div class="value domain">{meta.product_dataspace}</div>
   </div>
-</div>
+</Card>
 
 <style lang="scss">
+  @import "$styles/variables.scss";
+
   .logo-title {
     display: flex;
     align-items: center;
-    gap: 1rem;
+    gap: 0.75rem;
     margin-bottom: 1rem;
     .logo {
       width: 5rem;
       height: 5rem;
       background: var(--background-logo);
-      border-radius: 0.5rem;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -70,50 +74,41 @@
       color: white;
       font-size: 1.125rem;
       font-weight: 600;
-      line-height: 1.68rem;
+      line-height: 150%;
     }
   }
-  .card {
-    background: #1a2934;
-    border-radius: 0.5rem;
-    padding: 1rem 0.5rem;
-    font-size: 1rem;
-    font-weight: 400;
-    line-height: 1.125rem;
-    letter-spacing: 0em;
-    margin-bottom: 1.5rem;
-    .basic-information {
-      color: #798893;
-      margin-bottom: 1rem;
-      font-size: 0.75rem;
-      text-transform: uppercase;
-    }
+
+  .basic-information {
+    color: $color-primary-light;
+    font-size: 0.75rem;
+    text-transform: uppercase;
   }
+
   .row {
     display: flex;
     flex-direction: row;
     align-items: flex-start;
     color: white;
-    &:not(:last-child) {
-      margin-bottom: 1rem;
-    }
+
     .property {
       font-size: 1rem;
       font-weight: 400;
       flex: 0 0 40%;
       padding-right: 0.5rem;
+      line-height: 150%;
     }
     .value {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: flex-start;
+      line-height: 150%;
     }
     .status {
       font-size: 1rem;
       font-style: normal;
       font-weight: 600;
-      line-height: 150%; /* 18px */
+      line-height: 150%;
     }
     .trusted {
       color: #3cb08e;

@@ -11,6 +11,9 @@
 
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
+  import Divider from "$components/Divider/index.svelte"
+  import Article from "$components/Article/index.svelte"
+  import SectionHeader from "$components/SectionHeader/index.svelte"
 
   export let status: number
   export let data: {
@@ -26,9 +29,8 @@
   }
 </script>
 
-<article>
-  <div class="title no-bottom-margin">Carbon footprint</div>
-  <div class="subtitle">Carbon footprint of a mobile work machine</div>
+<Article>
+  <SectionHeader title="Carbon footprint">Carbon footprint of a mobile work machine</SectionHeader>
   <DataRow
     label="Pre-production footprint"
     value={formatNumber(data.carbonFootprint.preProductionFootprint, "kg CO2e / kWh")}
@@ -38,43 +40,14 @@
     value={formatNumber(data.carbonFootprint.mainProductionFootprint, "kg CO2e / kWh")}
   />
   <DataRow label="Reference material" column link value={data.carbonFootprint.referenceMaterial} />
-  <div class="divider" />
-  <div class="title no-bottom-margin">Material waste</div>
-  <div class="subtitle">The details of the material waste generated during the production</div>
+  <Divider />
+  <SectionHeader title="Material waste">
+    The details of the material waste generated during the production
+  </SectionHeader>
   {#if data.materialWaste}
     <DataRow label="Amount" value={formatNumber(data.materialWaste.amount, "kg")} />
     <DataRow label="Reference material" link value={data.materialWaste.referenceMaterial} />
   {:else}
     <span>-</span>
   {/if}
-</article>
-
-<style lang="scss">
-  article {
-    color: white;
-    font-style: normal;
-
-    .title {
-      font-size: 1rem;
-      font-weight: 500;
-      line-height: 1.5rem;
-      margin-bottom: 1rem;
-
-      &.no-bottom-margin {
-        margin-bottom: 0;
-      }
-    }
-
-    .subtitle {
-      font-size: 0.75rem;
-      font-weight: 400;
-      color: white;
-      margin-bottom: 1rem;
-    }
-
-    .divider {
-      border-bottom: 1px solid #20303e;
-      margin-bottom: 1rem;
-    }
-  }
-</style>
+</Article>
