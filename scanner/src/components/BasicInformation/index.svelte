@@ -61,7 +61,7 @@
       width: 5rem;
       height: 5rem;
       background: var(--background-logo);
-      border-radius: 0.31rem;
+      border-radius: 5px;
       display: flex;
       align-items: center;
       justify-content: center;
