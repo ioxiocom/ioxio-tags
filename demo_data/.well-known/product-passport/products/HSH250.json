@@ -2,7 +2,7 @@
   "names": {
     "en_US": "Manual Hybrid Shuttle Carrier"
   },
-  "image_url": "https://tags.ioxio.dev/images/straddle-carrier.jpg",
+  "image_url": "https://tags.ioxio.dev/images/straddle-carrier.png",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1",
