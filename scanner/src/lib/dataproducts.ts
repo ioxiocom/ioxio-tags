@@ -6,7 +6,7 @@ import Battery_ManufacturingDataSheet_v0_1 from "$lib/dataproducts/Battery_Manuf
 import Battery_HealthData_v0_1 from "$lib/dataproducts/Battery_HealthData_v0.1.svelte"
 import MobileWorkMachine_EnvironmentalFootprint_v0_1 from "$lib/dataproducts/MobileWorkMachine_EnvironmentalFootprint_v0.1.svelte"
 import MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2 from "$lib/dataproducts/MobileWorkMachine_Drill_ManufacturingDataSheet_v0.2.svelte"
-
+import MobileWorkMachine_StraddleCarrier_OperationsData_v0_1 from "$lib/dataproducts/MobileWorkMachine_StraddleCarrier_OperationsData_v0.1.svelte"
 export const supportedDataProducts = {
   "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1": FoodArtifact_NutritionalValues_v0_1,
   "DigitalProductPassport/MetalArtifact/DataSheet_v0.1": MetalArtifact_DataSheet_v0_1,
@@ -18,4 +18,6 @@ export const supportedDataProducts = {
     MobileWorkMachine_EnvironmentalFootprint_v0_1,
   "DigitalProductPassport/MobileWorkMachine/Drill/ManufacturingDataSheet_v0.2":
     MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2,
+  "DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1":
+    MobileWorkMachine_StraddleCarrier_OperationsData_v0_1,
 }
