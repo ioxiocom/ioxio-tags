@@ -1,13 +1,13 @@
 <script lang="ts">
   /*
-        Docs:
+    Docs:
 
-        https://definitions.sandbox.ioxio-dataspace.com/definitions/DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1
+    https://definitions.sandbox.ioxio-dataspace.com/definitions/DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1
 
-        https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1.py
+    https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1.py
 
-       https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_MobileWorkMachine_StraddleCarrier_OperationsData_v0_1_DigitalProductPassport_MobileWorkMachine_StraddleCarrier_OperationsData_v0_1_post
-         */
+    https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_MobileWorkMachine_StraddleCarrier_OperationsData_v0_1_DigitalProductPassport_MobileWorkMachine_StraddleCarrier_OperationsData_v0_1_post
+  */
 
   import { formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
