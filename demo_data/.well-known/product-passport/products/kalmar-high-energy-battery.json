@@ -1,0 +1,20 @@
+{
+  "names": {
+    "en_US": "Kalmar High Energy battery"
+  },
+  "image_url": "https://tags.ioxio.dev/images/kalmar-high-energy-battery.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/Battery/CarbonFootprint_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/ManufacturingDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/HealthData_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}
