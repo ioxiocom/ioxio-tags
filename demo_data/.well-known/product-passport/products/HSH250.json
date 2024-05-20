@@ -7,6 +7,10 @@
     {
       "path": "DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1",
       "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/MobileWorkMachine/EnvironmentalFootprint_v0.1",
+      "source": "dpp_demo"
     }
   ]
 }
