@@ -1,8 +1,8 @@
 {
   "names": {
-    "en_US": "Kalmar High Energy battery"
+    "en_US": "Kalmar High Power battery"
   },
-  "image_url": "https://tags.ioxio.dev/images/kalmar-high-energy-battery.png",
+  "image_url": "https://tags.ioxio.dev/images/kalmar-high-power-battery.png",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/Battery/CarbonFootprint_v0.1",
