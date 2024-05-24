@@ -3,7 +3,7 @@ import re
 import unicodedata
 from copy import copy
 from io import BytesIO
-from typing import Literal
+from typing import Literal, Optional
 from urllib.parse import quote_plus
 from PIL import Image, ImageDraw, ImageOps
 import cairosvg
@@ -73,6 +73,8 @@ class ProductMetadata(BaseModel):
     names: dict[str, str]
     image_url: str
     supported_dataproducts: list[dict]
+    # TODO: This is not a part of the standard, should solve by hosting different metadata in different domains
+    logo_url: Optional[str] = None
 
 
 def get_issuer_base_url(iss: str):
@@ -218,8 +220,13 @@ async def fetch_metadata(iss: str, product: str):
 
     definition_paths = pgw_openapi.get("paths", {})
 
+    if product_metadata.logo_url:
+        logo_url = product_metadata.logo_url
+    else:
+        logo_url = product_passport.logo_url,
+
     return tag.MetadataV1Response(
-        logo_url=product_passport.logo_url,
+        logo_url=logo_url,
         product_dataspace=product_passport.product_dataspace,
         names=product_metadata.names,
         image_url=product_metadata.image_url,
