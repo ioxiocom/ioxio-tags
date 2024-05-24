@@ -2,6 +2,7 @@
   "names": {
     "en_US": "Valmet Automotive Power Pack 48V"
   },
+  "logo_url": "https://tags.ioxio.dev/images/va-logo.png",
   "image_url": "https://tags.ioxio.dev/images/power-pack-48v.png",
   "supported_dataproducts": [
     {
