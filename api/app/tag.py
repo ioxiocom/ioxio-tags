@@ -73,6 +73,7 @@ class ProductMetadata(BaseModel):
     names: dict[str, str]
     image_url: str
     supported_dataproducts: list[dict]
+    # TODO: This is not a part of the standard, should solve by hosting different metadata in different domains
     logo_url: Optional[str] = None
 
 
