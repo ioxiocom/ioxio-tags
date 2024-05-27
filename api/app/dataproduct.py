@@ -20,7 +20,7 @@ async def fetch_dataproduct(dataspace: str, product: str, source: str, payload: 
         gateway = config["product_gateway_url"]
         url = f"{gateway}/{product}?source={quote_plus(source)}"
 
-        async with httpx.AsyncClient() as client:
+        async with httpx.AsyncClient(timeout=30) as client:
             res = await client.post(url, json=payload)
             return res
     except anyio.EndOfStream:
