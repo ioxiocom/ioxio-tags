@@ -223,7 +223,7 @@ async def fetch_metadata(iss: str, product: str):
     if product_metadata.logo_url:
         logo_url = product_metadata.logo_url
     else:
-        logo_url = product_passport.logo_url,
+        logo_url = product_passport.logo_url
 
     return tag.MetadataV1Response(
         logo_url=logo_url,
