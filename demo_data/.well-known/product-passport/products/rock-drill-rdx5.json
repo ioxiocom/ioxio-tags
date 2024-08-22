@@ -1,0 +1,20 @@
+{
+  "names": {
+    "en_US": "RDX5 Hydraulic Rock Drill"
+  },
+  "image_url": "https://tags.ioxio.dev/images/rock-drill-rdx5.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/RockDrill/DataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/EnvironmentalFootprint_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/RockDrill/Piston/MaterialCertificate_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}
