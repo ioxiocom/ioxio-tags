@@ -22,6 +22,7 @@ on:
       - "scanner/**"
     branches:
       - "main"
+      - "test/release-using-old-actions"
 
 name: Build and Deploy scanner demo to Cloud Run
 env:
