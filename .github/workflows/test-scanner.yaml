@@ -1,0 +1,31 @@
+name: "Test scanner app"
+on:
+  pull_request:
+    types: [opened, synchronize, edited]
+    paths:
+      - "scanner/**"
+      - ".github/workflows/test-scanner.yaml"
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - uses: pnpm/action-setup@v2
+        with:
+          version: 9
+
+      - name: Install dependencies
+        working-directory: scanner
+        run: |
+          pnpm install
+
+      - name: Build application
+        working-directory: scanner
+        run: |
+          pnpm build
