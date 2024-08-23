@@ -31,7 +31,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@capacitor-community/barcode-scanner": "git://github.com/pkunszt/barcode-scanner.git#back-cam-default",
+    "@capacitor-community/barcode-scanner": "git://github.com/capacitor-community/barcode-scanner.git",
     "@capacitor/android": "^5.2.3",
     "@capacitor/app": "^5.0.6",
     "@capacitor/cli": "^5.2.3",

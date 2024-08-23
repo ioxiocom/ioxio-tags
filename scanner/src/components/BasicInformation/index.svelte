@@ -11,6 +11,7 @@
 
   export let meta: MetadataV1Response
   export let product: string
+  export let identifier: string
   export let verified: boolean | undefined
 </script>
 
@@ -42,6 +43,10 @@
   <div class="row">
     <div class="property">Product Code:</div>
     <div class="value">{product}</div>
+  </div>
+  <div class="row">
+    <div class="property">Identifier:</div>
+    <div class="value">{identifier}</div>
   </div>
   <div class="row link">
     <div class="property capitalize">Dataspace domain:</div>
