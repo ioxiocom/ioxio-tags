@@ -70,7 +70,12 @@
 {:else if meta}
   <div class="content">
     <Header logoUrl={meta.logo_url} />
-    <BasicInformation {meta} product={$page.params.product} {verified} />
+    <BasicInformation
+      {meta}
+      product={$page.params.product}
+      identifier={$page.params.id}
+      {verified}
+    />
     {#each meta.supported_dataproducts as dataProduct}
       <DataProduct
         dataspace={meta.product_dataspace}

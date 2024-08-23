@@ -14,6 +14,7 @@
   import Article from "$components/Article/index.svelte"
   import SectionHeader from "$components/SectionHeader/index.svelte"
   import Divider from "$components/Divider/index.svelte"
+  import BulletedList from "$components/BulletedList/index.svelte"
 
   export let data: {
     productName: string
@@ -36,7 +37,6 @@
     Mo: "Molybdenum",
     Ni: "Nickel",
     P: "Phosphorus",
-    S: "Sulfur",
     Sf: "Sulfur",
     Si: "Silicon",
     V: "Vanadium",
@@ -52,28 +52,21 @@
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Cast number" value={data.castNumber} />
   <Divider />
-  <SectionHeader title="Cast analysis">
-    <p>The material composition of the cast.</p>
-  </SectionHeader>
-  <ul>
+  <BulletedList title="Cast analysis" description="The material composition of the cast.">
     {#each data.castAnalysis as cast}
       <li>{getElement(cast.element)}: {formatNumber(cast.composition, "%")}</li>
     {/each}
-  </ul>
+  </BulletedList>
   {#each data.inspectionConformity as inspection}
     <Divider />
     <SectionHeader title={inspection.inspectionName}>
       <p>{inspection.inspectionDescription}</p>
-      <DataRow label="Standard compliance" value={inspection.standardsCompliance.join(", ")} />
+      <DataRow label="Standards compliance" value={inspection.standardsCompliance.join(", ")} />
     </SectionHeader>
   {/each}
 </Article>
 
 <style lang="scss">
-  ul {
-    margin-top: -0.5rem;
-  }
-
   p {
     margin: 0.5rem 0;
   }
