@@ -1,9 +1,6 @@
 on:
   pull_request:
     types: [opened, synchronize, edited]
-    paths:
-      - "api/**"
-      - ".github/workflows/api-pytest.yaml"
   push:
     branches:
       - "main"
