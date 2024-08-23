@@ -7,7 +7,7 @@ on:
       - ".github/workflows/test-scanner.yaml"
 
 jobs:
-  test:
+  Test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
@@ -18,7 +18,7 @@ jobs:
 
       - uses: pnpm/action-setup@v2
         with:
-          version: 9
+          version: 8.7.4
 
       - name: Install dependencies
         working-directory: scanner
