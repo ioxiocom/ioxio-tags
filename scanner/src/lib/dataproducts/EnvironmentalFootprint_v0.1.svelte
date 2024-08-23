@@ -34,7 +34,7 @@
 
 <Article>
   <SectionHeader title="Carbon footprint">
-    <p>Carbon Footprint of a Mobile Work Machine.</p>
+    <p>The details of the carbon footprint during production.</p>
   </SectionHeader>
   <DataRow
     label="Raw material footprint"
@@ -55,7 +55,7 @@
   <DataRow label="Reference material" value={footprint.referenceMaterial} />
   <Divider />
   <SectionHeader title="Material waste">
-    <p>The details of the material waste generated during the production</p>
+    <p>Details of the material waste generated during production.</p>
   </SectionHeader>
   <DataRow label="Amount" value={formatNumber(waste.amount, "kg")} />
   <DataRow label="Reference material" value={waste.referenceMaterial} />

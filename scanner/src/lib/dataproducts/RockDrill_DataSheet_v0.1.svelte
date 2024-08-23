@@ -54,7 +54,7 @@
   <DataRow label="Safety manual" value={data.safetyManual} />
   <Divider />
   <SectionHeader title="Manufacturer information">
-    <p>The details of the manufacturer information</p>
+    <p>The details of the manufacturer.</p>
   </SectionHeader>
   <DataRow label="Name" value={man.name} />
   <DataRow label="Street name" value={man.streetName} />
@@ -65,7 +65,7 @@
   <DataRow label="Email" value={man.email} />
   <Divider />
   <SectionHeader title="Manufacturer location">
-    <p>The details of the location of the battery manufacturing plant</p>
+    <p>Location where this drill was manufactured.</p>
   </SectionHeader>
   <DataRow label="City" value={location.city} />
   <DataRow label="Country" value={countryListAlpha3[location.country]} />
