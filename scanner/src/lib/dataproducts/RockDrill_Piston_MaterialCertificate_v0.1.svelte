@@ -37,7 +37,7 @@
     Mo: "Molybdenum",
     Ni: "Nickel",
     P: "Phosphorus",
-    Sf: "Sulfur",
+    S: "Sulfur",
     Si: "Silicon",
     V: "Vanadium",
   }
