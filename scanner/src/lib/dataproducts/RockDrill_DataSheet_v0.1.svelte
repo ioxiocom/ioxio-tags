@@ -64,7 +64,7 @@
   <DataRow label="Website" value={man.website} />
   <DataRow label="Email" value={man.email} />
   <Divider />
-  <SectionHeader title="Manufacturer location">
+  <SectionHeader title="Manufacturing location">
     <p>Location where this drill was manufactured.</p>
   </SectionHeader>
   <DataRow label="City" value={location.city} />

@@ -9,7 +9,7 @@ import MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2 from "$lib/dataproduc
 import MobileWorkMachine_EnvironmentalFootprint_v0_1 from "$lib/dataproducts/MobileWorkMachine_EnvironmentalFootprint_v0.1.svelte"
 import MobileWorkMachine_StraddleCarrier_OperationsData_v0_1 from "$lib/dataproducts/MobileWorkMachine_StraddleCarrier_OperationsData_v0.1.svelte"
 import RockDrill_DataSheet_v0_1 from "$lib/dataproducts/RockDrill_DataSheet_v0.1.svelte"
-import RockDrill_Piston_MaterialCertificate_v0_1 from "$lib/dataproducts/RockDrill_Piston_MaterialCertificate_v0.1.svelte"
+import RockDrill_Piston_MaterialCertificate_v0_2 from "$lib/dataproducts/RockDrill_Piston_MaterialCertificate_v0.2.svelte"
 
 export const supportedDataProducts = {
   "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1": FoodArtifact_NutritionalValues_v0_1,
@@ -24,8 +24,8 @@ export const supportedDataProducts = {
     MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2,
   "DigitalProductPassport/MobileWorkMachine/StraddleCarrier/OperationsData_v0.1":
     MobileWorkMachine_StraddleCarrier_OperationsData_v0_1,
-  "DigitalProductPassport/RockDrill/Piston/MaterialCertificate_v0.1":
-    RockDrill_Piston_MaterialCertificate_v0_1,
+  "DigitalProductPassport/RockDrill/Piston/MaterialCertificate_v0.2":
+    RockDrill_Piston_MaterialCertificate_v0_2,
   "DigitalProductPassport/RockDrill/DataSheet_v0.1": RockDrill_DataSheet_v0_1,
   "DigitalProductPassport/EnvironmentalFootprint_v0.1": EnvironmentalFootprint_v0_1,
 }
