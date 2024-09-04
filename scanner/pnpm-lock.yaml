@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   '@capacitor-community/barcode-scanner':
-    specifier: git://github.com/capacitor-community/barcode-scanner.git
-    version: github.com/capacitor-community/barcode-scanner/ec289b59d0eaa46bc9afa1ed3e43f44733798913(@capacitor/core@5.2.3)
+    specifier: https://github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913
+    version: '@github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913(@capacitor/core@5.2.3)'
   '@capacitor/android':
     specifier: ^5.2.3
     version: 5.2.3(@capacitor/core@5.2.3)
@@ -2569,9 +2569,9 @@ packages:
     engines: {node: '>=10'}
     dev: true
 
-  github.com/capacitor-community/barcode-scanner/ec289b59d0eaa46bc9afa1ed3e43f44733798913(@capacitor/core@5.2.3):
-    resolution: {tarball: https://codeload.github.com/capacitor-community/barcode-scanner/tar.gz/ec289b59d0eaa46bc9afa1ed3e43f44733798913}
-    id: github.com/capacitor-community/barcode-scanner/ec289b59d0eaa46bc9afa1ed3e43f44733798913
+  '@github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913(@capacitor/core@5.2.3)':
+    resolution: {tarball: https://github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913}
+    id: '@github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913'
     name: '@capacitor-community/barcode-scanner'
     version: 4.0.1
     peerDependencies:
