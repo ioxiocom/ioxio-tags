@@ -31,7 +31,7 @@
   },
   "type": "module",
   "dependencies": {
-    "@capacitor-community/barcode-scanner": "git://github.com/capacitor-community/barcode-scanner.git",
+    "@capacitor-community/barcode-scanner": "https://github.com/capacitor-community/barcode-scanner/tarball/ec289b59d0eaa46bc9afa1ed3e43f44733798913",
     "@capacitor/android": "^5.2.3",
     "@capacitor/app": "^5.0.6",
     "@capacitor/cli": "^5.2.3",

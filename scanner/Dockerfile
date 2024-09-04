@@ -1,5 +1,5 @@
 # --- BUILD ---
-FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18@sha256:7ba92e190c476e077c6276b716fbed32b1198dbae0d89e233f3f5c260c4d2c3d AS build
+FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
 
 ARG API_BASE_URL="https://api.tags.ioxio.dev"
 
