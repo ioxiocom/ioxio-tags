@@ -41,6 +41,7 @@
     "@cocreators-ee/apity": "^0.0.4",
     "@esbuild-plugins/node-globals-polyfill": "^0.2.3",
     "@fontsource/poppins": "^5.0.8",
+    "@fontsource/roboto-condensed": "^5.0.18",
     "@zxing/library": "^0.20.0",
     "base45": "^2.0.1",
     "buffer": "^6.0.3",
@@ -48,6 +49,7 @@
     "html5-qrcode": "^2.3.8",
     "openapi-typescript": "^6.6.1",
     "query-string": "^8.1.0",
-    "sass": "^1.68.0"
+    "sass": "^1.68.0",
+    "svelte-inview": "^4.0.2"
   }
 }

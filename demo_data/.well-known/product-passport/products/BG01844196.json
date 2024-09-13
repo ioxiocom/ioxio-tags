@@ -1,0 +1,20 @@
+{
+  "names": {
+    "en_US": "Battery, Traction"
+  },
+  "image_url": "https://tags.ioxio.dev/images/BG01844196.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/Battery/CarbonFootprint_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/ManufacturingDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Battery/HealthData_v0.2",
+      "source": "dpp_demo"
+    }
+  ]
+}

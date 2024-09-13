@@ -9,7 +9,7 @@
     https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_DigitalProductPassport_Battery_ManufacturingDataSheet_v0_1_post
      */
 
-  import { countryListAlpha3, formatNumber } from "$lib/common"
+  import { capitaliseFirstLetter, countryListAlpha3, formatNumber } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Divider/index.svelte"
   import Article from "$components/Article/index.svelte"
@@ -17,6 +17,7 @@
   import FalseIcon from "$assets/false-circle.svg"
   import SectionHeader from "$components/SectionHeader/index.svelte"
 
+  export let id: string
   export let status: number
   export let data: {
     productName: string
@@ -80,12 +81,14 @@
       conformityDeclaration: string
     }
   }
+
+  const minexpoDemo = id === "minexpo-demo-1"
 </script>
 
 <Article>
   <DataRow label="Product name" value={data.productName} />
   <DataRow label="Battery model" value={data.batteryModel} />
-  <DataRow label="Category" value={data.batteryCategory} />
+  <DataRow label="Category" value={capitaliseFirstLetter(data.batteryCategory)} />
   <DataRow label="Manufacturing date" value={data.manufacturingDate} />
   <DataRow label="Weight" value={formatNumber(data.weight, "kg")} />
   <DataRow label="Capacity" value={formatNumber(data.capacity, "Ah")} />
@@ -103,27 +106,31 @@
   <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
   <DataRow label="City" value={data.manufacturerInformation?.city} />
   <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
-  <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
-  <DataRow label="Email" column value={data.manufacturerInformation?.email} />
+  {#if !minexpoDemo}
+    <DataRow label="Website" column link value={data.manufacturerInformation?.website} />
+    <DataRow label="Email" column value={data.manufacturerInformation?.email} />
+  {/if}
   <Divider />
-  <SectionHeader title="Manufacturing location">
-    The details of the location of the battery manufacturing plant
-  </SectionHeader>
-  <DataRow label="City" value={data.manufacturingLocation?.city} />
-  <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
-  <Divider />
-  <SectionHeader title="Round trip efficiency">
-    The details of the round trip energy efficiency in energy storages
-  </SectionHeader>
-  <DataRow
-    label="Initial energy efficiency"
-    value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficiency, "%")}
-  />
-  <DataRow
-    label="Degraded energy efficiency"
-    value={formatNumber(data.roundTripEfficiency?.degradedEnergyEfficiency, "%")}
-  />
-  <Divider />
+  {#if !minexpoDemo}
+    <SectionHeader title="Manufacturing location">
+      The details of the location of the battery manufacturing plant
+    </SectionHeader>
+    <DataRow label="City" value={data.manufacturingLocation?.city} />
+    <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
+    <Divider />
+    <SectionHeader title="Round trip efficiency">
+      The details of the round trip energy efficiency in energy storages
+    </SectionHeader>
+    <DataRow
+      label="Initial energy efficiency"
+      value={formatNumber(data.roundTripEfficiency?.initialEnergyEfficiency, "%")}
+    />
+    <DataRow
+      label="Degraded energy efficiency"
+      value={formatNumber(data.roundTripEfficiency?.degradedEnergyEfficiency, "%")}
+    />
+    <Divider />
+  {/if}
   <SectionHeader title="Voltage levels">
     The details of the voltage levels of the battery
   </SectionHeader>
@@ -141,58 +148,60 @@
      ${formatNumber(data.temperatureRange?.maximumTemperature, "°C")}`}
   />
   <Divider />
-  <SectionHeader title="Expected lifetime">The details of the battery lifetime</SectionHeader>
-  <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
-  <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
-  <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
-  <Divider />
-  <SectionHeader title="Material composition">
-    The details of the material composition of the battery
-  </SectionHeader>
-  <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
-  <DataRow
-    label="Hazardous substances"
-    value={data.materialComposition?.hazardousSubstances.join(", ")}
-  />
-  <DataRow
-    label="Critical raw materials"
-    value={data.materialComposition?.criticalRawMaterials.join(", ")}
-  />
-  <Divider />
-  <SectionHeader title="Recycled content">
-    The recycled content information present in the battery
-  </SectionHeader>
-  {#if data.recycledContent.length > 0}
-    <ul>
-      {#each data.recycledContent as content}
-        {#if content.substanceName.trim() && content.recyclingRate}
-          <li class="list-item">
-            {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
-          </li>
-        {/if}
-      {/each}
-    </ul>
-  {:else}
-    <p>-</p>
+  {#if !minexpoDemo}
+    <SectionHeader title="Expected lifetime">The details of the battery lifetime</SectionHeader>
+    <DataRow label="Cycle life" value={formatNumber(data.expectedLifetime?.cycleLife)} />
+    <DataRow label="Reference test" value={data.expectedLifetime?.referenceTest} />
+    <DataRow label="Cycle rate" value={data.expectedLifetime?.cycleRate} />
+    <Divider />
+    <SectionHeader title="Material composition">
+      The details of the material composition of the battery
+    </SectionHeader>
+    <DataRow label="Chemistry" value={data.materialComposition?.chemistry.join(", ")} />
+    <DataRow
+      label="Hazardous substances"
+      value={data.materialComposition?.hazardousSubstances.join(", ")}
+    />
+    <DataRow
+      label="Critical raw materials"
+      value={data.materialComposition?.criticalRawMaterials.join(", ")}
+    />
+    <Divider />
+    <SectionHeader title="Recycled content">
+      The recycled content information present in the battery
+    </SectionHeader>
+    {#if data.recycledContent.length > 0}
+      <ul>
+        {#each data.recycledContent as content}
+          {#if content.substanceName.trim() && content.recyclingRate}
+            <li class="list-item">
+              {content.substanceName}: {formatNumber(content.recyclingRate, "%")}
+            </li>
+          {/if}
+        {/each}
+      </ul>
+    {:else}
+      <p>-</p>
+    {/if}
+    <Divider />
+    <SectionHeader title="Renewable content">
+      The renewable content information present in the battery
+    </SectionHeader>
+    {#if data.renewableContent.length > 0}
+      <ul>
+        {#each data.renewableContent as content}
+          {#if content.substanceName.trim() && content.proportion}
+            <li class="list-item">
+              {content.substanceName}: {formatNumber(content.proportion, "%")}
+            </li>
+          {/if}
+        {/each}
+      </ul>
+    {:else}
+      <p>-</p>
+    {/if}
+    <Divider />
   {/if}
-  <Divider />
-  <SectionHeader title="Renewable content">
-    The renewable content information present in the battery
-  </SectionHeader>
-  {#if data.renewableContent.length > 0}
-    <ul>
-      {#each data.renewableContent as content}
-        {#if content.substanceName.trim() && content.proportion}
-          <li class="list-item">
-            {content.substanceName}: {formatNumber(content.proportion, "%")}
-          </li>
-        {/if}
-      {/each}
-    </ul>
-  {:else}
-    <p>-</p>
-  {/if}
-  <Divider />
   <SectionHeader title="Legal conformity">
     The details of the conformity of the battery with the legal and harmonized standards
   </SectionHeader>
