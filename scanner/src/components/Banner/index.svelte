@@ -1,5 +1,5 @@
 <script lang="ts">
-  import SvLogo from "$assets/sv-logo.png"
+  import SvLogo from "$assets/sv-logo.svg?raw"
 
   export let iss: string
   export let product: string
@@ -8,8 +8,12 @@
 
 {#if product === "BG01844196" && id === "minexpo-demo-1"}
   <div class="wrapper sv">
-    <div class="logo-wrapper"><img src={SvLogo} alt="Company logo" /></div>
-    <a href="/">Get more information</a>
+    <div class="logo-wrapper">
+      {@html SvLogo}
+    </div>
+    <a href="https://www.rocktechnology.sandvik/bevdrills" rel="noopener noreferrer" target="_blank"
+      >Get more information</a
+    >
   </div>
 {/if}
 
@@ -27,11 +31,12 @@
       align-items: center;
 
       .logo-wrapper {
-        display: flex;
+        height: 2rem;
       }
 
-      img {
+      :global(svg) {
         width: 100%;
+        height: 100%;
       }
 
       a {

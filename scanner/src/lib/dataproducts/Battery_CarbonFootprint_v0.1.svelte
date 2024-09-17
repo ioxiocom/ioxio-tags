@@ -235,23 +235,6 @@
     }
   }
 
-  :global(.chart-wrapper.animate svg #slice-5) {
-    animation: scale5 $animation-speed ease-in-out;
-
-    @keyframes scale5 {
-      40%,
-      90%,
-      100% {
-        transform: scale(1);
-        transform-origin: center;
-      }
-      65% {
-        transform: scale(1.04);
-        transform-origin: center;
-      }
-    }
-  }
-
   :global(.chart-wrapper.animate-second svg #slice-0) {
     animation: scale00 $animation-speed ease-in-out;
 
