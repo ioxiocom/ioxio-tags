@@ -11,9 +11,13 @@
     <div class="logo-wrapper">
       {@html SvLogo}
     </div>
-    <a href="https://www.rocktechnology.sandvik/bevdrills" rel="noopener noreferrer" target="_blank"
-      >Get more information</a
+    <a
+      href="https://www.rocktechnology.sandvik/bevdrills"
+      rel="noopener noreferrer"
+      target="_blank"
     >
+      Explore LFP technology
+    </a>
   </div>
 {/if}
 
