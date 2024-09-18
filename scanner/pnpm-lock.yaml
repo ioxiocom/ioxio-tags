@@ -35,9 +35,6 @@ dependencies:
   '@fontsource/poppins':
     specifier: ^5.0.8
     version: 5.0.8
-  '@fontsource/roboto-condensed':
-    specifier: ^5.0.18
-    version: 5.0.18
   '@zxing/library':
     specifier: ^0.20.0
     version: 0.20.0
@@ -464,10 +461,6 @@ packages:
 
   /@fontsource/poppins@5.0.8:
     resolution: {integrity: sha512-P8owfYWluoUY5Nyzk4gT/L6LmLmseP6ezFWhj6VBUa5pRIdnCvNJpoQ6i/vhekjtJOfqX6nKlB+LCttoUl2GQQ==}
-    dev: false
-
-  /@fontsource/roboto-condensed@5.0.18:
-    resolution: {integrity: sha512-ap8WX8AU18meY0m2rloGYFwILPOd2mzKl3B5Bx53hi651Tvo5/6lDHpS3gjnvhpwK0rBqVKzRcFP7SbK9NZvLA==}
     dev: false
 
   /@humanwhocodes/config-array@0.11.11:

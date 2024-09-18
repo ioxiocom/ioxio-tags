@@ -44,7 +44,6 @@
       }
 
       a {
-        font-family: "Roboto Condensed", system-ui;
         font-weight: 400;
         background-color: #e6e6e6;
         padding: 1rem;

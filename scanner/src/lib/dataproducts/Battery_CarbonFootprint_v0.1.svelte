@@ -55,42 +55,7 @@
   <DataRow label="Battery model" value={data.batteryModel} />
   <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   <Divider />
-  {#if !minexpoDemo}
-    <SectionHeader title="Manufacturer information">
-      The details of the battery manufacturer
-    </SectionHeader>
-    <DataRow label="Name" value={data.manufacturerInformation?.name} />
-    <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
-    <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
-    <DataRow label="City" value={data.manufacturerInformation?.city} />
-    <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
-    <DataRow label="Website" link column value={data.manufacturerInformation?.website} />
-    <DataRow label="Email" column value={data.manufacturerInformation?.email} />
-    <Divider />
-    <SectionHeader title="Manufacturing location">
-      The details of the location of the battery manufacturing plant
-    </SectionHeader>
-    <DataRow label="City" value={data.manufacturingLocation?.city} />
-    <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
-    <Divider />
-    <SectionHeader title="Carbon footprint">
-      The details of the carbon footprint for the battery production phases
-    </SectionHeader>
-    <DataRow
-      label="Pre-production footprint"
-      value={formatNumber(data.carbonFootprint?.preProductionFootprint, "kg CO2e / kWh")}
-    />
-    <DataRow
-      label="Main production footprint"
-      value={formatNumber(data.carbonFootprint?.mainProductionFootprint, "kg CO2e / kWh")}
-    />
-    <DataRow
-      label="Reference material"
-      column
-      link
-      value={data.carbonFootprint?.referenceMaterial}
-    />
-  {:else}
+  {#if minexpoDemo}
     <SectionHeader title="Lifecycle emissions of a machine" />
     <div
       class="chart-wrapper"
@@ -129,6 +94,41 @@
       {@html FootprintPieChart}
       <p>Battery carbon footprint has pre-production and Sandvik production footprints</p>
     </div>
+  {:else}
+    <SectionHeader title="Manufacturer information">
+      The details of the battery manufacturer
+    </SectionHeader>
+    <DataRow label="Name" value={data.manufacturerInformation?.name} />
+    <DataRow label="Street name" value={data.manufacturerInformation?.streetName} />
+    <DataRow label="Postal code" value={data.manufacturerInformation?.postalCode} />
+    <DataRow label="City" value={data.manufacturerInformation?.city} />
+    <DataRow label="Country" value={countryListAlpha3[data.manufacturerInformation?.country]} />
+    <DataRow label="Website" link column value={data.manufacturerInformation?.website} />
+    <DataRow label="Email" column value={data.manufacturerInformation?.email} />
+    <Divider />
+    <SectionHeader title="Manufacturing location">
+      The details of the location of the battery manufacturing plant
+    </SectionHeader>
+    <DataRow label="City" value={data.manufacturingLocation?.city} />
+    <DataRow label="Country" value={countryListAlpha3[data.manufacturingLocation?.country]} />
+    <Divider />
+    <SectionHeader title="Carbon footprint">
+      The details of the carbon footprint for the battery production phases
+    </SectionHeader>
+    <DataRow
+      label="Pre-production footprint"
+      value={formatNumber(data.carbonFootprint?.preProductionFootprint, "kg CO2e / kWh")}
+    />
+    <DataRow
+      label="Main production footprint"
+      value={formatNumber(data.carbonFootprint?.mainProductionFootprint, "kg CO2e / kWh")}
+    />
+    <DataRow
+      label="Reference material"
+      column
+      link
+      value={data.carbonFootprint?.referenceMaterial}
+    />
   {/if}
 </Article>
 
@@ -246,7 +246,7 @@
         transform-origin: center;
       }
       25% {
-        transform: scale(1.02);
+        transform: scale(1.04);
         transform-origin: center;
       }
     }
