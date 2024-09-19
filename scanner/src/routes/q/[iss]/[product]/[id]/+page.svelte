@@ -12,6 +12,7 @@
   import ErrorSvg from "$assets/error.svg"
   import { goto } from "$app/navigation"
   import { App } from "@capacitor/app"
+  import Banner from "$components/Banner/index.svelte"
 
   let loading: boolean = false
   let meta: components["schemas"]["MetadataV1Response"] | undefined = undefined
@@ -70,6 +71,7 @@
 {:else if meta}
   <div class="content">
     <Header logoUrl={meta.logo_url} />
+    <Banner iss={$page.params.iss} product={$page.params.product} id={$page.params.id} />
     <BasicInformation
       {meta}
       product={$page.params.product}

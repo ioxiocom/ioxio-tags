@@ -90,7 +90,7 @@
     <Subtitle>{productMetadata.description}</Subtitle>
     <div class="divider" />
     <section>
-      <svelte:component this={component} status={loadedStatus} data={loadedData} />
+      <svelte:component this={component} status={loadedStatus} data={loadedData} {id} />
     </section>
   {/if}
 </Card>
