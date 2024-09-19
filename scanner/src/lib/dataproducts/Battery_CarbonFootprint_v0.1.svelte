@@ -56,7 +56,38 @@
   <DataRow label="Conformity declaration" column link value={data.conformityDeclaration} />
   <Divider />
   {#if minexpoDemo}
-    <SectionHeader title="Lifecycle emissions of a machine" />
+    <SectionHeader title="Battery carbon footprint" />
+    <div class="description">
+      Carbon footprint of a battery as required by the European Commission’s Battery Act
+      (2023/1542).
+      <span class="asterisk">1</span>
+    </div>
+    <div
+      class="chart-wrapper"
+      class:animate-second={animateSecondChart}
+      use:inview={{}}
+      on:inview_enter={() => {
+        setTimeout(() => {
+          animateSecondChart = true
+        }, animationDelay)
+      }}
+      on:inview_leave={() => {
+        animateSecondChart = false
+      }}
+    >
+      {@html FootprintPieChart}
+      <div>
+        <p>
+          Battery carbon footprint includes emissions of cells, transportation and other activities.
+        </p>
+        <p>
+          Please contact your Sandvik representative for detailed information for your exact
+          product.
+        </p>
+      </div>
+    </div>
+    <Divider />
+    <SectionHeader title="Lifecycle emissions of a machine ²" />
     <div
       class="chart-wrapper"
       class:animate={animateFirstChart}
@@ -72,27 +103,16 @@
     >
       {@html EmissionsPieChart}
       <p>
-        Sandvik preforms validated product-specific emission calculations based on generic emission
+        Sandvik performs validated product-specific emission calculations based on generic emission
         calculation approaches.
+        <span class="asterisk">3</span>
       </p>
     </div>
     <Divider />
-    <SectionHeader title="Battery carbon footprint" />
-    <div
-      class="chart-wrapper"
-      class:animate-second={animateSecondChart}
-      use:inview={{}}
-      on:inview_enter={() => {
-        setTimeout(() => {
-          animateSecondChart = true
-        }, animationDelay)
-      }}
-      on:inview_leave={() => {
-        animateSecondChart = false
-      }}
-    >
-      {@html FootprintPieChart}
-      <p>Battery carbon footprint has pre-production and Sandvik production footprints</p>
+    <div class="description">
+      <div>1. Depends on the country under consideration. Figures are examples.</div>
+      <div>2. GHG Protocol, ISO 14000 series. Product category rules (PCR).</div>
+      <div>3. Digital Battery Passport meets the new EU Battery regulation requirements.</div>
     </div>
   {:else}
     <SectionHeader title="Manufacturer information">
@@ -133,6 +153,17 @@
 </Article>
 
 <style lang="scss">
+  .description {
+    position: relative;
+    font-size: 0.75rem;
+  }
+
+  .asterisk {
+    font-size: 0.5rem;
+    position: absolute;
+    transform: translate(2px, 0px);
+  }
+
   .chart-wrapper {
     display: flex;
     flex-direction: column;
