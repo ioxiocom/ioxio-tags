@@ -110,9 +110,9 @@
     </div>
     <Divider />
     <div class="description">
-      <div>1. Depends on the country under consideration. Figures are examples.</div>
-      <div>2. GHG Protocol, ISO 14000 series. Product category rules (PCR).</div>
-      <div>3. Digital Battery Passport meets the new EU Battery regulation requirements.</div>
+      <div>1. Digital Battery Passport meets the new EU Battery regulation requirements.</div>
+      <div>2. Depends on the country under consideration. Figures are examples.</div>
+      <div>3. GHG Protocol, ISO 14000 series. Product category rules (PCR).</div>
     </div>
   {:else}
     <SectionHeader title="Manufacturer information">
