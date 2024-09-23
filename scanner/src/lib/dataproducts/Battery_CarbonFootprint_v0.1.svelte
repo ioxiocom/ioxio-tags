@@ -78,7 +78,8 @@
       {@html FootprintPieChart}
       <div>
         <p>
-          Battery carbon footprint includes emissions of cells, transportation and other activities.
+          Battery carbon footprint includes emissions of cells, other components and upstream
+          transportation.
         </p>
         <p>
           Please contact your Sandvik representative for detailed information for your exact
