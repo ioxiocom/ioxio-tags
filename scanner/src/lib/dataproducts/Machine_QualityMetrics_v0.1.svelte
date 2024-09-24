@@ -7,6 +7,7 @@
   import Article from "$components/Article/index.svelte"
   import TrueIcon from "$assets/true-circle.svg"
   import FalseIcon from "$assets/false-circle.svg"
+  import Divider from "$components/Divider/index.svelte"
 
   export let data: {
     metrics: {
@@ -22,10 +23,10 @@
 </script>
 
 <Article>
-  {#each data.metrics as metrics}
-    <DataRow label="Name" value={metrics.name} />
-    <DataRow label="Serial number" value={metrics.serial} />
-    {#each metrics.measurements as m}
+  {#each data.metrics as metric, i}
+    <DataRow label="Name" value={metric.name} />
+    <DataRow label="Serial number" value={metric.serial} />
+    {#each metric.measurements as m}
       <div class="data">
         <div class="label">{m.name}:</div>
         <div class="value">
@@ -36,6 +37,9 @@
         </div>
       </div>
     {/each}
+    {#if i !== data.metrics.length - 1}
+      <Divider />
+    {/if}
   {/each}
 </Article>
 
