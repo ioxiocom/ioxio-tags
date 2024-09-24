@@ -27,7 +27,7 @@
     <DataRow label="Serial number" value={metrics.serial} />
     {#each metrics.measurements as m}
       <div class="data">
-        <div class="label">{m.name}</div>
+        <div class="label">{m.name}:</div>
         <div class="value">
           <span>{m.value}</span>
           <div class="icon-wrapper">
