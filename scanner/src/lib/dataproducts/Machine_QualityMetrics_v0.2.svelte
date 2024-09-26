@@ -78,7 +78,6 @@
   }
 
   .label {
-    //flex: 0 0 45%;
     line-height: 150%;
     padding-right: 0.5rem;
   }
@@ -88,7 +87,6 @@
     align-items: center;
     gap: 0.5rem;
     line-height: 150%;
-    //flex: 0 0 55%;
     word-break: break-word;
 
     .icon-wrapper {
