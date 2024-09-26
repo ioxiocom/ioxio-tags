@@ -6,7 +6,7 @@ import EnvironmentalFootprint_v0_1 from "$lib/dataproducts/EnvironmentalFootprin
 import FoodArtifact_NutritionalValues_v0_1 from "$lib/dataproducts/FoodArtifact_NutritionalValues_v0_1.svelte"
 import LogisticsEmissions_v0_1 from "$lib/dataproducts/LogisticsEmissions_v0_1.svelte"
 import Machine_ComponentSerialNumbers_v0_1 from "$lib/dataproducts/Machine_ComponentSerialNumbers_v0.1.svelte"
-import Machine_QualityMetrics_v0_1 from "$lib/dataproducts/Machine_QualityMetrics_v0.1.svelte"
+import Machine_QualityMetrics_v0_2 from "$lib/dataproducts/Machine_QualityMetrics_v0.2.svelte"
 import MetalArtifact_DataSheet_v0_1 from "$lib/dataproducts/MetalArtifact_DataSheet_v0_1.svelte"
 import MobileWorkMachine_Drill_ManufacturingDataSheet_v0_2 from "$lib/dataproducts/MobileWorkMachine_Drill_ManufacturingDataSheet_v0.2.svelte"
 import MobileWorkMachine_EnvironmentalFootprint_v0_1 from "$lib/dataproducts/MobileWorkMachine_EnvironmentalFootprint_v0.1.svelte"
@@ -33,5 +33,5 @@ export const supportedDataProducts = {
   "DigitalProductPassport/RockDrill/DataSheet_v0.1": RockDrill_DataSheet_v0_1,
   "DigitalProductPassport/EnvironmentalFootprint_v0.1": EnvironmentalFootprint_v0_1,
   "DigitalProductPassport/Machine/ComponentSerialNumbers_v0.1": Machine_ComponentSerialNumbers_v0_1,
-  "DigitalProductPassport/Machine/QualityMetrics_v0.1": Machine_QualityMetrics_v0_1,
+  "DigitalProductPassport/Machine/QualityMetrics_v0.2": Machine_QualityMetrics_v0_2,
 }

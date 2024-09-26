@@ -1,6 +1,6 @@
 <script lang="ts">
   /*
-      https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/Machine/QualityMetrics_v0.1.py
+      https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/Machine/QualityMetrics_v0.2.py
   */
 
   import DataRow from "$components/DataRow/index.svelte"
@@ -11,12 +11,17 @@
 
   export let data: {
     metrics: {
+      identification: string
       serial: string
       name: string
       measurements: {
         name: string
         ok: boolean
-        value: number
+        targetDeviation: string
+        cp: number
+        cpk: number
+        pp: number
+        ppk: number
       }[]
     }[]
   }
@@ -24,17 +29,34 @@
 
 <Article>
   {#each data.metrics as metric, i}
-    <DataRow label="Name" value={metric.name} />
+    <DataRow label="Identification" value={metric.identification} />
     <DataRow label="Serial number" value={metric.serial} />
+    <DataRow label="Name" value={metric.name} />
     {#each metric.measurements as m}
+      <Divider />
       <div class="data">
         <div class="label">{m.name}:</div>
         <div class="value">
-          <span>{m.value}</span>
           <div class="icon-wrapper">
             <img src={m.ok ? TrueIcon : FalseIcon} alt={m.ok ? "Passed" : "Didn't pass"} />
           </div>
         </div>
+      </div>
+      <div class="data">
+        <div class="label">Deviation:</div>
+        <div class="value">
+          {m.targetDeviation}
+        </div>
+      </div>
+      <div class="grid">
+        <div>Cp</div>
+        <div>Cpk</div>
+        <div>Pp</div>
+        <div>Ppk</div>
+        <div>{m.cp}</div>
+        <div>{m.cpk}</div>
+        <div>{m.pp}</div>
+        <div>{m.ppk}</div>
       </div>
     {/each}
     {#if i !== data.metrics.length - 1}
@@ -56,7 +78,6 @@
   }
 
   .label {
-    flex: 0 0 45%;
     line-height: 150%;
     padding-right: 0.5rem;
   }
@@ -66,12 +87,18 @@
     align-items: center;
     gap: 0.5rem;
     line-height: 150%;
-    flex: 0 0 55%;
     word-break: break-word;
 
     .icon-wrapper {
       width: 1.25rem;
       display: flex;
     }
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    margin-bottom: 1rem;
+    max-width: 30rem;
   }
 </style>
