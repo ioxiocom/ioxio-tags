@@ -53,10 +53,10 @@
         <div>Cpk</div>
         <div>Pp</div>
         <div>Ppk</div>
-        <div>{m.cp}</div>
-        <div>{m.cpk}</div>
-        <div>{m.pp}</div>
-        <div>{m.ppk}</div>
+        <div>{m.cp.toFixed(2)}</div>
+        <div>{m.cpk.toFixed(2)}</div>
+        <div>{m.pp.toFixed(2)}</div>
+        <div>{m.ppk.toFixed(2)}</div>
       </div>
     {/each}
     {#if i !== data.metrics.length - 1}

@@ -13,10 +13,6 @@
       "source": "dpp_demo"
     },
     {
-      "path": "DigitalProductPassport/RockDrill/Piston/MaterialCertificate_v0.2",
-      "source": "dpp_demo"
-    },
-    {
       "path": "DigitalProductPassport/Machine/ComponentSerialNumbers_v0.1",
       "source": "dpp_demo"
     },
