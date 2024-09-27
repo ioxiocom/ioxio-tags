@@ -35,7 +35,7 @@
     {#each metric.measurements as m}
       <Divider />
       <div class="data">
-        <div class="label">{m.name}:</div>
+        <div class="title">{m.name}</div>
         <div class="value">
           <div class="icon-wrapper">
             <img src={m.ok ? TrueIcon : FalseIcon} alt={m.ok ? "Passed" : "Didn't pass"} />
@@ -75,6 +75,12 @@
     &:not(:last-child) {
       margin-bottom: 1rem;
     }
+  }
+
+  .title {
+    line-height: 150%;
+    padding-right: 0.5rem;
+    font-weight: bold;
   }
 
   .label {
