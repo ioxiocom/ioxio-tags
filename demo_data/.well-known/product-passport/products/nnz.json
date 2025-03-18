@@ -7,6 +7,10 @@
     {
       "path": "DigitalProductPassport/Product/FIBC/SustainabilityDataSheet_v0.1",
       "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Product/FIBC/ProductDataSheet_v0.1",
+      "source": "dpp_demo"
     }
   ]
 }

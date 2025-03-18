@@ -58,7 +58,7 @@
   <DataRow label="Emissions" value={formatNumber(transportEmissions.emissions, "kg CO2e")} />
   <Divider />
   <DataRow label="Circularity rate" value={formatNumber(data.circularityRate, "%")} />
-  <DataRow label="Is recyclable" value={data.isRecyclable ? "Yes" : "No"} />
+  <DataRow label="Is recyclable" value={data.isRecyclable} />
   <DataRow label="Recycling instructions" value={data.recyclingInstructions} />
   <DataRow label="Reuse policy" value={data.reusePolicy} />
 </Article>
