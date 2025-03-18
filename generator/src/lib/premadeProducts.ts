@@ -31,8 +31,8 @@ export const premadeProducts = [
     id: "660e8400-e29b",
   },
   {
-    name: "NNZ (friday-13)",
-    product: "nnz",
-    id: "friday-13",
+    name: "Big Bag 1000kg (198230)",
+    product: "Flexible-Intermediate-Bulk-Container",
+    id: "198230",
   },
 ]
