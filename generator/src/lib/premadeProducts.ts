@@ -30,4 +30,9 @@ export const premadeProducts = [
     product: "lithium-ion",
     id: "660e8400-e29b",
   },
+  {
+    name: "NNZ (friday-13)",
+    product: "nnz",
+    id: "friday-13",
+  },
 ]

@@ -13,6 +13,7 @@ import MobileWorkMachine_EnvironmentalFootprint_v0_1 from "$lib/dataproducts/Mob
 import MobileWorkMachine_StraddleCarrier_OperationsData_v0_1 from "$lib/dataproducts/MobileWorkMachine_StraddleCarrier_OperationsData_v0.1.svelte"
 import RockDrill_DataSheet_v0_1 from "$lib/dataproducts/RockDrill_DataSheet_v0.1.svelte"
 import RockDrill_Piston_MaterialCertificate_v0_2 from "$lib/dataproducts/RockDrill_Piston_MaterialCertificate_v0.2.svelte"
+import FIBC_SustainabilityDataSheet_v0_1 from "$lib/dataproducts/FIBC_SustainabilityDataSheet_v0.1.svelte"
 
 export const supportedDataProducts = {
   "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1": FoodArtifact_NutritionalValues_v0_1,
@@ -34,4 +35,6 @@ export const supportedDataProducts = {
   "DigitalProductPassport/EnvironmentalFootprint_v0.1": EnvironmentalFootprint_v0_1,
   "DigitalProductPassport/Machine/ComponentSerialNumbers_v0.1": Machine_ComponentSerialNumbers_v0_1,
   "DigitalProductPassport/Machine/QualityMetrics_v0.2": Machine_QualityMetrics_v0_2,
+  "DigitalProductPassport/Product/FIBC/SustainabilityDataSheet_v0.1":
+    FIBC_SustainabilityDataSheet_v0_1,
 }
