@@ -15,6 +15,7 @@ import RockDrill_DataSheet_v0_1 from "$lib/dataproducts/RockDrill_DataSheet_v0.1
 import RockDrill_Piston_MaterialCertificate_v0_2 from "$lib/dataproducts/RockDrill_Piston_MaterialCertificate_v0.2.svelte"
 import Product_FIBC_SustainabilityDataSheet_v0_1 from "$lib/dataproducts/Product_FIBC_SustainabilityDataSheet_v0.1.svelte"
 import Product_FIBC_ProductDataSheet_v0_1 from "$lib/dataproducts/Product_FIBC_ProductDataSheet_v0.1.svelte"
+import Product_GrainPassport_v0_1 from "$lib/dataproducts/Product_GrainPassport_v0.1.svelte"
 
 export const supportedDataProducts = {
   "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1": FoodArtifact_NutritionalValues_v0_1,
@@ -39,4 +40,5 @@ export const supportedDataProducts = {
   "DigitalProductPassport/Product/FIBC/SustainabilityDataSheet_v0.1":
     Product_FIBC_SustainabilityDataSheet_v0_1,
   "DigitalProductPassport/Product/FIBC/ProductDataSheet_v0.1": Product_FIBC_ProductDataSheet_v0_1,
+  "DigitalProductPassport/Product/GrainPassport_v0.1": Product_GrainPassport_v0_1,
 }

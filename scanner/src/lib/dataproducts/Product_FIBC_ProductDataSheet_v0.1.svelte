@@ -139,18 +139,22 @@
   <DataRow label="Stitching" value={body.stitching} />
   <DataRow label="Stitching color" value={body.stitchingColor} />
   <Divider />
-  <SectionHeader title="Top spout">Description of the top spout of the bag.</SectionHeader>
-  <DataRow label="Diameter" value={formatNumber(topSpout.diameter, "cm")} />
-  <DataRow label="Length" value={formatNumber(topSpout.length, "cm")} />
-  <DataRow label="Color" value={topSpout.color} />
-  <DataRow label="Coating applied" value={topSpout.coatingApplied} />
-  <Divider />
-  <SectionHeader title="Bottom spout">Description of the bottom spout of the bag.</SectionHeader>
-  <DataRow label="Diameter" value={formatNumber(bottom.diameter, "cm")} />
-  <DataRow label="Length" value={formatNumber(bottom.length, "cm")} />
-  <DataRow label="Color" value={bottom.color} />
-  <DataRow label="Coating applied" value={bottom.coatingApplied} />
-  <Divider />
+  {#if data.topSpout}
+    <SectionHeader title="Top spout">Description of the top spout of the bag.</SectionHeader>
+    <DataRow label="Diameter" value={formatNumber(topSpout.diameter, "cm")} />
+    <DataRow label="Length" value={formatNumber(topSpout.length, "cm")} />
+    <DataRow label="Color" value={topSpout.color} />
+    <DataRow label="Coating applied" value={topSpout.coatingApplied} />
+    <Divider />
+  {/if}
+  {#if data.bottom}
+    <SectionHeader title="Bottom spout">Description of the bottom spout of the bag.</SectionHeader>
+    <DataRow label="Diameter" value={formatNumber(bottom.diameter, "cm")} />
+    <DataRow label="Length" value={formatNumber(bottom.length, "cm")} />
+    <DataRow label="Color" value={bottom.color} />
+    <DataRow label="Coating applied" value={bottom.coatingApplied} />
+    <Divider />
+  {/if}
   <SectionHeader title="Liner">Description of the liner of the bag.</SectionHeader>
   <DataRow label="Type" value={liner.type} />
   <DataRow label="Thickness" value={formatNumber(liner.thickness, "µm")} />

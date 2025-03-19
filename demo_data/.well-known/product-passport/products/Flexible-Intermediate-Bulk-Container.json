@@ -11,6 +11,10 @@
     {
       "path": "DigitalProductPassport/Product/FIBC/ProductDataSheet_v0.1",
       "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Product/GrainPassport_v0.1",
+      "source": "dpp_demo"
     }
   ]
 }
