@@ -9,7 +9,7 @@
       https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Product_FIBC_ProductDataSheet_v0_1_DigitalProductPassport_Product_FIBC_ProductDataSheet_v0_1_post
     */
 
-  import { formatNumber, countryListAlpha3 } from "$lib/common"
+  import { formatNumber, countryListAlpha3, localizeDate } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Article from "$components/Article/index.svelte"
   import SectionHeader from "$components/SectionHeader/index.svelte"
@@ -106,8 +106,11 @@
   </SectionHeader>
   <DataRow label="Manufacturer" value={manufacturingInformation.manufacturer} />
   <DataRow label="Batch number" value={manufacturingInformation.batchNumber} />
-  <DataRow label="Manufacturing date" value={manufacturingInformation.manufacturingDate} />
-  <DataRow label="Expiration date" value={manufacturingInformation.expirationDate} />
+  <DataRow
+    label="Manufacturing date"
+    value={localizeDate(manufacturingInformation.manufacturingDate)}
+  />
+  <DataRow label="Expiration date" value={localizeDate(manufacturingInformation.expirationDate)} />
   <DataRow label="Production city" value={manufacturingInformation.productionCity} />
   <DataRow
     label="Production country"
@@ -162,7 +165,7 @@
   <Divider />
   <DataRow label="Document pocket" value={data.documentPocket} />
   <DataRow label="Handling instructions" value={data.handlingInstructions} />
-  <DataRow label="Inspection date" value={data.inspectionDate} />
+  <DataRow label="Inspection date" value={localizeDate(data.inspectionDate)} />
   <DataRow label="Type markings" value={data.typeMarkings} />
   <DataRow label="Food safe" value={data.foodSafe} />
 </Article>
