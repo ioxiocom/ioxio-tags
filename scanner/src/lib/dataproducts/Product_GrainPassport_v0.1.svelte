@@ -99,9 +99,17 @@
       <!-- Loop through the keys of the first object for headers in the left column -->
       {#each Object.keys(recipientInformation[0]) as header}
         <tr>
-          <th>
-            {makeHeader(header)}
-          </th>
+          {#if header === "businessId"}
+            <th>Business ID</th>
+          {:else if header === "zipcode"}
+            <th>ZIP code</th>
+          {:else if header === "receptionDate"}
+            <th>Date received</th>
+          {:else}
+            <th>
+              {makeHeader(header)}
+            </th>
+          {/if}
           <!-- Loop through each recipient and display the corresponding value for each header -->
           {#each recipientInformation as recipient}
             {#if header === "country"}
@@ -122,9 +130,15 @@
     <tbody>
       {#each Object.keys(farmerInformation[0]) as header}
         <tr>
-          <th>
-            {makeHeader(header)}
-          </th>
+          {#if header === "businessId"}
+            <th>Business ID</th>
+          {:else if header === "zipcode"}
+            <th>ZIP code</th>
+          {:else}
+            <th>
+              {makeHeader(header)}
+            </th>
+          {/if}
           {#each farmerInformation as farmer}
             {#if header === "country"}
               <td>{countryListAlpha3[farmer[header]]}</td>
@@ -138,10 +152,9 @@
             {:else if header === "growthRegulatorDetails"}
               <td>
                 <ul>
-                  {#each farmer[header] as regulator}
+                  {#each farmer[header].sort((a, b) => new Date(b.growthRegulatorDate).getTime() - new Date(a.growthRegulatorDate).getTime()) as { growthRegulatorDate, growthRegulatorType }}
                     <li>
-                      <p>{`Growth regulator date: ${regulator.growthRegulatorDate}`}</p>
-                      <p>{`Growth regulator type: ${regulator.growthRegulatorType}`}</p>
+                      {localizeDate(growthRegulatorDate)}: {growthRegulatorType}
                     </li>
                   {/each}
                 </ul>
@@ -193,6 +206,10 @@
   th {
     font-size: 0.875rem;
     width: 230px;
+    min-width: 230px;
+  }
+  td {
+    min-width: 200px;
   }
   th,
   td {
