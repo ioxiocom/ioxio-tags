@@ -9,7 +9,7 @@
       https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Product_FIBC_ProductDataSheet_v0_1_DigitalProductPassport_Product_FIBC_ProductDataSheet_v0_1_post
     */
 
-  import { formatNumber, countryListAlpha3, localizeDate } from "$lib/common"
+  import { formatNumber, countryListAlpha3, localizeDate, getYearLabel } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Article from "$components/Article/index.svelte"
   import SectionHeader from "$components/SectionHeader/index.svelte"
@@ -98,7 +98,10 @@
   <DataRow label="Safe working load" value={formatNumber(data.safeWorkingLoad, "kg")} />
   <DataRow label="Filling method" value={data.fillingMethod} />
   <DataRow label="UV protected" value={data.uvProtected} />
-  <DataRow label="UV guarantee years" value={formatNumber(data.uvGuaranteeYears)} />
+  <DataRow
+    label="UV guarantee"
+    value={formatNumber(data.uvGuaranteeYears, getYearLabel(data.uvGuaranteeYears))}
+  />
   <DataRow label="Material composition" value={data.materialComposition} />
   <Divider />
   <SectionHeader title="Manufacturing information">
@@ -123,12 +126,14 @@
   />
   <Divider />
   <SectionHeader title="Dimensions">The dimensions of the bag.</SectionHeader>
-  <DataRow label="External width" value={formatNumber(dimensions.externalWidth, "cm")} />
-  <DataRow label="External length" value={formatNumber(dimensions.externalLength, "cm")} />
-  <DataRow label="External height" value={formatNumber(dimensions.externalHeight, "cm")} />
-  <DataRow label="Internal width" value={formatNumber(dimensions.internalWidth, "cm")} />
-  <DataRow label="Internal length" value={formatNumber(dimensions.internalLength, "cm")} />
-  <DataRow label="Internal height" value={formatNumber(dimensions.internalHeight, "cm")} />
+  <DataRow
+    label="External (W x L x H)"
+    value={`${dimensions.externalWidth} cm x ${dimensions.externalLength} cm x ${dimensions.externalHeight} cm`}
+  />
+  <DataRow
+    label="Internal (W x L x H)"
+    value={`${dimensions.internalWidth} cm x ${dimensions.internalLength} cm x ${dimensions.internalHeight} cm`}
+  />
   <DataRow label="Volume" value={formatNumber(dimensions.volume, "m³")} />
   <Divider />
   <SectionHeader title="Loops">Description of the loops of the bag.</SectionHeader>
