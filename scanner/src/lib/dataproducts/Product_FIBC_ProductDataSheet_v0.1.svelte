@@ -127,12 +127,12 @@
   <Divider />
   <SectionHeader title="Dimensions">The dimensions of the bag.</SectionHeader>
   <DataRow
-    label="External (W x L x H)"
-    value={`${dimensions.externalWidth} cm x ${dimensions.externalLength} cm x ${dimensions.externalHeight} cm`}
+    label="External (W × L × H)"
+    value={`${dimensions.externalWidth} cm × ${dimensions.externalLength} cm × ${dimensions.externalHeight} cm`}
   />
   <DataRow
-    label="Internal (W x L x H)"
-    value={`${dimensions.internalWidth} cm x ${dimensions.internalLength} cm x ${dimensions.internalHeight} cm`}
+    label="Internal (W × L × H)"
+    value={`${dimensions.internalWidth} cm × ${dimensions.internalLength} cm × ${dimensions.internalHeight} cm`}
   />
   <DataRow label="Volume" value={formatNumber(dimensions.volume, "m³")} />
   <Divider />
