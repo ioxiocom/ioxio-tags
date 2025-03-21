@@ -136,19 +136,19 @@
   />
   <DataRow label="Volume" value={formatNumber(dimensions.volume, "m³")} />
   <Divider />
-  <SectionHeader title="Loops">Description of the loops of the bag.</SectionHeader>
+  <SectionHeader title="Loops">Details about the loops of the bag.</SectionHeader>
   <DataRow label="Type" value={loops.type} />
   <DataRow label="Height" value={formatNumber(loops.height, "cm")} />
   <DataRow label="Color" value={loops.color} />
   <Divider />
-  <SectionHeader title="Body">Description of the body of the bag.</SectionHeader>
+  <SectionHeader title="Body">Details about the body of the bag.</SectionHeader>
   <DataRow label="Color" value={body.color} />
   <DataRow label="Coating applied" value={body.coatingApplied} />
   <DataRow label="Stitching" value={body.stitching} />
   <DataRow label="Stitching color" value={body.stitchingColor} />
   <Divider />
   {#if data.topSpout}
-    <SectionHeader title="Top spout">Description of the top spout of the bag.</SectionHeader>
+    <SectionHeader title="Top spout">Details about the top spout of the bag.</SectionHeader>
     <DataRow label="Diameter" value={formatNumber(topSpout.diameter, "cm")} />
     <DataRow label="Length" value={formatNumber(topSpout.length, "cm")} />
     <DataRow label="Color" value={topSpout.color} />
@@ -156,14 +156,14 @@
     <Divider />
   {/if}
   {#if data.bottom}
-    <SectionHeader title="Bottom spout">Description of the bottom spout of the bag.</SectionHeader>
+    <SectionHeader title="Bottom spout">Details about the bottom spout of the bag.</SectionHeader>
     <DataRow label="Diameter" value={formatNumber(bottom.diameter, "cm")} />
     <DataRow label="Length" value={formatNumber(bottom.length, "cm")} />
     <DataRow label="Color" value={bottom.color} />
     <DataRow label="Coating applied" value={bottom.coatingApplied} />
     <Divider />
   {/if}
-  <SectionHeader title="Liner">Description of the liner of the bag.</SectionHeader>
+  <SectionHeader title="Liner">Details about the liner of the bag.</SectionHeader>
   <DataRow label="Type" value={liner.type} />
   <DataRow label="Thickness" value={formatNumber(liner.thickness, "µm")} />
   <DataRow label="Color" value={liner.color} />

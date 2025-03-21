@@ -2,7 +2,7 @@
   "names": {
     "en_US": "Big Bag 1000kg"
   },
-  "image_url": "https://tags.ioxio.dev/images/lithium-ion.png",
+  "image_url": "https://tags.ioxio.dev/images/Flexible-Intermediate-Bulk-Container.png",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/Product/FIBC/SustainabilityDataSheet_v0.1",
