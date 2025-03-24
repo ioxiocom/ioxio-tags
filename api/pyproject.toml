@@ -12,7 +12,7 @@ fastapi-standalone-docs = "^0.1.6"
 typer = "^0.9.0"
 deepdiff = "^6.5.0"
 loguru = "^0.7.2"
-cwt = "^2.5.0"
+cwt = "^3.0.0"
 cbor2 = "^5.4.6"
 base45 = "^0.4.4"
 qrcode = {extras = ["pil"], version = "^7.4.2"}
