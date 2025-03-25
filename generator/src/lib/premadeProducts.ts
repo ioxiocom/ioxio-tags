@@ -30,9 +30,4 @@ export const premadeProducts = [
     product: "lithium-ion",
     id: "660e8400-e29b",
   },
-  {
-    name: "Big Bag 1000kg (198230)",
-    product: "Flexible-Intermediate-Bulk-Container",
-    id: "198230",
-  },
 ]

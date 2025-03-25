@@ -62,14 +62,10 @@ export function makeHeader(str: string) {
 }
 
 export function getYearLabel(years: number) {
-  const lastDigit = years % 10
-  const lastTwoDigits = years % 100
-
-  if (lastDigit === 1 && lastTwoDigits !== 11) {
-    return "year" // Special case for numbers like 1, 21, 31, etc.
-  } else {
-    return "years"
+  if (years === 1) {
+    return "year"
   }
+  return "years"
 }
 
 interface CountryList {
