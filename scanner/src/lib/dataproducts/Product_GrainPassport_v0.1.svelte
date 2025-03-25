@@ -181,7 +181,7 @@
           {#each transportInformation as transport}
             {#if header === "shipmentWeight"}
               <td>{formatNumber(transport[header], "kg")}</td>
-            {:else if header === "loadingTime" || header === "unloadingTime"}
+            {:else if ["loadingTime", "unloadingTime"].includes(header) }
               <td>{localizeDateTime(transport[header])}</td>
             {:else if header === "previousContentDate"}
               <td>{localizeDate(transport[header])}</td>
