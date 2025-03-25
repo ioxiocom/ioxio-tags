@@ -12,7 +12,11 @@
   <div class="label">
     {label}:
   </div>
-  {#if (link && typeof value !== "boolean") || (typeof value === "string" && value.startsWith("https://"))}
+  {#if typeof value === "boolean"}
+    <div class="value">
+      <img src={value ? TrueIcon : FalseIcon} alt={value ? "Yes" : "No"} />
+    </div>
+  {:else if link || (typeof value === "string" && value.startsWith("https://"))}
     <div class="value">
       {#if typeof value === "string"}
         <a href={value} target="_blank" rel="noreferrer">{value}</a>
@@ -28,8 +32,6 @@
     <div class="value">
       {#if typeof value === "string"}
         {value.trim() || "-"}
-      {:else if typeof value === "boolean"}
-        <img src={value ? TrueIcon : FalseIcon} alt={value ? "Yes" : "No"} />
       {:else if value === null || value === undefined || value.length === 0}
         -
       {:else}
