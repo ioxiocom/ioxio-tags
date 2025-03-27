@@ -296,7 +296,7 @@
     </div>
     <div class="status">
       {#if status === Status.READY}
-        IOXIO Tags™️ generator
+        IOXIO Tags™ generator
       {:else if status === Status.GENERATING}
         Generating...
       {:else}

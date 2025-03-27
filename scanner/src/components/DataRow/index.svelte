@@ -1,6 +1,9 @@
 <script lang="ts">
+  import TrueIcon from "$assets/true-circle.svg"
+  import FalseIcon from "$assets/false-circle.svg"
+
   export let label: string
-  export let value: string | string[]
+  export let value: string | string[] | boolean
   export let link: boolean = false
   export let column: boolean = false
 </script>
@@ -9,7 +12,11 @@
   <div class="label">
     {label}:
   </div>
-  {#if link || (typeof value === "string" && value.startsWith("https://"))}
+  {#if typeof value === "boolean"}
+    <div class="value">
+      <img src={value ? TrueIcon : FalseIcon} alt={value ? "Yes" : "No"} />
+    </div>
+  {:else if link || (typeof value === "string" && value.startsWith("https://"))}
     <div class="value">
       {#if typeof value === "string"}
         <a href={value} target="_blank" rel="noreferrer">{value}</a>
@@ -70,6 +77,11 @@
 
     a {
       color: #3cb08e;
+    }
+
+    img {
+      width: 1.5rem;
+      line-height: 1.5rem;
     }
   }
 </style>

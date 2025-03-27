@@ -32,8 +32,40 @@ export function localizeDate(date: string) {
   return DateFormatter.format(new Date(date))
 }
 
+export function localizeDateTime(dateString: string) {
+  const date = new Date(dateString)
+  const options = {
+    year: "numeric",
+    month: "numeric",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  }
+
+  const dateFormatter = new Intl.DateTimeFormat(locale, options)
+  return dateFormatter.format(date).replace(",", "")
+}
+
 export function capitaliseFirstLetter(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1)
+}
+
+export function makeHeader(str: string) {
+  return (
+    str.charAt(0).toUpperCase() +
+    str
+      .slice(1)
+      .replace(/([A-Z])/g, " $1")
+      .trim()
+      .toLowerCase()
+  )
+}
+
+export function getYearLabel(years: number) {
+  if (years === 1) {
+    return "year"
+  }
+  return "years"
 }
 
 interface CountryList {

@@ -1,0 +1,20 @@
+{
+  "names": {
+    "en_US": "Big Bag 1000kg"
+  },
+  "image_url": "https://tags.ioxio.dev/images/Flexible-Intermediate-Bulk-Container.png",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/Product/FIBC/ProductDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Product/FIBC/SustainabilityDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Product/GrainPassport_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}
