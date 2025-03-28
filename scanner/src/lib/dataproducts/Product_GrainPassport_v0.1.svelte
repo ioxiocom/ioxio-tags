@@ -135,7 +135,7 @@
     <DataRow label="Company" value={transport.company} />
     <DataRow label="Truck registration number" value={transport.truckRegistrationNumber} />
     <DataRow label="Driver" value={transport.driver} />
-    <DataRow label="Shipment weight	" value={formatNumber(transport.shipmentWeight, "kg")} />
+    <DataRow label="Shipment weight" value={formatNumber(transport.shipmentWeight, "kg")} />
     <DataRow label="Loading time" value={localizeDateTime(transport.loadingTime)} />
     <DataRow label="Unloading time" value={localizeDateTime(transport.unloadingTime)} />
     <DataRow label="Previous content date" value={localizeDate(transport.previousContentDate)} />
