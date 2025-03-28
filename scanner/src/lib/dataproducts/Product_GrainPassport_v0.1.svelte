@@ -9,20 +9,11 @@
         https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Product_GrainPassport_v0_1_DigitalProductPassport_Product_GrainPassport_v0_1_post
       */
 
-  import {
-    formatNumber,
-    countryListAlpha3,
-    makeHeader,
-    localizeDate,
-    localizeDateTime,
-  } from "$lib/common"
+  import { formatNumber, countryListAlpha3, localizeDate, localizeDateTime } from "$lib/common"
   import DataRow from "$components/DataRow/index.svelte"
   import Article from "$components/Article/index.svelte"
   import SectionHeader from "$components/SectionHeader/index.svelte"
   import Divider from "$components/Divider/index.svelte"
-
-  import TrueIcon from "$assets/true-circle.svg"
-  import FalseIcon from "$assets/false-circle.svg"
 
   enum ProductionMethod {
     CONVENTIONAL = "Conventional",
@@ -94,138 +85,77 @@
   <SectionHeader title="Recipient information">
     Information about all the recipients of the bag.
   </SectionHeader>
-  <table>
-    <tbody>
-      <!-- Loop through the keys of the first object for headers in the left column -->
-      {#each Object.keys(recipientInformation[0]) as header}
-        <tr>
-          {#if header === "businessId"}
-            <th>Business ID</th>
-          {:else if header === "zipcode"}
-            <th>ZIP code</th>
-          {:else if header === "receptionDate"}
-            <th>Date received</th>
-          {:else}
-            <th>
-              {makeHeader(header)}
-            </th>
-          {/if}
-          <!-- Loop through each recipient and display the corresponding value for each header -->
-          {#each recipientInformation as recipient}
-            {#if header === "country"}
-              <td>{countryListAlpha3[recipient[header]]}</td>
-            {:else if header === "receptionDate"}
-              <td>{localizeDate(recipient[header])}</td>
-            {:else}
-              <td>{recipient[header]}</td>
-            {/if}
-          {/each}
-        </tr>
-      {/each}
-    </tbody>
-  </table>
+  {#each recipientInformation as recipient, index}
+    <DataRow label="Company" value={recipient.company} />
+    <DataRow label="Business ID" value={recipient.businessId} />
+    <DataRow label="Address" value={recipient.address} />
+    <DataRow label="ZIP code" value={recipient.zipcode} />
+    <DataRow label="City" value={recipient.city} />
+    <DataRow label="Coutry" value={countryListAlpha3[recipient.country]} />
+    <DataRow label="Contract number" value={recipient.contractNumber} />
+    <DataRow label="Date received" value={localizeDate(recipient.receptionDate)} />
+    <DataRow label="Signature" value={recipient.signature} />
+    {#if index !== farmerInformation.length - 1}
+      <div class="list-separator" />
+    {/if}
+  {/each}
   <Divider />
   <SectionHeader title="Farmer information">Information about the farmers.</SectionHeader>
-  <table>
-    <tbody>
-      {#each Object.keys(farmerInformation[0]) as header}
-        <tr>
-          {#if header === "businessId"}
-            <th>Business ID</th>
-          {:else if header === "zipcode"}
-            <th>ZIP code</th>
-          {:else}
-            <th>
-              {makeHeader(header)}
-            </th>
-          {/if}
-          {#each farmerInformation as farmer}
-            {#if header === "country"}
-              <td>{countryListAlpha3[farmer[header]]}</td>
-            {:else if typeof farmer[header] === "boolean"}
-              <td>
-                <img
-                  src={farmer[header] ? TrueIcon : FalseIcon}
-                  alt={farmer[header] ? "Yes" : "No"}
-                />
-              </td>
-            {:else if header === "growthRegulatorDetails"}
-              <td>
-                <ul>
-                  {#each farmer[header].sort((a, b) => new Date(b.growthRegulatorDate).getTime() - new Date(a.growthRegulatorDate).getTime()) as { growthRegulatorDate, growthRegulatorType }}
-                    <li>
-                      {localizeDate(growthRegulatorDate)}: {growthRegulatorType}
-                    </li>
-                  {/each}
-                </ul>
-              </td>
-            {:else}
-              <td>{farmer[header]}</td>
-            {/if}
-          {/each}
-        </tr>
-      {/each}
-    </tbody>
-  </table>
+  {#each farmerInformation as farmer, index}
+    <DataRow label="Farm" value={farmer.farm} />
+    <DataRow label="Business ID" value={farmer.businessId} />
+    <DataRow label="Address" value={farmer.address} />
+    <DataRow label="ZIP code" value={farmer.zipcode} />
+    <DataRow label="City" value={farmer.city} />
+    <DataRow label="Coutry" value={countryListAlpha3[farmer.country]} />
+    <DataRow label="Processing equipment" value={farmer.processingEquipment} />
+    <DataRow label="Treated with glyphosate" value={farmer.treatedWithGlyphosate} />
+    <DataRow label="Treated with growth regulator" value={farmer.treatedWithGrowthRegulator} />
+    <DataRow
+      label="Growth regulator details"
+      value={farmer.growthRegulatorDetails
+        .sort(
+          (a, b) =>
+            new Date(b.growthRegulatorDate).getTime() - new Date(a.growthRegulatorDate).getTime()
+        )
+        .map((regulator) => {
+          return `${localizeDate(regulator.growthRegulatorDate)}: ${regulator.growthRegulatorType}`
+        })}
+    />
+    <DataRow label="Signature" value={farmer.signature} />
+    {#if index !== farmerInformation.length - 1}
+      <div class="list-separator" />
+    {/if}
+  {/each}
   <Divider />
   <SectionHeader title="Transport information">
     Information about the transporting parties.
   </SectionHeader>
-  <table>
-    <tbody>
-      {#each Object.keys(transportInformation[0]) as header}
-        <tr>
-          <th>
-            {makeHeader(header)}
-          </th>
-          {#each transportInformation as transport}
-            {#if header === "shipmentWeight"}
-              <td>{formatNumber(transport[header], "kg")}</td>
-            {:else if ["loadingTime", "unloadingTime"].includes(header)}
-              <td>{localizeDateTime(transport[header])}</td>
-            {:else if header === "previousContentDate"}
-              <td>{localizeDate(transport[header])}</td>
-            {:else}
-              <td>{transport[header]}</td>
-            {/if}
-          {/each}
-        </tr>
-      {/each}
-    </tbody>
-  </table>
+  {#each transportInformation as transport, index}
+    <DataRow label="Company" value={transport.company} />
+    <DataRow label="Truck registration number" value={transport.truckRegistrationNumber} />
+    <DataRow label="Driver" value={transport.driver} />
+    <DataRow label="Shipment weight	" value={formatNumber(transport.shipmentWeight, "kg")} />
+    <DataRow label="Loading time" value={localizeDateTime(transport.loadingTime)} />
+    <DataRow label="Unloading time" value={localizeDateTime(transport.unloadingTime)} />
+    <DataRow label="Previous content date" value={localizeDate(transport.previousContentDate)} />
+    <DataRow label="Previous content" value={transport.previousContent} />
+    <DataRow label="Previous sanitation" value={transport.previousSanitation} />
+    {#if index !== farmerInformation.length - 1}
+      <div class="list-separator" />
+    {/if}
+  {/each}
 </Article>
 
 <style lang="scss">
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    display: block;
-    overflow-x: auto;
+  @import "$styles/variables.scss";
+
+  .list-separator {
+    height: 1px;
+    width: 30%;
+    background-color: $color-primary-dark;
+    margin-left: auto;
+    margin-right: auto;
     margin-bottom: 1rem;
-  }
-  th {
-    font-size: 0.875rem;
-    width: 230px;
-    min-width: 230px;
-  }
-  td {
-    min-width: 200px;
-  }
-  th,
-  td {
-    padding: 0.25rem 1rem 0.25rem 0.5rem;
-    text-align: left;
-    vertical-align: top;
-  }
-  td,
-  li {
-    font-size: 0.75rem;
-  }
-  img {
-    width: 1rem;
-  }
-  ul {
-    margin: 0;
-    padding-left: 1rem;
   }
 </style>
