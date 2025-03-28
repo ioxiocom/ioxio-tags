@@ -50,17 +50,6 @@ export function capitaliseFirstLetter(word: string) {
   return word.charAt(0).toUpperCase() + word.slice(1)
 }
 
-export function makeHeader(str: string) {
-  return (
-    str.charAt(0).toUpperCase() +
-    str
-      .slice(1)
-      .replace(/([A-Z])/g, " $1")
-      .trim()
-      .toLowerCase()
-  )
-}
-
 export function getYearLabel(years: number) {
   if (years === 1) {
     return "year"
