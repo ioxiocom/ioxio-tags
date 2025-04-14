@@ -3,7 +3,7 @@
 from unittest.mock import patch
 
 import httpx
-from httpx import AsyncClient, Response
+from httpx import AsyncClient, Response, ASGITransport
 
 import pytest
 from main import app
@@ -41,7 +41,7 @@ def prepare_settings():
 
 @pytest.fixture
 async def client():
-    async with AsyncClient(app=app, base_url="http://localhost:8081") as c:
+    async with AsyncClient(transport=ASGITransport(app=app), base_url="http://localhost:8081") as c:
         yield c
 
 

@@ -5,13 +5,14 @@ from copy import copy
 from io import BytesIO
 from typing import Literal, Optional
 from urllib.parse import quote_plus
-from PIL import Image, ImageDraw, ImageOps
+from PIL import Image
 import cairosvg
 from pathlib import Path
 
 import cbor2
 import cwt
 import qrcode
+from PIL.Image import isImageType
 from base45 import b45encode, b45decode
 from cwt.cwt import COSEKeyInterface
 from httpx import HTTPError
@@ -263,6 +264,18 @@ def make_image_filename(iss: str, product: str, id: str, security: str) -> str:
     return f"{slugify(iss)}_{slugify(product)}_{slugify(id)}_{slugify(security)}.png"
 
 
+def _convert_pil_image(img: StyledPilImage) -> Image.Image:
+    """
+    Convert an image created by qrcode library to a Pillow Image object.
+
+    Needed as Pillow 11.x changed how it checks images when pasting them into other
+    images. This is likely not the most optimal way to do it, but a simple way.
+    """
+    container = BytesIO()
+    img.save(container, "PNG")
+    return Image.open(container)
+
+
 def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes:
     qr = qrcode.QRCode(error_correction=CORRECTIONS[conf.QR_CORRECTION_LEVEL], border=0)
     qr.add_data(payload)
@@ -311,7 +324,7 @@ def make_image(payload: bytes, frame_type: Literal["simple", "secure"]) -> bytes
     y_position = ((new_height - img_height) // 2) - y_correction
 
     # Paste the QR code onto the new image at the calculated position
-    new_image.paste(img, (x_position, y_position))
+    new_image.paste(_convert_pil_image(img), (x_position, y_position))
 
     # Convert the PIL image to bytes
     container = BytesIO()

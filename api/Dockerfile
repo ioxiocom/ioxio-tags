@@ -1,6 +1,6 @@
 # ----- Server build ----- #
 
-FROM ghcr.io/ioxiocom/python-base:ubuntu22.04-python3.11 AS api
+FROM ghcr.io/ioxiocom/python-base:ubuntu24.04-python3.13 AS api
 
 WORKDIR /src/api
 
@@ -15,7 +15,7 @@ RUN bash docker/build-setup.sh
 
 # ----- Runtime environment ----- #
 
-FROM ghcr.io/ioxiocom/python-base:ubuntu22.04-python3.11 AS runtime
+FROM ghcr.io/ioxiocom/python-base:ubuntu24.04-python3.13 AS runtime
 
 # Copy results from build environments
 COPY --from=api ${WORKON_HOME} ${WORKON_HOME}

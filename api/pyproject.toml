@@ -7,24 +7,24 @@ packages = [{ include = "app", from = "." }]
 
 [tool.poetry.dependencies]
 python = "^3.10"
-fastapi = {extras = ["all"], version = "^0.103.1"}
-fastapi-standalone-docs = "^0.1.6"
-typer = "^0.9.0"
-deepdiff = "^6.5.0"
-loguru = "^0.7.2"
+fastapi = {extras = ["all"], version = "^0.115.12"}
+fastapi-standalone-docs = "^0.2.0"
+typer = "^0.15.2"
+deepdiff = "^8.4.2"
+loguru = "^0.7.3"
 cwt = "^3.0.0"
-cbor2 = "^5.4.6"
+cbor2 = "^5.6.5"
 base45 = "^0.4.4"
-qrcode = {extras = ["pil"], version = "^7.4.2"}
-httpx = "^0.25.0"
-async-lru = "^2.0.4"
-validators = "^0.22.0"
-pillow = "^10.0.1"
+qrcode = {version = "^8.1", extras = ["pil"]}
+httpx = "^0.28.1"
+async-lru = "^2.0.5"
+validators = "^0.34.0"
+pillow = "^11.2.1"
 cairosvg = "^2.7.1"
 
 
 [tool.poetry.group.dev.dependencies]
-pytest-asyncio = "^0.21.1"
+pytest-asyncio = "^0.26.0"
 pytest-watch = "^4.2.0"
 
 [build-system]
