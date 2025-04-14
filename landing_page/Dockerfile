@@ -1,5 +1,5 @@
 # --- BUILD ---
-FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS build
+FROM ghcr.io/ioxiocom/nodejs-base:ubuntu24.04-node22 AS build
 
 WORKDIR /src/landing_page
 
