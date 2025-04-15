@@ -16,7 +16,7 @@ set -exuo pipefail
 apt-get update
 apt-get install -y --no-install-recommends \
   build-essential \
-  python3.11-dev \
+  python3.13-dev \
 
 # Allow the next script to run as ${USER}
 chown -R "${USER}":"${GROUP}" /src

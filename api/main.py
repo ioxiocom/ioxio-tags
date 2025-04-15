@@ -1,3 +1,5 @@
+from contextlib import asynccontextmanager
+
 from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi_standalone_docs import StandaloneDocs
@@ -30,9 +32,17 @@ else:
         "http://localhost:4173",
     ]
 
+
+@asynccontextmanager
+async def lifespan(app: FastAPI):
+    logger.info(f"Starting api for {conf.ENV} environment")
+    yield
+
+
 app = FastAPI(
     title="IOXIO Tags API",
     version="1.0.0",
+    lifespan=lifespan,
     **APP_KWARGS,
 )
 
@@ -70,8 +80,3 @@ async def add_security_headers(request: Request, call_next):
         "worker-src blob:"
     ])
     return response
-
-
-@app.on_event("startup")
-async def setup():
-    logger.info(f"Starting api for {conf.ENV} environment")

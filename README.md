@@ -1,18 +1,18 @@
-# IOXIO Tags™️ demo
+# IOXIO Tags™ demo
 
-Demonstrating usage of [IOXIO](https://ioxio.com) Tags™️, using QR Codes to connect real world goods
+Demonstrating usage of [IOXIO](https://ioxio.com) Tags™, using QR Codes to connect real world goods
 to data products on Dataspaces™.
 
 Provides some basic scaffolding demonstrating:
 
-- How to generate IOXIO Tags™️ -compatible codes, both [COSE](https://cose-wg.github.io/cose-spec/)
+- How to generate IOXIO Tags™ -compatible codes, both [COSE](https://cose-wg.github.io/cose-spec/)
   signed and simple URL -types.
 - How to generate a valid signing key and publish it via JWKS.
-- How to verify COSE signed IOXIO Tags™️ via JWKS
-- How to host the metadata for your domain and products you will issue IOXIO Tags™️ for.
-- How to fetch the relevant metadata from issuer servers
+- How to verify COSE signed IOXIO Tags™ via JWKS.
+- How to host the metadata for your domain and products you will issue IOXIO Tags™ for.
+- How to fetch the relevant metadata from issuer servers.
 - How to fetch data products according to the Digital Product Passport -compatible data product
-  definition standards from an IOXIO Dataspace™️
+  definition standards from an IOXIO Dataspace™.
 
 Demo environment deployed to [tags.ioxio.dev](https://tags.ioxio.dev), but for properly testing the
 capabilities out for use in your own organization you will want to run the demo components on your

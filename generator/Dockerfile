@@ -1,6 +1,6 @@
 # ----- React build ----- #
-# TODO: Pin to specific hash
-FROM ghcr.io/ioxiocom/nodejs-base:ubuntu22.04-node18 AS frontend
+
+FROM ghcr.io/ioxiocom/nodejs-base:ubuntu24.04-node22 AS frontend
 
 WORKDIR /src/frontend
 
