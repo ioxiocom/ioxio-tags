@@ -56,7 +56,7 @@
 
     &.row {
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
     }
 
     &.column {

@@ -22,7 +22,9 @@ export function formatNumber(input: number, unit = ""): string {
   }
 
   let result = NumberFormatter.format(input)
-  if (unit) {
+  if (unit && unit === "%") {
+    result += unit
+  } else if (unit) {
     result += ` ${unit}`
   }
   return result

@@ -239,7 +239,7 @@ async def fetch_metadata(iss: str, product: str):
             # }
             {
                 "name": sdp['path'].split('/')[-1],
-                "description": "Description TBD",
+                "description": sdp['path'],
                 **sdp
             }
             for sdp in product_metadata.supported_dataproducts
