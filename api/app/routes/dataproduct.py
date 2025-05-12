@@ -35,6 +35,49 @@ async def dataproduct_fetch(
                 if h.lower() in valid_headers
             }
 
+        if product_path == "DigitalProductPassport/Textile/Garment/MaintenanceLog_v0.1":
+            import app.routes.mocks.test_garment_maintenance_log_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+        elif product_path == "DigitalProductPassport/Textile/Garment/BillofMaterials_v0.1":
+            import app.routes.mocks.test_garment_bill_of_materials_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+        elif product_path == "DigitalProductPassport/Product/CarbonFootprint_v0.1":
+            import app.routes.mocks.test_product_carbon_footprint_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+        elif product_path == "DigitalProductPassport/Textile/Garment/MaterialDisclosureSheet_v0.1":
+            import app.routes.mocks.test_garment_material_disclosure_sheet_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+        elif product_path == "DigitalProductPassport/Textile/Garment/ManufacturerInformation_v0.1":
+            import app.routes.mocks.test_garment_manufacturer_information_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+        elif product_path == "DigitalProductPassport/Textile/Garment/ProductDataSheet_v0.1":
+            import app.routes.mocks.test_garment_product_data_sheet_v0_1 as m
+
+            return JSONResponse(
+                status_code=200,
+                content=m.resp,
+            )
+
         result = await dataproduct.fetch_dataproduct(dataspace_domain, product_path, source, payload)
         return JSONResponse(
             status_code=result.status_code,

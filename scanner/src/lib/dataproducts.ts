@@ -16,6 +16,12 @@ import RockDrill_Piston_MaterialCertificate_v0_2 from "$lib/dataproducts/RockDri
 import Product_FIBC_SustainabilityDataSheet_v0_1 from "$lib/dataproducts/Product_FIBC_SustainabilityDataSheet_v0.1.svelte"
 import Product_FIBC_ProductDataSheet_v0_1 from "$lib/dataproducts/Product_FIBC_ProductDataSheet_v0.1.svelte"
 import Product_GrainPassport_v0_1 from "$lib/dataproducts/Product_GrainPassport_v0.1.svelte"
+import Textile_Garment_MaintenanceLog_v0_1 from "$lib/dataproducts/Textile_Garment_MaintenanceLog_v0.1.svelte"
+import Textile_Garment_BillofMaterials_v0_1 from "$lib/dataproducts/Textile_Garment_BillofMaterials_v0.1.svelte"
+import Textile_Garment_MaterialDisclosureSheet_v0_1 from "$lib/dataproducts/Textile_Garment_MaterialDisclosureSheet_v0.1.svelte"
+import Textile_Garment_ManufacturerInformation_v0_1 from "$lib/dataproducts/Textile_Garment_ManufacturerInformation_v0.1.svelte"
+import Textile_Garment_ProductDataSheet_v0_1 from "$lib/dataproducts/Textile_Garment_ProductDataSheet_v0.1.svelte"
+import Product_CarbonFootprint_v0_1 from "$lib/dataproducts/Product_CarbonFootprint_v0.1.svelte"
 
 export const supportedDataProducts = {
   "DigitalProductPassport/FoodArtifact/NutritionalValues_v0.1": FoodArtifact_NutritionalValues_v0_1,
@@ -41,4 +47,14 @@ export const supportedDataProducts = {
     Product_FIBC_SustainabilityDataSheet_v0_1,
   "DigitalProductPassport/Product/FIBC/ProductDataSheet_v0.1": Product_FIBC_ProductDataSheet_v0_1,
   "DigitalProductPassport/Product/GrainPassport_v0.1": Product_GrainPassport_v0_1,
+  "DigitalProductPassport/Textile/Garment/MaintenanceLog_v0.1": Textile_Garment_MaintenanceLog_v0_1,
+  "DigitalProductPassport/Textile/Garment/BillofMaterials_v0.1":
+    Textile_Garment_BillofMaterials_v0_1,
+  "DigitalProductPassport/Textile/Garment/MaterialDisclosureSheet_v0.1":
+    Textile_Garment_MaterialDisclosureSheet_v0_1,
+  "DigitalProductPassport/Textile/Garment/ManufacturerInformation_v0.1":
+    Textile_Garment_ManufacturerInformation_v0_1,
+  "DigitalProductPassport/Textile/Garment/ProductDataSheet_v0.1":
+    Textile_Garment_ProductDataSheet_v0_1,
+  "DigitalProductPassport/Product/CarbonFootprint_v0.1": Product_CarbonFootprint_v0_1,
 }
