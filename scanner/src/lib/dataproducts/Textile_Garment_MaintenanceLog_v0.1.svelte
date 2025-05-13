@@ -17,8 +17,8 @@
   import { localizeDate } from "$lib/common"
 
   type Event = {
-    eventDate: string
-    eventDescription: string
+    eventDate?: string
+    eventDescription?: string
   }
 
   export let data: {

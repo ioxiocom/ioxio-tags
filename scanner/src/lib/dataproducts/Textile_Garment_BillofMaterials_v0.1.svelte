@@ -18,7 +18,7 @@
   type MaterialInfo = {
     name: string
     share: number
-    recyclingRate: number
+    recyclingRate?: number
   }
 
   type ChemicalInfo = {
@@ -27,8 +27,8 @@
   }
 
   type ColorInfo = {
-    color: string
-    colorScheme: string
+    color?: string
+    colorScheme?: string
   }
 
   type Component = {
@@ -36,7 +36,7 @@
     type: string
     materials: MaterialInfo[]
     chemicals: ChemicalInfo[]
-    colorInformation: ColorInfo
+    colorInformation?: ColorInfo
   }
 
   export let status: number
@@ -49,14 +49,17 @@
 
   function formatMaterial(material: MaterialInfo): string {
     let res = `${formatNumber(material.share, "%")} ${material.name}`
-    if (material.recyclingRate > 0) {
+    if (material.recyclingRate && material.recyclingRate > 0) {
       res += ` (♺ ${formatNumber(material.recyclingRate, "%")})`
     }
     return res
   }
 
-  function formatColor(c: Component): string {
-    return `${c.colorInformation.color} (${c.colorInformation.colorScheme})`
+  function formatColor(c: ColorInfo): string {
+    if (!c.color || !c.colorScheme) {
+      return "Not specified"
+    }
+    return `${c.color} (${c.colorScheme})`
   }
 
   function formatChemical(c: ChemicalInfo): string {
@@ -73,7 +76,9 @@
       <div class="component">
         <DataRow label="Name" value={с.name} />
         <DataRow label="Type" value={с.type} />
-        <DataRow label="Color" value={formatColor(с)} />
+        {#if с.colorInformation}
+          <DataRow label="Color" value={formatColor(с.colorInformation)} />
+        {/if}
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>
@@ -106,15 +111,17 @@
     <SectionHeader title="Lining Components">
       The details of the lining components used in the garment
     </SectionHeader>
-    {#each data.liningComponents as component, index}
+    {#each data.liningComponents as c, index}
       <div class="component">
-        <DataRow label="Name" value={component.name} />
-        <DataRow label="Type" value={component.type} />
-        <DataRow label="Color" value={formatColor(component)} />
+        <DataRow label="Name" value={c.name} />
+        <DataRow label="Type" value={c.type} />
+        {#if c.colorInformation}
+          <DataRow label="Color" value={formatColor(c.colorInformation)} />
+        {/if}
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>
-            {#each component.materials as material}
+            {#each c.materials as material}
               <li class="bullet-list-item">
                 {formatMaterial(material)}
               </li>
@@ -124,7 +131,7 @@
         <div class="bullet-list-section">
           <p class="bullet-list-header">Chemicals:</p>
           <ul>
-            {#each component.chemicals as chemical}
+            {#each c.chemicals as chemical}
               <li class="bullet-list-item">
                 {formatChemical(chemical)}
               </li>
@@ -143,15 +150,17 @@
     <SectionHeader title="Notions & Trim Components">
       The details of the notions and trim components used in the garment
     </SectionHeader>
-    {#each data.notionsAndTrimComponents as component, index}
+    {#each data.notionsAndTrimComponents as c, index}
       <div class="component">
-        <DataRow label="Name" value={component.name} />
-        <DataRow label="Type" value={component.type} />
-        <DataRow label="Color" value={formatColor(component)} />
+        <DataRow label="Name" value={c.name} />
+        <DataRow label="Type" value={c.type} />
+        {#if c.colorInformation}
+          <DataRow label="Color" value={formatColor(c.colorInformation)} />
+        {/if}
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>
-            {#each component.materials as material}
+            {#each c.materials as material}
               <li class="bullet-list-item">
                 {formatMaterial(material)}
               </li>
@@ -161,7 +170,7 @@
         <div class="bullet-list-section">
           <p class="bullet-list-header">Chemicals:</p>
           <ul>
-            {#each component.chemicals as chemical}
+            {#each c.chemicals as chemical}
               <li class="bullet-list-item">
                 {formatChemical(chemical)}
               </li>

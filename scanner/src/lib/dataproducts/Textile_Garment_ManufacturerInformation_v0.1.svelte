@@ -12,30 +12,30 @@
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Divider/index.svelte"
   import Article from "$components/Article/index.svelte"
-  import SectionHeader from "$components/SectionHeader/index.svelte"
   import { localizeDate } from "$lib/common"
 
   type Location = {
-    city: string
+    city?: string
     country: string
   }
 
   type Manufacturer = {
-    facilityId: string
+    facilityId?: string
     manufacturerName: string
     manufacturingDate: string
     manufacturingLocation: Location
     manufacturingPhase: string
   }
 
-  export let status: number
-
   export let data: {
     manufacturers: Manufacturer[]
   }
 
   function formatLocation(location: Location): string {
-    return `${location.city}, ${location.country}`
+    if (location.city) {
+      return `${location.city}, ${location.country}`
+    }
+    return location.country
   }
 </script>
 

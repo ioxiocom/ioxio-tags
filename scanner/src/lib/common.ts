@@ -30,7 +30,10 @@ export function formatNumber(input: number, unit = ""): string {
   return result
 }
 
-export function localizeDate(date: string) {
+export function localizeDate(date?: string): string {
+  if (!date) {
+    return "-"
+  }
   return DateFormatter.format(new Date(date))
 }
 

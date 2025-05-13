@@ -18,12 +18,12 @@
   type Material = {
     name: string
     share: number
-    recyclingRate: number
+    recyclingRate?: number
   }
 
   type MaterialInfo = {
     materials: Material[]
-    chemicals: string
+    chemicals?: string
     certifications: string[]
   }
 
@@ -39,7 +39,7 @@
 
   function formatMaterial(material: Material): string {
     let res = `${formatNumber(material.share, "%")} ${material.name}`
-    if (material.recyclingRate > 0) {
+    if (material.recyclingRate && material.recyclingRate > 0) {
       res += ` (♺ ${formatNumber(material.recyclingRate, "%")})`
     }
     return res
@@ -92,7 +92,7 @@
 
     <DataRow label="Chemicals" value={liningMaterial.chemicals} />
 
-    {#if liningMaterial.certifications && liningMaterial.certifications.length > 0}
+    {#if liningMaterial.certifications.length > 0}
       <DataRow label="Certifications" value={liningMaterial.certifications.join(", ")} />
     {:else}
       <DataRow label="Certifications" value="-" />
@@ -119,7 +119,7 @@
 
     <DataRow label="Chemicals" value={notionsMaterial.chemicals} />
 
-    {#if notionsMaterial.certifications && notionsMaterial.certifications.length > 0}
+    {#if notionsMaterial.certifications.length > 0}
       <DataRow label="Certifications" value={notionsMaterial.certifications.join(", ")} />
     {:else}
       <DataRow label="Certifications" value="-" />
