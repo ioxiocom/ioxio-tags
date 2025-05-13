@@ -6,9 +6,9 @@ resp = {
     "chemicals": "Tested for and free from known skin sensitizers under ISO 10993-10.",
     "materials": [
       {
-        "materialName": "cotton",
-        "materialShare": 50.0,
-        "recyclingRate": 50.0
+        "name": "cotton",
+        "recyclingRate": 50.0,
+        "share": 50.0
       }
     ]
   },
@@ -19,9 +19,9 @@ resp = {
     "chemicals": "Tested for and free from known skin sensitizers under ISO 10993-10.",
     "materials": [
       {
-        "materialName": "cotton",
-        "materialShare": 50.0,
-        "recyclingRate": 50.0
+        "name": "cotton",
+        "recyclingRate": 50.0,
+        "share": 50.0
       }
     ]
   },
@@ -32,9 +32,9 @@ resp = {
     "chemicals": "Tested for and free from known skin sensitizers under ISO 10993-10.",
     "materials": [
       {
-        "materialName": "cotton",
-        "materialShare": 50.0,
-        "recyclingRate": 50.0
+        "name": "cotton",
+        "recyclingRate": 50.0,
+        "share": 50.0
       }
     ]
   }

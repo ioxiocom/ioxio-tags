@@ -26,9 +26,9 @@
     classificationSystem: string
   }
 
-  type ColourInfo = {
-    colour: string
-    colourScheme: string
+  type ColorInfo = {
+    color: string
+    colorScheme: string
   }
 
   type Component = {
@@ -36,7 +36,7 @@
     type: string
     materials: MaterialInfo[]
     chemicals: ChemicalInfo[]
-    colourInformation: ColourInfo
+    colorInformation: ColorInfo
   }
 
   export let status: number
@@ -56,7 +56,7 @@
   }
 
   function formatColor(c: Component): string {
-    return `${c.colourInformation.colour} (${c.colourInformation.colourScheme})`
+    return `${c.colorInformation.color} (${c.colorInformation.colorScheme})`
   }
 
   function formatChemical(c: ChemicalInfo): string {
@@ -73,7 +73,7 @@
       <div class="component">
         <DataRow label="Name" value={с.name} />
         <DataRow label="Type" value={с.type} />
-        <DataRow label="Colour" value={formatColor(с)} />
+        <DataRow label="Color" value={formatColor(с)} />
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>
@@ -110,7 +110,7 @@
       <div class="component">
         <DataRow label="Name" value={component.name} />
         <DataRow label="Type" value={component.type} />
-        <DataRow label="Colour" value={formatColor(component)} />
+        <DataRow label="Color" value={formatColor(component)} />
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>
@@ -147,7 +147,7 @@
       <div class="component">
         <DataRow label="Name" value={component.name} />
         <DataRow label="Type" value={component.type} />
-        <DataRow label="Colour" value={formatColor(component)} />
+        <DataRow label="Color" value={formatColor(component)} />
         <div class="bullet-list-section">
           <p class="bullet-list-header">Materials:</p>
           <ul>

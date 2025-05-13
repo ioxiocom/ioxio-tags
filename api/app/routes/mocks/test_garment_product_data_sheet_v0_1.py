@@ -2,9 +2,9 @@ resp = {
   "brandInformation": {
     "companyIdentification": {
       "identifier": "1234567890123",
-      "identifierScheme": "gln"
+      "identifierScheme": "GLN"
     },
-    "name": "company x",
+    "name": "Acme workwear Oy",
     "website": "https://example.com/"
   },
   "certifications": [
@@ -12,8 +12,9 @@ resp = {
     "GOTS"
   ],
   "colorInformation": {
-    "color": "19-4052",
-    "colorScheme": "ral"
+    "color": "19-4052 TCX",
+    "colorName": "Classic Blue",
+    "colorScheme": "Pantone"
   },
   "conformityDeclaration": "https://example.com/",
   "gender": "women",

@@ -16,8 +16,8 @@
   import SectionHeader from "$components/SectionHeader/index.svelte"
 
   type Material = {
-    materialName: string
-    materialShare: number
+    name: string
+    share: number
     recyclingRate: number
   }
 
@@ -26,8 +26,6 @@
     chemicals: string
     certifications: string[]
   }
-
-  export let status: number
 
   export let data: {
     outerMaterialInformation: MaterialInfo
@@ -40,7 +38,7 @@
   const notionsMaterial = data.notionsAndTrimInformation
 
   function formatMaterial(material: Material): string {
-    let res = `${formatNumber(material.materialShare, "%")} ${material.materialName}`
+    let res = `${formatNumber(material.share, "%")} ${material.name}`
     if (material.recyclingRate > 0) {
       res += ` (♺ ${formatNumber(material.recyclingRate, "%")})`
     }

@@ -4,12 +4,12 @@ resp = {
       "chemicals": [
         {
           "chemicalIdentifier": "200-001-8",
-          "classificationSystem": "echa"
+          "classificationSystem": "ECHA"
         }
       ],
-      "colourInformation": {
-        "colour": "19-4052",
-        "colourScheme": "ral"
+      "colorInformation": {
+        "color": "19-4052 TCX",
+        "colorScheme": "Pantone"
       },
       "materials": [
         {
@@ -27,12 +27,12 @@ resp = {
       "chemicals": [
         {
           "chemicalIdentifier": "200-001-8",
-          "classificationSystem": "echa"
+          "classificationSystem": "ECHA"
         }
       ],
-      "colourInformation": {
-        "colour": "19-4052",
-        "colourScheme": "ral"
+      "colorInformation": {
+        "color": "19-4052 TCX",
+        "colorScheme": "Pantone"
       },
       "materials": [
         {
@@ -50,12 +50,12 @@ resp = {
       "chemicals": [
         {
           "chemicalIdentifier": "200-001-8",
-          "classificationSystem": "echa"
+          "classificationSystem": "ECHA"
         }
       ],
-      "colourInformation": {
-        "colour": "19-4052",
-        "colourScheme": "ral"
+      "colorInformation": {
+        "color": "19-4052 TCX",
+        "colorScheme": "Pantone"
       },
       "materials": [
         {
