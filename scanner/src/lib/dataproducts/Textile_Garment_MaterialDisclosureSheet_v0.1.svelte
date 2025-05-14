@@ -24,7 +24,7 @@
   type MaterialInfo = {
     name?: string
     materials: Material[]
-    chemicals?: string
+    chemicalDisclosure?: string
     certifications: string[]
   }
 
@@ -62,7 +62,7 @@
     {/if}
     <DataRow label="Materials" value={formatMaterials(outerMaterial.materials)} />
 
-    <DataRow label="Chemicals" value={outerMaterial.chemicals} />
+    <DataRow label="Chemicals" value={outerMaterial.chemicalDisclosure} />
 
     {#if outerMaterial.certifications && outerMaterial.certifications.length > 0}
       <DataRow label="Certifications" value={outerMaterial.certifications.join(", ")} />
@@ -83,7 +83,7 @@
     {/if}
     <DataRow label="Materials" value={formatMaterials(liningMaterial.materials)} />
 
-    <DataRow label="Chemicals" value={liningMaterial.chemicals} />
+    <DataRow label="Chemicals" value={liningMaterial.chemicalDisclosure} />
 
     {#if liningMaterial.certifications.length > 0}
       <DataRow label="Certifications" value={liningMaterial.certifications.join(", ")} />
@@ -103,7 +103,7 @@
       <DataRow label="Name" value={notionsMaterial.name} />
     {/if}
     <DataRow label="Materials" value={formatMaterials(notionsMaterial.materials)} />
-    <DataRow label="Chemicals" value={notionsMaterial.chemicals} />
+    <DataRow label="Chemicals" value={notionsMaterial.chemicalDisclosure} />
 
     {#if notionsMaterial.certifications.length > 0}
       <DataRow label="Certifications" value={notionsMaterial.certifications.join(", ")} />
