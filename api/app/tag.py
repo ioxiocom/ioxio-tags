@@ -232,19 +232,13 @@ async def fetch_metadata(iss: str, product: str):
         names=product_metadata.names,
         image_url=product_metadata.image_url,
         supported_dataproducts=[
-            # {
-            #     "name": definition_path['post']['summary'],
-            #     "description": definition_path['post']['description'],
-            #     **sdp
-            # }
             {
-                "name": sdp['path'].split('/')[-1],
-                "description": sdp['path'],
+                "name": definition_path['post']['summary'],
+                "description": definition_path['post']['description'],
                 **sdp
             }
-            for sdp in product_metadata.supported_dataproducts
-            # for sdp in product_metadata.supported_dataproducts if
-            # (definition_path := definition_paths.get(f"/{sdp['path']}"))
+            for sdp in product_metadata.supported_dataproducts if
+            (definition_path := definition_paths.get(f"/{sdp['path']}"))
         ],
     )
 
