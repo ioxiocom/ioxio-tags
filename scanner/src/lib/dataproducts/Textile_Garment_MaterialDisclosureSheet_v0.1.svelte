@@ -61,14 +61,8 @@
       <DataRow label="Name" value={outerMaterial.name} />
     {/if}
     <DataRow label="Materials" value={formatMaterials(outerMaterial.materials)} />
-
     <DataRow label="Chemicals" value={outerMaterial.chemicalDisclosure} />
-
-    {#if outerMaterial.certifications && outerMaterial.certifications.length > 0}
-      <DataRow label="Certifications" value={outerMaterial.certifications.join(", ")} />
-    {:else}
-      <DataRow label="Certifications" value="-" />
-    {/if}
+    <DataRow label="Certifications" value={outerMaterial.certifications} />
 
     <Divider />
   {/if}
@@ -82,14 +76,8 @@
       <DataRow label="Name" value={liningMaterial.name} />
     {/if}
     <DataRow label="Materials" value={formatMaterials(liningMaterial.materials)} />
-
     <DataRow label="Chemicals" value={liningMaterial.chemicalDisclosure} />
-
-    {#if liningMaterial.certifications.length > 0}
-      <DataRow label="Certifications" value={liningMaterial.certifications.join(", ")} />
-    {:else}
-      <DataRow label="Certifications" value="-" />
-    {/if}
+    <DataRow label="Certifications" value={liningMaterial.certifications} />
 
     <Divider />
   {/if}
@@ -104,11 +92,6 @@
     {/if}
     <DataRow label="Materials" value={formatMaterials(notionsMaterial.materials)} />
     <DataRow label="Chemicals" value={notionsMaterial.chemicalDisclosure} />
-
-    {#if notionsMaterial.certifications.length > 0}
-      <DataRow label="Certifications" value={notionsMaterial.certifications.join(", ")} />
-    {:else}
-      <DataRow label="Certifications" value="-" />
-    {/if}
+    <DataRow label="Certifications" value={notionsMaterial.certifications} />
   {/if}
 </Article>
