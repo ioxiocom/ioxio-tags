@@ -22,6 +22,7 @@
   }
 
   type MaterialInfo = {
+    name?: string
     materials: Material[]
     chemicals?: string
     certifications: string[]
@@ -37,10 +38,14 @@
   const liningMaterial = data.liningMaterialInformation
   const notionsMaterial = data.notionsAndTrimInformation
 
-  function formatMaterial(material: Material): string {
-    let res = `${formatNumber(material.share, "%")} ${material.name}`
-    if (material.recyclingRate && material.recyclingRate > 0) {
-      res += ` (♺ ${formatNumber(material.recyclingRate, "%")})`
+  function formatMaterials(materials: Material[]): string[] {
+    const res: string[] = []
+    for (const material of materials) {
+      let s = `${formatNumber(material.share, "%")} ${material.name}`
+      if (material.recyclingRate && material.recyclingRate > 0) {
+        s += ` (♺ ${formatNumber(material.recyclingRate, "%")})`
+      }
+      res.push(s)
     }
     return res
   }
@@ -52,16 +57,10 @@
       The details of the outer materials used in the garment
     </SectionHeader>
 
-    <div class="material-section">
-      <p class="section-label">Materials:</p>
-      <ul>
-        {#each outerMaterial.materials as m}
-          <li class="material-item">
-            {formatMaterial(m)}
-          </li>
-        {/each}
-      </ul>
-    </div>
+    {#if outerMaterial.name}
+      <DataRow label="Name" value={outerMaterial.name} />
+    {/if}
+    <DataRow label="Materials" value={formatMaterials(outerMaterial.materials)} />
 
     <DataRow label="Chemicals" value={outerMaterial.chemicals} />
 
@@ -79,16 +78,10 @@
       The details of the lining materials used in the garment
     </SectionHeader>
 
-    <div class="material-section">
-      <p class="section-label">Materials:</p>
-      <ul>
-        {#each liningMaterial.materials as m}
-          <li class="material-item">
-            {formatMaterial(m)}
-          </li>
-        {/each}
-      </ul>
-    </div>
+    {#if liningMaterial.name}
+      <DataRow label="Name" value={liningMaterial.name} />
+    {/if}
+    <DataRow label="Materials" value={formatMaterials(liningMaterial.materials)} />
 
     <DataRow label="Chemicals" value={liningMaterial.chemicals} />
 
@@ -101,22 +94,15 @@
     <Divider />
   {/if}
 
-  {#if notionsMaterial}
+  {#if notionsMaterial && notionsMaterial.materials.length > 0}
     <SectionHeader title="Notions and trim material information">
       The details of the notions and trim materials used in the garment
     </SectionHeader>
 
-    <div class="material-section">
-      <p class="section-label">Materials:</p>
-      <ul>
-        {#each notionsMaterial.materials as m}
-          <li class="material-item">
-            {formatMaterial(m)}
-          </li>
-        {/each}
-      </ul>
-    </div>
-
+    {#if notionsMaterial.name}
+      <DataRow label="Name" value={notionsMaterial.name} />
+    {/if}
+    <DataRow label="Materials" value={formatMaterials(notionsMaterial.materials)} />
     <DataRow label="Chemicals" value={notionsMaterial.chemicals} />
 
     {#if notionsMaterial.certifications.length > 0}
@@ -126,23 +112,3 @@
     {/if}
   {/if}
 </Article>
-
-<style lang="scss">
-  .material-section {
-    margin-bottom: 1rem;
-  }
-
-  .section-label {
-    font-weight: 500;
-    margin-bottom: 0.5rem;
-  }
-
-  ul {
-    margin: 0;
-    padding-left: 1.5rem;
-  }
-
-  .material-item {
-    line-height: 150%;
-  }
-</style>
