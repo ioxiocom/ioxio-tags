@@ -12,7 +12,7 @@
   import DataRow from "$components/DataRow/index.svelte"
   import Divider from "$components/Divider/index.svelte"
   import Article from "$components/Article/index.svelte"
-  import { localizeDate } from "$lib/common"
+  import { countryListAlpha3, localizeDate } from "$lib/common"
 
   type Location = {
     city?: string
@@ -33,9 +33,9 @@
 
   function formatLocation(location: Location): string {
     if (location.city) {
-      return `${location.city}, ${location.country}`
+      return `${location.city}, ${countryListAlpha3[location.country]}`
     }
-    return location.country
+    return countryListAlpha3[location.country]
   }
 </script>
 
