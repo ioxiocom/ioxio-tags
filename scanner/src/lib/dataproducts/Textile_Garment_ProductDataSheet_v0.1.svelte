@@ -80,7 +80,7 @@
 
   <Divider />
 
-  <SectionHeader title="Brand information">The details of the brand</SectionHeader>
+  <SectionHeader title="Brand information">The details of the brand selling the garment.</SectionHeader>
   <DataRow label="Name" value={brand.name} />
   <DataRow label="Website" link value={brand.website} />
   <DataRow

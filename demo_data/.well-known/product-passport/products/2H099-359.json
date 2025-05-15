@@ -12,8 +12,6 @@
       "path": "DigitalProductPassport/Textile/Garment/MaterialDisclosureSheet_v0.1",
       "source": "dpp_demo"
     },
-    { "path": "DigitalProductPassport/Textile/Garment/MaintenanceLog_v0.1", "source": "dpp_demo" },
-    { "path": "DigitalProductPassport/Textile/Garment/BillofMaterials_v0.1", "source": "dpp_demo" },
     { "path": "DigitalProductPassport/Product/CarbonFootprint_v0.1", "source": "dpp_demo" },
     {
       "path": "DigitalProductPassport/Textile/Garment/ManufacturerInformation_v0.1",

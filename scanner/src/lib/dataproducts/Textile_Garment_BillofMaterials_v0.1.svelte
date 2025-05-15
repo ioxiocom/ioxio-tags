@@ -2,11 +2,11 @@
   /*
     Docs:
 
-    https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/Textile/Garment/BillofMaterials_v0.1.py
+    https://github.com/ioxio-dataspace/sandbox-definitions/blob/main/src/DigitalProductPassport/Textile/Garment/BillOfMaterials_v0.1.py
 
-    https://definitions.sandbox.ioxio-dataspace.com/definitions/DigitalProductPassport/Textile/Garment/BillofMaterials_v0.1
+    https://definitions.sandbox.ioxio-dataspace.com/definitions/DigitalProductPassport/Textile/Garment/BillOfMaterials_v0.1
 
-    https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Textile_Garment_BillofMaterials_v0_1_DigitalProductPassport_Textile_Garment_BillofMaterials_v0_1_post
+    https://gateway.sandbox.ioxio-dataspace.com/docs#/Data%20Products/DigitalProductPassport_Textile_Garment_BillOfMaterials_v0_1_DigitalProductPassport_Textile_Garment_BillOfMaterials_v0_1_post
   */
 
   import { formatNumber } from "$lib/common"
