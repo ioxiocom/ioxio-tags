@@ -22,13 +22,18 @@ export function formatNumber(input: number, unit = ""): string {
   }
 
   let result = NumberFormatter.format(input)
-  if (unit) {
+  if (unit && unit === "%") {
+    result += unit
+  } else if (unit) {
     result += ` ${unit}`
   }
   return result
 }
 
-export function localizeDate(date: string) {
+export function localizeDate(date?: string): string {
+  if (!date) {
+    return "-"
+  }
   return DateFormatter.format(new Date(date))
 }
 

@@ -1,0 +1,21 @@
+{
+  "names": {
+    "en_US": "BARTO CHEF'S JACKET"
+  },
+  "image_url": "https://tags.ioxio.dev/images/chef-jacket.jpg",
+  "supported_dataproducts": [
+    {
+      "path": "DigitalProductPassport/Textile/Garment/ProductDataSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    {
+      "path": "DigitalProductPassport/Textile/Garment/MaterialDisclosureSheet_v0.1",
+      "source": "dpp_demo"
+    },
+    { "path": "DigitalProductPassport/Product/CarbonFootprint_v0.1", "source": "dpp_demo" },
+    {
+      "path": "DigitalProductPassport/Textile/Garment/ManufacturerInformation_v0.1",
+      "source": "dpp_demo"
+    }
+  ]
+}

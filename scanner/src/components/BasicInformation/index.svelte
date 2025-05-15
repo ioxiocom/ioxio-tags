@@ -108,6 +108,7 @@
       flex-direction: column;
       align-items: flex-start;
       line-height: 150%;
+      overflow-wrap: anywhere;
     }
     .status {
       font-size: 1rem;

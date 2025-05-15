@@ -3,7 +3,7 @@
   import FalseIcon from "$assets/false-circle.svg"
 
   export let label: string
-  export let value: string | string[] | boolean
+  export let value: string | string[] | boolean | null | undefined
   export let link: boolean = false
   export let column: boolean = false
 </script>
@@ -56,7 +56,7 @@
 
     &.row {
       flex-direction: row;
-      align-items: center;
+      align-items: flex-start;
     }
 
     &.column {
