@@ -99,7 +99,9 @@
   {#if size.size || size.sizingSystem}
     <DataRow
       label="Size"
-      value={`${size.size || ""} ${size.sizingSystem ? `(${size.sizingSystem})` : ""}`}
+      value={`${size.size || ""} ${
+        size.sizingSystem ? `(${size.sizingSystem.toUpperCase()})` : ""
+      }`}
     />
   {/if}
 
