@@ -47,7 +47,10 @@
         <DataRow label="Facility ID" value={m.facilityId} />
         <DataRow label="Manufacturing date" value={localizeDate(m.manufacturingDate)} />
         <DataRow label="Manufacturing location" value={formatLocation(m.manufacturingLocation)} />
-        <DataRow label="Manufacturing phase" value={m.manufacturingPhase} />
+        <DataRow
+          label="Manufacturing phase"
+          value={m.manufacturingPhase.charAt(0).toUpperCase() + m.manufacturingPhase.slice(1)}
+        />
       </div>
       {#if index < data.manufacturers.length - 1}
         <Divider />

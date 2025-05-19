@@ -2,7 +2,7 @@
   "names": {
     "en_US": "High-visibility winter safety pullover"
   },
-  "image_url": "https://tags.ioxio.dev/images/safety-jacket.png",
+  "image_url": "https://tags.ioxio.dev/images/safety-jacket.jpg",
   "supported_dataproducts": [
     {
       "path": "DigitalProductPassport/Textile/Garment/ProductDataSheet_v0.1",
