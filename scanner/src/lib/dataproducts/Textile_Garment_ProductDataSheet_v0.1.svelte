@@ -66,6 +66,10 @@
 
   const brand = data.brandInformation
   const size = data.sizeInformation
+  const companyIdentifier =
+    brand.companyIdentification.identifierScheme === "national business id"
+      ? "VAT"
+      : brand.companyIdentification.identifierScheme
 </script>
 
 <Article>
@@ -87,7 +91,7 @@
   <DataRow label="Website" link value={brand.website} />
   <DataRow
     label="Company ID"
-    value={`${brand.companyIdentification.identifier} (${brand.companyIdentification.identifierScheme})`}
+    value={`${brand.companyIdentification.identifier} (${companyIdentifier})`}
   />
 
   <Divider />
