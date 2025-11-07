@@ -65,5 +65,6 @@ jobs:
             --region ${{ env.REGION }} \
             --image ${{ env.REGISTRY }}/${{ secrets.GCP_PROJECT }}/${{ env.SERVICE }}:${{ github.sha }} \
             --platform "managed" \
+            --cpu-boost \
             --quiet \
             --allow-unauthenticated
