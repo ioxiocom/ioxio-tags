@@ -20,7 +20,7 @@ jobs:
           python-version: "3.13"
 
       - name: Install Poetry 💈
-        run: pip install poetry==1.8.5
+        run: pip install poetry==2.2.1
 
       - name: Prepare
         run: |
